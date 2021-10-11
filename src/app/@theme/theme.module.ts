@@ -15,6 +15,7 @@ import {
   NbIconModule,
   NbThemeModule,
 
+
 } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { NbSecurityModule } from "@nebular/security";
@@ -58,7 +59,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
-  NgbModule
+
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -81,7 +82,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES,RouterModule],
+  imports: [CommonModule, ...NB_MODULES,RouterModule,NgbModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent,],
 })

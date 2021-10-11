@@ -1,3 +1,10 @@
+import { TermsComponent } from './user/terms/terms.component';
+import { PrivacyComponent } from './user/privacy/privacy.component';
+import { LoginComponent } from './user/login/login.component';
+import { ContactComponent } from './user/contact/contact.component';
+import { RegisterComponent } from './user/register/register.component';
+
+import { AboutComponent } from './user/about/about.component';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
@@ -8,6 +15,9 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { UserComponent } from './user/user.component';
+import { HomeComponent } from './user/home/home.component';
+import { TrackingComponent } from './user/tracking/tracking.component';
 
 export const routes: Routes = [
   {
@@ -17,8 +27,43 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./userclient/userclient.module')
-      .then(m => m.UserclientModule), pathMatch:'full'
+    component:UserComponent,
+
+    children:[
+      {
+        path:'',
+        component:HomeComponent
+      },
+      {
+        path:'register',
+        component:RegisterComponent
+      },
+      {
+        path:'about',
+        component:AboutComponent
+      },
+      {
+        path:'contact',
+        component:ContactComponent
+      },
+      {
+        path:'tracking',
+        component:TrackingComponent
+      },
+      {
+        path:'login',
+        component:LoginComponent
+      },
+      {
+        path:'privacy',
+        component:PrivacyComponent
+      },
+      {
+        path:'terms',
+        component:TermsComponent
+      },
+
+    ]
   },
   {
     path: 'auth',
@@ -50,8 +95,8 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
+  { path: '**', redirectTo: 'user' },
 ];
 
 const config: ExtraOptions = {

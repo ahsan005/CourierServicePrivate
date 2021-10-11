@@ -1,5 +1,4 @@
-import { HomeModule } from './userclient/home/home.module';
-import { UserclientModule } from './userclient/userclient.module';
+
 /**
  *
  * Copyright Akveo. All Rights Reserved.
@@ -25,9 +24,18 @@ import {
 
 } from '@nebular/theme';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserComponent } from './user/user.component';
+import { AboutComponent } from './user/about/about.component';
+
+import { RegisterComponent } from './user/register/register.component';
+import { TrackingComponent } from './user/tracking/tracking.component';
+import { ContactComponent } from './user/contact/contact.component';
+import { LoginComponent } from './user/login/login.component';
+import { PrivacyComponent } from './user/privacy/privacy.component';
+import { TermsComponent } from './user/terms/terms.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserComponent, AboutComponent,RegisterComponent, TrackingComponent, ContactComponent, LoginComponent, PrivacyComponent, TermsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

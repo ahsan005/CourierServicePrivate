@@ -26,13 +26,13 @@
 
       <ul class="list-unstyled">
         <li>
-          <a href="#!">Home</a>
+          <a href="#!"class="li" [routerLink]="['/user']">Home</a>
         </li>
-        <li class="mt-2">
-          <a href="#!">About</a>
+        <li class="mt-2 ">
+          <a href="#!"class="li" [routerLink]="['/user/about']">About</a>
         </li>
-        <li class="mt-2">
-          <a href="#!">Contact</a>
+        <li class="mt-2 ">
+          <a href="#!" class="li" [routerLink]="['/user/contact']">Contact</a>
         </li>
 
       </ul>
@@ -45,14 +45,14 @@
       <h5 class="">Important Links</h5>
 
       <ul class="list-unstyled">
-        <li>
-          <a href="#!">Tracking</a>
+        <li >
+          <a href="#!"class="li" [routerLink]="['/user/tracking']">Tracking</a>
         </li>
         <li class="mt-2">
-          <a href="#!" >Privacy Policy</a>
+          <a [routerLink]="['/user/privacy']" routerLinkActive="router-link-active" class="li"  href="#!" >Privacy Policy</a>
         </li>
         <li class="mt-2">
-          <a href="#!">Terms & Conditions</a>
+          <a href="#!" class="li" [routerLink]="['/user/terms']">Terms & Conditions</a>
         </li>
 
       </ul>
