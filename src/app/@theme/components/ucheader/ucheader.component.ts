@@ -19,10 +19,13 @@ export class UcheaderComponent implements OnInit {
     this.router.navigate(['/uc'])
     console.log('click')
   }
-  isMenuCollapse:boolean;
-  showFlag:boolean;
-sandwichMenu(){
-this.showFlag = true;
+  isMenuCollapsed:boolean = true;
+  login(){
+    this.router.navigate(['/login'])
+    console.log("click")
+  }
+  register(){
+    this.router.navigate(['/register'])
+  }
 
-}
 }

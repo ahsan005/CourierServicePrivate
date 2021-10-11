@@ -1,3 +1,5 @@
+import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
@@ -12,6 +14,7 @@ import {
   NbSelectModule,
   NbIconModule,
   NbThemeModule,
+
 } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { NbSecurityModule } from "@nebular/security";
@@ -40,6 +43,7 @@ import { CORPORATE_THEME } from "./styles/theme.corporate";
 import { DARK_THEME } from "./styles/theme.dark";
 import { UcheaderComponent } from "./components/ucheader/ucheader.component";
 import { UcfooterComponent } from "./components/ucfooter/ucfooter.component";
+import { PlainLayoutComponent } from './layouts/plain-layout/plain-layout.component';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -54,6 +58,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  NgbModule
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -65,6 +70,7 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  PlainLayoutComponent,
 ];
 const PIPES = [
   CapitalizePipe,
@@ -75,9 +81,9 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
+  imports: [CommonModule, ...NB_MODULES,RouterModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent],
+  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent,],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {

@@ -1,15 +1,13 @@
-
 import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-userclient',
-  templateUrl: './userclient.component.html',
-  styleUrls: ['./userclient.component.scss']
+  selector: 'ngx-plain-layout',
+  templateUrl: './plain-layout.component.html',
+  styleUrls: ['./plain-layout.component.scss']
 })
-export class UserclientComponent implements OnInit {
+export class PlainLayoutComponent implements OnInit {
 
   constructor() { }
-
 
   ngOnInit(): void {
   }
@@ -18,6 +16,5 @@ export class UserclientComponent implements OnInit {
 onResize(event) {
   this.innerWidth = window.innerWidth;
 }
-
 
 }

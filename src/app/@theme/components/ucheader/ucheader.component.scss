@@ -76,6 +76,22 @@
 
   }
 
+
+  .nav-link{
+    text-decoration: none;
+    cursor: pointer;
+
+  }
+  .nav-item{
+    margin-right: 1em;
+  }
+  .navbar-toggler { margin: 0 auto; }
+  .mx-auto{
+    text-align: right;
+}
+
+
+
   @include media-breakpoint-down(is) {
     nb-select {
       display: none;

@@ -1,3 +1,5 @@
+import { HomeModule } from './userclient/home/home.module';
+import { UserclientModule } from './userclient/userclient.module';
 /**
  *
  * Copyright Akveo. All Rights Reserved.
@@ -22,6 +24,7 @@ import {
 
 
 } from '@nebular/theme';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +44,8 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    NgbModule,
+
   ],
   bootstrap: [AppComponent],
 })
