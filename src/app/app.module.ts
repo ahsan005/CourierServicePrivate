@@ -1,3 +1,4 @@
+import { HomeComponent } from './user/home/home.component';
 
 /**
  *
@@ -35,7 +36,7 @@ import { PrivacyComponent } from './user/privacy/privacy.component';
 import { TermsComponent } from './user/terms/terms.component';
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, AboutComponent,RegisterComponent, TrackingComponent, ContactComponent, LoginComponent, PrivacyComponent, TermsComponent],
+  declarations: [AppComponent, UserComponent, AboutComponent,RegisterComponent, TrackingComponent, ContactComponent, LoginComponent, PrivacyComponent, TermsComponent,HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -11,5 +11,21 @@ export class UcfooterComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  scrollToHome(){
+    document.getElementById("home").scrollIntoView({behavior:"smooth"})
+    console.log("Click on Home")
+  }
+  scrollToAbout(){
+    document.getElementById("about").scrollIntoView({behavior:"smooth"})
+    console.log("about")
+  }
+  scrollToTracking(){
+    document.getElementById("tracking").scrollIntoView({behavior:"smooth"})
+    console.log("tracking")
+  }
+  scrollToContact(){
+    document.getElementById("contact").scrollIntoView({behavior:"smooth"})
+    console.log("Click on contact")
+  }
 
 }

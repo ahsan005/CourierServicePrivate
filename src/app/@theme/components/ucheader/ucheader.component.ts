@@ -32,16 +32,23 @@ export class UcheaderComponent implements OnInit {
   }
 
   scrollToHome(){
-    window.scrollTo(0,0);
+    document.getElementById("home").scrollIntoView({behavior:"smooth"})
+    console.log("Click on Home")
+  }
+  scrollToAbout(){
+    document.getElementById("about").scrollIntoView({behavior:"smooth"})
+    console.log("about")
+  }
+  scrollToTracking(){
+    document.getElementById("tracking").scrollIntoView({behavior:"smooth"})
+    console.log("tracking")
+  }
+  scrollToContact(){
+    document.getElementById("contact").scrollIntoView({behavior:"smooth"})
     console.log("Click on Home")
   }
 
-  public onClick(elementId: string): void {
 
-    this.vps.scrollToAnchor(elementId);
-    console.log("Hello");
-
-}
 
 
 
