@@ -56,6 +56,13 @@ import 'zone.js';  // Included with Angular CLI.
 import 'core-js/es7/array';
 import 'core-js/es7/object';
 
+// Adding SmoothScroll.Polyfill
+
+import smoothscroll from 'smoothscroll-polyfill';
+
+// kick off the polyfill!
+smoothscroll.polyfill();
+
 if (typeof SVGElement.prototype.contains === 'undefined') {
   SVGElement.prototype.contains = HTMLDivElement.prototype.contains;
 }

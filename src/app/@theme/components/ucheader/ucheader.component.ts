@@ -2,6 +2,7 @@
 
 import { Router, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 
 
 
@@ -12,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UcheaderComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private vps: ViewportScroller) { }
 
   ngOnInit(): void {
   }
@@ -25,8 +26,24 @@ export class UcheaderComponent implements OnInit {
     this.router.navigate(['/login'])
     console.log("click")
   }
+
   register(){
     this.router.navigate(['/register'])
   }
+
+  scrollToHome(){
+    window.scrollTo(0,0);
+    console.log("Click on Home")
+  }
+
+  public onClick(elementId: string): void {
+
+    this.vps.scrollToAnchor(elementId);
+    console.log("Hello");
+
+}
+
+
+
 
 }
