@@ -1,3 +1,4 @@
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HomeComponent } from './user/home/home.component';
 
 /**
@@ -24,7 +25,7 @@ import {
 
 
 } from '@nebular/theme';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbButtonsModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './user/user.component';
 import { AboutComponent } from './user/about/about.component';
 
@@ -34,9 +35,11 @@ import { ContactComponent } from './user/contact/contact.component';
 import { LoginComponent } from './user/login/login.component';
 import { PrivacyComponent } from './user/privacy/privacy.component';
 import { TermsComponent } from './user/terms/terms.component';
+import { CityComponent } from './user/register/city/city.component';
+
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, AboutComponent,RegisterComponent, TrackingComponent, ContactComponent, LoginComponent, PrivacyComponent, TermsComponent,HomeComponent],
+  declarations: [AppComponent, UserComponent, AboutComponent,RegisterComponent, TrackingComponent, ContactComponent, LoginComponent, PrivacyComponent, TermsComponent,HomeComponent, CityComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -54,6 +57,7 @@ import { TermsComponent } from './user/terms/terms.component';
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     NgbModule,
+    FormsModule,ReactiveFormsModule,NgbButtonsModule,
 
   ],
   bootstrap: [AppComponent],

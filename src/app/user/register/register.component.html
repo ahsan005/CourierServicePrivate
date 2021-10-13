@@ -1,1 +1,106 @@
-<p>register works!</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Register</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="profileForm">
+      <div class="form-group">
+        <div class="row gx-1">
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="cname">Customer Name:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="cname"
+              formControlName="cname"
+            />
+          </div>
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="buname">Business-Name:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="buname"
+              formControlName="buname"
+            />
+          </div>
+        </div>
+        <div class="row gx-1">
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="baname">Bank Name:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="baname"
+              formControlName="baname"
+            />
+          </div>
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="accnum">Account-Number:</label>
+            <input
+              class="form-control"
+              type="number"
+              id="accnum"
+              formControlName="accnum"
+            />
+          </div>
+        </div>
+        <div class="row gx-1">
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="mnumber">Mobile-Number#</label>
+            <input
+              class="form-control"
+              type="number"
+              id="mnumber"
+              formControlName="mnumber"
+            />
+          </div>
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="email">Email:</label>
+            <input
+              class="form-control"
+              type="email"
+              id="email"
+              formControlName="email"
+            />
+          </div>
+        </div>
+        <div class="row gx-1">
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="city">City:</label>
+            <ngx-city></ngx-city>
+          </div>
+          <div class="col-lg-6 col-md-10 col-xs-8">
+            <label class="label label-info" for="email">Email:</label>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+  Launch demo modal
+</button>
+
+<hr />
+
+<pre>{{ closeResult }}</pre>

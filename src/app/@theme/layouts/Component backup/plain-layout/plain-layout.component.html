@@ -1,0 +1,27 @@
+
+
+<nb-layout windowMode>
+  <nb-layout-header fixed>
+
+    <ngx-ucheader>
+
+    </ngx-ucheader>
+  </nb-layout-header>
+  <nb-layout-column>
+    <ng-content select="router-outlet"></ng-content>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <ngx-ucfooter *ngIf="innerWidth>768px"></ngx-ucfooter>
+  </nb-layout-footer>
+  <nb-layout-footer fixed>
+    <!-- Copyright -->
+
+<div class="text-center" style="margin-top:-50px ;">
+  © 2020 Copyright:
+  <span>Pace Courier Services</span>
+</div>
+
+<!-- Copyright -->
+  </nb-layout-footer>
+</nb-layout>

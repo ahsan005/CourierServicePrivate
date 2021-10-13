@@ -2,7 +2,7 @@
 
 import { Router, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
+
 
 
 
@@ -13,7 +13,7 @@ import { ViewportScroller } from '@angular/common';
 })
 export class UcheaderComponent implements OnInit {
 
-  constructor(private router:Router,private vps: ViewportScroller) { }
+  constructor(private router:Router,) { }
 
   ngOnInit(): void {
   }
