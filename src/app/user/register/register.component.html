@@ -1,103 +1,140 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Register</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="profileForm">
-      <div class="form-group">
-        <div class="row gx-1">
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="cname">Customer Name:</label>
-            <input
-              class="form-control"
-              type="text"
-              id="cname"
-              formControlName="cname"
-            />
-          </div>
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="buname">Business-Name:</label>
-            <input
-              class="form-control"
-              type="text"
-              id="buname"
-              formControlName="buname"
-            />
-          </div>
-        </div>
-        <div class="row gx-1">
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="baname">Bank Name:</label>
-            <input
-              class="form-control"
-              type="text"
-              id="baname"
-              formControlName="baname"
-            />
-          </div>
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="accnum">Account-Number:</label>
-            <input
-              class="form-control"
-              type="number"
-              id="accnum"
-              formControlName="accnum"
-            />
-          </div>
-        </div>
-        <div class="row gx-1">
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="mnumber">Mobile-Number#</label>
-            <input
-              class="form-control"
-              type="number"
-              id="mnumber"
-              formControlName="mnumber"
-            />
-          </div>
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="email">Email:</label>
-            <input
-              class="form-control"
-              type="email"
-              id="email"
-              formControlName="email"
-            />
-          </div>
-        </div>
-        <div class="row gx-1">
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="city">City:</label>
-            <ngx-city></ngx-city>
-          </div>
-          <div class="col-lg-6 col-md-10 col-xs-8">
-            <label class="label label-info" for="email">Email:</label>
+<div class="row gx-5 pb-5">
+  <h4 class="text-center">Register with us</h4>
+</div>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="row gx-1">
 
-          </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="cname">Customer Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="cname"
+          formControlName="cname"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="
+            cname.invalid && (cname.dirty || cname.touched)
+          "
+        >
+        <div class=" alert text-danger" *ngIf="cname.errors?.required">
+          CustomerName is required.
+        </div>
+        <div *ngIf="cname.errors?.minlength">
+          CustomerName must be at least 4 characters long.
+        </div>
+        <div *ngIf="cname.errors?.forbiddenName">
+          CustomerName cannot be Bob.
+        </div>
         </div>
       </div>
-    </form>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="buname">Business-Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="buname"
+          formControlName="buname"
+        />
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="baname">Bank Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="baname"
+          formControlName="baname"
+        />
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="accnum">Account-Number:</label>
+        <input
+          class="form-control"
+          type="number"
+          id="accnum"
+          formControlName="accnum"
+        />
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="mnumber">Mobile-Number#</label>
+        <input
+          class="form-control"
+          type="number"
+          id="mnumber"
+          formControlName="mnumber"
+        />
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="email">Email:</label>
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          formControlName="email"
+        />
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="city">City:</label>
+        <select
+          class="form-control"
+          name="my-select"
+          (change)="selectChangeHandler($event)"
+          formControlName="city"
+        >
+          <option value="" disabled selected hidden>Select City</option>
+          <option [value]="item.id" *ngFor="let item of cities">
+            {{ item.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="cnic">CNIC copy:</label>
+        <!-- <input
+          class="form-control"
+          type="file"
+          (change)="onFileChange($event)"
+        /> -->
+        <ngx-file-upload formControlName="file"></ngx-file-upload>
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="pass">Password:</label>
+        <input
+          type="password"
+          name=""
+          class="form-control"
+          id="pass"
+          formControlName="pass"
+        />
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="confirmpass"
+          >Confirm Password:</label
+        >
+        <input
+          type="password"
+          name=""
+          class="form-control"
+          id="confirmpass"
+          formControlName="confirmpass"
+        />
+      </div>
+    </div>
+    <div class="row gx-1 justify-content-center py-4">
+      <div class="col-lg-8 col-md-6 col-xs-5">
+        <button  nbButton shape="semi-round" status="success" fullWidth>
+          Register
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
-    >
-      Save
-    </button>
-  </div>
-</ng-template>
-
-
-<hr />
-
-
+</form>

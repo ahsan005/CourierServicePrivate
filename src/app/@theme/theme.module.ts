@@ -45,7 +45,7 @@ import { DARK_THEME } from "./styles/theme.dark";
 import { UcheaderComponent } from "./components/ucheader/ucheader.component";
 import { UcfooterComponent } from "./components/ucfooter/ucfooter.component";
 import { PlainLayoutComponent } from './layouts/plain-layout/plain-layout.component';
-import { CityComponent } from './components/ucheader/city/city.component';
+
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -85,7 +85,7 @@ const PIPES = [
 @NgModule({
   imports: [CommonModule, ...NB_MODULES,RouterModule,NgbModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent, CityComponent,],
+  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent,],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {

@@ -15,6 +15,7 @@ import { ThemeModule } from "./@theme/theme.module";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import {
+  NbButtonModule,
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
@@ -33,7 +34,8 @@ import { ContactComponent } from "./user/contact/contact.component";
 import { LoginComponent } from "./user/login/login.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
 import { TermsComponent } from "./user/terms/terms.component";
-import { CityComponent } from "./user/register/city/city.component";
+import { FileUploadComponent } from './user/register/file-upload/file-upload.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { CityComponent } from "./user/register/city/city.component";
     PrivacyComponent,
     TermsComponent,
     HomeComponent,
-    CityComponent,
+    FileUploadComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import { CityComponent } from "./user/register/city/city.component";
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     NgbModule,
+    NbButtonModule,
     FormsModule,
     ReactiveFormsModule,
     NgbButtonsModule,
