@@ -35,6 +35,7 @@ import { LoginComponent } from "./user/login/login.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
 import { TermsComponent } from "./user/terms/terms.component";
 import { FileUploadComponent } from './user/register/file-upload/file-upload.component';
+import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
 
 
 @NgModule({
@@ -73,6 +74,14 @@ import { FileUploadComponent } from './user/register/file-upload/file-upload.com
     FormsModule,
     ReactiveFormsModule,
     NgbButtonsModule,
+    NbAuthModule.forRoot({
+      strategies: [
+        NbPasswordAuthStrategy.setup({
+          name: 'email',
+        }),
+      ],
+      forms: {},
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],
