@@ -1,8 +1,9 @@
+import { AuthGuard } from './_guards/auth.guard';
 import { TermsComponent } from "./user/terms/terms.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
-import { LoginComponent } from "./user/login/login.component";
+
 import { ContactComponent } from "./user/contact/contact.component";
-import { RegisterComponent } from "./user/register/register.component";
+
 
 import { AboutComponent } from "./user/about/about.component";
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
@@ -25,6 +26,8 @@ export const routes: Routes = [
     path: "admin",
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
+      canActivate:[AuthGuard],
+      
   },
   {
     path: "user",
@@ -35,10 +38,7 @@ export const routes: Routes = [
         path: "",
         component: HomeComponent,
       },
-      {
-        path: "register",
-        component: RegisterComponent,
-      },
+
       {
         path: "about",
         component: AboutComponent,
@@ -51,10 +51,7 @@ export const routes: Routes = [
         path: "tracking",
         component: TrackingComponent,
       },
-      {
-        path: "login",
-        component: LoginComponent,
-      },
+
       {
         path: "privacy",
         component: PrivacyComponent,
@@ -66,34 +63,35 @@ export const routes: Routes = [
     ],
   },
   {
-    path: "auth",
-    component: NbAuthComponent,
-    children: [
-      {
-        path: "",
-        component: NbLoginComponent,
-      },
-      {
-        path: "login",
-        component: NbLoginComponent,
-      },
-      {
-        path: "register",
-        component: RegisterComponent,
-      },
-      {
-        path: "logout",
-        component: NbLogoutComponent,
-      },
-      {
-        path: "request-password",
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: "reset-password",
-        component: NbResetPasswordComponent,
-      },
-    ],
+    path:'auth',
+    loadChildren: () =>
+    import("./auth/auth.module").then((m) => m.AuthModule),
+    // children: [
+    //   {
+    //     path: "",
+    //     component: NbLoginComponent,
+    //   },
+    //   {
+    //     path: "login",
+    //     component: NbLoginComponent,
+    //   },
+    //   {
+    //     path: "register",
+    //     component: RegisterComponent,
+    //   },
+    //   {
+    //     path: "logout",
+    //     component: NbLogoutComponent,
+    //   },
+    //   {
+    //     path: "request-password",
+    //     component: NbRequestPasswordComponent,
+    //   },
+    //   {
+    //     path: "reset-password",
+    //     component: NbResetPasswordComponent,
+    //   },
+    // ],
   },
   { path: "", redirectTo: "user", pathMatch: "full" },
   { path: "**", redirectTo: "user" },

@@ -1,0 +1,54 @@
+
+<h1 id="title" class="title">Login</h1>
+<p class="sub-title">Hello! Log in with your email Or Username</p>
+
+
+
+
+
+<form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Email address:</label>
+    <input nbInput
+           fullWidth
+
+           ngModel
+           name="UserName"
+           id="UserName"
+
+           placeholder="UserName/Email"
+           autofocus
+           >
+
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="Password">Password:</label>
+    <input nbInput
+           fullWidth
+
+           ngModel
+           name="Password"
+           type="password"
+           id="Password"
+           placeholder="Password"
+           >
+
+  </div>
+
+
+
+  <button nbButton
+          fullWidth
+          status="success"
+
+         >
+    Log In
+  </button>
+</form>
+
+
+<section class="another-action" aria-label="Register">
+  Don't have an account? <a class="text-link" routerLink="/auth/register">Register</a>
+</section>

@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HomeComponent } from "./user/home/home.component";
 
@@ -28,13 +29,13 @@ import { NgbButtonsModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UserComponent } from "./user/user.component";
 import { AboutComponent } from "./user/about/about.component";
 
-import { RegisterComponent } from "./user/register/register.component";
+
 import { TrackingComponent } from "./user/tracking/tracking.component";
 import { ContactComponent } from "./user/contact/contact.component";
-import { LoginComponent } from "./user/login/login.component";
+
 import { PrivacyComponent } from "./user/privacy/privacy.component";
 import { TermsComponent } from "./user/terms/terms.component";
-import { FileUploadComponent } from './user/register/file-upload/file-upload.component';
+
 import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
 
 
@@ -43,15 +44,14 @@ import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
     AppComponent,
     UserComponent,
     AboutComponent,
-    RegisterComponent,
+
     TrackingComponent,
     ContactComponent,
-    LoginComponent,
+
     PrivacyComponent,
     TermsComponent,
     HomeComponent,
-    FileUploadComponent,
-
+   
   ],
   imports: [
     BrowserModule,
@@ -74,14 +74,8 @@ import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
     FormsModule,
     ReactiveFormsModule,
     NgbButtonsModule,
-    NbAuthModule.forRoot({
-      strategies: [
-        NbPasswordAuthStrategy.setup({
-          name: 'email',
-        }),
-      ],
-      forms: {},
-    })
+    AuthModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],
