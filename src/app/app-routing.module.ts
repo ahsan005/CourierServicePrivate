@@ -31,6 +31,13 @@ export const routes: Routes = [
   },
   {
     path: "user",
+    loadChildren: () =>
+      import("./userarea/userarea.module").then((m) => m.UserareaModule),
+      // canActivate:[AuthGuard],
+
+  },
+  {
+    path: "home",
     component: UserComponent,
 
     children: [
@@ -93,8 +100,8 @@ export const routes: Routes = [
     //   },
     // ],
   },
-  { path: "", redirectTo: "user", pathMatch: "full" },
-  { path: "**", redirectTo: "user" },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+  { path: "**", redirectTo: "home" },
 ];
 
 const config: ExtraOptions = {

@@ -1,0 +1,7 @@
+<div class="row gx-1">
+  <div class="  col-xxxl-3 col-xl-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let statusCard of statusCards">
+    <ngx-status-card [status]="statusCard.status" [title]="statusCard.title" [type]="statusCard.type">
+      <i [ngClass]="statusCard.iconClass"></i>
+    </ngx-status-card>
+  </div>
+</div>

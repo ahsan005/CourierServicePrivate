@@ -45,6 +45,7 @@ import { DARK_THEME } from "./styles/theme.dark";
 import { UcheaderComponent } from "./components/ucheader/ucheader.component";
 import { UcfooterComponent } from "./components/ucfooter/ucfooter.component";
 import { PlainLayoutComponent } from './layouts/plain-layout/plain-layout.component';
+import { OneColumnv2Component } from './layouts/one-columnv2/one-columnv2.component';
 
 
 const NB_MODULES = [
@@ -71,6 +72,7 @@ const COMPONENTS = [
   TinyMCEComponent,
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
+  OneColumnv2Component,
   TwoColumnsLayoutComponent,
   PlainLayoutComponent,
 ];
@@ -85,7 +87,7 @@ const PIPES = [
 @NgModule({
   imports: [CommonModule, ...NB_MODULES,RouterModule,NgbModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent,],
+  declarations: [...COMPONENTS, ...PIPES, UcheaderComponent, UcfooterComponent, OneColumnv2Component,],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {
