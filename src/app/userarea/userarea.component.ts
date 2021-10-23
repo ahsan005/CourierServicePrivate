@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from './upages-menu';
 
@@ -8,9 +9,12 @@ import { MENU_ITEMS } from './upages-menu';
 })
 export class UserareaComponent implements OnInit {
   menu=MENU_ITEMS;
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+    this.functionOnWhichRedirectShouldHappen()
   }
-
+  functionOnWhichRedirectShouldHappen(){
+    this.router.navigate(['user/dashboard']);
+  }
 }

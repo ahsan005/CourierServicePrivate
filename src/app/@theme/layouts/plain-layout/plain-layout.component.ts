@@ -6,7 +6,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./plain-layout.component.scss']
 })
 export class PlainLayoutComponent implements OnInit {
-
+  isNavbarCollapsed=true;
   constructor() { }
 
   ngOnInit(): void {

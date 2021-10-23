@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NbMenuModule, NbCardModule, NbIconModule } from '@nebular/theme';
 import { ThemeModule } from './../@theme/theme.module';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,8 @@ import { RequestsComponent } from './requests/requests.component';
     ThemeModule,
     NbIconModule,
     NbMenuModule,
-    NbCardModule
+    NbCardModule,
+    RouterModule
   ]
 })
 export class UserareaModule { }

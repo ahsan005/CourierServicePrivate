@@ -1,10 +1,10 @@
-import { BookingformComponent } from './bookingform/bookingform.component';
+import { BookingformComponent } from "./bookingform/bookingform.component";
 import { UdashboardComponent } from "./udashboard/udashboard.component";
 import { UserareaComponent } from "./userarea.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { BulkBookingComponent } from './bulk-booking/bulk-booking.component';
-import { RequestsComponent } from './requests/requests.component';
+import { BulkBookingComponent } from "./bulk-booking/bulk-booking.component";
+import { RequestsComponent } from "./requests/requests.component";
 
 const routes: Routes = [
   {
@@ -14,6 +14,7 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: UdashboardComponent,
+
       },
       {
         path: "bform",
@@ -27,11 +28,12 @@ const routes: Routes = [
         path: "requests",
         component: RequestsComponent,
       },
-      ,{
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-      }
+      // ,
+      // {
+      //   path: "",
+      //   redirectTo: "dashboard",
+      //   pathMatch: "full",
+      // },
     ],
   },
 ];

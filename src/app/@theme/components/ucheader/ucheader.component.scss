@@ -99,15 +99,50 @@
     }
   }
 }
-.navbar-collapse.show {
-  margin-top: 300px;
-  flex-basis: auto;
-  flex-grow: 2;
-  align-items: center;
+.navbar-nav a{
+  color: black;
+
+}
+// .navbar-collapse.show {
+//   margin-top: 300px;
+//   flex-basis: auto;
+//   flex-grow: 2;
+//   align-items: center;
+// }
+.navbar-collapse.showv2 {
+
+  margin-left: 75% !important;
+
+}
+
+.navbar-collapseV2{
+  margin-left: 75% !important;
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .btnfix{
   position: fixed;
   margin: initial;
   top: auto;
   right: 10%;
+}
+.marginleft{
+  margin-left: auto !important;
+}
+
+.navbar-toggler-icon{
+  background-image: url('../../../../assets/images/menu.svg') ;
+}
+@media (max-width: 480px){
+
+  .custom-brand{
+    float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

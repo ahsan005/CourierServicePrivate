@@ -8,14 +8,14 @@ import { ContactComponent } from "./user/contact/contact.component";
 import { AboutComponent } from "./user/about/about.component";
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from "@nebular/auth";
+// import {
+//   NbAuthComponent,
+//   NbLoginComponent,
+//   NbLogoutComponent,
+//   NbRegisterComponent,
+//   NbRequestPasswordComponent,
+//   NbResetPasswordComponent,
+// } from "@nebular/auth";
 import { UserComponent } from "./user/user.component";
 import { HomeComponent } from "./user/home/home.component";
 import { TrackingComponent } from "./user/tracking/tracking.component";
