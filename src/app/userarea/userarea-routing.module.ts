@@ -27,13 +27,13 @@ const routes: Routes = [
       {
         path: "requests",
         component: RequestsComponent,
+      }
+      ,
+      {
+        path: '',
+        redirectTo: "dashboard",
+        pathMatch: "full",
       },
-      // ,
-      // {
-      //   path: "",
-      //   redirectTo: "dashboard",
-      //   pathMatch: "full",
-      // },
     ],
   },
 ];

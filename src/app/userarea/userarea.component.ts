@@ -12,7 +12,7 @@ export class UserareaComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    this.functionOnWhichRedirectShouldHappen()
+    // this.functionOnWhichRedirectShouldHappen()
   }
   functionOnWhichRedirectShouldHappen(){
     this.router.navigate(['user/dashboard']);

@@ -1,1 +1,253 @@
-<p>bookingform works!</p>
+<div class="alert alert-danger" *ngIf="bookingForm.invalid && (bookingForm.dirty || bookingForm.touched) " >
+  <h6>Fields with <strong>*</strong> Next to them are required Please fill out all the required fields Adequately </h6>
+</div>
+<form [formGroup]="bookingForm" autocomplete="off" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <nb-card status="primary">
+        <nb-card-header>Shipper-INFO</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Origin <span class="text-danger"> *</span></label>
+              <nb-select
+                placeholder="Select Origin"
+                fullWidth
+                formControlName="origin"
+              >
+                <nb-option value="1">Lahore</nb-option>
+                <nb-option value="2">Islamabad</nb-option>
+                <nb-option value="3">Karachi</nb-option>
+                <nb-option value="4">Peshawar</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Select Profile  <span class="text-danger"> *</span></label>
+              <nb-select
+                placeholder="Select Profile"
+                fullWidth
+                formControlName="selectProfile"
+              >
+                <nb-option value="1">Option 1</nb-option>
+                <nb-option value="2">Option 2</nb-option>
+                <nb-option value="3">Option 3</nb-option>
+                <nb-option value="4">Option 4</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="" class="label label-info">Shipper Name  <span class="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  name="shipperName"
+                  formControlName="shipperName"
+                  nbInput
+                  id="shipperName"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="" class="label label-info">Shipper Phone  <span class="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  name="shipperPhone"
+                  formControlName="shipperPhone"
+                  nbInput
+                  id="shipperPhone"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Shipper Email  <span class="text-danger"> *</span></label>
+              <input
+                type="string"
+                nbInput
+                fullWidth
+                name="shipperEmail"
+                id="shipperEmail"
+                formControlName="shipperEmail"
+              />
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Shipper Address  <span class="text-danger"> *</span></label>
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                name="shipperAddress"
+                id="shipperAddress"
+                formControlName="shipperAddress"
+              />
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-6 col-sm-12 marginleft">
+      <nb-card status="primary">
+        <nb-card-header>Consignee-INFO</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Destination  <span class="text-danger"> *</span></label>
+              <nb-select
+                placeholder="Select Destination"
+                fullWidth
+                formControlName="destination"
+              >
+                <nb-option value="1">Option 1</nb-option>
+                <nb-option value="2">Option 2</nb-option>
+                <nb-option value="3">Option 3</nb-option>
+                <nb-option value="4">Option 4</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="" class="label label-info">Consignee Name  <span class="text-danger"> *</span></label>
+                <input
+                  nbInput
+                  type="text"
+                  name=""
+                  formControlName="consigneeName"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="" class="label label-info">Consignee Phone  <span class="text-danger"> *</span></label>
+                <input
+                  nbInput
+                  type="text"
+                  name=""
+                  formControlName="consigneePhone"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info">Consignee Address  <span class="text-danger"> *</span></label>
+
+              <textarea
+                name="consigneeAddress"
+                nbInput
+                class="form-control"
+                autocomplete="off"
+                id="consigneeAddress"
+                fullWidth
+                formControlName="consigneeAddress"
+              ></textarea>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-12 col-sm-12">
+      <nb-card status="success">
+        <nb-card-header>Shipment-Details  <span class="text-danger"> *</span></nb-card-header>
+        <nb-card-body>
+          <div class="row gx-2">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-primary">Product Code  <span class="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  nbInput
+                  name="productCode"
+                  formControlName="productCode"
+                  id="productCode"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-info">Pieces  <span class="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  nbInput
+                  name="pieces"
+                  formControlName="pieces"
+                  id="pieces"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="" class="label label-info">Weight (Kg)  <span class="text-danger"> *</span></label>
+                <nb-select
+                  placeholder="Select Weight"
+                  fullWidth
+                  formControlName="weight"
+                >
+                  <nb-option value="1">Option 1</nb-option>
+                  <nb-option value="2">Option 2</nb-option>
+                  <nb-option value="3">Option 3</nb-option>
+                  <nb-option value="4">Option 4</nb-option>
+                </nb-select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-info">COD Amount  <span class="text-danger"> *</span></label>
+                <input
+                  type="number"
+                  nbInput
+                  name="codAmount"
+                  formControlName="codAmount"
+                  id="codAmount"
+                />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="" class="label label-info">Product Description</label>
+                <textarea
+                name="productDescription"
+                nbInput
+                class="form-control"
+                autocomplete="off"
+                id="productDescription"
+                fullWidth
+                formControlName="productDescription"
+              ></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="" class="label label-info">Special Instructions</label>
+                <textarea
+                name="specialInstructions"
+                nbInput
+                class="form-control"
+                autocomplete="off"
+                id="specialInstructions"
+                fullWidth
+                formControlName="specialInstructions"
+              ></textarea>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-2">
+     <button nbButton [disabled] = "bookingForm.invalid && (bookingForm.dirty || bookingForm.touched || bookingForm.untouched)" fullWidth  hero shape="round" size="giant" status="primary">Save</button>
+    </div>
+    <div class="col-md-3 ">
+     <button nbButton [disabled] = "bookingForm.invalid && (bookingForm.dirty || bookingForm.touched || bookingForm.untouched)" fullWidth  hero shape="round" size="giant" status="primary">Save & Print</button>
+    </div>
+  </div>
+</form>

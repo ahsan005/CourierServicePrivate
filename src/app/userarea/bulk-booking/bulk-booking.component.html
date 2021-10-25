@@ -1,1 +1,17 @@
-<p>bulk-booking works!</p>
+<nb-card>
+  <nb-card-header>Bulk Booking (Upload Excel File for Bulk booking entries)</nb-card-header>
+<div class="container">
+  <br>
+  <div class="row">
+      <div class="col-md-6">
+          <input class="form-control" type="file" #fileInput />
+      </div>
+      <div class="col-md-6">
+          <button class="btn btn-primary" (click)="uploadFile();">Upload</button>
+      </div>
+  </div>
+  <div>
+      <h4 class="alert-success">{{message}}</h4>
+  </div>
+</div>
+</nb-card>

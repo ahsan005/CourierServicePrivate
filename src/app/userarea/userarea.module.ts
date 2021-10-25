@@ -1,5 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbMenuModule, NbCardModule, NbIconModule } from '@nebular/theme';
+import { NbMenuModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbButtonModule, NbDatepickerModule } from '@nebular/theme';
 import { ThemeModule } from './../@theme/theme.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,7 +31,13 @@ import { RequestsComponent } from './requests/requests.component';
     NbIconModule,
     NbMenuModule,
     NbCardModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    NbSelectModule,
+    NbButtonModule,
+    NbDatepickerModule,
+    NbInputModule,
+    ReactiveFormsModule
   ]
 })
 export class UserareaModule { }

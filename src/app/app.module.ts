@@ -51,7 +51,7 @@ import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
     PrivacyComponent,
     TermsComponent,
     HomeComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -64,6 +64,7 @@ import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+
     NbChatModule.forRoot({
       messageGoogleMapKey: "AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY",
     }),
