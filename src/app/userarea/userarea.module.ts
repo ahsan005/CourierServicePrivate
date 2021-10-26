@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbMenuModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbButtonModule, NbDatepickerModule } from '@nebular/theme';
+import { NbMenuModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbButtonModule, NbDatepickerModule, NbButtonGroupModule } from '@nebular/theme';
 import { ThemeModule } from './../@theme/theme.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { StatusCardComponent } from './udashboard/status-card/status-card.compon
 import { BookingformComponent } from './bookingform/bookingform.component';
 import { BulkBookingComponent } from './bulk-booking/bulk-booking.component';
 import { RequestsComponent } from './requests/requests.component';
+import { BookingSheetComponent } from './booking-sheet/booking-sheet.component';
 // import { ThemeModule } from '../@theme/theme.module';
 
 
@@ -22,7 +23,8 @@ import { RequestsComponent } from './requests/requests.component';
     StatusCardComponent,
     BookingformComponent,
     BulkBookingComponent,
-    RequestsComponent
+    RequestsComponent,
+    BookingSheetComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { RequestsComponent } from './requests/requests.component';
     NbButtonModule,
     NbDatepickerModule,
     NbInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NbButtonGroupModule
   ]
 })
 export class UserareaModule { }

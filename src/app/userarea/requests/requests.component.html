@@ -1,56 +1,215 @@
 <div class="row">
   <div class="col-md-12">
-  <h4>Request Details</h4>
-  <form action="">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label for="">Select Destination</label>
-          <nb-select fullWidth placeholder="Select City">
-           <nb-option>Karachi</nb-option>
-          </nb-select>
+    <h4>Request Details</h4>
+    <form action="">
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="">Select Destination</label>
+            <nb-select fullWidth placeholder="Select City">
+              <nb-option>Karachi</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="">Select Status</label>
+            <nb-select fullWidth placeholder="Select Status">
+              <nb-option>Completed</nb-option>
+              <nb-option>Processing</nb-option>
+              <nb-option>In-transit</nb-option>
+              <nb-option>Delivering</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <div class="form-group">
+            <label for="">From</label>
+            <input
+              nbInput
+              placeholder="Select Start Date"
+              [nbDatepicker]="datepicker"
+            />
+            <nb-datepicker #datepicker></nb-datepicker>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+          <div class="form-group">
+            <label for="">To</label>
+            <input
+              nbInput
+              placeholder="Select Ending Date"
+              [nbDatepicker]="datepickerending"
+            />
+            <nb-datepicker #datepickerending></nb-datepicker>
+          </div>
         </div>
       </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label for="">Select Status</label>
-          <nb-select fullWidth placeholder="Select Status">
-           <nb-option>Completed</nb-option>
-           <nb-option>Processing</nb-option>
-           <nb-option>In-transit</nb-option>
-           <nb-option>Delivering</nb-option>
-          </nb-select>
+      <div class="row justify-content-end">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <input
+              type="button"
+              nbButton
+              status="primary"
+              name="printInvoices"
+              value="Print Invoices"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <input
+              type="button"
+              name="Submit"
+              value="Submit"
+              class="form-control"
+            />
+          </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-6">
-        <div class="form-group">
-          <label for="">From</label>
-          <input nbInput placeholder="Select Start Date" [nbDatepicker]="datepicker">
-          <nb-datepicker #datepicker></nb-datepicker>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-6">
-        <div class="form-group">
-          <label for="">To</label>
-          <input nbInput placeholder="Select Ending Date" [nbDatepicker]="datepickerending" >
-          <nb-datepicker #datepickerending></nb-datepicker>
-        </div>
-      </div>
+    </form>
+  </div>
+  <div class="col-md-12">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
 
-    </div>
-    <div class="row  justify-content-end">
-      <div class="col-sm-2">
-        <div class="form-group">
-          <input type="button" nbButton status="primary" name="printInvoices" value="Print Invoices" class="form-control">
-        </div>
-      </div>
-      <div class="col-sm-2 ">
-        <div class="form-group">
-          <input type="button" name="Submit" value="Submit" class="form-control"  >
-        </div>
-      </div>
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
 
-    </div>
-  </form>
-</div>
+          <th scope="col">Sr No.</th>
+          <th scope="col">Order#</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Shipment Details</th>
+          <th scope="col">Receiver Details</th>
+          <th scope="col">Payments</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <tr class="text-center" scope="row">
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+    </table>
+  </div>
 </div>

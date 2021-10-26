@@ -1,3 +1,4 @@
+import { BookingSheetComponent } from './booking-sheet/booking-sheet.component';
 import { BookingformComponent } from "./bookingform/bookingform.component";
 import { UdashboardComponent } from "./udashboard/udashboard.component";
 import { UserareaComponent } from "./userarea.component";
@@ -27,6 +28,11 @@ const routes: Routes = [
       {
         path: "requests",
         component: RequestsComponent,
+      }
+      ,
+      {
+        path: "bsheet",
+        component: BookingSheetComponent,
       }
       ,
       {

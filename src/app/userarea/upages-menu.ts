@@ -28,7 +28,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Booking Sheet',
     icon: 'file-outline',
-    link: '/user/dashboard',
+    link: '/user/bsheet',
     home: true,
   },
   {
