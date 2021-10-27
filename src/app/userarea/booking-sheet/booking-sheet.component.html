@@ -1,60 +1,205 @@
 <form action="">
-<div class="row">
-  <div class="col-sm-2 side_gapps left_right_none" style="margin-top: 28.5px;">
-               <div class="row">
-      <a nbButton  status= "primary" target="_blank" style="margin-left: 0;margin-bottom: 10px;"  >Booking Sheet</a>
-  </div>
-            </div>
-  <div class="col-sm-2 side_gapps left_right_none">
-  <div class="form-group">
-    <label>Status</label>
-   <nb-select placeholder="Select Status" fullWidth>
-      <nb-option selected="" disabled="">Select Status</nb-option>
-      <nb-option value="booked">Booked</nb-option>
-      <nb-option value="received">Received</nb-option>
+  <div class="row">
+    <div class="col-sm-2 side_gapps left_right_none" style="margin-top: 28.5px">
+      <div class="row">
+        <a
+          nbButton
+          status="primary"
+          target="_blank"
+          style="margin-left: 0; margin-bottom: 10px"
+          >Booking Sheet</a
+        >
+      </div>
+    </div>
+    <div class="col-sm-2 side_gapps left_right_none">
+      <div class="form-group">
+        <label>Status</label>
+        <nb-select placeholder="Select Status" fullWidth>
+          <nb-option selected="" disabled="">Select Status</nb-option>
+          <nb-option value="booked">Booked</nb-option>
+          <nb-option value="received">Received</nb-option>
 
-      <nb-option value="dispatch">Dispatched</nb-option>
-      <nb-option value="assigned">Assigned to Courier</nb-option>
-      <nb-option value="pending">Pending</nb-option>
-      <nb-option value="delivered">Delivered</nb-option>
-      <nb-option value="returned">Returned</nb-option>
-      <nb-option value="cancelled">Cancelled / Not Received</nb-option>
-    </nb-select>
+          <nb-option value="dispatch">Dispatched</nb-option>
+          <nb-option value="assigned">Assigned to Courier</nb-option>
+          <nb-option value="pending">Pending</nb-option>
+          <nb-option value="delivered">Delivered</nb-option>
+          <nb-option value="returned">Returned</nb-option>
+          <nb-option value="cancelled">Cancelled / Not Received</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-sm-2 side_gapps left_right_none">
+      <div class="form-group">
+        <label>From</label>
+        <input
+          nbInput
+          placeholder="Select Starting Date"
+          [nbDatepicker]="datepickerstarting"
+          class="form-control"
+        />
+        <nb-datepicker #datepickerstarting></nb-datepicker>
+      </div>
+    </div>
+    <div class="col-sm-2 side_gapps left_right_none">
+      <div class="form-group">
+        <label>To</label>
+        <input
+          nbInput
+          placeholder="Select Ending Date"
+          [nbDatepicker]="datepickerending"
+          class="form-control"
+        />
+        <nb-datepicker #datepickerending></nb-datepicker>
+      </div>
+    </div>
+    <div class="col-sm-1 side_gapps left_right_none">
+      <button type="submit" nbButton status="info" style="margin-top: 25px">
+        Submit
+      </button>
+    </div>
   </div>
-</div>
-<div class="col-sm-2 side_gapps left_right_none">
-  <div class="form-group">
-    <label>From</label>
-    <input
-              nbInput
-              placeholder="Select Starting Date"
-              [nbDatepicker]="datepickerstarting"
-              class="form-control"
-            />
-            <nb-datepicker #datepickerstarting></nb-datepicker>
-  </div>
-</div>
-<div class="col-sm-2 side_gapps left_right_none">
-  <div class="form-group">
-    <label>To</label>
-    <input
-    nbInput
-    placeholder="Select Ending Date"
-    [nbDatepicker]="datepickerending"
-    class="form-control"
-  />
-  <nb-datepicker #datepickerending></nb-datepicker>
-  </div>
-</div>
-<div class="col-sm-1 side_gapps left_right_none">
-  <button type="submit" nbButton status="info" style="margin-top: 25px;" >Submit</button>
-</div>
-</div>
 </form>
-<div class="row" style="margin-bottom: 24px;">
+<div class="row" style="margin-bottom: 24px">
   <div class="col-sm-12 excel_btn">
-    <a style="margin-top:24px;" nbButton status="success">Generate Excel</a>
-    <a style="margin-top:24px;display: none;" class="download_excelsss btn btn-info" href="../../../../../excel/excel_file.xlsx" download="">Download Excel</a>
+    <a style="margin-top: 24px" nbButton status="success">Generate Excel</a>
+    <a
+      style="margin-top: 24px; display: none"
+      class="download_excelsss btn btn-info"
+      href="../../../../../excel/excel_file.xlsx"
+      download=""
+      >Download Excel</a
+    >
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 offset-8">
+
+    
+      <h6>Export As:</h6>
+
+      <nb-button-group status="info">
+        <button nbButton (click)="exportTable()">Excel</button>
+        <button nbButton (click)="generatePDF()">PDF</button>
+      </nb-button-group>
+      <br />
 
   </div>
+</div>
+<div class="row">
+  <table #pdfTable class="table table-sm mt-2 table-bordered" id="ExampleTable">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Sr No.</th>
+        <th scope="col">Order#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Consignee Info</th>
+        <th scope="col">Shipment Info</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Weight</th>
+        <th scope="col">COD Amount</th>
+      </tr>
+    </thead>
+    <!-- *ngFor="let item of list" -->
+    <tr class="text-center" scope="row">
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+    <tr>
+      <td class="">01</td>
+      <td class="">Micheal</td>
+      <td class="">12</td>
+      <td class="">Jordan</td>
+      <td class="">A+</td>
+      <td class="">352222222222222</td>
+      <td class="">030303030303</td>
+      <td class="">XYZ street Address</td>
+    </tr>
+  </table>
 </div>

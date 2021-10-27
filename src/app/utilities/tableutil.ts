@@ -1,7 +1,11 @@
 
 import { jsPDF } from 'jspdf';
 import * as XLSX from "xlsx";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import html2canvas from "html2canvas";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class TableUtil {
   static exportToExcel(tableId: string, name?: string) {
@@ -27,4 +31,30 @@ export class TableUtil {
       pdf.save(fileName+'.pdf');
     });
   }
+
+  static generatePdfV2(html:any){
+    // const documentDefinition = { content: html };
+    console.log(html);
+    var docDefinition = {
+      content: [
+        {
+          layout: 'lightHorizontalLines', // optional
+          table: {
+            // headers are automatically repeated if the table spans over multiple pages
+            // you can declare how many rows should be treated as headers
+            headerRows: 1,
+            widths: [ '*', 'auto', 100, '*','*','*','*','*' ],
+
+            body: [
+              [ 'Sr No.', 'Order No.', 'Order Date', 'Shipment Details','Receiver Details','Payments','Status','Action' ],
+              [ 'Value 1', 'Value 2', 'Value 3', 'Value 4','Value 5 ','Value 6', 'Value 7','Value 8']
+
+
+            ]
+          }
+        }
+      ]
+    };
+    pdfMake.createPdf(docDefinition).open();
+   }
 }

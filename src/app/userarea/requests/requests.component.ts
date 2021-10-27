@@ -21,9 +21,9 @@ export class RequestsComponent implements OnInit {
     const pdfTable = this.pdfTable.nativeElement;
 
     var html = htmlToPdfmake(pdfTable.innerHTML);
-
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).open();
+    TableUtil.generatePdfV2(html);
+    // const documentDefinition = { content: html };
+    // pdfMake.createPdf(documentDefinition).open();
   }
 
   generatePDF() {
@@ -45,4 +45,5 @@ export class RequestsComponent implements OnInit {
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");
   }
+
 }

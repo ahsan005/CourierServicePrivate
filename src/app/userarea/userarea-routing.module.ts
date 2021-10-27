@@ -1,3 +1,10 @@
+import { MultipleProfilesComponent } from './multiple-profiles/multiple-profiles.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SuggestionsComponent } from './suggestions/suggestions.component';
+import { TrackDeliveriesComponent } from './track-deliveries/track-deliveries.component';
+import { OrderReportComponent } from './order-report/order-report.component';
+import { PaymentsComponent } from './payments/payments.component';
 import { BookingSheetComponent } from './booking-sheet/booking-sheet.component';
 import { BookingformComponent } from "./bookingform/bookingform.component";
 import { UdashboardComponent } from "./udashboard/udashboard.component";
@@ -33,6 +40,41 @@ const routes: Routes = [
       {
         path: "bsheet",
         component: BookingSheetComponent,
+      }
+      ,
+      {
+        path: "payments",
+        component: PaymentsComponent,
+      }
+      ,
+      {
+        path: "order-report",
+        component: OrderReportComponent,
+      }
+      ,
+      {
+        path: "track-deliveries",
+        component: TrackDeliveriesComponent,
+      }
+      ,
+      {
+        path: "suggestions",
+        component: SuggestionsComponent,
+      }
+      ,
+      {
+        path: "edit-profile",
+        component: EditProfileComponent,
+      }
+      ,
+      {
+        path: "multiple-profiles",
+        component: MultipleProfilesComponent,
+      }
+      ,
+      {
+        path: "change-password",
+        component: ChangePasswordComponent,
       }
       ,
       {

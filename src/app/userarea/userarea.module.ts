@@ -13,6 +13,13 @@ import { BookingformComponent } from './bookingform/bookingform.component';
 import { BulkBookingComponent } from './bulk-booking/bulk-booking.component';
 import { RequestsComponent } from './requests/requests.component';
 import { BookingSheetComponent } from './booking-sheet/booking-sheet.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { OrderReportComponent } from './order-report/order-report.component';
+import { TrackDeliveriesComponent } from './track-deliveries/track-deliveries.component';
+import { SuggestionsComponent } from './suggestions/suggestions.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { MultipleProfilesComponent } from './multiple-profiles/multiple-profiles.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 // import { ThemeModule } from '../@theme/theme.module';
 
 
@@ -24,7 +31,14 @@ import { BookingSheetComponent } from './booking-sheet/booking-sheet.component';
     BookingformComponent,
     BulkBookingComponent,
     RequestsComponent,
-    BookingSheetComponent
+    BookingSheetComponent,
+    PaymentsComponent,
+    OrderReportComponent,
+    TrackDeliveriesComponent,
+    SuggestionsComponent,
+    EditProfileComponent,
+    MultipleProfilesComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

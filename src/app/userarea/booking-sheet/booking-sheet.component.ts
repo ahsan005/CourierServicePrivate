@@ -1,3 +1,4 @@
+import { TableUtil } from './../../utilities/tableutil';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,6 +11,12 @@ export class BookingSheetComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+  generatePDF(){
+    TableUtil.generatePDF("ExampleTable")
+  }
+  exportTable() {
+    TableUtil.exportToExcel("ExampleTable");
   }
 
 }
