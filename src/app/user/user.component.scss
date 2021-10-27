@@ -1,1 +1,26 @@
 
+:host ::ng-deep {
+  /* to select the sidbar's scroller*/
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar,
+  /* to select the main page's scroller*/
+  nb-layout div.scrollable-container::-webkit-scrollbar {
+  width: 0.7rem !important;
+  }
+
+  /* Handle on hover /
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar-thumb:hover,
+  nb-layout div.scrollable-container::-webkit-scrollbar-thumb:hover{
+  background: #ffe600!important;
+  }
+  / thumb */
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar-thumb,
+  nb-layout div.scrollable-container::-webkit-scrollbar-thumb{
+  background: #d7caca !important;
+  }
+
+  /* Track */
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar-track,
+  nb-layout div.scrollable-container::-webkit-scrollbar-track{
+  background: #ffffff!important;
+  }
+  }
