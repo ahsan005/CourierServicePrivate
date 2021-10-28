@@ -1,5 +1,7 @@
 import { TableUtil } from "./../../utilities/tableutil";
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from
+"@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -14,7 +16,9 @@ import html2canvas from "html2canvas";
 })
 export class RequestsComponent implements OnInit {
   @ViewChild("pdfTable") pdfTable: ElementRef;
-
+onSubmit(){
+  console.log(this.requestFilters);
+}
   public downloadAsPDF() {
     const doc = new jsPDF();
 
@@ -39,11 +43,17 @@ export class RequestsComponent implements OnInit {
     // });
     TableUtil.generatePDF("ExampleTable")
   }
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");
   }
+  requestFilters=this.fb.group({
+    selectDestination: [""],
+    selectStatus: [""],
+    fromDate: [""],
+    toDate: [""]
+  })
 
 }

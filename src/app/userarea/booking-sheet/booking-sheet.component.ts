@@ -1,5 +1,7 @@
+import { FormBuilder,Validators } from '@angular/forms';
 import { TableUtil } from './../../utilities/tableutil';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'ngx-booking-sheet',
@@ -8,15 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingSheetComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
+
   generatePDF(){
     TableUtil.generatePDF("ExampleTable")
   }
+
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");
+  }
+  bookingSheetFilters=this.fb.group({
+    selectStatus: [""],
+    fromDate: [""],
+    toDate: [""],
+  })
+  onSubmit(){
+    console.log(this.bookingSheetFilters)
   }
 
 }

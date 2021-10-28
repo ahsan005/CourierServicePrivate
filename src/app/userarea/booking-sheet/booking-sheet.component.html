@@ -1,4 +1,4 @@
-<form action="">
+<form [formGroup]="bookingSheetFilters" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col-sm-2 side_gapps left_right_none" style="margin-top: 28.5px">
       <div class="row">
@@ -7,6 +7,7 @@
           status="primary"
           target="_blank"
           style="margin-left: 0; margin-bottom: 10px"
+
           >Booking Sheet</a
         >
       </div>
@@ -14,8 +15,9 @@
     <div class="col-sm-2 side_gapps left_right_none">
       <div class="form-group">
         <label>Status</label>
-        <nb-select placeholder="Select Status" fullWidth>
-          <nb-option selected="" disabled="">Select Status</nb-option>
+
+          <nb-select placeholder="Select Status" fullWidth formControlName="selectStatus" >
+
           <nb-option value="booked">Booked</nb-option>
           <nb-option value="received">Received</nb-option>
 
@@ -36,6 +38,7 @@
           placeholder="Select Starting Date"
           [nbDatepicker]="datepickerstarting"
           class="form-control"
+          formControlName="fromDate"
         />
         <nb-datepicker #datepickerstarting></nb-datepicker>
       </div>
@@ -48,12 +51,13 @@
           placeholder="Select Ending Date"
           [nbDatepicker]="datepickerending"
           class="form-control"
+          formControlName="toDate"
         />
         <nb-datepicker #datepickerending></nb-datepicker>
       </div>
     </div>
     <div class="col-sm-1 side_gapps left_right_none">
-      <button type="submit" nbButton status="info" style="margin-top: 25px">
+      <button type="submit"  nbButton status="info" style="margin-top: 25px">
         Submit
       </button>
     </div>
@@ -74,7 +78,7 @@
 <div class="row">
   <div class="col-md-4 offset-8">
 
-    
+
       <h6>Export As:</h6>
 
       <nb-button-group status="info">

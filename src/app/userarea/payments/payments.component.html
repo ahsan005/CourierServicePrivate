@@ -1,1 +1,141 @@
-<p>payments works!</p>
+<div class="row">
+  <div class="col-md-12 ">
+    <div class="col-md-4 float-end">
+      <div class="form-group">
+        <label for="" class="label label-info">Search: </label>
+        <input nbInput type="text" [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+    </div>
+  </div>
+  <div class="col-md-12">
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr No.</th>
+          <th scope="col">Order#</th>
+          <th scope="col">Date</th>
+          <th scope="col">Consignee Info</th>
+          <th scope="col">Shipment Info</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Destination</th>
+          <th scope="col">Weight</th>
+          <th scope="col">COD Amount</th>
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <tr class="text-center" scope="row">
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+    </table>
+  </div>
+</div>

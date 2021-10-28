@@ -1,24 +1,29 @@
 <div class="row">
   <div class="col-md-12">
     <h4>Request Details</h4>
-    <form action="">
+    <form [formGroup]="requestFilters" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-2">
           <div class="form-group">
-            <label for="">Select Destination</label>
-            <nb-select fullWidth placeholder="Select City">
-              <nb-option>Karachi</nb-option>
+            <label >Select Destination</label>
+            <nb-select fullWidth placeholder="Select City"
+            formControlName="selectDestination">
+              <nb-option value="KRC">Karachi</nb-option>
+              <nb-option value="LHR">Lahore</nb-option>
+              <nb-option value="PSH">Peshawar</nb-option>
+              <nb-option value="QTA">Quetta</nb-option>
             </nb-select>
           </div>
         </div>
         <div class="col-sm-2">
           <div class="form-group">
-            <label for="">Select Status</label>
-            <nb-select fullWidth placeholder="Select Status">
-              <nb-option>Completed</nb-option>
-              <nb-option>Processing</nb-option>
-              <nb-option>In-transit</nb-option>
-              <nb-option>Delivering</nb-option>
+            <label>Select Status</label>
+            <nb-select fullWidth placeholder="Select Status"
+            formControlName="selectStatus">
+              <nb-option value="COMP">Completed</nb-option>
+              <nb-option value="PROC">Processing</nb-option>
+              <nb-option value="TRAN">In-transit</nb-option>
+              <nb-option value="DLV">Delivering</nb-option>
             </nb-select>
           </div>
         </div>
@@ -29,17 +34,20 @@
               nbInput
               placeholder="Select Start Date"
               [nbDatepicker]="datepicker"
+              formControlName="fromDate"
             />
             <nb-datepicker #datepicker></nb-datepicker>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="form-group">
-            <label for="">To</label>
+            <label>To</label>
             <input
               nbInput
               placeholder="Select Ending Date"
               [nbDatepicker]="datepickerending"
+              formControlName="toDate"
+
             />
             <nb-datepicker #datepickerending></nb-datepicker>
           </div>
@@ -61,7 +69,7 @@
         <div class="col-sm-2">
           <div class="form-group">
             <input
-              type="button"
+              type="submit"
               name="Submit"
               value="Submit"
               class="form-control"
@@ -80,7 +88,7 @@
       <button nbButton (click)="exportTable()">Excel</button>
       <button nbButton (click)="generatePDF()">PDF</button>
     </nb-button-group>
-    <br/>
+    <br />
 
     <table
       #pdfTable
@@ -89,7 +97,6 @@
     >
       <thead class="thead-dark">
         <tr>
-
           <th scope="col">Sr No.</th>
           <th scope="col">Order#</th>
           <th scope="col">Order Date</th>
@@ -112,7 +119,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -123,7 +129,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -134,7 +139,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -145,7 +149,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -156,7 +159,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -167,7 +169,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -178,7 +179,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -189,7 +189,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
@@ -200,7 +199,6 @@
         <td class="">XYZ street Address</td>
       </tr>
       <tr>
-
         <td class="">01</td>
         <td class="">Micheal</td>
         <td class="">12</td>
