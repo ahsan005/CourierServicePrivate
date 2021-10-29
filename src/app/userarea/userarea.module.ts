@@ -20,6 +20,8 @@ import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MultipleProfilesComponent } from './multiple-profiles/multiple-profiles.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditComponent } from './multiple-profiles/edit/edit.component';
+import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile.component';
 // import { ThemeModule } from '../@theme/theme.module';
 
 
@@ -38,7 +40,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     SuggestionsComponent,
     EditProfileComponent,
     MultipleProfilesComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    EditComponent,
+    AddProfileComponent
   ],
   imports: [
     CommonModule,

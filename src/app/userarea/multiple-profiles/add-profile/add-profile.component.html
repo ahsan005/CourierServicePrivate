@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Edit profile</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="row">
+      <div class="col-md-8 offset-2">
+        <div class="form-group">
+          <label for="">Sr No.</label>
+          <input fullWidth nbInput type="text" id="">
+        </div>
+      </div>
+      <div class="col-md-8 offset-2">
+        <div class="form-group">
+          <label for="">Shipper Name</label>
+          <input fullWidth nbInput type="text"  id="">
+        </div>
+      </div>
+      <div class="col-md-8 offset-2">
+        <div class="form-group">
+          <label for="">Shipper Phone</label>
+          <input fullWidth nbInput type="text"  id="">
+        </div>
+      </div>
+      <div class="col-md-8 offset-2">
+        <div class="form-group">
+          <label for="">Shipper Email</label>
+          <input fullWidth nbInput type="text"  id="">
+        </div>
+      </div>
+      <div class="col-md-8 offset-2">
+        <div class="form-group">
+          <label for="">Shipper Address</label>
+          <input fullWidth nbInput type="text"  id="">
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="modal.close('Save click')"
+  >
+    Save
+  </button>
+</div>
+<!--
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->
+
+<!-- <hr> -->
+
+<!-- <pre>{{ closeResult }}</pre> -->

@@ -1,1 +1,41 @@
-<p>track-deliveries works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div
+      class="container-fluid "
+      style="
+        background-image: url('../../../assets/images/package_tracking.jpg');
+      "
+    >
+      <div class="col-md-6 offset-3 py-5">
+        <form [formGroup]="tracking" (ngSubmit)="onSubmit()">
+        <nb-card size='medium' status="primary" style="height: 300px;">
+          <nb-card-header> Track Your Deliveries </nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-12 pt-3">
+                <h6>Track your Packages Here</h6>
+                <p>Track upto 10 numbers at a time, Separated by comma (,)</p>
+              </div>
+              <div class="col-md-12">
+                <input
+                  nbInput
+                  fullWidth
+                  status="info"
+                  type="text"
+                  name="trackingNo"
+                  id="trackingNo"
+                  formControlName="trackingNo"
+                  placeholder="Enter Tracking number"
+                />
+              </div>
+              <div class="col-md-12 py-3">
+                <button nbButton fullWidth shape="semi-round" status="info">Track Packages</button>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

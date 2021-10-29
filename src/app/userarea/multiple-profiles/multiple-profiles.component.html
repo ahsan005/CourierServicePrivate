@@ -1,1 +1,55 @@
-<p>multiple-profiles works!</p>
+<div class="row">
+  <div class="col-md-4 offset-8 py-3">
+    <div class="container ">
+      <button nbButton status="primary">Add New Profile</button>
+    </div>
+  </div>
+  <div class="col-md-12 ">
+    <div class="col-md-4 float-end">
+      <div class="form-group">
+        <label for="" class="label label-info">Search: </label>
+        <input nbInput type="text" [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+    </div>
+  </div>
+  <div class="col-md-12">
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr No.</th>
+          <th scope="col">Shipper Name</th>
+          <th scope="col">Shipper Phone</th>
+          <th scope="col">Shipper Email</th>
+          <th scope="col">Shipper Address</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <tr class="text-center " scope="row" *ngFor="let item of shipperProfiles">
+        <td class="py-2 id">{{item.SrNo}}</td>
+        <td class="py-2">{{item.ShipperName}}</td>
+        <td class="py-2">{{item.ShipperPhone}}</td>
+        <td class="py-2">{{item.ShipperEmail}}</td>
+        <td class="py-2">{{item.ShipperAddress}}</td>
+
+      <td class="py-2"><div class="col-lg-3"><button nbButton status="primary" (click)="editBtn(item)">Edit</button> </div> <div class="col-lg-3"><button nbButton status="danger" (click)="deleteBtn(item.ID)">Delete</button></div></td>
+
+      </tr>
+
+    </table>
+  </div>
+</div>

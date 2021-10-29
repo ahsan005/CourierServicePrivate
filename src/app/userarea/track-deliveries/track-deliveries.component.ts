@@ -1,3 +1,4 @@
+import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrackDeliveriesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
+
+  onSubmit(){
+    console.log(this.tracking);
+  }
+
+  tracking=this.fb.group({
+    trackingNo: ['']
+  })
 
 }
