@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4 offset-8 py-3">
     <div class="container ">
-      <button nbButton status="primary">Add New Profile</button>
+      <button nbButton (click)="AddBtn()" status="primary">Add New Profile</button>
     </div>
   </div>
   <div class="col-md-12 ">
@@ -46,7 +46,10 @@
         <td class="py-2">{{item.ShipperEmail}}</td>
         <td class="py-2">{{item.ShipperAddress}}</td>
 
-      <td class="py-2"><div class="col-lg-3"><button nbButton status="primary" (click)="editBtn(item)">Edit</button> </div> <div class="col-lg-3"><button nbButton status="danger" (click)="deleteBtn(item.ID)">Delete</button></div></td>
+      <td class="py-2">
+        <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+        <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+      </td>
 
       </tr>
 

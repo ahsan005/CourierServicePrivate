@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Edit profile</h4>
+  <h4 class="modal-title" id="modal-basic-title">Add New profile</h4>
   <button
     type="button"
     class="close"
@@ -10,36 +10,31 @@
   </button>
 </div>
 <div class="modal-body">
-  <form>
+  <form [formGroup]="addProfile" (ngSubmit)="onSubmit()">
     <div class="row">
-      <div class="col-md-8 offset-2">
-        <div class="form-group">
-          <label for="">Sr No.</label>
-          <input fullWidth nbInput type="text" id="">
-        </div>
-      </div>
+
       <div class="col-md-8 offset-2">
         <div class="form-group">
           <label for="">Shipper Name</label>
-          <input fullWidth nbInput type="text"  id="">
+          <input fullWidth nbInput formControlName="ShipperName" type="text"  id="">
         </div>
       </div>
       <div class="col-md-8 offset-2">
         <div class="form-group">
           <label for="">Shipper Phone</label>
-          <input fullWidth nbInput type="text"  id="">
+          <input fullWidth nbInput formControlName="ShipperPhone" type="text"  id="">
         </div>
       </div>
       <div class="col-md-8 offset-2">
         <div class="form-group">
           <label for="">Shipper Email</label>
-          <input fullWidth nbInput type="text"  id="">
+          <input fullWidth nbInput formControlName="ShipperEmail" type="text"  id="">
         </div>
       </div>
       <div class="col-md-8 offset-2">
         <div class="form-group">
           <label for="">Shipper Address</label>
-          <input fullWidth nbInput type="text"  id="">
+          <input fullWidth  nbInput formControlName="ShipperAddress" type="text"  id="">
         </div>
       </div>
     </div>
@@ -49,10 +44,17 @@
 <div class="modal-footer">
   <button
     type="button"
-    class="btn btn-outline-dark"
+   nbButton hero status="primary"
+    (click)="onSubmit()"
+  >
+    Add
+  </button>
+  <button nbButton
+    type="button"
+
     (click)="modal.close('Save click')"
   >
-    Save
+    Cancel
   </button>
 </div>
 <!--

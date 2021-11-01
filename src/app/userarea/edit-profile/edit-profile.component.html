@@ -7,7 +7,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="cname">Customer Name:</label>
         <input
-          class="form-control"
+         nbInput
+         fullWidth
           type="text"
           id="cname"
           formControlName="cname"
@@ -30,7 +31,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="buname">Business-Name:</label>
         <input
-          class="form-control"
+        nbInput
+        fullWidth
           type="text"
           id="buname"
           formControlName="buname"
@@ -55,7 +57,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="baname">Bank Name:</label>
         <input
-          class="form-control"
+        nbInput
+        fullWidth
           type="text"
           id="baname"
           formControlName="baname"
@@ -78,7 +81,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="accnum">Account-Number:</label>
         <input
-          class="form-control"
+        nbInput
+        fullWidth
           type="number"
           id="accnum"
           formControlName="accnum"
@@ -103,7 +107,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="mnumber">Mobile-Number#</label>
         <input
-          class="form-control"
+        nbInput
+        fullWidth
           type="number"
           id="mnumber"
           formControlName="mnumber"
@@ -124,7 +129,8 @@
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="email">Email:</label>
         <input
-          class="form-control"
+        nbInput
+         fullWidth
           type="email"
           id="email"
           formControlName="email"
@@ -147,6 +153,7 @@
         <label class="label label-info" for="city">City:</label>
         <select
           class="form-control"
+
           name="my-select"
 
           formControlName="city"
@@ -173,7 +180,8 @@
           (change)="onFileChange($event)"
         /> -->
         <!-- <ngx-file-upload formControlName="file"></ngx-file-upload> -->
-        <input type="text" name="" formControlName="cnic" id="cnic" class="form-control">
+        <input type="text" name="" formControlName="cnic" id="cnic" nbInput
+        fullWidth>
         <div
           class="row alert text-danger"
           *ngIf="cnic.invalid && (cnic.dirty || cnic.touched)"

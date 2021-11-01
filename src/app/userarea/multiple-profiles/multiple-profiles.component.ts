@@ -1,3 +1,4 @@
+import { AddProfileComponent } from './add-profile/add-profile.component';
 import { ShipperProfile } from './../../models/shipper-profile';
 import { EditComponent } from './edit/edit.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +18,7 @@ export class MultipleProfilesComponent implements OnInit {
   constructor(private modalService: NgbModal) {}
   // Modal Service Components
   AddBtn(){
-    const ref = this.modalService.open({size:'xl'});
+    const ref = this.modalService.open(AddProfileComponent,{size:'xl'});
 
   }
 
