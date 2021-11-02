@@ -1,0 +1,209 @@
+<div class="row gx-5 pb-5">
+  <h4 class="text-center">Edit Account Info</h4>
+</div>
+<form [formGroup]="profileEditForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="cname">Customer Name:</label>
+        <input
+         nbInput
+         fullWidth
+          type="text"
+          id="cname"
+          formControlName="cname"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="cname.invalid && (cname.dirty || cname.touched)"
+        >
+          <div class="alert text-danger" *ngIf="cname.errors?.required">
+            CustomerName is required.
+          </div>
+          <div *ngIf="cname.errors?.minlength">
+            CustomerName must be at least 4 characters long.
+          </div>
+          <div *ngIf="cname.errors?.forbiddenName">
+            CustomerName cannot be Bob.
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="buname">Business-Name:</label>
+        <input
+        nbInput
+        fullWidth
+          type="text"
+          id="buname"
+          formControlName="buname"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="buname.invalid && (buname.dirty || buname.touched)"
+        >
+          <div class="alert text-danger" *ngIf="buname.errors?.required">
+            Business-Name is required.
+          </div>
+          <div *ngIf="buname.errors?.minlength">
+            Business-Name must be at least 4 characters long.
+          </div>
+          <div *ngIf="buname.errors?.forbiddenName">
+            Business-Name cannot be Bob.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="baname">Bank Name:</label>
+        <input
+        nbInput
+        fullWidth
+          type="text"
+          id="baname"
+          formControlName="baname"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="baname.invalid && (baname.dirty || baname.touched)"
+        >
+          <div class="alert text-danger" *ngIf="baname.errors?.required">
+            Bank Name is required.
+          </div>
+          <div *ngIf="baname.errors?.minlength">
+            Bank Name must be at least 4 characters long.
+          </div>
+          <div *ngIf="baname.errors?.forbiddenName">
+            Bank Name cannot be Bob.
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="accnum">Account-Number:</label>
+        <input
+        nbInput
+        fullWidth
+          type="number"
+          id="accnum"
+          formControlName="accnum"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="accnum.invalid && (accnum.dirty || accnum.touched)"
+        >
+          <div class="alert text-danger" *ngIf="accnum.errors?.required">
+            Account-Number is required.
+          </div>
+          <div *ngIf="accnum.errors?.minlength">
+            Account-Number must be at least 4 characters long.
+          </div>
+          <div *ngIf="accnum.errors?.forbiddenName">
+            Account-Number cannot be Bob.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="mnumber">Mobile-Number#</label>
+        <input
+        nbInput
+        fullWidth
+          type="number"
+          id="mnumber"
+          formControlName="mnumber"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="mnumber.invalid && (mnumber.dirty || mnumber.touched)"
+        >
+          <div class="alert text-danger" *ngIf="mnumber.errors?.required">
+            Mobile-Number is required.
+          </div>
+          <div class="alert text-danger" *ngIf="mnumber.errors?.minlength">
+            Mobile-Number must be at least 11 characters long.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="email">Email:</label>
+        <input
+        nbInput
+         fullWidth
+          type="email"
+          id="email"
+          formControlName="email"
+        />
+        <div
+          class="row alert text-danger"
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+        >
+          <div class="alert text-danger" *ngIf="email.errors?.required">
+            Email is required.
+          </div>
+          <div class="alert text-danger" *ngIf="email.errors?.minlength">
+            Email must be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-1">
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="city">City:</label>
+        <select
+          class="form-control"
+
+          name="my-select"
+
+          formControlName="city"
+        >
+          <option value="" disabled selected hidden>Select City</option>
+          <option [value]="item.id" *ngFor="let item of cities">
+            {{ item.name }}
+          </option>
+        </select>
+        <div
+          class="row alert text-danger"
+          *ngIf="city.invalid && (city.dirty || city.touched)"
+        >
+          <div class="alert text-danger" *ngIf="city.errors?.required">
+            City is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
+        <label class="label label-info" for="cnic">CNIC#</label>
+        <!-- <input
+          class="form-control"
+          type="file"
+          (change)="onFileChange($event)"
+        /> -->
+        <!-- <ngx-file-upload formControlName="file"></ngx-file-upload> -->
+        <input type="text" name="" formControlName="cnic" id="cnic" nbInput
+        fullWidth>
+        <div
+          class="row alert text-danger"
+          *ngIf="cnic.invalid && (cnic.dirty || cnic.touched)"
+        >
+          <div class="alert text-danger" *ngIf="cnic.errors?.required">
+           CNIC# is required.
+          </div>
+          <div class="alert text-danger" *ngIf="cnic.errors?.minlength">
+            CNIC# must be valid.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row gx-1 justify-content-center py-4">
+      <div class="col-lg-8 col-md-6 col-xs-5">
+
+        <button  nbButton shape="semi-round" status="success" fullWidth>
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

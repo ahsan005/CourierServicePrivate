@@ -1,3 +1,12 @@
+import { SettingComponent } from './setting/setting.component';
+import { PricingComponent } from './pricing/pricing.component';
+import { ShipmentReportComponent } from './shipment-report/shipment-report.component';
+import { OrderReportComponent } from './../userarea/order-report/order-report.component';
+import { CustomerPaymentsComponent } from './customer-payments/customer-payments.component';
+import { ActiveCustomersComponent } from './active-customers/active-customers.component';
+import { PendingCustomersComponent } from './pending-customers/pending-customers.component';
+import { AdminComponent } from './admin/admin.component';
+
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -15,8 +24,41 @@ const routes: Routes = [{
       component: ECommerceComponent,
     },
     {
+      path: 'admin',
+      component: AdminComponent,
+    },
+
+    {
       path: 'iot-dashboard',
       component: DashboardComponent,
+    },
+    {
+      path: 'pnd-customers',
+      component: PendingCustomersComponent,
+    },
+    {
+      path: 'active-customers',
+      component: ActiveCustomersComponent,
+    },
+    {
+      path: 'customer-payments',
+      component: CustomerPaymentsComponent,
+    },
+    {
+      path: 'order-report',
+      component: OrderReportComponent,
+    },
+    {
+      path: 'shipment-report',
+      component: ShipmentReportComponent,
+    },
+    {
+      path: 'pricing',
+      component: PricingComponent,
+    },
+    {
+      path: 'settings',
+      component: SettingComponent,
     },
     {
       path: 'layout',
@@ -27,6 +69,26 @@ const routes: Routes = [{
       path: 'forms',
       loadChildren: () => import('./forms/forms.module')
         .then(m => m.FormsModule),
+    },
+    {
+      path: 'profile',
+      loadChildren: () => import('./profile/profile.module')
+        .then(m => m.ProfileModule),
+    },
+    {
+      path: 'requests',
+      loadChildren: () => import('./requests/requests.module')
+        .then(m => m.RequestsModule),
+    },
+    {
+      path: 'couriers',
+      loadChildren: () => import('./couriers/couriers.module')
+        .then(m => m.CouriersModule),
+    },
+    {
+      path: 'cities',
+      loadChildren: () => import('./cities/cities.module')
+        .then(m => m.CitiesModule),
     },
     {
       path: 'ui-features',
@@ -70,7 +132,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'admin',
       pathMatch: 'full',
     },
     {
