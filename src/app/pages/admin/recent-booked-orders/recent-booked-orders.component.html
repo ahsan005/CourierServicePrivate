@@ -1,1 +1,177 @@
-<p>recent-booked-orders works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+    <div class="col-md-4 float-end">
+      <div class="form-group">
+        <label for="" class="label label-info">Search: </label>
+        <input
+          nbInput
+          type="text"
+          [(ngModel)]="searchVal"
+          name="search"
+          placeholder="Search"
+          (keyup)="SearchFunction()"
+          id="searchbox"
+        />
+      </div>
+    </div>
+
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"><input  type="checkbox"></th>
+          <th scope="col">Order No.</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Sender Details</th>
+          <th scope="col">Receiver Details</th>
+          <th scope="col">Shipment-details</th>
+          <th scope="col">Payments</th>
+
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <!-- <tr class="text-center" scope="row">
+        <td scope="col"><input  type="checkbox"></td>
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input  type="checkbox"></td>
+
+        <td   class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr>
+      <tr>
+        <td scope="col"><input type="checkbox"></td>
+
+        <td class="">01</td>
+        <td class="">Micheal</td>
+        <td class="">12</td>
+        <td class="">Jordan</td>
+        <td class="">A+</td>
+        <td class="">352222222222222</td>
+        <td class="">030303030303</td>
+        <td class="">XYZ street Address</td>
+      </tr> -->
+      <tr class="text-center " scope="row" *ngFor="let item of shipperProfiles | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td class="py-2 id">{{item.SrNo}}</td>
+        <td class="py-2">{{item.ShipperName}}</td>
+        <td class="py-2">{{item.ShipperPhone}}</td>
+        <td class="py-2">{{item.ShipperEmail}}</td>
+        <td class="py-2">{{item.ShipperAddress}}</td>
+
+      <td class="py-2">
+        <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+        <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+      </td>
+
+      </tr>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

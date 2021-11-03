@@ -1,4 +1,8 @@
-import { NbCardModule } from '@nebular/theme';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+import { FormsModule } from '@angular/forms';
+import { NbCardModule, NbButtonGroupModule, NbButton, NbButtonModule, NbInputModule } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,18 +14,25 @@ import { RecentBookedOrdersComponent } from './recent-booked-orders/recent-booke
 
 
 
+
 @NgModule({
   declarations: [
     AdminComponent,
     StatusCardsComponent,
     OrderPieComponent,
-
     RecentBookedOrdersComponent
   ],
   imports: [
     CommonModule,
     NgxEchartsModule,
-    NbCardModule
+    NbCardModule,
+    NbButtonGroupModule,
+    FormsModule,
+    NbButtonModule,
+    NbInputModule,
+    Ng2SmartTableModule,
+    NgxPaginationModule
+
   ]
 })
 export class AdminModule { }

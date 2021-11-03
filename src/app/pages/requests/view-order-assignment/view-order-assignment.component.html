@@ -1,1 +1,108 @@
-<p>view-order-assignment works!</p>
+<nb-card status="primary">
+  <nb-card-header>Items-received in Office</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Request Details</h4>
+      </div>
+      <div class="col-md-12">
+        <form action="">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="">To</label>
+                <input
+                  nbInput
+                  placeholder="Select Start Date"
+                  [nbDatepicker]="startdatepicker"
+                />
+                <nb-datepicker #startdatepicker></nb-datepicker>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="">To</label>
+                <input
+                  nbInput
+                  placeholder="Select End Date"
+                  [nbDatepicker]="enddatepicker"
+                />
+                <nb-datepicker #enddatepicker></nb-datepicker>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <button type="submit" nbButton status="success">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-12">
+        <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+        <h6>Export As:</h6>
+        <nb-button-group status="info">
+          <button nbButton (click)="exportTable()">Excel</button>
+          <button nbButton (click)="generatePDF()">PDF</button>
+        </nb-button-group>
+        <br />
+        <div class="float-right">
+          <div class="form-group">
+            <label for="">Search: </label>
+            <input type="text" nbInput [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+          </div>
+        </div>
+
+        <table
+          #pdfTable
+          class="table table-sm mt-2 table-bordered"
+          id="ExampleTable"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Sr No.</th>
+              <th scope="col">Order#</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Sender Details</th>
+              <th scope="col">Receiver Details</th>
+              <th scope="col">Payments</th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tr
+            class="text-center"
+            scope="row"
+            *ngFor="
+              let item of shipperProfiles
+                | paginate: { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td class="py-2 id">{{ item.SrNo }}</td>
+            <td class="py-2">{{ item.ShipperName }}</td>
+            <td class="py-2">{{ item.ShipperPhone }}</td>
+            <td class="py-2">{{ item.ShipperEmail }}</td>
+            <td class="py-2">{{ item.ShipperAddress }}</td>
+
+            <td class="py-2">
+              <a (click)="deleteBtn(item.ID)"
+                ><nb-icon icon="close"></nb-icon
+              ></a>
+              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+            </td>
+          </tr>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

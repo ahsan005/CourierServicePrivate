@@ -36,7 +36,8 @@ import { ContactComponent } from "./user/contact/contact.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
 import { TermsComponent } from "./user/terms/terms.component";
 
-import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { NbAuthModule, NbPasswordAuthStrategy } from "@nebular/auth";
     ReactiveFormsModule,
     NgbButtonsModule,
     AuthModule,
+    NgxPaginationModule
 
   ],
   providers: [],

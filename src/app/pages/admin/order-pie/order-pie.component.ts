@@ -27,25 +27,30 @@ export class OrderPieComponent implements AfterViewInit, OnDestroy {
           formatter: '{a} <br/>{b} : {c} ({d}%)',
         },
         legend: {
-          orient: 'vertical',
+          orient: 'horizontal',
           left: 'left',
-          data: ['USA', 'Germany', 'France', 'Canada', 'Russia'],
+          data: ['Booked-orders', 'Pending-Orders', 'Received-for-Lahore', 'Received-for-outstations', 'Cancelled-orders','Dispatched-orders','Assigned-Orders','Delivered','Returned','Total-Orders','Total-Customers','Total-Drivers'],
           textStyle: {
             color: echarts.textColor,
           },
         },
         series: [
           {
-            name: 'Countries',
+            name: 'Orders',
             type: 'pie',
-            radius: '80%',
-            center: ['50%', '50%'],
+            radius: '70%',
+            center: ['50%', '60%'],
             data: [
-              { value: 335, name: 'Germany' },
-              { value: 310, name: 'France' },
-              { value: 234, name: 'Canada' },
-              { value: 135, name: 'Russia' },
-              { value: 1548, name: 'USA' },
+              { value: 335, name: 'Booked-orders' },
+              { value: 310, name: 'Pending-Orders' },
+              { value: 234, name: 'Received-for-Lahore' },
+              { value: 135, name: 'Received-for-outstations' },
+              { value: 150, name: 'Dispatched-orders' },
+              { value: 200, name: 'Assigned-Orders' },
+              { value: 225, name: 'Delivered' },
+              { value: 300, name: 'Total-Orders' },
+              { value: 325, name: 'Total-Customers' },
+              { value: 450, name: 'Total-Drivers' },
             ],
             itemStyle: {
               emphasis: {

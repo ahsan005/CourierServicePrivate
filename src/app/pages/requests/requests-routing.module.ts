@@ -9,7 +9,7 @@ import { DeliveredComponent } from './delivered/delivered.component';
 import { CancelledNotReceivedComponent } from './cancelled-not-received/cancelled-not-received.component';
 import { BookedOrdersComponent } from './booked-orders/booked-orders.component';
 import { AssignedComponent } from './assigned/assigned.component';
-import { RequestsComponent } from './../../userarea/requests/requests.component';
+import { RequestsComponent } from './requests.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

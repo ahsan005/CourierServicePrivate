@@ -1,7 +1,7 @@
 import { SettingComponent } from './setting/setting.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ShipmentReportComponent } from './shipment-report/shipment-report.component';
-import { OrderReportComponent } from './../userarea/order-report/order-report.component';
+import { OrderReportComponent } from './order-report/order-report.component';
 import { CustomerPaymentsComponent } from './customer-payments/customer-payments.component';
 import { ActiveCustomersComponent } from './active-customers/active-customers.component';
 import { PendingCustomersComponent } from './pending-customers/pending-customers.component';

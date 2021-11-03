@@ -1,6 +1,7 @@
 import { FormBuilder, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
-import { MustMatch } from "../../_helpers/MustMatch-validator";
+import { MustMatch } from "../../../_helpers/MustMatch-validator";
+
 
 @Component({
   selector: "ngx-change-password",

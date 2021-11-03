@@ -1,3 +1,6 @@
+import { NbButton, NbCardModule, NbInputModule, NbButtonModule } from '@nebular/theme';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from './../forms/forms.module';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,7 +18,12 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   ],
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbCardModule,
+    NbInputModule,
+    NbButtonModule
   ]
 })
 export class ProfileModule { }

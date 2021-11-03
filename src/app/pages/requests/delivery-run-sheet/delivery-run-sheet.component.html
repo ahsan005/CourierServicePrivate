@@ -1,1 +1,46 @@
-<p>delivery-run-sheet works!</p>
+<nb-card status="primary">
+  <nb-card-header>
+    Delivery Run Sheet
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <form action="">
+          <div class="col-md-4">
+
+            <div class="form-group">
+              <label for="">Select Destination</label>
+              <nb-select  placeholder="Select Pickup City">
+                <nb-option value="KRC">Karachi</nb-option>
+                <nb-option value="LHR">Lahore</nb-option>
+                <nb-option value="PSH">Peshawar</nb-option>
+                <nb-option value="QTA">Quetta</nb-option>
+              </nb-select>
+              <span><button type="submit" nbButton status="primary" >Filter</button></span>
+            </div>
+
+          </div>
+
+
+        </form>
+
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Assign Delivery Rider Vendor Zone</label>
+              <nb-select  placeholder="Delivery Rider">
+                <nb-option value="KRC">Person 1</nb-option>
+                <nb-option value="LHR">Person 2</nb-option>
+                <nb-option value="PSH">Person 3</nb-option>
+                <nb-option value="QTA">Person 4</nb-option>
+              </nb-select>
+              <span><button type="submit" nbButton status="success" >Assign</button></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

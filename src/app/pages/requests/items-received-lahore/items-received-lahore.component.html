@@ -1,1 +1,146 @@
-<p>items-received-lahore works!</p>
+<nb-card status="primary">
+  <nb-card-header>Items-received in Office</nb-card-header>
+<nb-card-body>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Request Details</h4>
+  </div>
+  <form action="">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">From</label>
+          <input
+            nbInput
+            placeholder="Select Start Date"
+            [nbDatepicker]="datepicker"
+          />
+          <nb-datepicker #datepicker></nb-datepicker>
+        </div>
+      </div>
+      <div class="col-md-2 ml-5">
+        <div class="form-group">
+          <label for="">To</label>
+          <input
+            nbInput
+            placeholder="Select End Date"
+            [nbDatepicker]="enddatepicker"
+          />
+          <nb-datepicker #enddatepicker></nb-datepicker>
+        </div>
+      </div>
+      <div class="col-sm-2 ml-5">
+        <div class="form-group">
+          <label>Select Pickup City</label>
+          <nb-select fullWidth placeholder="Select Pickup City">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2 ml-5">
+        <div class="form-group">
+          <input
+            style="margin-top: 25px"
+            type="submit"
+            name="Submit"
+            value="Submit"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+  <form action="">
+    <div class="row">
+      <h4>Sort-By</h4>
+      <div class="col-md-2">
+        <label for="">Status</label>
+        <div class="form-group">
+          <nb-select fullWidth placeholder="Select Status">
+            <nb-option value="COMP">Completed</nb-option>
+            <nb-option value="PROC">Processing</nb-option>
+            <nb-option value="TRAN">In-transit</nb-option>
+            <nb-option value="DLV">Delivering</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">Assigned Courier</label>
+          <nb-select fullWidth placeholder="Assigned Courier">
+            <nb-option value="COMP">Courier Name 1</nb-option>
+            <nb-option value="PROC">Courier Name 2</nb-option>
+            <nb-option value="TRAN">Courier Name 3</nb-option>
+            <nb-option value="DLV">Courier Name 4</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <input style="margin-top: 27.5px;"
+            type="submit"
+            name="Update"
+            value="Update"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-12">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr No.</th>
+          <th scope="col">Order#</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Sender Details</th>
+          <th scope="col">Receiver Details</th>
+          <th scope="col">Payments</th>
+
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tr
+        class="text-center"
+        scope="row"
+        *ngFor="
+          let item of shipperProfiles
+            | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <td class="py-2 id">{{ item.SrNo }}</td>
+        <td class="py-2">{{ item.ShipperName }}</td>
+        <td class="py-2">{{ item.ShipperPhone }}</td>
+        <td class="py-2">{{ item.ShipperEmail }}</td>
+        <td class="py-2">{{ item.ShipperAddress }}</td>
+
+        <td class="py-2">
+          <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+          <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+        </td>
+      </tr>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+</nb-card-body>
+</nb-card>

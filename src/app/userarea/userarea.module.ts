@@ -1,3 +1,4 @@
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NbMenuModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbButtonModule, NbDatepickerModule, NbButtonGroupModule } from '@nebular/theme';
@@ -42,7 +43,7 @@ import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile
     MultipleProfilesComponent,
     ChangePasswordComponent,
     EditComponent,
-    AddProfileComponent
+    AddProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +59,9 @@ import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile
     NbDatepickerModule,
     NbInputModule,
     ReactiveFormsModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+    NgxPaginationModule
+
   ]
 })
 export class UserareaModule { }

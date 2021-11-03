@@ -37,7 +37,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Booked Orders',
-        link: '/requests/booked-orders',
+        link: '/admin/requests/booked-orders',
       },
       {
         title: 'Item Received for Lahore',
@@ -53,7 +53,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Item Received for Outstation',
-        link: '/admin/requests/item-received-out',
+        link: '/admin/requests/items-received-out',
       },
       {
         title: 'Dispatch Orders',

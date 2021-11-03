@@ -1,6 +1,9 @@
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from './forms/forms.module';
 import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
-import { NbMenuModule } from '@nebular/theme';
+import { NbButton, NbButtonModule, NbMenuModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -24,7 +27,10 @@ import { SettingComponent } from './setting/setting.component';
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
-    AdminModule
+    AdminModule,
+    FormsModule,
+    NbButtonModule,
+    NgxPaginationModule
   ],
   declarations: [
     PagesComponent,

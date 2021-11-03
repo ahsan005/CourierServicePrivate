@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -29,11 +32,19 @@ import { PendingOrdersComponent } from './pending-orders/pending-orders.componen
     DeliveredComponent,
     ReturnedComponent,
     CancelledNotReceivedComponent,
-    PendingOrdersComponent
+    PendingOrdersComponent,
   ],
   imports: [
     CommonModule,
-    RequestsRoutingModule
+    RequestsRoutingModule,
+    NbSelectModule,
+    NbDatepickerModule,
+    NbButtonGroupModule,
+    NbInputModule,
+    NbButtonModule,
+    NgxPaginationModule,
+    NbCardModule,
+    FormsModule
   ]
 })
 export class RequestsModule { }
