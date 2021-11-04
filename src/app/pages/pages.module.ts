@@ -18,6 +18,8 @@ import { OrderReportComponent } from './order-report/order-report.component';
 import { ShipmentReportComponent } from './shipment-report/shipment-report.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { SettingComponent } from './setting/setting.component';
+import { DataTablesModule } from "angular-datatables";
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { SettingComponent } from './setting/setting.component';
     AdminModule,
     FormsModule,
     NbButtonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DataTablesModule,
+    Ng2OrderModule
   ],
   declarations: [
     PagesComponent,

@@ -17,6 +17,8 @@ import { DeliveredComponent } from './delivered/delivered.component';
 import { ReturnedComponent } from './returned/returned.component';
 import { CancelledNotReceivedComponent } from './cancelled-not-received/cancelled-not-received.component';
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
+import { DataTablesModule } from "angular-datatables";
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { PendingOrdersComponent } from './pending-orders/pending-orders.componen
     NbButtonModule,
     NgxPaginationModule,
     NbCardModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule,
+    Ng2OrderModule
   ]
 })
 export class RequestsModule { }

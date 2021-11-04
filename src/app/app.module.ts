@@ -1,6 +1,8 @@
 import { AuthModule } from './auth/auth.module';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HomeComponent } from "./user/home/home.component";
+import { DataTablesModule } from "angular-datatables";
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 /**
  *
@@ -77,7 +79,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     NgbButtonsModule,
     AuthModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DataTablesModule,
+    Ng2OrderModule
+
 
   ],
   providers: [],
