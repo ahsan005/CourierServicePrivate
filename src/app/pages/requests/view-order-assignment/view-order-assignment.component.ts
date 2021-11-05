@@ -56,6 +56,14 @@ export class ViewOrderAssignmentComponent implements OnInit {
     },
 
   ];
+ // Sorting
+ key='id';
+ reverse:boolean;
+ sort(key){
+   this.key = key
+   this.reverse=!this.reverse
+ }
+ // Sorting
 
 
 }

@@ -1,14 +1,13 @@
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from './forms/forms.module';
+
+import { FormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
-import { NbButton, NbButtonModule, NbMenuModule } from '@nebular/theme';
+import { NbButton, NbButtonModule, NbMenuModule, NbIconModule, NbCardModule, NbButtonGroupModule, NbInputModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { ECommerceModule } from './e-commerce/e-commerce.module';
+
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { PendingCustomersComponent } from './pending-customers/pending-customers.component';
@@ -18,23 +17,28 @@ import { OrderReportComponent } from './order-report/order-report.component';
 import { ShipmentReportComponent } from './shipment-report/shipment-report.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { SettingComponent } from './setting/setting.component';
-import { DataTablesModule } from "angular-datatables";
+
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AddPaymentComponent } from './customer-payments/add-payment/add-payment.component';
 
 @NgModule({
   imports: [
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
-    DashboardModule,
-    ECommerceModule,
     MiscellaneousModule,
     AdminModule,
     FormsModule,
     NbButtonModule,
     NgxPaginationModule,
-    DataTablesModule,
-    Ng2OrderModule
+
+    Ng2OrderModule,
+    NbEvaIconsModule,
+    NbIconModule,
+    NbCardModule,
+    NbButtonGroupModule,
+    NbInputModule,
   ],
   declarations: [
     PagesComponent,
@@ -45,6 +49,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     ShipmentReportComponent,
     PricingComponent,
     SettingComponent,
+    AddPaymentComponent,
   ],
 })
 export class PagesModule {

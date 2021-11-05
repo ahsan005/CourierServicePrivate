@@ -1,6 +1,7 @@
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule } from '@nebular/theme';
+import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule, NbIconModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -48,7 +49,10 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     NbCardModule,
     FormsModule,
     DataTablesModule,
-    Ng2OrderModule
+    Ng2OrderModule,
+    NbEvaIconsModule,
+    NbIconModule,
+    NbButtonGroupModule
   ]
 })
 export class RequestsModule { }

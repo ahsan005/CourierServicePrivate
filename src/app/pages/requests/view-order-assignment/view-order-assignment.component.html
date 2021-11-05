@@ -58,50 +58,79 @@
         <div class="float-right">
           <div class="form-group">
             <label for="">Search: </label>
-            <input type="text" nbInput [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+            <input
+              type="text"
+              nbInput
+              [(ngModel)]="searchVal"
+              name="search"
+              placeholder="Search"
+              (keyup)="SearchFunction()"
+              id="searchbox"
+            />
           </div>
         </div>
 
         <table
           #pdfTable
-          class="table table-sm mt-2 table-bordered"
+          class="row-border table table-sm mt-2 table-bordered hover"
           id="ExampleTable"
         >
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Sr No.</th>
-              <th scope="col">Order#</th>
-              <th scope="col">Order Date</th>
-              <th scope="col">Sender Details</th>
-              <th scope="col">Receiver Details</th>
-              <th scope="col">Payments</th>
+              <th (click)="sort('id')" scope="col">
+                Order# <i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Sr No.<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Order Date<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Sender Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Receiver Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Shipment Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Payments<i class="fa fa-sort"></i>
+              </th>
 
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tr
-            class="text-center"
-            scope="row"
-            *ngFor="
-              let item of shipperProfiles
-                | paginate: { itemsPerPage: 10, currentPage: p }
-            "
-          >
-            <td class="py-2 id">{{ item.SrNo }}</td>
-            <td class="py-2">{{ item.ShipperName }}</td>
-            <td class="py-2">{{ item.ShipperPhone }}</td>
-            <td class="py-2">{{ item.ShipperEmail }}</td>
-            <td class="py-2">{{ item.ShipperAddress }}</td>
-
-            <td class="py-2">
-              <a (click)="deleteBtn(item.ID)"
-                ><nb-icon icon="close"></nb-icon
-              ></a>
-              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
-            </td>
-          </tr>
+          <tbody>
+            <tr
+              class="text-center"
+              scope="row"
+              *ngFor="
+                let item of shipperProfiles
+                  | orderBy: key:reverse
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              "
+            >
+              <td class="py-2 id">{{ item.SrNo }}</td>
+              <td class="py-2">{{ item.ShipperName }}</td>
+              <td class="py-2">{{ item.ShipperPhone }}</td>
+              <td class="py-2">{{ item.ShipperEmail }}</td>
+              <td class="py-2">{{ item.ShipperAddress }}</td>
+              <td class="py-2">{{ item.ShipperAddress }}</td>
+              <td class="py-2">
+                <a (click)="deleteBtn(item.ID)"
+                  ><nb-icon icon="eye-outline"></nb-icon
+                ></a>
+                <a (click)="editBtn(item)"
+                  ><nb-icon icon="car-outline"></nb-icon
+                ></a>
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls
+        ><pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
   </nb-card-body>

@@ -61,6 +61,18 @@ const routes: Routes = [{
       path: "order-assignment",
       component: ViewOrderAssignmentComponent,
     },
+    {
+      path: "cancelled",
+      component: CancelledNotReceivedComponent,
+    },
+    {
+      path: "pending",
+      component: PendingOrdersComponent,
+    },
+    {
+      path: "order-assignment",
+      component: ViewOrderAssignmentComponent,
+    },
   ],
 },];
 

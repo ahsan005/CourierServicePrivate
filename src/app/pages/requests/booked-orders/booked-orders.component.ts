@@ -52,6 +52,14 @@ p:number=1;
 
   ];
 
+  // Sorting
+  key='id';
+  reverse:boolean;
+  sort(key){
+    this.key = key
+    this.reverse=!this.reverse
+  }
+  // Sorting
 
 
 }

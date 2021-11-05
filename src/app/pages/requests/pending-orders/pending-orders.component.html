@@ -1,1 +1,115 @@
-<p>pending-orders works!</p>
+<nb-card status="primary">
+  <nb-card-header>Assigned Orders</nb-card-header>
+<nb-card-body>
+<div class="row">
+  <div class="col-md-12">
+
+  </div>
+  <form action="">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">From</label>
+          <input
+            nbInput
+            placeholder="Select Start Date"
+            [nbDatepicker]="datepicker"
+          />
+          <nb-datepicker #datepicker></nb-datepicker>
+        </div>
+      </div>
+      <div class="col-md-2 ml-5">
+        <div class="form-group">
+          <label for="">To</label>
+          <input
+            nbInput
+            placeholder="Select End Date"
+            [nbDatepicker]="enddatepicker"
+          />
+          <nb-datepicker #enddatepicker></nb-datepicker>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">Assigned Courier</label>
+          <nb-select fullWidth placeholder="Assigned Courier">
+            <nb-option value="COMP">Courier Name 1</nb-option>
+            <nb-option value="PROC">Courier Name 2</nb-option>
+            <nb-option value="TRAN">Courier Name 3</nb-option>
+            <nb-option value="DLV">Courier Name 4</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="col-md-2 ml-5">
+        <div class="form-group">
+          <input
+            style="margin-top: 25px"
+            type="submit"
+            name="Submit"
+            value="Submit"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-12">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+
+    <table
+          #pdfTable
+          class="row-border table table-sm mt-2 table-bordered hover"
+          id="ExampleTable"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('id')" scope="col">Order# <i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Sr No.<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Order Date<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Sender Details<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Receiver Details<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Shipment Details<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Payments<i class="fa fa-sort"></i></th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr
+            class="text-center"
+            scope="row"
+            *ngFor="
+              let item of shipperProfiles | orderBy: key: reverse
+                | paginate: { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td class="py-2 id">{{ item.SrNo }}</td>
+            <td class="py-2">{{ item.ShipperName }}</td>
+            <td class="py-2">{{ item.ShipperPhone }}</td>
+            <td class="py-2">{{ item.ShipperEmail }}</td>
+            <td class="py-2">{{ item.ShipperAddress }}</td>
+            <td class="py-2">{{ item.ShipperAddress }}</td>
+                <td class="py-2">
+              <a (click)="deleteBtn(item.ID)"
+                ><nb-icon icon="close"></nb-icon
+              ></a>
+              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+</nb-card-body>
+</nb-card>

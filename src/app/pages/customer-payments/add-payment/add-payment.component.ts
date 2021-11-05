@@ -1,13 +1,12 @@
-import { TableUtil } from './../../utilities/tableutil';
 import { Component, OnInit } from '@angular/core';
+import { TableUtil } from '../../../utilities/tableutil';
 
 @Component({
-  selector: 'ngx-customer-payments',
-  templateUrl: './customer-payments.component.html',
-  styleUrls: ['./customer-payments.component.scss']
+  selector: 'ngx-add-payment',
+  templateUrl: './add-payment.component.html',
+  styleUrls: ['./add-payment.component.scss']
 })
-export class CustomerPaymentsComponent implements OnInit {
-
+export class AddPaymentComponent implements OnInit {
 
   searchVal:any;
   p:number=1;
@@ -65,7 +64,6 @@ export class CustomerPaymentsComponent implements OnInit {
    this.reverse=!this.reverse
  }
  // Sorting
-
 
 
 }

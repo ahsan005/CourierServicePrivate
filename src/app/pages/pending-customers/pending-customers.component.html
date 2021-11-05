@@ -1,1 +1,97 @@
-<p>pending-customers works!</p>
+<nb-card status="primary">
+  <nb-card-header>Pending Customers</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+
+      </div>
+
+      <div class="col-md-12">
+        <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+        <h6>Export As:</h6>
+        <nb-button-group status="info">
+          <button nbButton (click)="exportTable()">Excel</button>
+          <button nbButton (click)="generatePDF()">PDF</button>
+        </nb-button-group>
+        <br />
+        <div class="float-right">
+          <div class="form-group">
+
+            <input
+              type="text"
+              nbInput
+              [(ngModel)]="searchVal"
+              name="search"
+              placeholder="Search"
+              (keyup)="SearchFunction()"
+              id="searchbox"
+            />
+          </div>
+        </div>
+
+        <table
+          #pdfTable
+          class="row-border table table-sm mt-2 table-bordered hover"
+          id="ExampleTable"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('id')" scope="col">
+                Order# <i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Sr No.<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Order Date<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Sender Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Receiver Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Shipment Details<i class="fa fa-sort"></i>
+              </th>
+              <th (click)="sort('id')" scope="col">
+                Payments<i class="fa fa-sort"></i>
+              </th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="text-center"
+              scope="row"
+              *ngFor="
+                let item of shipperProfiles
+                  | orderBy: key:reverse
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              "
+            >
+              <td class="py-2 id">{{ item.SrNo }}</td>
+              <td class="py-2">{{ item.ShipperName }}</td>
+              <td class="py-2">{{ item.ShipperPhone }}</td>
+              <td class="py-2">{{ item.ShipperEmail }}</td>
+              <td class="py-2">{{ item.ShipperAddress }}</td>
+              <td class="py-2">{{ item.ShipperAddress }}</td>
+              <td class="py-2">
+                <a (click)="deleteBtn(item.ID)"
+                  ><nb-icon icon="eye-outline"></nb-icon
+                ></a>
+                <a (click)="editBtn(item)"
+                  ><nb-icon icon="car-outline"></nb-icon
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

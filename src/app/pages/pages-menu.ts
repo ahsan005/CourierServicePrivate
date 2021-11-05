@@ -69,11 +69,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Returned',
-        link: '/admin/forms/datepicker',
+        link: '/admin/requests/returned',
       },
       {
         title: 'Cancelled / Not Received',
-        link: '/admin/requests/returned',
+        link: '/admin/requests/cancelled',
       },
       {
         title: 'Pending Orders',
@@ -84,7 +84,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Pending Customers',
     icon: 'person-outline',
-    link: '/admin/ui-features',
+    link: '/admin/pnd-customers',
     // children: [
     //   {
     //     title: 'Grid',

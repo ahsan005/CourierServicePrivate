@@ -1,6 +1,6 @@
 import { NbButton, NbCardModule, NbInputModule, NbButtonModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from './../forms/forms.module';
+import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
