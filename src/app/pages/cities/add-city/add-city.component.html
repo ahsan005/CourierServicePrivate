@@ -1,1 +1,34 @@
-<p>add-city works!</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add New City</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Name: </label>
+          <input nbInput fullWidth type="text" name="" id="" />
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    nbButton
+    hero status="success"
+
+    (click)="modal.close('Save click')"
+  >
+    Add Courier
+  </button>
+</div>

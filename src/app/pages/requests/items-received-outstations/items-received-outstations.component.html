@@ -1,5 +1,5 @@
 <nb-card status="primary">
-  <nb-card-header>Items-received in Office</nb-card-header>
+  <nb-card-header>Item Received Outstation</nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-md-12">
@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <form action="">
           <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 mr-5">
               <div class="form-group">
                 <label for="">To</label>
                 <input
@@ -19,9 +19,9 @@
                 <nb-datepicker #startdatepicker></nb-datepicker>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 ml-5">
               <div class="form-group">
-                <label for="">To</label>
+                <label for="">From</label>
                 <input
                   nbInput
                   placeholder="Select End Date"
@@ -30,7 +30,7 @@
                 <nb-datepicker #enddatepicker></nb-datepicker>
               </div>
             </div>
-            <div class="col-md-2 ml-5">
+            <div class="col-md-2 offset-1">
               <div class="form-group">
                 <label>Select Pickup City</label>
                 <nb-select fullWidth placeholder="Select Pickup City">

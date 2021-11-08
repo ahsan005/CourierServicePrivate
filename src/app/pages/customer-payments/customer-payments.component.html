@@ -1,121 +1,120 @@
+<div class="row">
+  <div class="col-md-2 offset-10">
+    <button nbButton routerLink="/admin/customer-payments/add"status="primary">Add Payment</button>
+  </div>
+  <div class="col-md-12"></div>
 
-    <div class="row">
-      <div class="col-md-2 offset-10">
-        <button nbButton status="primary">Add Payment</button>
-      </div>
-      <div class="col-md-12">
-
-      </div>
-
-      <div class="col-md-12">
-        <!-- <button nbButton status="primary" hero (click)="exportTable()">
+  <div class="col-md-12">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
         Export
       </button> -->
-        <h6>Export As:</h6>
-        <nb-button-group status="info">
-          <button nbButton (click)="exportTable()">Excel</button>
-          <button nbButton (click)="generatePDF()">PDF</button>
-        </nb-button-group>
-        <br />
-        <div class="float-right">
-          <div class="form-group">
-
-            <input
-              type="text"
-              nbInput
-              [(ngModel)]="searchVal"
-              name="search"
-              placeholder="Search"
-              (keyup)="SearchFunction()"
-              id="searchbox"
-            />
-          </div>
-        </div>
-
-        <table
-          #pdfTable
-          class="row-border hover"
-          id="ExampleTable"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th (click)="sort('id')" scope="col">
-               Sr No. <i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Customer<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Payment ID<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Reference No.<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Payment Date<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Total Shipments<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Total Deliveries<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Total Returned<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Total COD Amount<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Delivery Charges<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Returned<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                GST (%)<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Total Payable<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Payment<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Balance<i class="fa fa-sort"></i>
-              </th>
-
-
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="text-center"
-              scope="row"
-              *ngFor="
-                let item of shipperProfiles
-                  | orderBy: key:reverse
-                  | paginate: { itemsPerPage: 10, currentPage: p }
-              "
-            >
-              <td class="py-2 id">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">
-                <a (click)="deleteBtn(item.ID)"
-                  ><nb-icon icon="eye-outline"></nb-icon
-                ></a>
-                <a (click)="editBtn(item)"
-                  ><nb-icon icon="car-outline"></nb-icon
-                ></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br />
+    <div class="float-right">
+      <div class="form-group">
+        <input
+          type="text"
+          nbInput
+          [(ngModel)]="searchVal"
+          name="search"
+          placeholder="Search"
+          (keyup)="SearchFunction()"
+          id="searchbox"
+        />
       </div>
     </div>
+  </div>
+  <div class="col-md-12">
+    <div style="overflow-x: auto">
+      <table
+        #pdfTable
+        class="table w-100 hover"
+        style="margin-right: 300px"
+        id="ExampleTable"
+      >
+        <thead class="thead-dark">
+          <tr>
+            <th (click)="sort('id')" scope="col">
+              Sr No. <i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Customer<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Payment ID<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Reference No.<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Payment Date<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Total Shipments<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Total Deliveries<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Total Returned<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Total COD Amount<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Delivery Charges<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Returned<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              GST (%)<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Total Payable<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Payment<i class="fa fa-sort"></i>
+            </th>
+            <th (click)="sort('id')" scope="col">
+              Balance<i class="fa fa-sort"></i>
+            </th>
+
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="text-center"
+            scope="row"
+            *ngFor="
+              let item of shipperProfiles
+                | orderBy: key:reverse
+                | paginate: { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td class="py-2 id">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">Rs.{{ item.SrNo }}</td>
+            <td class="py-2">
+              <a (click)="deleteBtn(item.ID)"
+                ><nb-icon icon="eye-outline"></nb-icon
+              ></a>
+              <a (click)="editBtn(item)"
+                ><nb-icon icon="car-outline"></nb-icon
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

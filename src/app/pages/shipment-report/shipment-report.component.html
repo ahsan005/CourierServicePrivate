@@ -1,1 +1,159 @@
-<p>shipment-report works!</p>
+
+<div class="row">
+  <div class="col-md-12">
+
+  </div>
+  <form action="">
+    <div class="row">
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Origin</label>
+          <nb-select fullWidth placeholder="Select Pickup City">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Destination</label>
+          <nb-select fullWidth placeholder="Select Delivery City">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Courier</label>
+          <nb-select fullWidth placeholder="Select Courier">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Status</label>
+          <nb-select fullWidth placeholder="Payment Status">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">From</label>
+          <input
+            nbInput
+            placeholder="Select Start Date"
+            [nbDatepicker]="datepicker"
+          />
+          <nb-datepicker #datepicker></nb-datepicker>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">To</label>
+          <input
+            nbInput
+            placeholder="Select End Date"
+            [nbDatepicker]="enddatepicker"
+          />
+          <nb-datepicker #enddatepicker></nb-datepicker>
+        </div>
+      </div>
+
+      <div class="col-md-2 offset-10">
+        <div class="form-group">
+          <input
+          nbButton
+          status="primary"
+            style="margin-top: 25px"
+            type="submit"
+            name="Submit"
+            value="Submit"
+
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+<div class="col-md-2 mt-3">
+  <button nbButton status="info">Generate Invoice</button>
+</div>
+<div class="col-md-2 offset-6">
+  <h6>Export As:</h6>
+  <nb-button-group status="info">
+    <button nbButton (click)="exportTable()">Excel</button>
+    <button nbButton (click)="generatePDF()">PDF</button>
+  </nb-button-group>
+  <br />
+</div>
+  <div class="col-md-12">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+
+
+    <table
+          #pdfTable
+          class="row-border table table-sm mt-2 table-bordered hover"
+          id="ExampleTable"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('id')" scope="col"><input type="checkbox"></th>
+              <th (click)="sort('id')" scope="col">Tracking No.<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Service Type<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Status<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Order Date<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Pickup Name<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Pickup Company<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Pickup Phone<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Pickup Address<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Delivery Name<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Delivery Phone<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Delivery Address<i class="fa fa-sort"></i></th>
+              <th (click)="sort('id')" scope="col">Pickup Address<i class="fa fa-sort"></i></th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr
+            class="text-center"
+            scope="row"
+            *ngFor="
+              let item of shipperProfiles | orderBy: key: reverse
+                | paginate: { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td class="py-2 id">{{ item.SrNo }}</td>
+            <td class="py-2">{{ item.ShipperName }}</td>
+            <td class="py-2">{{ item.ShipperPhone }}</td>
+            <td class="py-2">{{ item.ShipperEmail }}</td>
+            <td class="py-2">{{ item.ShipperAddress }}</td>
+            <td class="py-2">{{ item.ShipperAddress }}</td>
+                <td class="py-2">
+              <a (click)="deleteBtn(item.ID)"
+                ><nb-icon icon="close"></nb-icon
+              ></a>
+              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

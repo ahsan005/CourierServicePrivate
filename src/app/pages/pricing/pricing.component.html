@@ -1,1 +1,47 @@
-<p>pricing works!</p>
+<nb-card>
+  <nb-card-header>Pricing</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="OnSubmit()">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">City From</label>
+          <nb-select fullWidth placeholder="Select City">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="">City To</label>
+          <nb-select fullWidth placeholder="Select City">
+            <nb-option value="KRC">Karachi</nb-option>
+            <nb-option value="LHR">Lahore</nb-option>
+            <nb-option value="PSH">Peshawar</nb-option>
+            <nb-option value="QTA">Quetta</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-md-2 mr-2">
+        <div class="form-group">
+          <label for="">Price for 1st KG</label>
+          <input type="number" nbInput name="" id="">
+        </div>
+      </div>
+      <div class="col-md-2 ml-5">
+        <div class="form-group">
+          <label for="">Price per KG</label>
+          <input type="number" nbInput name="" id="">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <button type="submit" nbButton hero status="success" >Add </button>
+      </div>
+    </div>
+  </form>
+
+  </nb-card-body>
+</nb-card>

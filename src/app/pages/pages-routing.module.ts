@@ -36,6 +36,12 @@ const routes: Routes = [
       {
         path: "customer-payments",
         component: CustomerPaymentsComponent,
+        children:[
+          {
+            path:'add',
+            component:AddPaymentComponent
+          }
+        ]
       },
       {
         path: "order-report",

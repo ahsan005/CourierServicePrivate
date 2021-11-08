@@ -1,4 +1,5 @@
-import { ListCityComponent } from './list-city/list-city.component';
+import { AddCityComponent } from './add-city/add-city.component';
+import { CityListComponent } from './city-list/city-list.component';
 import { CitiesComponent } from './cities.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,13 +8,16 @@ const routes: Routes = [
   {
     path: "",
     component: CitiesComponent,
-    children: [
+    children:[
       {
-        path: "list",
-        component: ListCityComponent,
+        path:'list',
+        component:CityListComponent
       },
-
-    ],
+      {
+        path:'add',
+        component:AddCityComponent
+      }
+    ]
   },
 ];
 

@@ -1,3 +1,4 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCityComponent implements OnInit {
 
-  constructor() { }
+  constructor(public modal: NgbActiveModal) { }
 
   ngOnInit(): void {
   }
+  onSubmit() {
+    // this.editedStudent = new Student(this.studentEditForm.value)
+    // this.listService.UpdateStudent(this.editedStudent).subscribe((result)=>{
+      // console.log("result",result);
+      this.modal.close()
+      // this.listService.filter("Register click")
+    // })
+    // console.log(this.studentEditForm,this.editedStudent)
+  }
+
 
 }

@@ -212,7 +212,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Cities',
     icon: 'pin-outline',
-    link:'/admin/cities/list'
+    // link:'/admin/cities/list'
+    children:[
+      {
+        title:'Cities List',
+        link:'/admin/cities/list'
+      }
+    ]
   }
 
  ,

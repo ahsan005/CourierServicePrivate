@@ -1,7 +1,7 @@
 import { registerMap } from 'echarts';
 import { Router, NavigationEnd } from "@angular/router";
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
-import { ModalserviceService } from "../../../services/modalservice.service";
+
 
 
 @Component({
@@ -12,7 +12,7 @@ import { ModalserviceService } from "../../../services/modalservice.service";
 export class UcheaderComponent implements OnInit {
 
 
-  constructor(private router: Router,private modalService:ModalserviceService) {}
+  constructor(private router: Router) {}
 
 
 

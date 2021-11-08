@@ -1,1 +1,84 @@
-<p>list works!</p>
+<nb-card status="primary">
+  <nb-card-header>Couriers List</nb-card-header>
+  <nb-card-body>
+<div class="row">
+  <div class="col-md-2 offset-md-9 col-sm-2 offset-sm-8 col-xs-2">
+    <button nbButton (click)="AddBtn()" status="primary">Add New Courier</button>
+  </div>
+
+
+  <div class="col-md-12 mt-2">
+    <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+    <h6>Export As:</h6>
+    <nb-button-group status="info">
+      <button nbButton (click)="exportTable()">Excel</button>
+      <button nbButton (click)="generatePDF()">PDF</button>
+    </nb-button-group>
+    <br/>
+    <div class="float-right mt-2">
+      <div class="form-group">
+        <input
+          type="text"
+          nbInput
+          [(ngModel)]="searchVal"
+          name="search"
+          placeholder="Search"
+          (keyup)="SearchFunction()"
+          id="searchbox"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+  <table #pdfTable class=" w-100 table table-bordered hover" id="ExampleTable">
+    <thead class="thead-dark">
+      <tr>
+        <th (click)="sort('id')" scope="col">
+          Name <i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('id')" scope="col">
+          Username<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('id')" scope="col">
+          Email<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('id')" scope="col">
+          Phone No.<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('id')" scope="col">
+          Action<i class="fa fa-sort"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="text-center"
+        scope="row"
+        *ngFor="
+          let item of shipperProfiles
+            | orderBy: key:reverse
+            | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <td class="py-2 id">Rs.{{ item.SrNo }}</td>
+        <td class="py-2">Rs.{{ item.SrNo }}</td>
+        <td class="py-2">Rs.{{ item.SrNo }}</td>
+        <td class="py-2">Rs.{{ item.SrNo }}</td>
+
+
+        <td class="py-2">
+          <a (click)="deleteBtn(item.ID)"
+            ><nb-icon icon="eye-outline"></nb-icon
+          ></a>
+          <a (click)="editBtn(item)"><nb-icon icon="car-outline"></nb-icon></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+</nb-card-body>
+</nb-card>

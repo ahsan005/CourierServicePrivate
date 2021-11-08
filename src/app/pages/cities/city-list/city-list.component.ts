@@ -1,17 +1,30 @@
-import { TableUtil } from './../../utilities/tableutil';
+import { AddCityComponent } from './../add-city/add-city.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { TableUtil } from '../../../utilities/tableutil';
 
 @Component({
-  selector: 'ngx-order-report',
-  templateUrl: './order-report.component.html',
-  styleUrls: ['./order-report.component.scss']
+  selector: 'ngx-city-list',
+  templateUrl: './city-list.component.html',
+  styleUrls: ['./city-list.component.scss']
 })
-export class OrderReportComponent implements OnInit {
+export class CityListComponent implements OnInit {
 
+
+
+  searchVal:any;
   p:number=1;
-  constructor() { }
+  constructor(private modalService:NgbModal) { }
   onSubmit(){
 
+  }
+
+  AddBtn(){
+    const ref = this.modalService.open(AddCityComponent,{size:'tiny'});
+
+  }
+  SearchFunction(){
+    TableUtil.SearchFunction(this.searchVal)
   }
   exportTable(){
     TableUtil.exportToExcel('ExampleTable')
@@ -52,14 +65,15 @@ export class OrderReportComponent implements OnInit {
     },
 
   ];
+ // Sorting
+ key='id';
+ reverse:boolean;
+ sort(key){
+   this.key = key
+   this.reverse=!this.reverse
+ }
+ // Sorting
 
-   // Sorting
-   key='id';
-   reverse:boolean;
-   sort(key){
-     this.key = key
-     this.reverse=!this.reverse
-   }
-   // Sorting
+
 
 }

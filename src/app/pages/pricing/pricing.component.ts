@@ -12,4 +12,8 @@ export class PricingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  OnSubmit(){
+
+  }
+
 }
