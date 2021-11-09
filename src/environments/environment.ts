@@ -10,4 +10,7 @@
 
 export const environment = {
   production: false,
+  baseUrlLive: 'http://203.99.177.250:8087/',
+  baseUrlLocal: 'http://192.168.15.3:8087/',
+  baseUrlDebug: 'http://localhost:1771/',
 };

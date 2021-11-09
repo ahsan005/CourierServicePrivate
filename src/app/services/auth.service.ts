@@ -1,3 +1,5 @@
+import { Customer } from './../models/customer';
+import { environment } from './../../environments/environment';
 import { User } from "../models/user";
 
 import { Injectable } from "@angular/core";
@@ -10,45 +12,63 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class AuthService {
-  base_url = "https://localhost:44369/api";
+  base_url = environment.baseUrlDebug;
+  // base_url = environment.baseUrlLocal;
+  // base_url = environment.baseUrlLive;
   userpass;
   base64token;
   constructor(private http: HttpClient, private router: Router) {}
 
-  Login(loginUser: User) {
-    this.userpass = loginUser.UserName + ":" + loginUser.Password;
-    this.base64token = window.btoa(this.userpass);
+  // Login(loginUser: User) {
 
-    //API Header With Authorization
+
+  //   //API Header With Authorization
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       // Authorization: "Basic " + this.base64token,
+  //       Accept: "application/json",
+  //     }),
+  //   };
+
+  //   return this.http
+  //     .get(this.base_url + "api/CourierService/Login", httpOptions)
+  //     .subscribe(
+  //       (data) => {
+  //         // json data
+  //         console.log("Success: ", data);
+
+  //         localStorage.setItem("access_token", data.toString());
+  //         alert("Successfully Loggedin (JWT Token Received)");
+  //         this.router.navigate(["/user"]);
+  //       },
+  //       (error) => {
+  //         this.handleError(error);
+  //       }
+  //     );
+  // }
+
+
+  Login(user: User){
     const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: "Basic " + this.base64token,
-        Accept: "application/json",
-      }),
+      headers: new HttpHeaders({ 'Content-Type': ' application/json' }),
     };
-
-    return this.http
-      .get(this.base_url + "/Authentication", httpOptions)
-      .subscribe(
-        (data) => {
-          // json data
-          console.log("Success: ", data);
-
-          localStorage.setItem("access_token", data.toString());
-          alert("Successfully Loggedin (JWT Token Received)");
-          this.router.navigate(["/user"]);
-        },
-        (error) => {
-          this.handleError(error);
-        }
-      );
+    const body = JSON.stringify(user);
+    console.log(body);
+    return this.http.post<User>(
+      this.base_url + 'api/courierService/login',
+      body,
+      httpOptions
+    )
   }
+
+
+
   getToken(){
     return localStorage.getItem('access_token');
   }
     // Check if Logged IN
     isLoggedIn() {
-      return localStorage.getItem('access_token') != null;
+      return localStorage.getItem('Validate') != null;
     }
     // Check if Logged IN
 
@@ -74,8 +94,8 @@ export class AuthService {
     }
     // Handle Errors
 
-  // Add new User
-    AddUser(user: User) {
+  // Register Customer
+    Register(customer: Customer) {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -83,8 +103,11 @@ export class AuthService {
           responseType: 'text',
         }),
       };
-      const body = JSON.stringify(user);
+      const body = JSON.stringify(customer);
+      console.log(customer)
       console.log(body);
-      return this.http.post<User>(this.base_url + '/User', body, httpOptions);
+      return this.http.post<Customer>(this.base_url + 'api/CourierService/Register', body, httpOptions)
     }
+  // Register Customer
+
 }
