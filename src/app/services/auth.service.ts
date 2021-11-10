@@ -7,6 +7,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { Router } from "@angular/router";
+import { map, filter, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -54,12 +55,39 @@ export class AuthService {
     };
     const body = JSON.stringify(user);
     console.log(body);
-    return this.http.post<User>(
+    return this.http.post(
       this.base_url + 'api/courierService/login',
       body,
       httpOptions
-    )
+    ).subscribe(
+            (data) => {
+              // json data
+
+
+              //  = JSON.stringify(data)
+               var response= JSON.parse(JSON.stringify(data))
+              //  console.log(response.Status,response.Message)
+              console.log("Success: ", data);
+              if(response.Status){
+                alert("Successfully Loggedin");
+                sessionStorage.setItem("isLoggedIn",response.Status)
+              }
+              else{
+              alert('This wont work')
+              }
+
+
+
+              // this.router.navigate(["/user"]);
+            },
+            (error) => {
+              this.handleError(error);
+            }
+          );
   }
+
+
+
 
 
 
@@ -110,4 +138,4 @@ export class AuthService {
     }
   // Register Customer
 
-}
+  }

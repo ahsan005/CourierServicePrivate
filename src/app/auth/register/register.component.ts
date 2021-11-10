@@ -5,6 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { Customer } from "../../models/customer";
 import { MustMatch } from "../../_helpers/MustMatch-validator";
 import { NbAuthService } from "@nebular/auth";
+import { SharedService } from "../../services/shared.service";
 
 @Component({
   selector: "ngx-register",
@@ -47,7 +48,11 @@ export class RegisterComponent {
   // };
   // Get Value from City Dropdown
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private sharedService: SharedService
+  ) {}
 
   // NgBootstrapModal methods
   // Angular ReactiveForms FormBuilder

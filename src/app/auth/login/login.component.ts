@@ -22,9 +22,8 @@ private loginUser:User = new User();
 console.log(loginForm)
 this.loginUser= new User(loginForm.value)
 console.log(this.loginUser)
-   var response = this.service.Login(this.loginUser)
-    console.log(response)
-    response
+    this.service.Login(this.loginUser)
+
       // const redirect = '/user'
       // if (redirect) {
       //   setTimeout(() => {
