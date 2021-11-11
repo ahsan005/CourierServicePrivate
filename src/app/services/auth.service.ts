@@ -1,5 +1,5 @@
-import { Customer } from './../models/customer';
-import { environment } from './../../environments/environment';
+import { Customer } from "./../models/customer";
+import { environment } from "./../../environments/environment";
 import { User } from "../models/user";
 
 import { Injectable } from "@angular/core";
@@ -7,7 +7,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { Router } from "@angular/router";
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map, filter, switchMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -21,7 +21,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   // Login(loginUser: User) {
-
 
   //   //API Header With Authorization
   //   const httpOptions = {
@@ -48,94 +47,118 @@ export class AuthService {
   //     );
   // }
 
-
-  Login(user: User){
+  Login(user: User) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': ' application/json' }),
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     const body = JSON.stringify(user);
     console.log(body);
-    return this.http.post(
-      this.base_url + 'api/courierService/login',
-      body,
-      httpOptions
-    ).subscribe(
-            (data) => {
-              // json data
+    return this.http
+      .post(this.base_url + "api/courierService/login", body, httpOptions)
+      .subscribe(
+        (data) => {
+          // json data
 
+          //  = JSON.stringify(data)
+          var response = JSON.parse(JSON.stringify(data));
+          //  console.log(response.Status,response.Message)
+          console.log("Success: ", data);
+          if (response.Status) {
+            alert("Successfully Loggedin");
+            sessionStorage.setItem("isLoggedIn", response.Status);
+          } else {
+            alert("This wont work");
+          }
 
-              //  = JSON.stringify(data)
-               var response= JSON.parse(JSON.stringify(data))
-              //  console.log(response.Status,response.Message)
-              console.log("Success: ", data);
-              if(response.Status){
-                alert("Successfully Loggedin");
-                sessionStorage.setItem("isLoggedIn",response.Status)
-              }
-              else{
-              alert('This wont work')
-              }
-
-
-
-              // this.router.navigate(["/user"]);
-            },
-            (error) => {
-              this.handleError(error);
-            }
-          );
+          // this.router.navigate(["/user"]);
+        }
+        // (error) => {
+        //   this.handleError(error);
+        // }
+      );
   }
 
-
-
-
-
-
-  getToken(){
-    return localStorage.getItem('access_token');
+  getToken() {
+    return localStorage.getItem("access_token");
   }
-    // Check if Logged IN
-    isLoggedIn() {
-      return localStorage.getItem('Validate') != null;
-    }
-    // Check if Logged IN
+  // Check if Logged IN
+  isLoggedIn() {
+    return localStorage.getItem("Validate") != null;
+  }
+  // Check if Logged IN
 
   // Logout
-    // After clearing localStorage redirect to login screen
-    logout() {
-      localStorage.clear();
-      this.router.navigate(['/auth/login']);
-    }
-    // After clearing localStorage redirect to login screen
-
-    // Handle Errors
-    handleError(error: HttpErrorResponse) {
-      if (error.error instanceof ErrorEvent) {
-        console.error('An error occurred:', error.error.message);
-      } else {
-        console.error(
-          `Backend returned code ${error.status}, ` +
-          `body was: ${error.error}`);
-      }
-      return throwError(
-        'Something bad happened; please try again later.');
-    }
-    // Handle Errors
-
-  // Register Customer
-    Register(customer: Customer) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          responseType: 'text',
-        }),
-      };
-      const body = JSON.stringify(customer);
-      console.log(customer)
-      console.log(body);
-      return this.http.post<Customer>(this.base_url + 'api/CourierService/Register', body, httpOptions)
-    }
-  // Register Customer
-
+  // After clearing localStorage redirect to login screen
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/auth/login"]);
   }
+  // After clearing localStorage redirect to login screen
+
+  // Handle Errors
+  // handleError(error: HttpErrorResponse) {
+  //   if (error.error instanceof ErrorEvent) {
+  //     console.error('An error occurred:', error.error.message);
+  //   } else {
+  //     console.error(
+  //       `Backend returned code ${error.status}, ` +
+  //       `body was: ${error.error}`);
+  //   }
+  //   return throwError(
+  //     'Something bad happened; please try again later.');
+  // }
+  // // Handle Errors
+
+  errorString: string;
+  handleError(
+    Status: boolean,
+    Message: string,
+    error?: HttpErrorResponse
+  ): string {
+    if (Status == false && Message != "") {
+      console.error("An error occurred: ", Message);
+      (this.errorString = "An error occurred: "), Message;
+      console.log(this.errorString);
+    }
+    if (Status == false && Message == "")
+      return (this.errorString =
+        "Something bad happened; please try again later.");
+    console.log(this.errorString);
+  }
+
+  // Register Customer
+  Register(customer: Customer) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        responseType: "text",
+      }),
+    };
+    const body = JSON.stringify(customer);
+    console.log(customer);
+    console.log(body);
+    return this.http
+      .post<Customer>(
+        this.base_url + "api/CourierService/Register",
+        body,
+        httpOptions
+      )
+      .subscribe((data) => {
+        // json data
+
+        //  = JSON.stringify(data)
+        var response = JSON.parse(JSON.stringify(data));
+        //  console.log(response.Status,response.Message)
+        console.log("Status",response);
+        if (response.Status) {
+          alert("Successfully Registered");
+
+        } else {
+          alert("This wont work");
+        }
+      });
+  }
+}
+
+// Register Customer

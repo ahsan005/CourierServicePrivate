@@ -6,9 +6,10 @@ export class Customer{
   public BusinessName: string;
   public BankName: string;
   public AccountNumber: number;
-  public MobileNumber: number;
+  public MobileNo: string;
   public Email: string;
-  public City: string;
+  public CityId: number;
   public Cnic : string;
   public Password: string;
+ 
 }

@@ -69,13 +69,13 @@ export class RegisterComponent {
     return this.profileForm.get("AccountNumber");
   }
   get MobileNumber() {
-    return this.profileForm.get("MobileNumber");
+    return this.profileForm.get("MobileNo");
   }
   get Email() {
     return this.profileForm.get("Email");
   }
   get City() {
-    return this.profileForm.get("City");
+    return this.profileForm.get("CityId");
   }
   get Cnic() {
     return this.profileForm.get("Cnic");
@@ -92,9 +92,9 @@ export class RegisterComponent {
       BusinessName: ["", Validators.required],
       BankName: ["", Validators.required],
       AccountNumber: ["", Validators.required],
-      MobileNumber: ["", Validators.required],
+      MobileNo: ["", Validators.required],
       Email: ["", Validators.required],
-      City: ["", Validators.required, Validators.minLength(13)],
+      CityId: ["", Validators.required, Validators.minLength(13)],
       Cnic: ["", Validators.required],
       Password: ["", Validators.required, Validators.minLength(6)],
       ConfirmPassword: ["", Validators.required],
