@@ -72,11 +72,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'lock-outline',
     link: '/user/change-password',
     home: true,
-  },
-  {
-    title: 'Logout',
-    icon: 'power-outline',
-    link: '/user/dashboard',
-    home: true,
-  },
+  }
+
 ]

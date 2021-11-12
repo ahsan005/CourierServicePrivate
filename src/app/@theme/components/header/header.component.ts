@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import * as $ from 'jquery';
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -38,9 +40,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/home'])
+  }
 
-  constructor(private sidebarService: NbSidebarService,
+  // userMenu = [ { title: 'Profile', }, { title: 'Log out' } ];
+
+  constructor(private sidebarService: NbSidebarService,private router:Router,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
@@ -69,6 +76,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+      // function logout(){
+      //   localStorage.clear();
+      //   window.location.href='/';
+      // }
+      // $("a[Title='Logout']").click(function(){
+      //  logout();
+      //  console.log("hello")
+      // })
   }
 
   ngOnDestroy() {
@@ -91,4 +106,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
+
 }

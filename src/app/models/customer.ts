@@ -2,6 +2,7 @@ export class Customer{
   public constructor(init?: Partial<Customer>) {
     Object.assign(this, init);
 }
+
   public CustomerName: string;
   public BusinessName: string;
   public BankName: string;
@@ -11,5 +12,5 @@ export class Customer{
   public CityId: number;
   public Cnic : string;
   public Password: string;
- 
+
 }

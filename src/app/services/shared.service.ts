@@ -1,5 +1,6 @@
 import { throwError } from "rxjs";
 import { environment } from "./../../environments/environment";
+import { map } from 'rxjs/operators';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -38,18 +39,18 @@ export class SharedService {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http
-      .post(
-        this.base_url + "api/courierService/login",
+      .get(
+        this.base_url + "api/courierService/GetAllCities",
 
         httpOptions
       )
-      .subscribe((data) => {
-        var response = JSON.parse(JSON.stringify(data));
-        if (response.Status) {
-          console.log(response.Data);
-        } else {
-          this.handleError(response.Status, response.Message);
-        }
-      });
+      // .subscribe((data) => {
+      //   var response = JSON.parse(JSON.stringify(data));
+      //   if (response.Status) {
+      //     console.log(response.Data);
+      //   } else {
+      //     this.handleError(response.Status, response.Message);
+      //   }
+      // });
   }
 }

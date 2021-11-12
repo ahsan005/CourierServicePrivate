@@ -26,14 +26,14 @@ export const routes: Routes = [
     path: "admin",
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
-      // canActivate:[AuthGuard],
+      canActivate:[AuthGuard],
 
   },
   {
     path: "user",
     loadChildren: () =>
       import("./userarea/userarea.module").then((m) => m.UserareaModule),
-      // canActivate:[AuthGuard],
+      canActivate:[AuthGuard],
 
   },
   {

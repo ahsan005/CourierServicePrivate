@@ -12,7 +12,7 @@ import { SharedService } from "../../services/shared.service";
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   /// Cities Array 'Lahore', 'Islamabad', 'Karachi','Bhawalpur','Peshawar'
   private newCustomer: Customer = new Customer();
   selectedCity: string = "";
@@ -28,15 +28,28 @@ export class RegisterComponent {
   //     {id: 0, name: "name1"},
   //     {id: 1, name: "name2"}
   // ];
-  cities: Array<Object> = [
-    { id: "1", name: "lahore" },
-    { id: "2", name: "Islamabad" },
-    { id: "3", name: "Peshawar" },
-    { id: "4", name: "Karachi" },
-    { id: "5", name: "Bhawalpur" },
-    { id: "6", name: "Quetta" },
-    { id: "7", name: "Faisalabad" },
-  ];
+  // cities: Array<Object> = [
+  //   { id: "1", name: "lahore" },
+  //   { id: "2", name: "Islamabad" },
+  //   { id: "3", name: "Peshawar" },
+  //   { id: "4", name: "Karachi" },
+  //   { id: "5", name: "Bhawalpur" },
+  //   { id: "6", name: "Quetta" },
+  //   { id: "7", name: "Faisalabad" },
+  // ];
+  cities: any;
+  ngOnInit(): void {
+    this.initialize();
+    console.log(this.cities);
+  }
+
+  initialize(){
+    this.sharedService.GetAllCities().subscribe((result) => {
+      var response = JSON.parse(JSON.stringify(result));
+      console.log(response);
+      this.cities = response.Data
+    });
+  }
 
   // selected(){
   //   alert(this.selectedLevel.name)
@@ -108,8 +121,19 @@ export class RegisterComponent {
     console.log(this.profileForm);
     this.customer = new Customer(this.profileForm.value);
     console.log(this.customer);
-    var response = this.authService.Register(this.customer);
-    console.log(response);
+    this.authService.Register(this.customer).subscribe((data) => {
+      // json data
+
+      //  = JSON.stringify(data)
+      var response = JSON.parse(JSON.stringify(data));
+      //  console.log(response.Status,response.Message)
+      console.log("Status", response);
+      if (response.Status) {
+        alert("Successfully Registered");
+      } else {
+        alert("This wont work");
+      }
+    });
 
     // const redirect = '/user'
     // if (redirect) {
@@ -119,6 +143,7 @@ export class RegisterComponent {
     // }
     // this.cd.detectChanges();
   }
+  //
 
   // FileUpload Stuff
 }

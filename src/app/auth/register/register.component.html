@@ -152,8 +152,8 @@
           formControlName="CityId"
         >
           <option value="" disabled selected hidden>Select City</option>
-          <option [value]="item.id" *ngFor="let item of cities">
-            {{ item.name }}
+          <option [value]="item.Value" *ngFor="let item of cities">
+            {{ item.Text }}
           </option>
         </select>
         <div
@@ -190,7 +190,7 @@
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="Password">Passwordword:</label>
+        <label class="label label-info" for="Password">Password:</label>
         <input
           type="Password"
           name=""

@@ -65,12 +65,14 @@ export class AuthService {
           console.log("Success: ", data);
           if (response.Status) {
             alert("Successfully Loggedin");
-            sessionStorage.setItem("isLoggedIn", response.Status);
+            localStorage.setItem("isLoggedIn", response.Status);
+            this.router.navigate(["/user"]);
+
           } else {
             alert("This wont work");
           }
 
-          // this.router.navigate(["/user"]);
+
         }
         // (error) => {
         //   this.handleError(error);
@@ -78,12 +80,16 @@ export class AuthService {
       );
   }
 
-  getToken() {
-    return localStorage.getItem("access_token");
-  }
+  // getToken() {
+  //   return localStorage.getItem("access_token");
+  // }
   // Check if Logged IN
   isLoggedIn() {
-    return localStorage.getItem("Validate") != null;
+    if(localStorage.getItem("isLoggedIn") != null)
+
+    return true;
+    else
+    false;
   }
   // Check if Logged IN
 
@@ -144,20 +150,7 @@ export class AuthService {
         body,
         httpOptions
       )
-      .subscribe((data) => {
-        // json data
 
-        //  = JSON.stringify(data)
-        var response = JSON.parse(JSON.stringify(data));
-        //  console.log(response.Status,response.Message)
-        console.log("Status",response);
-        if (response.Status) {
-          alert("Successfully Registered");
-
-        } else {
-          alert("This wont work");
-        }
-      });
   }
 }
 
