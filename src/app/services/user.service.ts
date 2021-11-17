@@ -1,17 +1,13 @@
-import { throwError } from "rxjs";
-import { environment } from "./../../environments/environment";
-import { map } from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { OrderBookingForm } from './../models/order-booking-form';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
-export class SharedService {
+export class UserService {
   base_url = environment.baseUrlDebug;
   // base_url = environment.baseUrlLive;
   // base_url = environment.baseUrlLocal;
@@ -33,25 +29,14 @@ export class SharedService {
         "Something bad happened; please try again later.");
     console.log(this.errorString);
   }
-  
 
-  GetAllCities() {
+  OrderBooking(orderBooking: OrderBookingForm) {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
+    const body = JSON.stringify(orderBooking);
+    console.log(body);
     return this.http
-      .get(
-        this.base_url + "api/courierService/GetAllCities",
-
-        httpOptions
-      )
-      // .subscribe((data) => {
-      //   var response = JSON.parse(JSON.stringify(data));
-      //   if (response.Status) {
-      //     console.log(response.Data);
-      //   } else {
-      //     this.handleError(response.Status, response.Message);
-      //   }
-      // });
+      .post(this.base_url + "api/courierService/OrderBooking", body, httpOptions)
   }
 }
