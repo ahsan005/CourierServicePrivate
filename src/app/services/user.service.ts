@@ -1,11 +1,11 @@
-import { OrderBookingForm } from './../models/order-booking-form';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { OrderBookingForm } from "./../models/order-booking-form";
+import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { environment } from "./../../environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UserService {
   base_url = environment.baseUrlDebug;
@@ -36,7 +36,19 @@ export class UserService {
     };
     const body = JSON.stringify(orderBooking);
     console.log(body);
-    return this.http
-      .post(this.base_url + "api/courierService/OrderBooking", body, httpOptions)
+    return this.http.post(
+      this.base_url + "api/courierService/OrderBooking",
+      body,
+      httpOptions
+    );
+  }
+  GetOrderBookings() {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get(
+      this.base_url + "api/CourierService/GetOrders",
+      httpOptions
+    );
   }
 }

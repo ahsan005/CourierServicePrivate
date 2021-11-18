@@ -101,113 +101,51 @@
           <th scope="col">Order#</th>
           <th scope="col">Order Date</th>
           <th scope="col">Shipment Details</th>
-          <th scope="col">Receiver Details</th>
+          <th scope="col">Consignee Details</th>
+          <th scope="col">Shipper Info</th>
           <th scope="col">Payments</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <!-- *ngFor="let item of list" -->
-      <tr class="text-center" scope="row">
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
+      <tr class="text-center" *ngFor="let item of list" scope="row">
+        <td class="tiny-details">{{item.OrderBookingId}}</td>
+        <td class="tiny-details">{{item.OrderBookingId}}</td>
+        <td class="tiny-details">{{item.OrderBookingOn}}</td>
+        <td class="tiny-details"> <strong>Product Code:</strong> {{item.ProductCode}} <br>
+         <strong>Product Description:</strong> {{item.ProductDescription}} <br>
+
+         <strong>Quantity:</strong> {{item.Quantity}} <br>
+         <strong>Weight:</strong> {{item.WeightProfileId}}<br>
+         <strong>CODAmount:</strong> {{item.CODAmount}}<br>
+         <strong>Delivery Fee:</strong> {{item.DeliveryFee}}<br>
+
+
+        </td>
+        <td class="tiny-details" >
+          <strong> Name:</strong> {{item.ConsigneeName}}<br>
+          <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
+          <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
+          <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
+          <strong>City:</strong> {{item.DestinationCityId}}<br>
+
+        </td>
+        <td class="tiny-details">
+          <strong>Name:</strong>{{item.ShipperName}}
+          <strong> Mobile:</strong>{{item.ShipperMobile}}
+          <strong>Email:</strong>{{item.ShipperEmail}}
+          <strong>Address:</strong>{{item.ShipperAddress}}
+        </td>
+
+        <td class="tiny-details">
+          <strong>CODAmount:</strong>{{item.CODAmount}}
+          <strong>Delivery Fee:</strong>{{item.DeliveryFee}}
+        </td>
+        <td class="tiny-details">
+          <strong>{{item.ReceivedStatus}}</strong>
+        </td>
+
     </table>
   </div>
 </div>

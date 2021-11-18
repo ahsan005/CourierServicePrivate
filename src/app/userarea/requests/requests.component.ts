@@ -1,6 +1,5 @@
 import { TableUtil } from "./../../utilities/tableutil";
-import { Component, OnInit, ViewChild, ElementRef } from
-"@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -8,6 +7,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import jsPDF from "jspdf";
 import htmlToPdfmake from "html-to-pdfmake";
 import html2canvas from "html2canvas";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: "ngx-requests",
@@ -16,9 +16,9 @@ import html2canvas from "html2canvas";
 })
 export class RequestsComponent implements OnInit {
   @ViewChild("pdfTable") pdfTable: ElementRef;
-onSubmit(){
-  console.log(this.requestFilters);
-}
+  onSubmit() {
+    console.log(this.requestFilters);
+  }
   public downloadAsPDF() {
     const doc = new jsPDF();
 
@@ -41,19 +41,30 @@ onSubmit(){
     //   pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
     //   pdf.save("newPDF.pdf");
     // });
-    TableUtil.generatePDF("ExampleTable")
+    TableUtil.generatePDF("ExampleTable");
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.GetOrderBookingRequests()
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.GetOrderBookingRequests()
+  }
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");
   }
-  requestFilters=this.fb.group({
+  requestFilters = this.fb.group({
     selectDestination: [""],
     selectStatus: [""],
     fromDate: [""],
-    toDate: [""]
-  })
-
+    toDate: [""],
+  });
+  list: any;
+  GetOrderBookingRequests() {
+    this.userService.GetOrderBookings().subscribe((result) => {
+      console.warn("result", result);
+      var response = JSON.parse(JSON.stringify(result));
+      this.list = response.Data;
+    });
+  }
 }
