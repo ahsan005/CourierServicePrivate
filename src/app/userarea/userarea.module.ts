@@ -1,3 +1,4 @@
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -60,7 +61,8 @@ import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile
     NbInputModule,
     ReactiveFormsModule,
     NbButtonGroupModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NbDateFnsDateModule
 
   ]
 })

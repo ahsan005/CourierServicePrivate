@@ -6,24 +6,30 @@
         <div class="col-sm-2">
           <div class="form-group">
             <label >Select Destination</label>
-            <nb-select fullWidth placeholder="Select City"
-            formControlName="selectDestination">
-              <nb-option value="KRC">Karachi</nb-option>
-              <nb-option value="LHR">Lahore</nb-option>
-              <nb-option value="PSH">Peshawar</nb-option>
-              <nb-option value="QTA">Quetta</nb-option>
-            </nb-select>
+            <nb-select
+            fullWidth
+            name="my-select"
+            placeholder="Destination"
+            formControlName="DestinationCityId"
+          >
+            <!-- <nb-option value="" disabled selected hidden>Select City</
+            nb-option> -->
+            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+              {{ item.Text }}
+            </nb-option>
+          </nb-select>
           </div>
         </div>
         <div class="col-sm-2">
           <div class="form-group">
             <label>Select Status</label>
             <nb-select fullWidth placeholder="Select Status"
-            formControlName="selectStatus">
+            formControlName="status">
               <nb-option value="COMP">Completed</nb-option>
+              <nb-option value="PEND">Pending</nb-option>
               <nb-option value="PROC">Processing</nb-option>
               <nb-option value="TRAN">In-transit</nb-option>
-              <nb-option value="DLV">Delivering</nb-option>
+              <nb-option value="DLV">Delivered</nb-option>
             </nb-select>
           </div>
         </div>
@@ -36,7 +42,7 @@
               [nbDatepicker]="datepicker"
               formControlName="fromDate"
             />
-            <nb-datepicker #datepicker></nb-datepicker>
+            <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
@@ -49,7 +55,7 @@
               formControlName="toDate"
 
             />
-            <nb-datepicker #datepickerending></nb-datepicker>
+            <nb-datepicker format="MM.dd.yyyy" #datepickerending></nb-datepicker>
           </div>
         </div>
       </div>

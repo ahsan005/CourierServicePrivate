@@ -1,9 +1,11 @@
+
 import { OrderBookingForm } from "./../models/order-booking-form";
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { environment } from "./../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
+import { Filters } from "../models/filters";
+import { HttpParams } from "@angular/common/http";
 @Injectable({
   providedIn: "root",
 })
@@ -42,7 +44,7 @@ export class UserService {
       httpOptions
     );
   }
-  GetOrderBookings() {
+  GetOrders() {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -51,4 +53,36 @@ export class UserService {
       httpOptions
     );
   }
+  // GetOrdersFiltered(filters:Filters) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ "Content-Type": " application/json" }),
+  //   };
+  //   // const opts = { params: new HttpParams({fromString: "_page=1&_limit=10"}) };
+  //   const body = JSON.stringify(filters) ;
+
+  //   console.log(body);
+  //   return  this.http.get('/api/CourierService/GetFiltered/', {
+  //     params: {
+  //       destinationCityId: filters.selectDestination,
+  //       status: filters.selectStatus,
+  //       fromDate: filters.fromDate.toISOString(),
+  //       toDate: filters.toDate.toISOString()
+  //     },
+  //     // observe: 'response'
+  //   })
+  // }
+
+  GetOrdersFiltered(filters:Filters) {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(filters) ;
+
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/CourierService/GetFiltered",body,
+      httpOptions
+    );
+  }
+
 }
