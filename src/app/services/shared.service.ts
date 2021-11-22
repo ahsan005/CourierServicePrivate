@@ -1,4 +1,5 @@
-import { throwError } from "rxjs";
+import { CitiesLOV } from './../models/citiesLOV';
+import { Observable, throwError } from "rxjs";
 import { environment } from "./../../environments/environment";
 import { map } from 'rxjs/operators';
 import {
@@ -33,14 +34,14 @@ export class SharedService {
         "Something bad happened; please try again later.");
     console.log(this.errorString);
   }
-  
 
-  GetAllCities() {
+
+  GetAllCities():Observable<CitiesLOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http
-      .get(
+      .get<CitiesLOV[]>(
         this.base_url + "api/courierService/GetAllCities",
 
         httpOptions

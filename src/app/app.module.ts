@@ -41,6 +41,7 @@ import { TermsComponent } from "./user/terms/terms.component";
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NbDateFnsDateModule} from '@nebular/date-fns'
+import { CityPipe } from './_helpers/CityPipe';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {NbDateFnsDateModule} from '@nebular/date-fns'
     PrivacyComponent,
     TermsComponent,
     HomeComponent,
+    CityPipe
 
   ],
   imports: [

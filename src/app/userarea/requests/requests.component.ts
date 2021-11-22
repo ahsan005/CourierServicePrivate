@@ -1,3 +1,4 @@
+import { OrderBookingForm } from './../../models/order-booking-form';
 import { SharedService } from './../../services/shared.service';
 import { TableUtil } from "./../../utilities/tableutil";
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
@@ -10,6 +11,8 @@ import htmlToPdfmake from "html-to-pdfmake";
 import html2canvas from "html2canvas";
 import { UserService } from "../../services/user.service";
 import { Filters } from '../../models/filters';
+import { CitiesLOV } from '../../models/citiesLOV';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -20,12 +23,11 @@ import { Filters } from '../../models/filters';
 export class RequestsComponent implements OnInit {
   @ViewChild("pdfTable") pdfTable: ElementRef;
   requestsFilter:Filters
-
+  Orders = new Array<OrderBookingForm>();
+  CitiesLOV = new Array<CitiesLOV>();
   onSubmit() {
     console.log(this.requestFilters);
     this.requestsFilter = new Filters(this.requestFilters.value);
-
-
 
     console.log(this.requestsFilter);
     this.userService.GetOrdersFiltered(this.requestsFilter).subscribe((data) => {
@@ -34,11 +36,14 @@ export class RequestsComponent implements OnInit {
       //  = JSON.stringify(data)
       var response = JSON.parse(JSON.stringify(data));
        console.log(response)
+       this.Orders = response.Data
+
+       console.log("Hello Observable",this.Orders)
   //     console.log("Status", response);
       if (response.Status) {
-        alert(response.Message);
-      } else {
         console.log(response.Message);
+      } else {
+        console.warn(response.Message);
       }
     });
 
@@ -69,14 +74,15 @@ export class RequestsComponent implements OnInit {
     TableUtil.generatePDF("ExampleTable");
   }
   constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService) {
-    this.GetOrderBookingRequests();
+
     this.initialize();
 
   }
 
   ngOnInit(): void {
-    this.GetOrderBookingRequests()
+
     this.initialize()
+    $()
   }
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");
@@ -88,21 +94,25 @@ export class RequestsComponent implements OnInit {
     toDate: [""],
   });
   list: any;
-  GetOrderBookingRequests() {
-    this.userService.GetOrders().subscribe((result) => {
-      console.warn("result", result);
-      var response = JSON.parse(JSON.stringify(result));
-      this.list = response.Data;
-    });
-  }
-  citiesLOV:any;
+  // GetOrderBookingRequests() {
+  //   });
+
+
   initialize() {
     this.sharedService.GetAllCities().subscribe((result) => {
       var response = JSON.parse(JSON.stringify(result));
       console.log(response);
 
-      this.citiesLOV = response.Data;
+      this.CitiesLOV = response.Data;
     });
+
+    this.userService.GetOrders().subscribe((result) => {
+      console.warn("result", result);
+      var response = JSON.parse(JSON.stringify(result));
+
+        this.Orders = response.Data
+    })
+
   }
 
 }

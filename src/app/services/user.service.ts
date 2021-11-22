@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 
 import { OrderBookingForm } from "./../models/order-booking-form";
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
@@ -44,11 +45,11 @@ export class UserService {
       httpOptions
     );
   }
-  GetOrders() {
+  GetOrders():Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http.get(
+    return this.http.get<OrderBookingForm[]>(
       this.base_url + "api/CourierService/GetOrders",
       httpOptions
     );
@@ -72,15 +73,15 @@ export class UserService {
   //   })
   // }
 
-  GetOrdersFiltered(filters:Filters) {
+  GetOrdersFiltered(filters:Filters):Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     const body = JSON.stringify(filters) ;
 
     console.log(body);
-    return this.http.post(
-      this.base_url + "api/CourierService/GetFiltered",body,
+    return this.http.post<OrderBookingForm[]>(
+      this.base_url + "api/CourierService/GetOrders",body,
       httpOptions
     );
   }

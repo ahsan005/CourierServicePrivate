@@ -25,6 +25,7 @@ export class OrderBookingForm {
   public OrderBookingNo: number;
   public OrderBookingOn: Date;
   public DestinationCityId: string;
+  public DestinationCityName: string;
   public ConsigneeName: string;
   public ConsigneeMobile: string;
   public ConsigneeAddress: string;

@@ -10,11 +10,11 @@
             fullWidth
             name="my-select"
             placeholder="Destination"
-            formControlName="DestinationCityId"
+            formControlName="destinationCityId"
           >
             <!-- <nb-option value="" disabled selected hidden>Select City</
             nb-option> -->
-            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+            <nb-option [value]="item.Value" *ngFor="let item of CitiesLOV">
               {{ item.Text }}
             </nb-option>
           </nb-select>
@@ -115,7 +115,7 @@
         </tr>
       </thead>
       <!-- *ngFor="let item of list" -->
-      <tr class="text-center" *ngFor="let item of list" scope="row">
+      <tr class="text-center" *ngFor="let item of Orders" scope="row">
         <td class="tiny-details">{{item.OrderBookingId}}</td>
         <td class="tiny-details">{{item.OrderBookingId}}</td>
         <td class="tiny-details">{{item.OrderBookingOn}}</td>
@@ -134,7 +134,8 @@
           <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
           <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
           <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
-          <strong>City:</strong> {{item.DestinationCityId}}<br>
+          <strong>City:</strong> {{item.DestinationCityId}} <br>
+
 
         </td>
         <td class="tiny-details">
