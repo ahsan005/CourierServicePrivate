@@ -1,8 +1,8 @@
-
-import { jsPDF } from 'jspdf';
+import { OrderBookingForm } from './../models/order-booking-form';
+import { jsPDF } from "jspdf";
 import * as XLSX from "xlsx";
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import html2canvas from "html2canvas";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -13,55 +13,73 @@ export class TableUtil {
     let prefix = name || "ExportResult";
     let fileName = `${prefix}-${timeSpan}`;
     let targetTableElm = document.getElementById(tableId);
-    let wb = XLSX.utils.table_to_book(targetTableElm, <XLSX.Table2SheetOpts>{ sheet: prefix });
+    let wb = XLSX.utils.table_to_book(targetTableElm, <XLSX.Table2SheetOpts>{
+      sheet: prefix,
+    });
     XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
-  static generatePDF(TableId:string,name?:string) {
+  static generatePDF(TableId: string, name?: string) {
     var data = document.getElementById("ExampleTable");
     html2canvas(data).then((canvas) => {
       var imgWidth = 208;
       var imgHeight = (canvas.height * imgWidth) / canvas.width;
       const contentDataURL = canvas.toDataURL("image/png");
       let timeSpan = new Date().toISOString();
-    let prefix = name || "ExportResult";
-    let fileName = `${prefix}-${timeSpan}`;
+      let prefix = name || "ExportResult";
+      let fileName = `${prefix}-${timeSpan}`;
       let pdf = new jsPDF("p", "mm", "a4");
       var position = 0;
       pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
-      pdf.save(fileName+'.pdf');
+      pdf.save(fileName + ".pdf");
     });
   }
 
-  static generatePdfV2(html:any){
+  static generatePdfV2(OrderBooking:OrderBookingForm[]) {
     // const documentDefinition = { content: html };
-    console.log(html);
+    console.log(OrderBooking);
     var docDefinition = {
       content: [
         {
-          layout: 'lightHorizontalLines', // optional
+          layout: "lightHorizontalLines", // optional
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: [ '*', 'auto', 100, '*','*','*','*','*' ],
+            widths: ["*", "auto", 100, "*", "*", "*", "*", "*"],
 
             body: [
-              [ 'Sr No.', 'Order No.', 'Order Date', 'Shipment Details','Receiver Details','Payments','Status','Action' ],
-              [ 'Value 1', 'Value 2', 'Value 3', 'Value 4','Value 5 ','Value 6', 'Value 7','Value 8']
-
-
-            ]
-          }
-        }
-      ]
+              [
+                "Sr No.",
+                "Order No.",
+                "Order Date",
+                "Shipment Details",
+                "Receiver Details",
+                "Payments",
+                "Status",
+                "Action",
+              ],
+              [
+                "Value 1",
+                "Value 2",
+                "Value 3",
+                "Value 4",
+                "Value 5 ",
+                "Value 6",
+                "Value 7",
+                "Value 8",
+              ],
+            ],
+          },
+        },
+      ],
     };
     pdfMake.createPdf(docDefinition).open();
-   }
+  }
 
   //  SearchTable
-  static SearchFunction(searchVal:any){
+  static SearchFunction(searchVal: any) {
     // Declare variables
-    var input, filter, table, tr, td, i,j;
+    var input, filter, table, tr, td, i, j;
     // input = document.getElementById("search_field_input");
     // filter = input.value.toUpperCase();
     filter = searchVal.toLowerCase();
@@ -72,13 +90,12 @@ export class TableUtil {
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td");
 
-      for(j=0 ; j<td.length ; j++)
-      {
+      for (j = 0; j < td.length; j++) {
         let tdata = td[j];
         if (tdata) {
           if (tdata.innerHTML.toLowerCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
-            break ;
+            break;
           } else {
             tr[i].style.display = "none";
           }
@@ -87,7 +104,4 @@ export class TableUtil {
     }
   }
   //  SearchTable
-
- 
-
 }

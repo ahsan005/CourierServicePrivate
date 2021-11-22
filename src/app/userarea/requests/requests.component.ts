@@ -25,10 +25,11 @@ export class RequestsComponent implements OnInit {
   requestsFilter:Filters
   Orders = new Array<OrderBookingForm>();
   CitiesLOV = new Array<CitiesLOV>();
+  serial:number = 0;
   onSubmit() {
     console.log(this.requestFilters);
     this.requestsFilter = new Filters(this.requestFilters.value);
-
+    this.serial = 0;
     console.log(this.requestsFilter);
     this.userService.GetOrdersFiltered(this.requestsFilter).subscribe((data) => {
 
@@ -74,7 +75,7 @@ export class RequestsComponent implements OnInit {
     TableUtil.generatePDF("ExampleTable");
   }
   constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService) {
-
+    this.serial = 0;
     this.initialize();
 
   }
@@ -82,7 +83,7 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
 
     this.initialize()
-    $()
+
   }
   exportTable() {
     TableUtil.exportToExcel("ExampleTable");

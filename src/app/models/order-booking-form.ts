@@ -12,6 +12,7 @@ export class OrderBookingForm {
   public CreatedOn: Date;
   public LocationId: number;
   public OriginCityId: number;
+  public OriginCityName: number;
   public PartyLocationId: number;
   public UserLogId: number;
 
@@ -24,8 +25,9 @@ export class OrderBookingForm {
   // Consignee Info
   public OrderBookingNo: number;
   public OrderBookingOn: Date;
-  public DestinationCityId: string;
+  public DestinationCityId: number;
   public DestinationCityName: string;
+  public CityName: string;
   public ConsigneeName: string;
   public ConsigneeMobile: string;
   public ConsigneeAddress: string;
