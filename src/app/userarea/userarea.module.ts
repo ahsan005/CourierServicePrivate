@@ -24,6 +24,7 @@ import { MultipleProfilesComponent } from './multiple-profiles/multiple-profiles
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditComponent } from './multiple-profiles/edit/edit.component';
 import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile.component';
+import { EditRequestComponent } from './requests/popup/edit-request/edit-request.component';
 // import { ThemeModule } from '../@theme/theme.module';
 
 
@@ -45,6 +46,7 @@ import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile
     ChangePasswordComponent,
     EditComponent,
     AddProfileComponent,
+    EditRequestComponent,
   ],
   imports: [
     CommonModule,

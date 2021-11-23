@@ -1,7 +1,9 @@
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderBookingForm } from './../../models/order-booking-form';
 import { SharedService } from './../../services/shared.service';
 import { TableUtil } from "./../../utilities/tableutil";
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Input,Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -13,6 +15,7 @@ import { UserService } from "../../services/user.service";
 import { Filters } from '../../models/filters';
 import { CitiesLOV } from '../../models/citiesLOV';
 import * as $ from 'jquery';
+import { EditRequestComponent } from './popup/edit-request/edit-request.component';
 
 
 @Component({
@@ -22,6 +25,8 @@ import * as $ from 'jquery';
 })
 export class RequestsComponent implements OnInit {
   @ViewChild("pdfTable") pdfTable: ElementRef;
+  @Input() public orderBooking:OrderBookingForm
+@Input() public citiesLOVForEditForm:any
   requestsFilter:Filters
   Orders = new Array<OrderBookingForm>();
   CitiesLOV = new Array<CitiesLOV>();
@@ -74,7 +79,7 @@ export class RequestsComponent implements OnInit {
     // });
     TableUtil.generatePDF("ExampleTable");
   }
-  constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService,private modalService: NgbModal) {
     this.serial = 0;
     this.initialize();
 
@@ -115,5 +120,22 @@ export class RequestsComponent implements OnInit {
     })
 
   }
+
+  editBtn(item?:OrderBookingForm){
+    const ref = this.modalService.open(EditRequestComponent,{size:'xl'});
+    this.orderBooking = item
+     this.citiesLOVForEditForm = this.CitiesLOV
+    console.log(this.citiesLOVForEditForm)
+     ref.componentInstance.orderBookingModel = this.orderBooking;
+     ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
+
+     ref.result.then((yes)=>{
+       console.log("ok Click")
+     },
+     (cancel)=>{
+       console.log("cancel CLick")
+     })
+   }
+
 
 }

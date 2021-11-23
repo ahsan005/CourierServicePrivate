@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class FileuploadService {
 
 
   constructor(private http: HttpClient) { }
-
-  url = 'http://localhost:63376/Api/Excel';
+  base_url=environment.baseUrlDebug;
+  url = this.base_url + '/Api/CourierService/OrderBookingBulk';
 
   UploadExcel(formData: FormData) {
     let headers = new HttpHeaders();
@@ -21,6 +22,6 @@ export class FileuploadService {
 
     const httpOptions = { headers: headers };
 
-    return this.http.post(this.url + '/UploadExcel', formData, httpOptions)
+    return this.http.post(this.url , formData, httpOptions)
   }
 }

@@ -1,3 +1,4 @@
+
 import { AuthModule } from './auth/auth.module';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HomeComponent } from "./user/home/home.component";
@@ -84,7 +85,8 @@ import {NbDateFnsDateModule} from '@nebular/date-fns'
     NgxPaginationModule,
     DataTablesModule,
     Ng2OrderModule,
-    NbDateFnsDateModule
+    NbDateFnsDateModule,
+
 
   ],
   providers: [],

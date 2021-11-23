@@ -1,0 +1,551 @@
+<div
+  class="alert alert-danger"
+  *ngIf="editOrder.invalid && (editOrder.dirty || editOrder.touched)"
+>
+  <h6>
+    Fields with <strong>*</strong> Next to them are required Please fill out all
+    the required fields Adequately
+  </h6>
+</div>
+<form [formGroup]="editOrder" autocomplete="off" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <nb-card status="primary">
+        <nb-card-header>Shipper-INFO</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="label label-info" for="origin"
+                >Origin: <span class="text-danger"> *</span></label
+              >
+              <nb-select
+                fullWidth
+                name="my-select"
+                placeholder="Origin"
+                formControlName="originCityId"
+              >
+                <!-- <nb-option value="" disabled selected hidden>Select City</
+                nb-option> -->
+                <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+                  {{ item.Text }}
+                </nb-option>
+              </nb-select>
+              <div
+                class="row alert text-danger"
+                *ngIf="originCityId.invalid && (originCityId.dirty || originCityId.touched)"
+              >
+                <div class="alert text-danger" *ngIf="originCityId.errors?.required">
+                  City is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info"
+                >Select Profile <span class="text-danger"> *</span></label
+              >
+              <nb-select
+                placeholder="Select Profile"
+                fullWidth
+                formControlName="selectProfile"
+              >
+                <nb-option value="1">Option 1</nb-option>
+                <nb-option value="2">Option 2</nb-option>
+                <nb-option value="3">Option 3</nb-option>
+                <nb-option value="4">Option 4</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Shipper Name <span class="text-danger"> *</span></label
+                >
+                <input
+                  type="text"
+                  name="shipperName"
+                  formControlName="shipperName"
+                  nbInput
+                  id="shipperName"
+                />
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    shipperName.invalid &&
+                    (shipperName.dirty || shipperName.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="shipperName.errors?.required"
+                  >
+                    shipperName is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Shipper Mobile <span class="text-danger"> *</span></label
+                >
+                <input
+                  type="text"
+                  name="shipperMobile"
+                  formControlName="shipperMobile"
+                  nbInput
+                  id="shipperMobile"
+                />
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    shipperMobile.invalid &&
+                    (shipperMobile.dirty || shipperMobile.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="shipperMobile.errors?.required"
+                  >
+                    shipperMobile is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info"
+                >Shipper Email <span class="text-danger"> *</span></label
+              >
+              <input
+                type="string"
+                nbInput
+                fullWidth
+                name="shipperEmail"
+                id="shipperEmail"
+                formControlName="shipperEmail"
+              />
+
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                  shipperEmail.invalid &&
+                  (shipperEmail.dirty || shipperEmail.touched)
+                "
+              >
+                <div
+                  class="alert text-danger"
+                  *ngIf="shipperEmail.errors?.required"
+                >
+                  shipperEmail is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info"
+                >Shipper Address <span class="text-danger"> *</span></label
+              >
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                name="shipperAddress"
+                id="shipperAddress"
+                formControlName="shipperAddress"
+              />
+
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                  shipperAddress.invalid &&
+                  (shipperAddress.dirty || shipperAddress.touched)
+                "
+              >
+                <div
+                  class="alert text-danger"
+                  *ngIf="shipperAddress.errors?.required"
+                >
+                  shipperAddress is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-6 col-sm-12 marginleft">
+      <nb-card status="primary">
+        <nb-card-header>Consignee-INFO</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info"
+                >Destination <span class="text-danger"> *</span></label
+              >
+              <nb-select
+                fullWidth
+                name="selectDestination"
+                placeholder="Destination"
+                formControlName="destinationCityId"
+              >
+                <!-- <nb-option value="" disabled selected hidden>Select City</nb-option> -->
+                <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+                  {{ item.Text }}
+                </nb-option>
+              </nb-select>
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                destinationCityId.invalid &&
+                  (destinationCityId.dirty || destinationCityId.touched)
+                "
+              >
+                <div
+                  class="alert text-danger"
+                  *ngIf="destinationCityId.errors?.required"
+                >
+                  destination is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+
+              <div class="col-md-12">
+                <label for="" class="label label-info"
+                  >Consignee Name <span class="text-danger"> *</span></label
+                >
+                <input
+                  nbInput
+                  type="text"
+                  name=""
+                  fullWidth
+                  formControlName="consigneeName"
+                />
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    consigneeName.invalid &&
+                    (consigneeName.dirty || consigneeName.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="consigneeName.errors?.required"
+                  >
+                    consigneeName is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label for="" class="label label-info"
+                  >Consignee Phone <span class="text-danger"> *</span></label
+                >
+                <input
+                  nbInput
+                  type="text"
+                  name=""
+                  fullWidth
+                  formControlName="consigneeMobile"
+                />
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    consigneeMobile.invalid &&
+                    (consigneeMobile.dirty || consigneeMobile.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="consigneeMobile.errors?.required"
+                  >
+                    consigneeMobile is required.
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          <div class="col-md-6">
+            <label for="" class="label label-info"
+              >Consignee Email <span class="text-danger"> *</span></label
+            >
+            <input
+              nbInput
+              type="email"
+              name=""
+              fullWidths
+              formControlName="consigneeEmail"
+            />
+            <div
+              class="row alert text-danger"
+              *ngIf="
+                consigneeEmail.invalid &&
+                (consigneeEmail.dirty || consigneeEmail.touched)
+              "
+            >
+              <div
+                class="alert text-danger"
+                *ngIf="consigneeEmail.errors?.required"
+              >
+                consigneeEmail is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="" class="label label-info"
+                >Consignee Address <span class="text-danger"> *</span></label
+              >
+
+              <textarea
+                name="consigneeAddress"
+                nbInput
+                class="form-control"
+                autocomplete="off"
+                id="consigneeAddress"
+                fullWidth
+                formControlName="consigneeAddress"
+              ></textarea>
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                  consigneeAddress.invalid &&
+                  (consigneeAddress.dirty || consigneeAddress.touched)
+                "
+              >
+                <div
+                  class="alert text-danger"
+                  *ngIf="consigneeAddress.errors?.required"
+                >
+                  consigneeAddress is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-12 col-sm-12">
+      <nb-card status="success">
+        <nb-card-header
+          >Shipment-Details <span class="text-danger"> *</span></nb-card-header
+        >
+        <nb-card-body>
+          <div class="row gx-2">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-primary"
+                  >Product Code <span class="text-danger"> *</span></label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  name="productCode"
+                  formControlName="productCode"
+                  id="productCode"
+                />
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    productCode.invalid &&
+                    (productCode.dirty || productCode.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="productCode.errors?.required"
+                  >
+                    productCode is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Quantity <span class="text-danger"> *</span></label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  name="Quantity"
+                  formControlName="quantity"
+                  id="quantity"
+                />
+
+                <div
+                  class="row alert text-danger"
+                  *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="quantity.errors?.required"
+                  >
+                    quantity is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Weight (Kg) <span class="text-danger"> *</span></label
+                >
+                <nb-select
+                  placeholder="Select Weight"
+                  fullWidth
+                  formControlName="weightprofileId"
+                >
+                  <nb-option *ngFor="let item of weightLOV" [value]="item.id">{{
+                    item.name
+                  }}</nb-option>
+                </nb-select>
+                <div
+                  class="row alert text-danger"
+                  *ngIf="weightprofileId.invalid && (weightprofileId.dirty || weightprofileId.touched)"
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="weightprofileId.errors?.required"
+                  >
+                    weight is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >COD Amount <span class="text-danger"> *</span></label
+                >
+                <input
+                  type="number"
+                  nbInput
+                  name="codAmount"
+                  formControlName="codAmount"
+                  id="codAmount"
+                />
+
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    codAmount.invalid && (codAmount.dirty || codAmount.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="codAmount.errors?.required"
+                  >
+                    codAmount is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Product Description</label
+                >
+                <textarea
+                  name="productDescription"
+                  nbInput
+                  class="form-control"
+                  autocomplete="off"
+                  id="productDescription"
+                  fullWidth
+                  formControlName="productDescription"
+                ></textarea>
+
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    productDescription.invalid &&
+                    (productDescription.dirty || productDescription.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="productDescription.errors?.required"
+                  >
+                    productDescription is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="" class="label label-info"
+                  >Special Instructions</label
+                >
+                <textarea
+                  name="specialInstructions"
+                  nbInput
+                  class="form-control"
+                  autocomplete="off"
+                  id="specialInstructions"
+                  fullWidth
+                  formControlName="specialInstructions"
+                ></textarea>
+                <div
+                  class="row alert text-danger"
+                  *ngIf="
+                    specialInstructions.invalid &&
+                    (specialInstructions.dirty || specialInstructions.touched)
+                  "
+                >
+                  <div
+                    class="alert text-danger"
+                    *ngIf="specialInstructions.errors?.required"
+                  >
+                    specialInstructions is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-2">
+      <button
+        nbButton
+        [disabled]="
+          editOrder.invalid &&
+          (editOrder.dirty || editOrder.touched || editOrder.untouched)
+        "
+        fullWidth
+        hero
+        shape="round"
+        size="giant"
+        status="primary"
+      >
+        Save
+      </button>
+    </div>
+
+    <div class="col-md-3">
+      <button
+        nbButton
+        [disabled]="
+          editOrder.invalid &&
+          (editOrder.dirty || editOrder.touched || editOrder.untouched)
+        "
+        fullWidth
+        hero
+        shape="round"
+        size="giant"
+        status="primary"
+      >
+        Save & Print
+      </button>
+    </div>
+  </div>
+</form>
