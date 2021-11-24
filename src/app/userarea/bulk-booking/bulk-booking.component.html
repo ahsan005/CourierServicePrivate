@@ -7,11 +7,80 @@
           <input class="form-control" (change)="uploadFile($event);" type="file" #fileInput />
       </div>
       <div class="col-md-6">
-          <button class="btn btn-primary" >Upload</button>
+          <button class="btn btn-primary" (click)="UploadBtn();" >Upload</button>
+      </div>
+      <div class="col-md-6 pt-5">
+        <button id="showdata" nbButton hero status="Success" class="btn btn-primary">Show-Data</button>
       </div>
   </div>
   <div>
-      <h4 class="alert-success">{{message}}</h4>
+    <h4 class="alert-success">{{message}}</h4>
+</div>
+  <div class="row">
+    <div class="col-md-12">
+      <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th scope='col'>Serial#</th>
+          <th scope="col">Shipment Details</th>
+          <th scope="col">Consignee Details</th>
+          <th scope="col">Shipper Info</th>
+          <th scope="col">Payments</th>
+
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <tr class="text-center" *ngFor="let item of excelArray, let i = index" scope="row">
+        <!-- <td><input type="checkbox" ></td> -->
+        <td class="tiny-details-Black">{{i+1}}</td>
+        <!-- <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
+        <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
+        <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td> -->
+        <td class="tiny-details"> <strong>Product Code:</strong> {{item.ProductCode}} <br>
+         <strong>Product Description:</strong> {{item.ProductDescription}} <br>
+
+         <strong>Quantity:</strong> {{item.Quantity}} <br>
+         <strong>Weight:</strong> {{item.WeightProfileId}}<br>
+
+
+        </td>
+        <td class="tiny-details" >
+          <strong> Name:</strong> {{item.ConsigneeName}}<br>
+          <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
+          <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
+          <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
+          <strong>City:</strong> {{item.DestinationCityName}} <br>
+
+
+        </td>
+        <td class="tiny-details">
+          <strong>Name:</strong>{{item.ShipperName}} <br>
+          <strong> Mobile:</strong>{{item.ShipperMobile}}<br>
+          <strong>Email:</strong>{{item.ShipperEmail}} <br>
+          <strong>Address:</strong>{{item.ShipperAddress}}<br>
+          <strong>City:</strong>{{item.OriginCityName}}<br>
+        </td>
+
+        <td class="tiny-details">
+          <strong>COD:</strong>{{item.CODAmount}} <br>
+
+        </td>
+        <!-- <td class="tiny-details">
+          <strong>{{item.ReceivedStatus}}</strong>
+        </td>
+        <td class="py-2">
+          <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+          <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+          <a (click)="trackingBtn(item.OrderBookingId)"><nb-icon icon="car-outline"></nb-icon></a>
+        </td> -->
+
+    </table>
+    </div>
   </div>
+
 </div>
 </nb-card>

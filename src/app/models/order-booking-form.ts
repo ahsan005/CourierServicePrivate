@@ -12,7 +12,7 @@ export class OrderBookingForm {
   public CreatedOn: Date;
   public LocationId: number;
   public OriginCityId: number;
-  public OriginCityName: number;
+  public OriginCityName: string;
   public PartyLocationId: number;
   public UserLogId: number;
 

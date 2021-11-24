@@ -1,9 +1,14 @@
+import * as $ from "jquery";
+import { CitiesLOV } from "./../../models/citiesLOV";
+import { SharedService } from "./../../services/shared.service";
 import { OrderBookingForm } from "./../../models/order-booking-form";
 import { FileuploadService } from "./../../services/fileupload.service";
 import { HttpClient } from "@angular/common/http";
 import { ViewChild } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
 import * as XLSX from "xlsx";
+import { UserService } from "../../services/user.service";
+import { WeightLOV } from "../../models/weightLOV";
 @Component({
   selector: "ngx-bulk-booking",
   templateUrl: "./bulk-booking.component.html",
@@ -12,9 +17,52 @@ import * as XLSX from "xlsx";
 export class BulkBookingComponent implements OnInit {
   @ViewChild("fileInput") fileInput;
   message: string;
-  constructor(private http: HttpClient, private service: FileuploadService) {}
+  serial: number = 0;
+  citiesLOV = new Array<CitiesLOV>();
+  weightLOV: Array<WeightLOV> = [
+    { Value: "1", Text: "0.5" },
+    { Value: "2", Text: "1" },
+    { Value: "3", Text: "2" },
+    { Value: "4", Text: "3" },
+    { Value: "5", Text: "4" },
+    { Value: "6", Text: "5" },
+    { Value: "7", Text: "6" },
+    { Value: "8", Text: "7" },
+    { Value: "9", Text: "8" },
+    { Value: "10", Text: "9" },
+    { Value: "11", Text: "10" },
+    { Value: "12", Text: "11" },
+    { Value: "13", Text: "12" },
+    { Value: "14", Text: "13" },
+    { Value: "15", Text: "14" },
+    { Value: "16", Text: "15" },
+    { Value: "17", Text: "16" },
+    { Value: "18", Text: "17" },
+    { Value: "19", Text: "18" },
+    { Value: "20", Text: "19" },
+    { Value: "21", Text: "20" },
+  ];
+  constructor(
+    private sharedService: SharedService,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sharedService.GetAllCities().subscribe((result) => {
+      var response = JSON.parse(JSON.stringify(result));
+      console.log(response);
+
+      this.citiesLOV = response.Data;
+    });
+
+    $(document).ready(function () {
+      console.log("HelloDefault");
+      $("#showdata").click(function () {
+        console.log("Hello");
+        $("Table").toggle();
+      });
+    });
+  }
   // uploadFile() {
   //   let formData = new FormData();
   //   formData.append('upload', this.fileInput.nativeElement.files[0])
@@ -26,6 +74,7 @@ export class BulkBookingComponent implements OnInit {
   //   });
 
   // }
+  excelArray: Array<OrderBookingForm>;
   uploadFile(event: any) {
     console.log(event.target.files);
     const selectedFile = event.target.files[0];
@@ -40,8 +89,66 @@ export class BulkBookingComponent implements OnInit {
       workbook.SheetNames.forEach((sheet) => {
         const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
         bulkBookingList = data;
-      });console.log(bulkBookingList);
-    };
+      });
+      this.excelArray = bulkBookingList;
 
+      // Add Corresponding CityID's in Array
+      console.log(this.citiesLOV);
+
+      console.log(bulkBookingList);
+      console.log(this.excelArray);
+    };
+  }
+
+  UploadBtn() {
+    let array = this.excelArray;
+    let cities = this.citiesLOV;
+    let weightList = this.weightLOV;
+    let originCityObj;
+    let destinationCityObj;
+    let weightObj;
+    console.log(array);
+    array.forEach(
+      function (item) {
+        originCityObj = cities.find((x) => x.Text == item.OriginCityName);
+
+        destinationCityObj = cities.find(
+          (x) => x.Text == item.DestinationCityName
+        );
+        weightObj = weightList.find(
+          (x) => x.Text == String(item.WeightProfileId)
+        );
+
+        if (originCityObj != null) {
+          item.OriginCityId = parseInt(originCityObj.Value);
+        }
+
+        if (destinationCityObj != null) {
+          item.DestinationCityId = parseInt(destinationCityObj.Value);
+        }
+        if (weightObj != null) {
+          item.WeightProfileId = parseInt(weightObj.Value);
+        }
+      }
+
+      // Add Corresponding CityID's in Array
+    );
+    console.log(array);
+    this.excelArray = [];
+    this.excelArray = array;
+    // Make Request to HTTPService
+    this.PostBulk(array);
+    // Make Request to HTTPService
+  }
+
+  PostBulk(array: Array<OrderBookingForm>) {
+    if (array.length > 0) {
+      this.userService.BulkOrders(array).subscribe((result) => {
+        var response = JSON.parse(JSON.stringify(result));
+        console.log(response);
+
+        alert(response.Message);
+      });
+    }
   }
 }

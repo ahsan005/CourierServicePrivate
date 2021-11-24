@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
 import { OrderBookingForm } from "./../models/order-booking-form";
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
@@ -17,6 +17,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
   errorString: string;
+  // Handle Error Based on  response.Status
   handleError(
     Status: boolean,
     Message: string,
@@ -32,7 +33,9 @@ export class UserService {
         "Something bad happened; please try again later.");
     console.log(this.errorString);
   }
+  // Handle Error Based on  response.Status
 
+  // Order Post method
   OrderBooking(orderBooking: OrderBookingForm) {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -45,7 +48,10 @@ export class UserService {
       httpOptions
     );
   }
-  GetOrders():Observable<OrderBookingForm[]> {
+  // Order Post method
+
+  // Get All Orders
+  GetOrders(): Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -54,36 +60,35 @@ export class UserService {
       httpOptions
     );
   }
-  // GetOrdersFiltered(filters:Filters) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({ "Content-Type": " application/json" }),
-  //   };
-  //   // const opts = { params: new HttpParams({fromString: "_page=1&_limit=10"}) };
-  //   const body = JSON.stringify(filters) ;
+  // Get All Orders
 
-  //   console.log(body);
-  //   return  this.http.get('/api/CourierService/GetFiltered/', {
-  //     params: {
-  //       destinationCityId: filters.selectDestination,
-  //       status: filters.selectStatus,
-  //       fromDate: filters.fromDate.toISOString(),
-  //       toDate: filters.toDate.toISOString()
-  //     },
-  //     // observe: 'response'
-  //   })
-  // }
-
-  GetOrdersFiltered(filters:Filters):Observable<OrderBookingForm[]> {
+  GetOrdersFiltered(filters: Filters): Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    const body = JSON.stringify(filters) ;
+    const body = JSON.stringify(filters);
 
     console.log(body);
     return this.http.post<OrderBookingForm[]>(
-      this.base_url + "api/CourierService/GetOrders",body,
+      this.base_url + "api/CourierService/GetOrders",
+      body,
       httpOptions
     );
   }
+  // Order Requests Filter Method
 
+  // Bulk ORders Post Method
+  BulkOrders(array: Array<OrderBookingForm>) {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(array);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/BOrderBooking",
+      body,
+      httpOptions
+    );
+  }
+  // Bulk ORders Post Method
 }

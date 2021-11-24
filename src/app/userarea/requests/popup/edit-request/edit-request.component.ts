@@ -16,6 +16,7 @@ export class EditRequestComponent implements OnInit {
     public modal: NgbActiveModal,
     private fb: FormBuilder,
     private userService: UserService,
+    private sharedService:SharedService
 
   ) {}
 
@@ -106,6 +107,22 @@ export class EditRequestComponent implements OnInit {
     return this.editOrder.get("consigneeEmail");
   }
   setForm() {
+     this.sharedService.GetAllCities().subscribe((data) => {
+
+
+      //  = JSON.stringify(data)
+      var response = JSON.parse(JSON.stringify(data));
+       console.log(response)
+       this.citiesLOV = response.Data
+
+
+  //     console.log("Status", response);
+      if (response.Status) {
+        console.log(response.Message);
+      } else {
+        console.warn(response.Message);
+      }
+    });
     this.editOrder = this.fb.group({
       // ShipperInfo
       originCityId: [this.orderBookingModel.OriginCityId, Validators.required],

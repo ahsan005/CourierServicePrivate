@@ -127,7 +127,7 @@ export class RequestsComponent implements OnInit {
      this.citiesLOVForEditForm = this.CitiesLOV
     console.log(this.citiesLOVForEditForm)
      ref.componentInstance.orderBookingModel = this.orderBooking;
-     ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
+    //  ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
 
      ref.result.then((yes)=>{
        console.log("ok Click")

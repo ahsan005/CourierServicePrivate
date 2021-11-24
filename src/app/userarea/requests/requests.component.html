@@ -117,9 +117,9 @@
         </tr>
       </thead>
       <!-- *ngFor="let item of list" -->
-      <tr class="text-center" *ngFor="let item of Orders;" scope="row">
+      <tr class="text-center" *ngFor="let item of Orders, let i = index;" scope="row">
         <td><input type="checkbox" ></td>
-        <td class="tiny-details-Black">{{serial + 1}}</td>
+        <td class="tiny-details-Black">{{i + 1}}</td>
         <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td>
