@@ -15,26 +15,54 @@
         <nb-card-body>
           <div class="col-md-12">
             <div class="form-group">
+              <input formControlName="OrderBookingId" type="text" hidden>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <input nbInput formControlName="OrderBookingOn" type="text" disabled="true">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
               <label class="label label-info" for="origin"
                 >Origin: <span class="text-danger"> *</span></label
               >
-              <nb-select
+              <!-- <nb-select
                 fullWidth
                 name="my-select"
                 placeholder="Origin"
                 formControlName="originCityId"
               >
                 <!-- <nb-option value="" disabled selected hidden>Select City</
-                nb-option> -->
+                nb-option>
                 <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
                   {{ item.Text }}
                 </nb-option>
-              </nb-select>
+              </nb-select> -->
+              <select
+                class="form-control"
+                placeholder="Origin"
+                formControlName="originCityId"
+                name="Select Origin City"
+                id=""
+              >
+                <option *ngFor="let item of citiesLOV" [value]="item.Value">
+                  {{ item.Text }}
+                </option>
+              </select>
+
               <div
                 class="row alert text-danger"
-                *ngIf="originCityId.invalid && (originCityId.dirty || originCityId.touched)"
+                *ngIf="
+                  originCityId.invalid &&
+                  (originCityId.dirty || originCityId.touched)
+                "
               >
-                <div class="alert text-danger" *ngIf="originCityId.errors?.required">
+                <div
+                  class="alert text-danger"
+                  *ngIf="originCityId.errors?.required"
+                >
                   City is required.
                 </div>
               </div>
@@ -42,10 +70,8 @@
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <label for="" class="label label-info"
-                >Select Profile <span class="text-danger"> *</span></label
-              >
-              <nb-select
+              <label for="" class="label label-info">Select Profile</label>
+              <!-- <nb-select
                 placeholder="Select Profile"
                 fullWidth
                 formControlName="selectProfile"
@@ -54,14 +80,27 @@
                 <nb-option value="2">Option 2</nb-option>
                 <nb-option value="3">Option 3</nb-option>
                 <nb-option value="4">Option 4</nb-option>
-              </nb-select>
+              </nb-select> -->
+
+              <select
+                class="form-control"
+                placeholder="Select Profile"
+                formControlName="selectProfile"
+                name="Select Profile"
+                id=""
+              >
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+              </select>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
                 <label for="" class="label label-info"
-                  >Shipper Name <span class="text-danger"> *</span></label
+                  >Shipper Name <span class="text-danger">*</span></label
                 >
                 <input
                   type="text"
@@ -187,21 +226,33 @@
               <label for="" class="label label-info"
                 >Destination <span class="text-danger"> *</span></label
               >
-              <nb-select
+              <!-- <nb-select
                 fullWidth
                 name="selectDestination"
                 placeholder="Destination"
                 formControlName="destinationCityId"
               >
                 <!-- <nb-option value="" disabled selected hidden>Select City</nb-option> -->
+              <!-- <nb-option>Helllooooooo</nb-option>
                 <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
                   {{ item.Text }}
                 </nb-option>
-              </nb-select>
+              </nb-select> -->
+              <select
+                class="form-control"
+                placeholder="Select Destination"
+                formControlName="destinationCityId"
+                name="Select Destination City"
+                id=""
+              >
+                <option *ngFor="let item of citiesLOV" [value]="item.Value">
+                  {{ item.Text }}
+                </option>
+              </select>
               <div
                 class="row alert text-danger"
                 *ngIf="
-                destinationCityId.invalid &&
+                  destinationCityId.invalid &&
                   (destinationCityId.dirty || destinationCityId.touched)
                 "
               >
@@ -215,60 +266,58 @@
             </div>
           </div>
           <div class="form-group">
-
-              <div class="col-md-12">
-                <label for="" class="label label-info"
-                  >Consignee Name <span class="text-danger"> *</span></label
-                >
-                <input
-                  nbInput
-                  type="text"
-                  name=""
-                  fullWidth
-                  formControlName="consigneeName"
-                />
+            <div class="col-md-12">
+              <label for="" class="label label-info"
+                >Consignee Name <span class="text-danger"> *</span></label
+              >
+              <input
+                nbInput
+                type="text"
+                name=""
+                fullWidth
+                formControlName="consigneeName"
+              />
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                  consigneeName.invalid &&
+                  (consigneeName.dirty || consigneeName.touched)
+                "
+              >
                 <div
-                  class="row alert text-danger"
-                  *ngIf="
-                    consigneeName.invalid &&
-                    (consigneeName.dirty || consigneeName.touched)
-                  "
+                  class="alert text-danger"
+                  *ngIf="consigneeName.errors?.required"
                 >
-                  <div
-                    class="alert text-danger"
-                    *ngIf="consigneeName.errors?.required"
-                  >
-                    consigneeName is required.
-                  </div>
+                  consigneeName is required.
                 </div>
               </div>
-              <div class="col-md-12">
-                <label for="" class="label label-info"
-                  >Consignee Phone <span class="text-danger"> *</span></label
-                >
-                <input
-                  nbInput
-                  type="text"
-                  name=""
-                  fullWidth
-                  formControlName="consigneeMobile"
-                />
+            </div>
+            <div class="col-md-12">
+              <label for="" class="label label-info"
+                >Consignee Phone <span class="text-danger"> *</span></label
+              >
+              <input
+                nbInput
+                type="text"
+                name=""
+                fullWidth
+                formControlName="consigneeMobile"
+              />
+              <div
+                class="row alert text-danger"
+                *ngIf="
+                  consigneeMobile.invalid &&
+                  (consigneeMobile.dirty || consigneeMobile.touched)
+                "
+              >
                 <div
-                  class="row alert text-danger"
-                  *ngIf="
-                    consigneeMobile.invalid &&
-                    (consigneeMobile.dirty || consigneeMobile.touched)
-                  "
+                  class="alert text-danger"
+                  *ngIf="consigneeMobile.errors?.required"
                 >
-                  <div
-                    class="alert text-danger"
-                    *ngIf="consigneeMobile.errors?.required"
-                  >
-                    consigneeMobile is required.
-                  </div>
+                  consigneeMobile is required.
                 </div>
               </div>
-
+            </div>
           </div>
           <div class="col-md-6">
             <label for="" class="label label-info"
@@ -380,7 +429,9 @@
 
                 <div
                   class="row alert text-danger"
-                  *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+                  *ngIf="
+                    quantity.invalid && (quantity.dirty || quantity.touched)
+                  "
                 >
                   <div
                     class="alert text-danger"
@@ -396,18 +447,51 @@
                 <label for="" class="label label-info"
                   >Weight (Kg) <span class="text-danger"> *</span></label
                 >
-                <nb-select
+                <!-- <nb-select
                   placeholder="Select Weight"
                   fullWidth
                   formControlName="weightprofileId"
                 >
-                  <nb-option *ngFor="let item of weightLOV " [value]="item.id">{{
-                    item.name
-                  }}</nb-option>
-                </nb-select>
+                  <nb-option value="1">0.5</nb-option>
+                  <nb-option value="2">1</nb-option>
+                  <nb-option value="3">2</nb-option>
+                  <nb-option value="4">3</nb-option>
+                  <nb-option value="5">4</nb-option>
+                  <nb-option value="6">5</nb-option>
+                  <nb-option value="7">6</nb-option>
+                  <nb-option value="8">7</nb-option>
+                  <nb-option value="9">8</nb-option>
+                  <nb-option value="10">9</nb-option>
+                  <nb-option value="11">10</nb-option>
+                  <nb-option value="12">11</nb-option>
+                  <nb-option value="13">12</nb-option>
+                  <nb-option value="14">13</nb-option>
+                  <nb-option value="15">14</nb-option>
+                  <nb-option value="16">15</nb-option>
+                  <nb-option value="17">16</nb-option>
+                  <nb-option value="18">17</nb-option>
+                  <nb-option value="19">18</nb-option>
+                  <nb-option value="20">19</nb-option>
+                  <nb-option value="21">20</nb-option>
+                </nb-select> -->
+
+                <select
+                  class="form-control"
+                  placeholder="Select Weight"
+                  formControlName="weightprofileId"
+                  name="Select Weight"
+                  id=""
+                >
+                  <option *ngFor="let item of weightLOV" [value]="item.id">
+                    {{ item.name }}
+                  </option>
+                </select>
                 <div
                   class="row alert text-danger"
-                  *ngIf="weightprofileId.invalid && (weightprofileId.dirty || weightprofileId.touched)"
+                  *ngIf="
+                    weightprofileId.invalid &&
+                    (weightprofileId.dirty || weightprofileId.touched)
+                  "
                 >
                   <div
                     class="alert text-danger"
@@ -514,7 +598,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-md-2">
+    <div class="col-md-2 offset-5 pb-3">
       <button
         nbButton
         [disabled]="
@@ -528,23 +612,6 @@
         status="primary"
       >
         Save
-      </button>
-    </div>
-
-    <div class="col-md-3">
-      <button
-        nbButton
-        [disabled]="
-          editOrder.invalid &&
-          (editOrder.dirty || editOrder.touched || editOrder.untouched)
-        "
-        fullWidth
-        hero
-        shape="round"
-        size="giant"
-        status="primary"
-      >
-        Save & Print
       </button>
     </div>
   </div>

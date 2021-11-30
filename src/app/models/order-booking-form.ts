@@ -5,6 +5,8 @@ export class OrderBookingForm {
     Object.assign(this, init);
   }
   // Shipper Info
+  public OrderBookingId: number;
+  public OrderBookingOn: number;
   public ActionTypeId: number;
   public AlteredById: number;
   public AlteredOn: Date;
@@ -24,7 +26,7 @@ export class OrderBookingForm {
 
   // Consignee Info
   public OrderBookingNo: number;
-  public OrderBookingOn: Date;
+
   public DestinationCityId: number;
   public DestinationCityName: string;
   public CityName: string;

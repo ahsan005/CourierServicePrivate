@@ -1,4 +1,4 @@
-import { CitiesLOV } from './../../../../models/citiesLOV';
+import { CitiesLOV } from "./../../../../models/citiesLOV";
 import { SharedService } from "./../../../../services/shared.service";
 import { UserService } from "./../../../../services/user.service";
 import { OrderBookingForm } from "./../../../../models/order-booking-form";
@@ -16,14 +16,13 @@ export class EditRequestComponent implements OnInit {
     public modal: NgbActiveModal,
     private fb: FormBuilder,
     private userService: UserService,
-    private sharedService:SharedService
-
+    private sharedService: SharedService
   ) {}
 
   public orderBookingModel: OrderBookingForm;
-  public citiesLOV: any;
+  public citiesLOV: Array<any> = [];
 
-  weightLOV: Array<Object> = [
+  public weightLOV: Array<Object> = [
     { id: "1", name: "0.5" },
     { id: "2", name: "1" },
     { id: "3", name: "2" },
@@ -47,11 +46,10 @@ export class EditRequestComponent implements OnInit {
     { id: "21", name: "20" },
   ];
   ngOnInit(): void {
-    console.log(this.citiesLOV)
+    console.log(this.citiesLOV);
     console.log(this.orderBookingModel);
 
     this.setForm();
-
   }
 
   editOrder: any;
@@ -107,26 +105,27 @@ export class EditRequestComponent implements OnInit {
     return this.editOrder.get("consigneeEmail");
   }
   setForm() {
-     this.sharedService.GetAllCities().subscribe((data) => {
+    //    this.sharedService.GetAllCities().subscribe((data) => {
 
+    //     //  = JSON.stringify(data)
+    //     var response = JSON.parse(JSON.stringify(data));
+    //      console.log(response)
+    //      this.citiesLOV = response.Data
 
-      //  = JSON.stringify(data)
-      var response = JSON.parse(JSON.stringify(data));
-       console.log(response)
-       this.citiesLOV = response.Data
-
-
-  //     console.log("Status", response);
-      if (response.Status) {
-        console.log(response.Message);
-      } else {
-        console.warn(response.Message);
-      }
-    });
+    // //     console.log("Status", response);
+    //     if (response.Status) {
+    //       console.log(response.Message);
+    //     } else {
+    //       console.warn(response.Message);
+    //     }
+    //   });
+    console.log(this.citiesLOV);
     this.editOrder = this.fb.group({
       // ShipperInfo
+      OrderBookingId: [this.orderBookingModel.OrderBookingId],
+      OrderBookingOn: [ this.orderBookingModel.OrderBookingOn, Validators.required],
       originCityId: [this.orderBookingModel.OriginCityId, Validators.required],
-      selectProfile: ["", Validators.required],
+      selectProfile: [""],
       shipperName: [this.orderBookingModel.ShipperName, Validators.required],
       shipperMobile: [
         this.orderBookingModel.ShipperMobile,
@@ -171,12 +170,9 @@ export class EditRequestComponent implements OnInit {
       codAmount: [this.orderBookingModel.CODAmount, Validators.required],
       productDescription: [
         this.orderBookingModel.ProductDescription,
-        Validators.required,
+        // Validators.required,
       ],
-      specialInstructions: [
-        this.orderBookingModel.SpecialInstructions,
-        Validators.required,
-      ],
+      specialInstructions: [this.orderBookingModel.SpecialInstructions],
 
       // Shipment Details
     });
