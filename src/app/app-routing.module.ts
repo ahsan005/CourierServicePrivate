@@ -27,7 +27,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
       canActivate:[AuthGuard],
-      canActivateChild:[AuthGuard],
+
       data: {
         role: 'ADMIN'
    }
@@ -38,7 +38,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./userarea/userarea.module").then((m) => m.UserareaModule),
       canActivate:[AuthGuard],
-      canActivateChild:[AuthGuard],
+
       data: {
         role: 'HOSPITAL PARTY'
    }
