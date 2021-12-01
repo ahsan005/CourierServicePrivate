@@ -16,8 +16,9 @@ export class AuthService {
   base_url = environment.baseUrlDebug;
   // base_url = environment.baseUrlLocal;
   // base_url = environment.baseUrlLive;
-  userpass;
-  base64token;
+  // userpass;
+  // base64token;
+  roleAs: string;
   constructor(private http: HttpClient, private router: Router) {}
 
   // Login(loginUser: User) {
@@ -47,37 +48,17 @@ export class AuthService {
   //     );
   // }
 
-  Login(user: User) {
+  Login(user: User): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     const body = JSON.stringify(user);
     console.log(body);
-    return this.http
-      .post(this.base_url + "api/courierService/login", body, httpOptions)
-      .subscribe(
-        (data) => {
-          // json data
-
-          //  = JSON.stringify(data)
-          var response = JSON.parse(JSON.stringify(data));
-          //  console.log(response.Status,response.Message)
-          console.log("Success: ", data);
-          if (response.Status) {
-            alert("Successfully Loggedin");
-            localStorage.setItem("isLoggedIn", response.Status);
-            this.router.navigate(["/user"]);
-
-          } else {
-            alert("This wont work");
-          }
-
-
-        }
-        // (error) => {
-        //   this.handleError(error);
-        // }
-      );
+    return this.http.post(
+      this.base_url + "api/courierService/login",
+      body,
+      httpOptions
+    );
   }
 
   // getToken() {
@@ -85,14 +66,24 @@ export class AuthService {
   // }
   // Check if Logged IN
   isLoggedIn() {
-    if(localStorage.getItem("isLoggedIn") != null)
-
-    return true;
-    else
-    false;
+    if (
+      localStorage.getItem("ISLOGGEDIN") != null &&
+      localStorage.getItem("USERID") != null
+    )
+      return true;
+    else {
+      return false;
+    }
+    //   return true;
+    // else false;
   }
   // Check if Logged IN
+  getRole() {
+    this.roleAs = localStorage.getItem("ROLENAME");
+    console.log(this.roleAs);
+    return this.roleAs.toUpperCase();
 
+  }
   // Logout
   // After clearing localStorage redirect to login screen
   logout() {
@@ -144,13 +135,11 @@ export class AuthService {
     const body = JSON.stringify(customer);
     console.log(customer);
     console.log(body);
-    return this.http
-      .post<Customer>(
-        this.base_url + "api/CourierService/Register",
-        body,
-        httpOptions
-      )
-
+    return this.http.post<Customer>(
+      this.base_url + "api/CourierService/Register",
+      body,
+      httpOptions
+    );
   }
 }
 
