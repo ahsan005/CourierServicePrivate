@@ -16,6 +16,7 @@ import { Filters } from '../../models/filters';
 import { CitiesLOV } from '../../models/citiesLOV';
 import * as $ from 'jquery';
 import { EditRequestComponent } from './popup/edit-request/edit-request.component';
+import { NbToastrService } from '@nebular/theme';
 
 
 @Component({
@@ -79,7 +80,7 @@ export class RequestsComponent implements OnInit {
     // });
     TableUtil.generatePDF("ExampleTable");
   }
-  constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService,private modalService: NgbModal) {
+  constructor(private fb: FormBuilder, private userService: UserService, private sharedService:SharedService,private modalService: NgbModal,private toastrService: NbToastrService) {
     this.serial = 0;
     this.initialize();
 
@@ -130,12 +131,22 @@ export class RequestsComponent implements OnInit {
      ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
 
      ref.result.then((yes)=>{
-       console.log("ok Click")
+       console.log("ok Click");
+
      },
      (cancel)=>{
        console.log("cancel CLick")
      })
    }
+   private index: number = 0;
+
+   showToast(position, status) {
+    this.index += 1;
+    this.toastrService.show(
+      status || 'Success',
+      `Toast ${this.index}`,
+      { position, status });
+  }
 
 
 }

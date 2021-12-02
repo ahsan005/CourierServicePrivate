@@ -42,13 +42,17 @@ console.log(this.loginUser)
 
           console.log(response.Data);
 
-          if(response.roleName == "Hospital Party" && response.Data.RoleId == 4603)
+          if(localStorage.getItem("ROLENAME") == "Hospital Party" && localStorage.getItem("ROLEID") == "4602")
+
           {
+            console.log("isParty")
             this.router.navigate(["/user"]);
           }
-          else if(response.roleName == "Admin" && response.Data.RoleId == 4601)
+          else if(localStorage.getItem("ROLENAME") == "Admin" && localStorage.getItem("ROLEID") == "4601")
           {
+            console.log("isAdmin")
             this.router.navigate(["/admin"]);
+
           }
           // this.router.navigate(["/user"]);
         }

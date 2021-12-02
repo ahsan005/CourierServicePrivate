@@ -1,6 +1,6 @@
-import { UserService } from './../../services/user.service';
+import { UserService } from "./../../services/user.service";
 
-import { OrderBookingForm } from './../../models/order-booking-form';
+import { OrderBookingForm } from "./../../models/order-booking-form";
 import { SharedService } from "./../../services/shared.service";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
@@ -11,7 +11,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./bookingform.component.scss"],
 })
 export class BookingformComponent implements OnInit {
-  constructor(private fb: FormBuilder, private sharedService: SharedService,private userService: UserService ) {}
+  constructor(
+    private fb: FormBuilder,
+    private sharedService: SharedService,
+    private userService: UserService
+  ) {}
   citiesLOV: any;
   weightLOV: Array<Object> = [
     { id: "1", name: "0.5" },
@@ -54,21 +58,19 @@ export class BookingformComponent implements OnInit {
     console.log(JSON.stringify(this.formOutput));
     console.log(this.bookingForm);
     this.bookingFormObj = new OrderBookingForm(this.bookingForm.value);
+    this.bookingFormObj.CreatedById = parseInt(localStorage.getItem("USERID"));
     console.log(this.bookingFormObj);
     this.userService.OrderBooking(this.bookingFormObj).subscribe((data) => {
-
-
       //  = JSON.stringify(data)
       var response = JSON.parse(JSON.stringify(data));
-  //     //  console.log(response.Status,response.Message)
-  //     console.log("Status", response);
+      //     //  console.log(response.Status,response.Message)
+      //     console.log("Status", response);
       if (response.Status) {
         alert(response.Message);
       } else {
         alert(response.Message);
       }
     });
-
   }
   get originCityId() {
     return this.bookingForm.get("originCityId");
@@ -115,11 +117,11 @@ export class BookingformComponent implements OnInit {
   get specialInstructions() {
     return this.bookingForm.get("specialInstructions");
   }
-  get consigneeAddress(){
-    return this.bookingForm.get("consigneeAddress")
+  get consigneeAddress() {
+    return this.bookingForm.get("consigneeAddress");
   }
-  get consigneeEmail(){
-    return this.bookingForm.get("consigneeEmail")
+  get consigneeEmail() {
+    return this.bookingForm.get("consigneeEmail");
   }
 
   bookingForm = this.fb.group({

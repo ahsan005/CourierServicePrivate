@@ -36,7 +36,7 @@ export class UserService {
   // Handle Error Based on  response.Status
 
   // Order Post method
-  OrderBooking(orderBooking: OrderBookingForm) {
+  OrderBooking(orderBooking: OrderBookingForm): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };

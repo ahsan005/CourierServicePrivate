@@ -1,3 +1,4 @@
+import { NbToastrService,NbIconConfig  } from '@nebular/theme';
 import { CitiesLOV } from "./../../../../models/citiesLOV";
 import { SharedService } from "./../../../../services/shared.service";
 import { UserService } from "./../../../../services/user.service";
@@ -16,7 +17,8 @@ export class EditRequestComponent implements OnInit {
     public modal: NgbActiveModal,
     private fb: FormBuilder,
     private userService: UserService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private toastrService: NbToastrService
   ) {}
 
   public orderBookingModel: OrderBookingForm;
@@ -114,16 +116,19 @@ export class EditRequestComponent implements OnInit {
 
     // //     console.log("Status", response);
     //     if (response.Status) {
-    //       console.log(response.Message);
+    //       console.log(response.title);
     //     } else {
-    //       console.warn(response.Message);
+    //       console.warn(response.title);
     //     }
     //   });
     console.log(this.citiesLOV);
     this.editOrder = this.fb.group({
       // ShipperInfo
       OrderBookingId: [this.orderBookingModel.OrderBookingId],
-      OrderBookingOn: [ this.orderBookingModel.OrderBookingOn, Validators.required],
+      OrderBookingOn: [
+        this.orderBookingModel.OrderBookingOn,
+        Validators.required,
+      ],
       originCityId: [this.orderBookingModel.OriginCityId, Validators.required],
       selectProfile: [""],
       shipperName: [this.orderBookingModel.ShipperName, Validators.required],
@@ -181,17 +186,34 @@ export class EditRequestComponent implements OnInit {
   onSubmit() {
     console.log(this.editOrder);
     this.editOrderObj = new OrderBookingForm(this.editOrder.value);
+
+
+
+    this.editOrderObj.AlteredById = parseInt(localStorage.getItem("USERID"));
+
     console.log(this.editOrderObj);
+    this.modal.close('Close Modal')
     this.userService.OrderBooking(this.editOrderObj).subscribe((data) => {
-      //  = JSON.stringify(data)
+
       var response = JSON.parse(JSON.stringify(data));
-      //     //  console.log(response.Status,response.Message)
-      //     console.log("Status", response);
+      console.log(response)
       if (response.Status) {
-        alert(response.Message);
+        this.showToast('success',response.Message,'','top-right');
+        console.log(response.Message)
       } else {
-        alert(response.Message);
+        this.showToast('danger',response.Message,'Operation failed','top-right');
       }
     });
+  }
+  // private index:number = 0;
+  showToast( status, title?,description?,position?) {
+    // this.index += 1;
+    // const iconConfig: NbIconConfig = { icon: iconName, pack: 'eva' };
+    // position='top-right'
+
+    this.toastrService.show(
+      status || description,
+      title,
+      { position, status});
   }
 }

@@ -42,6 +42,8 @@ import { TermsComponent } from "./user/terms/terms.component";
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NbDateFnsDateModule} from '@nebular/date-fns'
+import { config } from 'process';
+
 
 
 @NgModule({
@@ -86,6 +88,7 @@ import {NbDateFnsDateModule} from '@nebular/date-fns'
     DataTablesModule,
     Ng2OrderModule,
     NbDateFnsDateModule,
+
 
 
   ],
