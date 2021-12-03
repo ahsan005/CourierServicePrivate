@@ -11,8 +11,8 @@ import { HttpParams } from "@angular/common/http";
   providedIn: "root",
 })
 export class UserService {
-  base_url = environment.baseUrlDebug;
-  // base_url = environment.baseUrlLive;
+  // base_url = environment.baseUrlDebug;
+  base_url = environment.baseUrl;
   // base_url = environment.baseUrlLocal;
 
   constructor(private http: HttpClient) {}

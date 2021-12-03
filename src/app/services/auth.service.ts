@@ -13,9 +13,9 @@ import { map, filter, switchMap } from "rxjs/operators";
   providedIn: "root",
 })
 export class AuthService {
-  base_url = environment.baseUrlDebug;
+  // base_url = environment.baseUrlDebug;
   // base_url = environment.baseUrlLocal;
-  // base_url = environment.baseUrlLive;
+  base_url = environment.baseUrl;
   // userpass;
   // base64token;
   roleAs: string;

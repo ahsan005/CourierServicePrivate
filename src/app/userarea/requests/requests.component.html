@@ -89,18 +89,27 @@
     <!-- <button nbButton status="primary" hero (click)="exportTable()">
         Export
       </button> -->
-    <h6>Export As:</h6>
-    <nb-button-group status="info">
-      <button nbButton (click)="exportTable()">Excel</button>
-      <button nbButton (click)="generatePDF()">PDF</button>
-    </nb-button-group>
-    <br />
+      <div class="row">
+        <div class="col-md-2">
+          <h6>Export As:</h6>
+          <nb-button-group status="info">
+            <button nbButton (click)="exportTable()">Excel</button>
+            <button nbButton (click)="generatePDF()">PDF</button>
+          </nb-button-group>
+
+
+        </div>
+        <div class="col-md-2 offset-6 mt-4">
+          <input nbInput type="text" [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+        </div>
+      </div>
 
     <table
       #pdfTable
       class="table table-sm mt-2 table-bordered"
       id="ExampleTable"
     >
+    <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
       <thead class="thead-dark">
         <tr>
           <th scope="col"><input type="checkbox"></th>

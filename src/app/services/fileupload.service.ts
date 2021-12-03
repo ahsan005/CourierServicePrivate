@@ -11,7 +11,10 @@ export class FileuploadService {
 
 
   constructor(private http: HttpClient) { }
-  base_url=environment.baseUrlDebug;
+  // base_url=environment.baseUrlDebug;
+  base_url=environment.baseUrl;
+
+
   url = this.base_url + '/Api/CourierService/OrderBookingBulk';
 
   UploadExcel(formData: FormData) {

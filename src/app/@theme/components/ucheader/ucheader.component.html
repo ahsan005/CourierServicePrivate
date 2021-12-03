@@ -81,7 +81,8 @@
         </div>
       </li>
     </ul> -->
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <!-- *ngIf="!this.isLoggedIn" -->
+    <ul  class="navbar-nav ms-auto mb-2 mb-lg-0">
       <li class="nav-item">
         <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
           >Home</a
@@ -119,8 +120,56 @@
           </li>
         </ul>
       </li> -->
+
      <li class="nav-item">
         <button nbButton status="primary" shape="semi-round"  routerLink='/auth/login' >Login</button>
+      </li>
+
+      <li class="nav-item">
+        <button nbButton status="success" shape="semi-round" [routerLink]="[ '/auth/register']">Register</button>
+      </li>
+    </ul>
+    <ul *ngIf="this.isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToAbout()">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToTracking()">Tracking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToContact()">Contact-Us</a>
+      </li>
+
+      <!-- <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdownBlog"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          >Blog</a
+        >
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownBlog"
+        >
+          <li>
+            <a class="dropdown-item" href="blog-home.html">Blog Home</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+          </li>
+        </ul>
+      </li> -->
+
+     <li class="nav-item">
+        <button  nbButton status="primary" shape="semi-round"  routerLink='/user' >User Dashboard</button>
       </li>
 
       <li class="nav-item">

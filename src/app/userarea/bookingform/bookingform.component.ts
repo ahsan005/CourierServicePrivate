@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { UserService } from "./../../services/user.service";
 
 import { OrderBookingForm } from "./../../models/order-booking-form";
@@ -14,7 +16,9 @@ export class BookingformComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
-    private userService: UserService
+    private userService: UserService,
+    private toastrService:NbToastrService,
+    private router : Router
   ) {}
   citiesLOV: any;
   weightLOV: Array<Object> = [
@@ -66,9 +70,11 @@ export class BookingformComponent implements OnInit {
       //     //  console.log(response.Status,response.Message)
       //     console.log("Status", response);
       if (response.Status) {
-        alert(response.Message);
+        this.showToast('success',response.Message,'','top-right');
+
+        this.router.navigate(["/user/requests"]);
       } else {
-        alert(response.Message);
+        this.showToast('danger',response.Message,'','top-right');
       }
     });
   }
@@ -151,4 +157,20 @@ export class BookingformComponent implements OnInit {
 
     // Shipment Details
   });
+
+
+  showToast( status, title?,description?,position?) {
+    // this.index += 1;
+    // const iconConfig: NbIconConfig = { icon: iconName, pack: 'eva' };
+    // position='top-right'
+
+    this.toastrService.show(
+      status || description,
+      title,
+      { position, status});
+  }
+
+
+
+
 }

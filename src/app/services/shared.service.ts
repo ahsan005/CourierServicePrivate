@@ -13,8 +13,8 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class SharedService {
-  base_url = environment.baseUrlDebug;
-  // base_url = environment.baseUrlLive;
+  // base_url = environment.baseUrlDebug;
+  base_url = environment.baseUrl;
   // base_url = environment.baseUrlLocal;
 
   constructor(private http: HttpClient) {}
