@@ -17,7 +17,7 @@
     <h4 class="alert-success">{{message}}</h4>
 </div>
   <div class="row">
-    <div class="col-md-12">
+    <div id="table" class="col-md-12">
       <table
       #pdfTable
       class="table table-sm mt-2 table-bordered"
@@ -25,7 +25,7 @@
     >
       <thead class="thead-dark">
         <tr>
-          <th scope='col'>Serial#</th>
+
           <th scope="col">Shipment Details</th>
           <th scope="col">Consignee Details</th>
           <th scope="col">Shipper Info</th>
@@ -34,9 +34,9 @@
         </tr>
       </thead>
       <!-- *ngFor="let item of list" -->
-      <tr class="text-center" *ngFor="let item of excelArray, let i = index" scope="row">
+      <tr class="text-center" *ngFor="let item of excelArray| paginate: { itemsPerPage: 50, currentPage: p}, let i = index" scope="row">
         <!-- <td><input type="checkbox" ></td> -->
-        <td class="tiny-details-Black">{{i+1}}</td>
+
         <!-- <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td> -->
@@ -79,6 +79,7 @@
         </td> -->
 
     </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 

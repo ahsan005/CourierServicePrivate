@@ -30,6 +30,14 @@ export class RequestsComponent implements OnInit {
   Orders = new Array<OrderBookingForm>();
   CitiesLOV = new Array<CitiesLOV>();
   serial: number = 0;
+  // Pagination Variable
+  p: number = 1;
+  // Pagination Variable
+
+  // Spinner Status
+  loading = false;
+  // Spinner Status
+
   onSubmit() {
     console.log(this.requestFilters);
     this.requestsFilter = new Filters(this.requestFilters.value);
@@ -112,8 +120,9 @@ export class RequestsComponent implements OnInit {
 
       this.CitiesLOV = response.Data;
     });
-
+    this.loading = true;
     this.userService.GetOrders().subscribe((result) => {
+
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
 
@@ -123,6 +132,7 @@ export class RequestsComponent implements OnInit {
           <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
         );
       });
+      this.loading = false;
     });
   }
 
@@ -158,6 +168,9 @@ export class RequestsComponent implements OnInit {
   searchVal: any;
   SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);
+  }
+  viewDetails(){
+
   }
 
 }

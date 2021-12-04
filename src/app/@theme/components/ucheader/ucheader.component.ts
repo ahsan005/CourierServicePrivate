@@ -18,7 +18,7 @@ export class UcheaderComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
   isNavbarCollapsed = true;
-
+  userName: string;
   isMenuCollapsed: boolean = true;
   // Check Screen Width
   addclass: any;
@@ -38,8 +38,11 @@ export class UcheaderComponent implements OnInit {
   checkRole: string;
   // Check Windows Width At page load (IniT)
   ngOnInit() {
+
     this.isLoggedIn = this.authService.isLoggedIn();
+    console.log("isLoggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
+      this.userName = localStorage.getItem("USERNAME");
       this.checkRole = this.authService.getRole();
     }
 
@@ -70,5 +73,9 @@ export class UcheaderComponent implements OnInit {
   scrollToContact() {
     document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
     console.log("Click on Home");
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/home"]);
   }
 }

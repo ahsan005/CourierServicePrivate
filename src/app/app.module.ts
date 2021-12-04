@@ -25,6 +25,7 @@ import {
   NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
+  NbSpinnerModule,
   NbToastrModule,
   NbWindowModule,
 } from "@nebular/theme";
@@ -88,6 +89,7 @@ import { config } from 'process';
     DataTablesModule,
     Ng2OrderModule,
     NbDateFnsDateModule,
+    NbSpinnerModule,
 
 
 

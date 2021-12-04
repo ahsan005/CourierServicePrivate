@@ -1,6 +1,4 @@
-<nb-card status="primary">
-  <nb-card-header>Pending Orders</nb-card-header>
-<nb-card-body>
+
 <div class="row">
   <div class="col-md-12">
     <h4>Request Details</h4>
@@ -105,63 +103,75 @@
 
     <table
     #pdfTable
-    class="row-border table table-sm mt-2 table-bordered hover"
+    class="table table-sm mt-2 table-bordered"
     id="ExampleTable"
   >
+  <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
     <thead class="thead-dark">
       <tr>
-        <th (click)="sort('id')" scope="col">
-          Order# <i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Sr No.<i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Order Date<i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Sender Details<i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Receiver Details<i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Shipment Details<i class="fa fa-sort"></i>
-        </th>
-        <th (click)="sort('id')" scope="col">
-          Payments<i class="fa fa-sort"></i>
-        </th>
-
+        <th scope="col"><input type="checkbox"></th>
+        <th scope="col">Sr No.</th>
+        <th scope="col">Tracking#</th>
+        <th scope="col">Order#</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Shipment Details</th>
+        <th scope="col">Consignee Details</th>
+        <th scope="col">Shipper Info</th>
+        <th scope="col">Payments</th>
+        <th scope="col">Status</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr
-        class="text-center"
-        scope="row"
-        *ngFor="
-          let item of shipperProfiles
-            | orderBy: key:reverse
-            | paginate: { itemsPerPage: 10, currentPage: p }
-        "
-      >
-        <td class="py-2 id">{{ item.SrNo }}</td>
-        <td class="py-2">{{ item.ShipperName }}</td>
-        <td class="py-2">{{ item.ShipperPhone }}</td>
-        <td class="py-2">{{ item.ShipperEmail }}</td>
-        <td class="py-2">{{ item.ShipperAddress }}</td>
-        <td class="py-2">{{ item.ShipperAddress }}</td>
-        <td class="py-2">
-          <a (click)="deleteBtn(item.ID)"
-            ><nb-icon icon="eye-outline"></nb-icon
-          ></a>
-          <a (click)="editBtn(item)"><nb-icon icon="car-outline"></nb-icon></a>
-        </td>
-      </tr>
-    </tbody>
+    <!-- *ngFor="let item of list" -->
+    <tr class="text-center" *ngFor="let item of Orders| paginate: { itemsPerPage: 10, currentPage: p}, let i = index;" scope="row">
+      <td><input type="checkbox" ></td>
+      <td class="tiny-details-Black">{{i + 1}}</td>
+      <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
+      <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
+      <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td>
+      <td class="tiny-details"> <strong>Product Code:</strong> {{item.ProductCode}} <br>
+       <strong>Product Description:</strong> {{item.ProductDescription}} <br>
+
+       <strong>Quantity:</strong> {{item.Quantity}} <br>
+       <strong>Weight:</strong> {{item.WeightProfileId}}<br>
+       <strong>CODAmount:</strong> {{item.CODAmount}}<br>
+       <strong>Delivery Fee:</strong> {{item.DeliveryFee}}<br>
+
+
+      </td>
+      <td class="tiny-details" >
+        <strong> Name:</strong> {{item.ConsigneeName}}<br>
+        <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
+        <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
+        <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
+        <strong>City:</strong> {{item.DestinationCityName}} <br>
+
+
+      </td>
+      <td class="tiny-details">
+        <strong>Name:</strong>{{item.ShipperName}} <br>
+        <strong> Mobile:</strong>{{item.ShipperMobile}}<br>
+        <strong>Email:</strong>{{item.ShipperEmail}} <br>
+        <strong>Address:</strong>{{item.ShipperAddress}}<br>
+        <strong>City:</strong>{{item.OriginCityName}}<br>
+      </td>
+
+      <td class="tiny-details">
+        <strong>COD:</strong>{{item.CODAmount}} <br>
+        <strong>Delivery Fee:</strong>{{item.DeliveryFee}}
+      </td>
+      <td class="tiny-details">
+        <strong>{{item.ReceivedStatus}}</strong>
+      </td>
+      <td class="py-2">
+        <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+        <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+        <a (click)="trackingBtn(item.OrderBookingId)"><nb-icon icon="car-outline"></nb-icon></a>
+      </td>
+
   </table>
+
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>
-</nb-card-body>
-</nb-card>
+

@@ -1,5 +1,6 @@
-import { Router } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
+import { NotificationService } from "./../../services/notification.service";
+import { Router } from "@angular/router";
+import { NbToastrService } from "@nebular/theme";
 import { UserService } from "./../../services/user.service";
 
 import { OrderBookingForm } from "./../../models/order-booking-form";
@@ -17,8 +18,8 @@ export class BookingformComponent implements OnInit {
     private fb: FormBuilder,
     private sharedService: SharedService,
     private userService: UserService,
-    private toastrService:NbToastrService,
-    private router : Router
+    private notificationService: NotificationService,
+    private router: Router
   ) {}
   citiesLOV: any;
   weightLOV: Array<Object> = [
@@ -59,10 +60,11 @@ export class BookingformComponent implements OnInit {
   bookingFormObj: OrderBookingForm;
   onSubmit() {
     this.formOutput = this.bookingForm.getRawValue();
-    console.log(JSON.stringify(this.formOutput));
-    console.log(this.bookingForm);
+
+
     this.bookingFormObj = new OrderBookingForm(this.bookingForm.value);
     this.bookingFormObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+    this.bookingFormObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
     console.log(this.bookingFormObj);
     this.userService.OrderBooking(this.bookingFormObj).subscribe((data) => {
       //  = JSON.stringify(data)
@@ -70,11 +72,21 @@ export class BookingformComponent implements OnInit {
       //     //  console.log(response.Status,response.Message)
       //     console.log("Status", response);
       if (response.Status) {
-        this.showToast('success',response.Message,'','top-right');
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
 
         this.router.navigate(["/user/requests"]);
       } else {
-        this.showToast('danger',response.Message,'','top-right');
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
       }
     });
   }
@@ -157,20 +169,4 @@ export class BookingformComponent implements OnInit {
 
     // Shipment Details
   });
-
-
-  showToast( status, title?,description?,position?) {
-    // this.index += 1;
-    // const iconConfig: NbIconConfig = { icon: iconName, pack: 'eva' };
-    // position='top-right'
-
-    this.toastrService.show(
-      status || description,
-      title,
-      { position, status});
-  }
-
-
-
-
 }

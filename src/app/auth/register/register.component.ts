@@ -1,3 +1,4 @@
+import { NotificationService } from "./../../services/notification.service";
 import { registerMap } from "echarts";
 import { AuthService } from "./../../services/auth.service";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -6,6 +7,7 @@ import { Customer } from "../../models/customer";
 import { MustMatch } from "../../_helpers/MustMatch-validator";
 import { NbAuthService } from "@nebular/auth";
 import { SharedService } from "../../services/shared.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ngx-register",
@@ -43,11 +45,11 @@ export class RegisterComponent implements OnInit {
     console.log(this.cities);
   }
 
-  initialize(){
+  initialize() {
     this.sharedService.GetAllCities().subscribe((result) => {
       var response = JSON.parse(JSON.stringify(result));
       console.log(response);
-      this.cities = response.Data
+      this.cities = response.Data;
     });
   }
 
@@ -64,7 +66,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private notificationService: NotificationService,
+    private router: Router
   ) {}
 
   // NgBootstrapModal methods
@@ -129,9 +133,23 @@ export class RegisterComponent implements OnInit {
       //  console.log(response.Status,response.Message)
       console.log("Status", response);
       if (response.Status) {
-        alert("Successfully Registered");
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+      }, 2500);  //5s
+
       } else {
-        alert("This wont work");
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
       }
     });
 

@@ -1,3 +1,4 @@
+import { NotificationService } from './../../services/notification.service';
 import * as $ from "jquery";
 import { CitiesLOV } from "./../../models/citiesLOV";
 import { SharedService } from "./../../services/shared.service";
@@ -16,6 +17,7 @@ import { WeightLOV } from "../../models/weightLOV";
 })
 export class BulkBookingComponent implements OnInit {
   @ViewChild("fileInput") fileInput;
+  p: number = 1;
   message: string;
   serial: number = 0;
   citiesLOV = new Array<CitiesLOV>();
@@ -44,7 +46,8 @@ export class BulkBookingComponent implements OnInit {
   ];
   constructor(
     private sharedService: SharedService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +62,7 @@ export class BulkBookingComponent implements OnInit {
       console.log("HelloDefault");
       $("#showdata").click(function () {
         console.log("Hello");
-        $("Table").toggle();
+        $("#table").toggle();
       });
     });
   }
@@ -92,14 +95,14 @@ export class BulkBookingComponent implements OnInit {
       });
       this.excelArray = bulkBookingList;
 
-      // Add Corresponding CityID's in Array
+
       console.log(this.citiesLOV);
 
       console.log(bulkBookingList);
       console.log(this.excelArray);
     };
   }
-
+// Add Corresponding CityID's in Array
   UploadBtn() {
     let array = this.excelArray;
     let cities = this.citiesLOV;
@@ -110,10 +113,10 @@ export class BulkBookingComponent implements OnInit {
     console.log(array);
     array.forEach(
       function (item) {
-        originCityObj = cities.find((x) => x.Text == item.OriginCityName);
+        originCityObj = cities.find((x) => x.Text.toUpperCase() == item.OriginCityName.toUpperCase());
 
         destinationCityObj = cities.find(
-          (x) => x.Text == item.DestinationCityName
+          (x) => x.Text.toUpperCase() == item.DestinationCityName.toUpperCase()
         );
         weightObj = weightList.find(
           (x) => x.Text == String(item.WeightProfileId)
@@ -129,6 +132,8 @@ export class BulkBookingComponent implements OnInit {
         if (weightObj != null) {
           item.WeightProfileId = parseInt(weightObj.Value);
         }
+        item.LocationId = parseInt(localStorage.getItem("LOCATIONID"))
+        item.CreatedById = parseInt(localStorage.getItem("USERID"))
       }
 
       // Add Corresponding CityID's in Array
@@ -137,6 +142,7 @@ export class BulkBookingComponent implements OnInit {
     this.excelArray = [];
     this.excelArray = array;
     // Make Request to HTTPService
+
     this.PostBulk(array);
     // Make Request to HTTPService
   }
@@ -145,9 +151,12 @@ export class BulkBookingComponent implements OnInit {
     if (array.length > 0) {
       this.userService.BulkOrders(array).subscribe((result) => {
         var response = JSON.parse(JSON.stringify(result));
-        console.log(response);
+       if(response.Status)
+       this.notificationService.showToast('success',response.Message)
+    else{
+      this.notificationService.showToast('danger',response.Message)
+    }
 
-        alert(response.Message);
       });
     }
   }

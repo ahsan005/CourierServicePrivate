@@ -108,12 +108,16 @@
       #pdfTable
       class="table table-sm mt-2 table-bordered"
       id="ExampleTable"
+      [nbSpinner]="loading"
+      nbSpinnerStatus="danger"
+      nbSpinnerSize="large"
+      nbSpinnerMessage=""
     >
     <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
-      <thead class="thead-dark">
+      <thead  class="thead-light">
         <tr>
           <th scope="col"><input type="checkbox"></th>
-          <th scope="col">Sr No.</th>
+
           <th scope="col">Tracking#</th>
           <th scope="col">Order#</th>
           <th scope="col">Order Date</th>
@@ -126,9 +130,10 @@
         </tr>
       </thead>
       <!-- *ngFor="let item of list" -->
-      <tr class="text-center" *ngFor="let item of Orders, let i = index;" scope="row">
+      <tbody >
+      <tr  class="text-center" *ngFor="let item of Orders| paginate: { itemsPerPage: 10, currentPage: p}, let i = index;" scope="row">
         <td><input type="checkbox" ></td>
-        <td class="tiny-details-Black">{{i + 1}}</td>
+
         <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
         <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td>
@@ -167,11 +172,13 @@
           <strong>{{item.ReceivedStatus}}</strong>
         </td>
         <td class="py-2">
-          <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+          <a (click)="viewDetails(item)"><nb-icon icon="eye-outline"></nb-icon></a>
           <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
           <a (click)="trackingBtn(item.OrderBookingId)"><nb-icon icon="car-outline"></nb-icon></a>
+          <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
         </td>
-
+      </tbody>
     </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>

@@ -22,156 +22,74 @@
     </div>
 
     <table
-      #pdfTable
-      class="table table-sm mt-1 table-bordered"
-      id="ExampleTable"
-    >
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col"><input  type="checkbox"></th>
-          <th scope="col">Order No.</th>
-          <th scope="col">Order Date</th>
-          <th scope="col">Sender Details</th>
-          <th scope="col">Receiver Details</th>
-          <th scope="col">Shipment-details</th>
-          <th scope="col">Payments</th>
-
-        </tr>
-      </thead>
-      <!-- *ngFor="let item of list" -->
-      <!-- <tr class="text-center" scope="row">
-        <td scope="col"><input  type="checkbox"></td>
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
+    #pdfTable
+    class="table table-sm mt-2 table-bordered"
+    id="ExampleTable"
+  >
+  <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
+    <thead class="thead-dark">
       <tr>
-        <td scope="col"><input  type="checkbox"></td>
-
-        <td   class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
+        <th scope="col"><input type="checkbox"></th>
+        <th scope="col">Sr No.</th>
+        <th scope="col">Tracking#</th>
+        <th scope="col">Order#</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Shipment Details</th>
+        <th scope="col">Consignee Details</th>
+        <th scope="col">Shipper Info</th>
+        <th scope="col">Payments</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
       </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
+    </thead>
+    <!-- *ngFor="let item of list" -->
+    <tr class="text-center" *ngFor="let item of Orders, let i = index;" scope="row">
+      <td><input type="checkbox" ></td>
+      <td class="tiny-details-Black">{{i + 1}}</td>
+      <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
+      <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
+      <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td>
+      <td class="tiny-details"> <strong>Product Code:</strong> {{item.ProductCode}} <br>
+       <strong>Product Description:</strong> {{item.ProductDescription}} <br>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
+       <strong>Quantity:</strong> {{item.Quantity}} <br>
+       <strong>Weight:</strong> {{item.WeightProfileId}}<br>
+       <strong>CODAmount:</strong> {{item.CODAmount}}<br>
+       <strong>Delivery Fee:</strong> {{item.DeliveryFee}}<br>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
+      </td>
+      <td class="tiny-details" >
+        <strong> Name:</strong> {{item.ConsigneeName}}<br>
+        <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
+        <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
+        <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
+        <strong>City:</strong> {{item.DestinationCityName}} <br>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
+      </td>
+      <td class="tiny-details">
+        <strong>Name:</strong>{{item.ShipperName}} <br>
+        <strong> Mobile:</strong>{{item.ShipperMobile}}<br>
+        <strong>Email:</strong>{{item.ShipperEmail}} <br>
+        <strong>Address:</strong>{{item.ShipperAddress}}<br>
+        <strong>City:</strong>{{item.OriginCityName}}<br>
+      </td>
 
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
-
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr>
-      <tr>
-        <td scope="col"><input type="checkbox"></td>
-
-        <td class="">01</td>
-        <td class="">Micheal</td>
-        <td class="">12</td>
-        <td class="">Jordan</td>
-        <td class="">A+</td>
-        <td class="">352222222222222</td>
-        <td class="">030303030303</td>
-        <td class="">XYZ street Address</td>
-      </tr> -->
-      <tr class="text-center " scope="row" *ngFor="let item of shipperProfiles | paginate: { itemsPerPage: 10, currentPage: p }">
-        <td class="py-2 id">{{item.SrNo}}</td>
-        <td class="py-2">{{item.ShipperName}}</td>
-        <td class="py-2">{{item.ShipperPhone}}</td>
-        <td class="py-2">{{item.ShipperEmail}}</td>
-        <td class="py-2">{{item.ShipperAddress}}</td>
-
+      <td class="tiny-details">
+        <strong>COD:</strong>{{item.CODAmount}} <br>
+        <strong>Delivery Fee:</strong>{{item.DeliveryFee}}
+      </td>
+      <td class="tiny-details">
+        <strong>{{item.ReceivedStatus}}</strong>
+      </td>
       <td class="py-2">
         <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
         <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+        <a (click)="trackingBtn(item.OrderBookingId)"><nb-icon icon="car-outline"></nb-icon></a>
       </td>
 
-      </tr>
-    </table>
+  </table>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>

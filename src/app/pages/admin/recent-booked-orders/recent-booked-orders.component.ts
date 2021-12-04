@@ -1,3 +1,6 @@
+import { UserService } from '../../../services/user.service';
+import { SharedService } from './../../../services/shared.service';
+import { OrderBookingForm } from './../../../models/order-booking-form';
 import { FormBuilder } from '@angular/forms';
 import { TableUtil } from './../../../utilities/tableutil';
 import { Component, OnInit } from '@angular/core';
@@ -10,8 +13,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrls: ['./recent-booked-orders.component.scss']
 })
 export class RecentBookedOrdersComponent implements OnInit {
-
-  constructor() { }
+  Orders = new Array<OrderBookingForm>();
+  constructor(private sharedService:SharedService,
+    private userService:UserService) {
+      this.initialize();
+    }
 
   ngOnInit(): void {
   }
@@ -29,36 +35,25 @@ export class RecentBookedOrdersComponent implements OnInit {
 
   p: number = 1;
 
-  shipperProfiles: Array<Object> = [
-    {
-      SrNo: 1,
-      ShipperName: "Micheal",
-      ShipperPhone: "0333-41111111",
-      ShipperEmail: "ahsan105@icloud.com",
-      ShipperAddress: "ABC Street",
-    },
-    {
-      SrNo: 2,
-      ShipperName: "Trevor",
-      ShipperPhone: "0333-33333333",
-      ShipperEmail: "Kill@icloud.com",
-      ShipperAddress: "DEF Street",
-    },
-    {
-      SrNo: 3,
-      ShipperName: "Franklin",
-      ShipperPhone: "0333-65674859",
-      ShipperEmail: "TEST@icloud.com",
-      ShipperAddress: "GHI Street",
-    },
-    {
-      SrNo: 4,
-      ShipperName: "Micheal Jordan",
-      ShipperPhone: "0333-0987654321",
-      ShipperEmail: "exotic@gmail.com",
-      ShipperAddress: "XYZVBN Street",
-    },
 
-  ];
+  initialize() {
+    this.sharedService.GetAllCities().subscribe((result) => {
+      var response = JSON.parse(JSON.stringify(result));
+      console.log(response);
 
+      // this.CitiesLOV = response.Data;
+    });
+
+    this.userService.GetOrders().subscribe((result) => {
+      console.warn("result", result);
+      var response = JSON.parse(JSON.stringify(result));
+
+      this.Orders = response.Data;
+      this.Orders.sort((a, b) => {
+        return (
+          <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+        );
+      });
+    });
+  }
 }

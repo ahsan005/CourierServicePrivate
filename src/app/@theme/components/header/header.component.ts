@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(){
     localStorage.clear();
-    this.router.navigate(['/home'])
+    window.location.reload()
   }
 
   // userMenu = [ { title: 'Profile', }, { title: 'Log out' } ];

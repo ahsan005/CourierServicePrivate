@@ -1,5 +1,5 @@
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-white "> -->
-  <!-- <div class="container w-100 px-5 ">
+<!-- <div class="container w-100 px-5 ">
     <a class="navbar-brand" ><img src="../../../../assets/images/happ1 (1).png" style="width: 150px;" alt=""></a>
     <button
       class="navbar-toggler btnfix"
@@ -52,7 +52,7 @@
             </li>
           </ul>
         </li>-->
-        <!-- <li class="nav-item">
+<!-- <li class="nav-item">
           <button nbButton status="primary" shape="semi-round"  routerLink='/auth/login' >Login</button>
         </li>
 
@@ -65,13 +65,34 @@
 <!-- </nav> -->
 <!-- /// OLD nav Bar -->
 <div id="navcontent" class="row pull-right">
-<nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
-  <a class="navbar-brand" ><img src="../../../../assets/images/happ1 (1).png" style="width: 150px;" alt=""></a>
-  <button class="marginleft navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div [ngbCollapse]="isNavbarCollapsed" [ngClass]="{'navbar-collapseV2': addclass,'navbar-collapse.showv2': addclass}"  class="collapse navbar-collapse" id="navbarsDefault">
-    <!-- <ul class="navbar-nav px-3 rounded-3 mr-auto">
+  <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
+    <a class="navbar-brand"
+      ><img
+        src="../../../../assets/images/happ1 (1).png"
+        style="width: 150px"
+        alt=""
+    /></a>
+    <button
+      class="marginleft navbar-toggler hidden-sm-up"
+      type="button"
+      (click)="isNavbarCollapsed = !isNavbarCollapsed"
+      data-target="#navbarsDefault"
+      aria-controls="navbarsDefault"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      [ngbCollapse]="isNavbarCollapsed"
+      [ngClass]="{
+        'navbar-collapseV2': addclass,
+        'navbar-collapse.showv2': addclass
+      }"
+      class="collapse navbar-collapse"
+      id="navbarsDefault"
+    >
+      <!-- <ul class="navbar-nav px-3 rounded-3 mr-auto">
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link dropdown-toggle" id="id01" href="#" ngbDropdownToggle>Files</a>
         <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
@@ -81,8 +102,8 @@
         </div>
       </li>
     </ul> -->
-    <!-- *ngIf="!this.isLoggedIn" -->
-    <ul  class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <!--
+    <ul  *ngIf="this.isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
       <li class="nav-item">
         <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
           >Home</a
@@ -121,31 +142,43 @@
         </ul>
       </li> -->
 
-     <li class="nav-item">
+      <!-- <li class="nav-item">
         <button nbButton status="primary" shape="semi-round"  routerLink='/auth/login' >Login</button>
       </li>
 
       <li class="nav-item">
         <button nbButton status="success" shape="semi-round" [routerLink]="[ '/auth/register']">Register</button>
       </li>
-    </ul>
-    <ul *ngIf="this.isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
-          >Home</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToAbout()">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToTracking()">Tracking</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="isMenuCollapsed = true;scrollToContact()">Contact-Us</a>
-      </li>
+    </ul> -->
 
-      <!-- <li class="nav-item dropdown">
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="isMenuCollapsed = true; scrollToAbout()"
+            >About</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            (click)="isMenuCollapsed = true; scrollToTracking()"
+            >Tracking</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            (click)="isMenuCollapsed = true; scrollToContact()"
+            >Contact-Us</a
+          >
+        </li>
+
+        <!-- <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           id="navbarDropdownBlog"
@@ -168,15 +201,76 @@
         </ul>
       </li> -->
 
-     <li class="nav-item">
-        <button  nbButton status="primary" shape="semi-round"  routerLink='/user' >User Dashboard</button>
-      </li>
+        <li *ngIf="this.isLoggedIn" class="nav-item">
+          <button
+            *ngIf="checkRole == 'HOSPITAL PARTY'"
+            nbButton
+            status="success"
+            shape="semi-round"
+            routerLink="/user"
+          >
+            User Dashboard
+          </button>
 
-      <li class="nav-item">
-        <button nbButton status="success" shape="semi-round" [routerLink]="[ '/auth/register']">Register</button>
-      </li>
-    </ul>
+          <button
+            *ngIf="checkRole == 'Admin'"
+            nbButton
+            status="primary"
+            shape="semi-round"
+            routerLink="/admin"
+          >
+            Admin Dashboard
+          </button>
+        </li>
+<li>
+  <div *ngIf="this.isLoggedIn" ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownMyAccount" ngbDropdownToggle>{{userName}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownMyAccount">
+      <button ngbDropdownItem>Account Settings</button>
+      <button ngbDropdownItem (click)="logout()">Log Out</button>
+
+    </div>
   </div>
-<!-- </nav> -->
-</nav>
+</li>
+
+
+        <li *ngIf="!this.isLoggedIn" class="nav-item">
+          <button
+            nbButton
+            status="success"
+            shape="semi-round"
+            class="mr-2"
+            routerLink="/auth/login"
+          >
+            Login
+          </button>
+
+          <button
+            nbButton
+            status="primary"
+            shape="semi-round"
+            routerLink="/auth/register"
+          >
+            Register
+          </button>
+        </li>
+
+        <!-- <li class="nav-item">
+        <button nbButton class="dropdown-toggle" status="success" id="navbarDropdownBlog" shape="semi-round" [routerLink]="[ '/auth/register']">Register</button>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownBlog"
+        >
+          <li>
+            <a class="dropdown-item" href="blog-home.html">Blog Home</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+          </li>
+        </ul>
+      </li> -->
+      </ul>
+    </div>
+    <!-- </nav> -->
+  </nav>
 </div>

@@ -1,3 +1,5 @@
+import { OnInit } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
 import { OrderBookingForm } from './../models/order-booking-form';
 import { jsPDF } from "jspdf";
 import * as XLSX from "xlsx";
@@ -8,6 +10,8 @@ import html2canvas from "html2canvas";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class TableUtil {
+
+
   static exportToExcel(tableId: string, name?: string) {
     let timeSpan = new Date().toISOString();
     let prefix = name || "ExportResult";
@@ -76,6 +80,7 @@ export class TableUtil {
     pdfMake.createPdf(docDefinition).open();
   }
 
+ 
   //  SearchTable
   static SearchFunction(searchVal: any) {
     // Declare variables
