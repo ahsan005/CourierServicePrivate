@@ -21,6 +21,7 @@ import { SettingComponent } from './setting/setting.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AddPaymentComponent } from './customer-payments/add-payment/add-payment.component';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ NbDatepickerModule,
     NbCardModule,
     NbButtonGroupModule,
     NbInputModule,
+    NbDateFnsDateModule,
   ],
   declarations: [
     PagesComponent,

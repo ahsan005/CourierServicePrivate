@@ -1,9 +1,8 @@
-
 <div class="row">
   <div class="col-md-12">
     <h4>Request Details</h4>
   </div>
-  <form action="">
+  <form action=""[formGroup]="bookedOrderFilters" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-2">
         <div class="form-group">
@@ -12,8 +11,9 @@
             nbInput
             placeholder="Select Start Date"
             [nbDatepicker]="datepicker"
+            formControlName="fromDate"
           />
-          <nb-datepicker #datepicker></nb-datepicker>
+          <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
         </div>
       </div>
       <div class="col-md-2 ml-5">
@@ -23,18 +23,22 @@
             nbInput
             placeholder="Select End Date"
             [nbDatepicker]="enddatepicker"
+            formControlName="toDate"
           />
-          <nb-datepicker #enddatepicker></nb-datepicker>
+          <nb-datepicker format="MM.dd.yyyy" #enddatepicker></nb-datepicker>
         </div>
       </div>
       <div class="col-sm-2 ml-5">
         <div class="form-group">
           <label>Select Pickup City</label>
-          <nb-select fullWidth placeholder="Select Pickup City">
-            <nb-option value="KRC">Karachi</nb-option>
-            <nb-option value="LHR">Lahore</nb-option>
-            <nb-option value="PSH">Peshawar</nb-option>
-            <nb-option value="QTA">Quetta</nb-option>
+          <nb-select
+          class="ml-5"
+            fullWidth
+            placeholder="Select Pickup City"
+            formControlName="originCityId"
+          >
+            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{item.Text}}</nb-option>
+
           </nb-select>
         </div>
       </div>
@@ -78,7 +82,8 @@
       </div>
       <div class="col-md-2">
         <div class="form-group">
-          <input style="margin-top: 27.5px;"
+          <input
+            style="margin-top: 27.5px"
             type="submit"
             name="Update"
             value="Update"
@@ -89,7 +94,7 @@
     </div>
   </form>
 
-  <div class="col-md-12">
+  <div class="col-md-2">
     <!-- <button nbButton status="primary" hero (click)="exportTable()">
         Export
       </button> -->
@@ -99,79 +104,95 @@
       <button nbButton (click)="generatePDF()">PDF</button>
     </nb-button-group>
     <br />
-
-
-    <table
-    #pdfTable
-    class="table table-sm mt-2 table-bordered"
-    id="ExampleTable"
-  >
-  <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col"><input type="checkbox"></th>
-        <th scope="col">Sr No.</th>
-        <th scope="col">Tracking#</th>
-        <th scope="col">Order#</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Shipment Details</th>
-        <th scope="col">Consignee Details</th>
-        <th scope="col">Shipper Info</th>
-        <th scope="col">Payments</th>
-        <th scope="col">Status</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <!-- *ngFor="let item of list" -->
-    <tr class="text-center" *ngFor="let item of Orders| paginate: { itemsPerPage: 10, currentPage: p}, let i = index;" scope="row">
-      <td><input type="checkbox" ></td>
-      <td class="tiny-details-Black">{{i + 1}}</td>
-      <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
-      <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>
-      <td class="tiny-details-Black"><strong>{{item.OrderBookingOn}}</strong></td>
-      <td class="tiny-details"> <strong>Product Code:</strong> {{item.ProductCode}} <br>
-       <strong>Product Description:</strong> {{item.ProductDescription}} <br>
-
-       <strong>Quantity:</strong> {{item.Quantity}} <br>
-       <strong>Weight:</strong> {{item.WeightProfileId}}<br>
-       <strong>CODAmount:</strong> {{item.CODAmount}}<br>
-       <strong>Delivery Fee:</strong> {{item.DeliveryFee}}<br>
-
-
-      </td>
-      <td class="tiny-details" >
-        <strong> Name:</strong> {{item.ConsigneeName}}<br>
-        <strong> Mobile:</strong> {{item.ConsigneeMobile}}<br>
-        <strong> Email:</strong> {{item.ConsigneeEmail}}<br>
-        <strong> Address:</strong> {{item.ConsigneeAddress}}<br>
-        <strong>City:</strong> {{item.DestinationCityName}} <br>
-
-
-      </td>
-      <td class="tiny-details">
-        <strong>Name:</strong>{{item.ShipperName}} <br>
-        <strong> Mobile:</strong>{{item.ShipperMobile}}<br>
-        <strong>Email:</strong>{{item.ShipperEmail}} <br>
-        <strong>Address:</strong>{{item.ShipperAddress}}<br>
-        <strong>City:</strong>{{item.OriginCityName}}<br>
-      </td>
-
-      <td class="tiny-details">
-        <strong>COD:</strong>{{item.CODAmount}} <br>
-        <strong>Delivery Fee:</strong>{{item.DeliveryFee}}
-      </td>
-      <td class="tiny-details">
-        <strong>{{item.ReceivedStatus}}</strong>
-      </td>
-      <td class="py-2">
-        <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
-        <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
-        <a (click)="trackingBtn(item.OrderBookingId)"><nb-icon icon="car-outline"></nb-icon></a>
-      </td>
-
-  </table>
-
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  </div>
 </div>
+    <div class="col-md-2 offset-6 mt-4">
+      <input nbInput type="text" [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
+    </div>
+    <div class="col-md-12">
+    <table
+      #pdfTable
+      class="table table-sm mt-2 table-bordered"
+      id="ExampleTable"
+    >
+      <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"><input type="checkbox" /></th>
+          <th scope="col">Sr No.</th>
+          <th scope="col">Tracking#</th>
+          <th scope="col">Order#</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Shipment Details</th>
+          <th scope="col">Consignee Details</th>
+          <th scope="col">Shipper Info</th>
+          <th scope="col">Payments</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <!-- *ngFor="let item of list" -->
+      <tr
+        class="text-center"
+        *ngFor="
+          let item of Orders | paginate: { itemsPerPage: 10, currentPage: p };
+          let i = index
+        "
+        scope="row"
+      >
+        <td><input type="checkbox" /></td>
+        <td class="tiny-details-Black">{{ i + 1 }}</td>
+        <td class="tiny-details-Black">
+          <strong>{{ item.OrderBookingId }}</strong>
+        </td>
+        <td class="tiny-details-Black">
+          <strong>{{ item.OrderBookingId }}</strong>
+        </td>
+        <td class="tiny-details-Black">
+          <strong>{{ item.OrderBookingOn }}</strong>
+        </td>
+        <td class="tiny-details">
+          <strong>Product Code:</strong> {{ item.ProductCode }} <br />
+          <strong>Product Description:</strong> {{ item.ProductDescription }}
+          <br />
+
+          <strong>Quantity:</strong> {{ item.Quantity }} <br />
+          <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
+          <strong>CODAmount:</strong> {{ item.CODAmount }}<br />
+          <strong>Delivery Fee:</strong> {{ item.DeliveryFee }}<br />
+        </td>
+        <td class="tiny-details">
+          <strong> Name:</strong> {{ item.ConsigneeName }}<br />
+          <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
+          <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
+          <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
+          <strong>City:</strong> {{ item.DestinationCityName }} <br />
+        </td>
+        <td class="tiny-details">
+          <strong>Name:</strong>{{ item.ShipperName }} <br />
+          <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
+          <strong>Email:</strong>{{ item.ShipperEmail }} <br />
+          <strong>Address:</strong>{{ item.ShipperAddress }}<br />
+          <strong>City:</strong>{{ item.OriginCityName }}<br />
+        </td>
+
+        <td class="tiny-details">
+          <strong>COD:</strong>{{ item.CODAmount }} <br />
+          <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
+        </td>
+        <td class="tiny-details">
+          <strong>{{ item.ReceivedStatus }}</strong>
+        </td>
+        <td class="py-2">
+          <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+          <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+          <a (click)="trackingBtn(item.OrderBookingId)"
+            ><nb-icon icon="car-outline"></nb-icon
+          ></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
 

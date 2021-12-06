@@ -1,3 +1,6 @@
+import { Filters } from './../../../models/filters';
+import { CitiesLOV } from './../../../models/citiesLOV';
+import { FormBuilder } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { SharedService } from './../../../services/shared.service';
 import { TableUtil } from './../../../utilities/tableutil';
@@ -10,14 +13,21 @@ import { OrderBookingForm } from '../../../models/order-booking-form';
   styleUrls: ['./booked-orders.component.scss']
 })
 export class BookedOrdersComponent implements OnInit {
+ public citiesLOV:CitiesLOV;
 p:number=1;
+searchVal;
+requestFilters:Filters;
 Orders:Array<OrderBookingForm>;
   constructor(private sharedService:SharedService,
-    private userService:UserService) {
+    private userService:UserService,
+    private fb:FormBuilder) {
       this.initialize()
      }
   onSubmit(){
-
+    console.log(this.citiesLOV)
+    console.log(this.bookedOrderFilters.value)
+    this.requestFilters = new Filters(this.bookedOrderFilters.value)
+    console.log(this.requestFilters);
   }
   exportTable(){
     TableUtil.exportToExcel('ExampleTable')
@@ -25,14 +35,24 @@ Orders:Array<OrderBookingForm>;
   generatePDF(){
     TableUtil.generatePDF('ExampleTable')
   }
+  SearchFunction(){
+    TableUtil.SearchFunction(this.searchVal);
+  }
   ngOnInit(): void {
   }
+  bookedOrderFilters;
   initialize() {
+    this.bookedOrderFilters = this.fb.group({
+      originCityId: [""],
+
+      fromDate: [""],
+      toDate: [""],
+    });
     this.sharedService.GetAllCities().subscribe((result) => {
       var response = JSON.parse(JSON.stringify(result));
       console.log(response);
 
-      // this.CitiesLOV = response.Data;
+      this.citiesLOV = response.Data;
     });
 
     this.userService.GetOrders().subscribe((result) => {
@@ -56,6 +76,7 @@ Orders:Array<OrderBookingForm>;
     this.reverse=!this.reverse
   }
   // Sorting
+
 
 
 }

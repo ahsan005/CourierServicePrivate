@@ -21,6 +21,7 @@ export class BookingformComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router
   ) {}
+  loading:boolean = false;
   citiesLOV: any;
   weightLOV: Array<Object> = [
     { id: "1", name: "0.5" },
@@ -59,19 +60,22 @@ export class BookingformComponent implements OnInit {
   formOutput: any;
   bookingFormObj: OrderBookingForm;
   onSubmit() {
+    this.loading = true;
     this.formOutput = this.bookingForm.getRawValue();
 
 
     this.bookingFormObj = new OrderBookingForm(this.bookingForm.value);
     this.bookingFormObj.CreatedById = parseInt(localStorage.getItem("USERID"));
-    this.bookingFormObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
+
     console.log(this.bookingFormObj);
+
     this.userService.OrderBooking(this.bookingFormObj).subscribe((data) => {
       //  = JSON.stringify(data)
       var response = JSON.parse(JSON.stringify(data));
       //     //  console.log(response.Status,response.Message)
       //     console.log("Status", response);
       if (response.Status) {
+        this.loading = false;
         this.notificationService.showToast(
           "success",
           response.Message,
@@ -81,6 +85,7 @@ export class BookingformComponent implements OnInit {
 
         this.router.navigate(["/user/requests"]);
       } else {
+        this.loading = false;
         this.notificationService.showToast(
           "danger",
           response.Message,

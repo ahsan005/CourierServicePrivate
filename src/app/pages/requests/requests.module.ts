@@ -1,5 +1,5 @@
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule, NbIconModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
@@ -20,6 +20,7 @@ import { CancelledNotReceivedComponent } from './cancelled-not-received/cancelle
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
 import { DataTablesModule } from "angular-datatables";
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 
 
 @NgModule({
@@ -52,7 +53,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     Ng2OrderModule,
     NbEvaIconsModule,
     NbIconModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+    ReactiveFormsModule,
+    NbDateFnsDateModule,
   ]
 })
 export class RequestsModule { }
