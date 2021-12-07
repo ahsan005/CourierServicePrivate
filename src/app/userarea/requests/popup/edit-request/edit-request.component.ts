@@ -1,5 +1,5 @@
 import { NbToastrService,NbIconConfig  } from '@nebular/theme';
-import { CitiesLOV } from "./../../../../models/citiesLOV";
+import { LOV } from "../../../../models/citiesLOV";
 import { SharedService } from "./../../../../services/shared.service";
 import { UserService } from "./../../../../services/user.service";
 import { OrderBookingForm } from "./../../../../models/order-booking-form";

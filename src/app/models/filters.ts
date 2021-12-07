@@ -6,6 +6,7 @@ export class Filters{
 public selectDestination:number;
 public selectOrigin:number;
 public selectStatus:string;
+public assignedCourier:string;
 public fromDate:Date;
 public toDate:Date;
 

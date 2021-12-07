@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h4>Request Details</h4>
   </div>
-  <form action=""[formGroup]="bookedOrderFilters" (ngSubmit)="onSubmit()">
+  <form action="" [formGroup]="bookedOrderFilters" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-2">
         <div class="form-group">
@@ -32,67 +32,68 @@
         <div class="form-group">
           <label>Select Pickup City</label>
           <nb-select
-          class="ml-5"
+            class="ml-5"
             fullWidth
             placeholder="Select Pickup City"
             formControlName="originCityId"
           >
-            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{item.Text}}</nb-option>
-
+            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
+              item.Text
+            }}</nb-option>
           </nb-select>
         </div>
       </div>
       <div class="col-md-2 ml-5">
         <div class="form-group">
-          <input
-            style="margin-top: 25px"
+          <button
+          nbButton
+          status="primary" hero
+            style="margin-top: 25.5px"
             type="submit"
-            name="Submit"
-            value="Submit"
-            class="form-control"
-          />
+
+
+          >Submit</button>
         </div>
       </div>
     </div>
   </form>
-  <form action="">
+
     <div class="row">
       <h4>Sort-By</h4>
       <div class="col-md-2">
         <label for="">Status</label>
         <div class="form-group">
-          <nb-select fullWidth placeholder="Select Status">
-            <nb-option value="COMP">Completed</nb-option>
-            <nb-option value="PROC">Processing</nb-option>
-            <nb-option value="TRAN">In-transit</nb-option>
-            <nb-option value="DLV">Delivering</nb-option>
+          <nb-select [(ngModel)]="orderStatus" fullWidth placeholder="Select Status">
+            <nb-option [value]="item.Value" *ngFor="let item of statusLOV">{{item.Text}}</nb-option>
           </nb-select>
         </div>
       </div>
       <div class="col-md-2">
         <div class="form-group">
           <label for="">Assigned Courier</label>
-          <nb-select fullWidth placeholder="Assigned Courier">
-            <nb-option value="COMP">Courier Name 1</nb-option>
-            <nb-option value="PROC">Courier Name 2</nb-option>
-            <nb-option value="TRAN">Courier Name 3</nb-option>
-            <nb-option value="DLV">Courier Name 4</nb-option>
+          <nb-select [(ngModel)]="assignedCourier" placeholder="Assigned Courier">
+            <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{item.Text}}</nb-option>
+
           </nb-select>
         </div>
       </div>
       <div class="col-md-2">
         <div class="form-group">
-          <input
-            style="margin-top: 27.5px"
-            type="submit"
-            name="Update"
-            value="Update"
-            class="form-control"
-          />
+          <button
+            style="margin-top: 27px"
+
+            nbButton hero status="primary"
+           (click)="sortFilter()"
+          >Update</button>
         </div>
       </div>
+
+        <!-- <div class="col-md-2">
+          <button nbButton style="margin-top: 27px;" (click)="RemoveFilters()" status="danger" hero>Remove Filters</button>
+        </div> -->
+
     </div>
-  </form>
+
 
   <div class="col-md-2">
     <!-- <button nbButton status="primary" hero (click)="exportTable()">
@@ -104,11 +105,19 @@
       <button nbButton (click)="generatePDF()">PDF</button>
     </nb-button-group>
     <br />
-</div>
-    <div class="col-md-2 offset-6 mt-4">
-      <input nbInput type="text" [(ngModel)]="searchVal" name="search" placeholder="Search" (keyup)="SearchFunction()" id="searchbox">
-    </div>
-    <div class="col-md-12">
+  </div>
+  <div class="col-md-2 offset-6 mt-4">
+    <input
+      nbInput
+      type="text"
+      [(ngModel)]="searchVal"
+      name="search"
+      placeholder="Search"
+      (keyup)="SearchFunction()"
+      id="searchbox"
+    />
+  </div>
+  <div class="col-md-12">
     <table
       #pdfTable
       class="table table-sm mt-2 table-bordered"
@@ -118,7 +127,7 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col"><input type="checkbox" /></th>
-          <th scope="col">Sr No.</th>
+
           <th scope="col">Tracking#</th>
           <th scope="col">Order#</th>
           <th scope="col">Order Date</th>
@@ -140,7 +149,7 @@
         scope="row"
       >
         <td><input type="checkbox" /></td>
-        <td class="tiny-details-Black">{{ i + 1 }}</td>
+
         <td class="tiny-details-Black">
           <strong>{{ item.OrderBookingId }}</strong>
         </td>
@@ -180,7 +189,7 @@
           <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
         </td>
         <td class="tiny-details">
-          <strong>{{ item.ReceivedStatus }}</strong>
+          <strong>{{ item.StatusName }}</strong>
         </td>
         <td class="py-2">
           <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
@@ -192,7 +201,5 @@
       </tr>
     </table>
   </div>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  </div>
-
-
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

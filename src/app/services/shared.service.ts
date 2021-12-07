@@ -1,4 +1,4 @@
-import { CitiesLOV } from './../models/citiesLOV';
+import { LOV } from '../models/citiesLOV';
 import { Observable, throwError } from "rxjs";
 import { environment } from "./../../environments/environment";
 import { map } from 'rxjs/operators';
@@ -36,12 +36,12 @@ export class SharedService {
   }
 
 
-  GetAllCities():Observable<CitiesLOV[]> {
+  GetAllCities():Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http
-      .get<CitiesLOV[]>(
+      .get<LOV[]>(
         this.base_url + "api/courierService/GetAllCities",
 
         httpOptions
@@ -55,4 +55,30 @@ export class SharedService {
       //   }
       // });
   }
+  GetAllStatuses():Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http
+      .get<LOV[]>(
+        this.base_url + "api/courierService/GetAllOrderStatus",
+
+        httpOptions
+      )
+
+  }
+  GetAllCourier():Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http
+      .get<LOV[]>(
+        this.base_url + "api/courierService/GetAllCourier",
+
+        httpOptions
+      )
+
+  }
+
 }
+

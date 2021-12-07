@@ -1,6 +1,6 @@
 import { NotificationService } from "./../../services/notification.service";
 import * as $ from "jquery";
-import { CitiesLOV } from "./../../models/citiesLOV";
+import { LOV } from "../../models/citiesLOV";
 import { SharedService } from "./../../services/shared.service";
 import { OrderBookingForm } from "./../../models/order-booking-form";
 import { FileuploadService } from "./../../services/fileupload.service";
@@ -21,8 +21,8 @@ export class BulkBookingComponent implements OnInit {
   p: number = 1;
   message: string;
   serial: number = 0;
-  citiesLOV = new Array<CitiesLOV>();
-  weightLOV: Array<WeightLOV> = [
+  citiesLOV = new Array<LOV>();
+  weightLOV: Array<LOV> = [
     { Value: "1", Text: "0.5" },
     { Value: "2", Text: "1" },
     { Value: "3", Text: "2" },

@@ -41,6 +41,8 @@ export class OrderBookingForm {
   // ShipmentInfo
   public ProductCode: number;
   public ReceivedStatus: string;
+  public StatusProfileId:number;
+  public StatusName:string;
 
   public Quantity: number;
   public WeightProfileId: number;

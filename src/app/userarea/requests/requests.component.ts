@@ -12,7 +12,7 @@ import htmlToPdfmake from "html-to-pdfmake";
 import html2canvas from "html2canvas";
 import { UserService } from "../../services/user.service";
 import { Filters } from "../../models/filters";
-import { CitiesLOV } from "../../models/citiesLOV";
+import { LOV } from "../../models/citiesLOV";
 import * as $ from "jquery";
 import { EditRequestComponent } from "./popup/edit-request/edit-request.component";
 import { NbToastrService } from "@nebular/theme";
@@ -28,7 +28,7 @@ export class RequestsComponent implements OnInit {
   @Input() public citiesLOVForEditForm: any;
   requestsFilter: Filters;
   Orders = new Array<OrderBookingForm>();
-  CitiesLOV = new Array<CitiesLOV>();
+  CitiesLOV = new Array<LOV>();
   serial: number = 0;
   // Pagination Variable
   p: number = 1;

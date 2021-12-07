@@ -1,5 +1,5 @@
-export class CitiesLOV{
-  public constructor(init?: Partial<CitiesLOV>) {
+export class LOV{
+  public constructor(init?: Partial<LOV>) {
     Object.assign(this, init);
 }
 
