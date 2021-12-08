@@ -17,7 +17,6 @@ export class OrderBookingForm {
   public OriginCityName: string;
   public PartyLocationId: number;
   public UserLogId: number;
-
   public ShipperName: string;
   public ShipperMobile: string;
   public ShipperEmail: string;
@@ -26,7 +25,6 @@ export class OrderBookingForm {
 
   // Consignee Info
   public OrderBookingNo: number;
-
   public DestinationCityId: number;
   public DestinationCityName: string;
   public CityName: string;
@@ -35,7 +33,6 @@ export class OrderBookingForm {
   public ConsigneeAddress: string;
   public ConsigneeEmail: string;
   public DeliveryFee: number;
-
   // Consignee Info
 
   // ShipmentInfo
@@ -43,11 +40,10 @@ export class OrderBookingForm {
   public ReceivedStatus: string;
   public StatusProfileId:number;
   public StatusName:string;
-
   public Quantity: number;
   public WeightProfileId: number;
   public CODAmount: number;
   public ProductDescription: string;
-  public SpecialInstructions: string;
+  public SpecialInstruction: string;
   // ShipmentInfo
 }

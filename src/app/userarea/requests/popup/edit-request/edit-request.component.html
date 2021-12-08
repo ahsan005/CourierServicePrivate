@@ -572,27 +572,27 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="" class="label label-info"
-                  >Special Instructions</label
+                  >Special Instruction</label
                 >
                 <textarea
-                  name="specialInstructions"
+                  name="specialInstruction"
                   nbInput
                   class="form-control"
                   autocomplete="off"
-                  id="specialInstructions"
+                  id="specialInstruction"
                   fullWidth
-                  formControlName="specialInstructions"
+                  formControlName="specialInstruction"
                 ></textarea>
                 <div
                   class="row alert text-danger"
                   *ngIf="
-                    specialInstructions.invalid &&
-                    (specialInstructions.dirty || specialInstructions.touched)
+                    specialInstruction.invalid &&
+                    (specialInstruction.dirty || specialInstruction.touched)
                   "
                 >
                   <div
                     class="alert text-danger"
-                    *ngIf="specialInstructions.errors?.required"
+                    *ngIf="specialInstruction.errors?.required"
                   >
                     specialInstructions is required.
                   </div>
@@ -605,20 +605,33 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-md-2 offset-5 pb-3">
+    <div class="col-md-2 col-sm-2 col-xs-1 offset-sm-0 offset-md-8 offset-lg-8 offset-xl-8 pb-3">
       <button
         nbButton
         [disabled]="
           editOrder.invalid &&
           (editOrder.dirty || editOrder.touched || editOrder.untouched)
         "
-        fullWidth
+
         hero
         shape="round"
         size="giant"
         status="primary"
       >
         Save
+      </button>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-1 pb-3">
+      <button
+        nbButton
+
+
+        hero
+        shape="round"
+        size="giant"
+        status="danger"
+      >
+        Close
       </button>
     </div>
     <!-- <div class="col-md-2 offset-5 pb-3">

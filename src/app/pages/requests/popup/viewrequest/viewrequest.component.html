@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h6 class="modal-title" id="modal-basic-title">Request Details</h6>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row pb-2">
+    <div class="col-md-2 offset-1"><button nbButton status="success">Item Received</button></div>
+    <div class="col-md-2 offset-1"><button nbButton status="primary">Item Not Received</button></div>
+  </div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <td colspan="1">Order/Track#</td>
+        <td>{{ orderBookingModel.OrderBookingId }}</td>
+      </tr>
+      <tr>
+        <td><strong>Origin</strong></td>
+        <td>{{ orderBookingModel.OriginCityName }}</td>
+      </tr>
+
+      <tr>
+        <td><strong>Destination</strong></td>
+        <td>{{ orderBookingModel.DestinationCityName }}</td>
+      </tr>
+      <tr>
+        <td><strong>Sender</strong></td>
+        <td>
+          <strong class="details">Name:</strong>{{ orderBookingModel.ShipperName }} <br />
+          <strong class="details">Email:</strong> {{ orderBookingModel.ShipperEmail }} <br />
+          <strong class="details">Mobile:</strong>{{ orderBookingModel.ShipperMobile }}<br />
+          <strong class="details">Address:</strong>{{ orderBookingModel.ShipperAddress }}
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Receiver</strong></td>
+        <td>
+          <strong class="details">Name:</strong>{{ orderBookingModel.ConsigneeName }} <br />
+          <strong class="details">Email:</strong> {{ orderBookingModel.ConsigneeEmail }}<br />
+          <strong class="details">Mobile:</strong>{{ orderBookingModel.ConsigneeMobile }}<br />
+          <strong class="details">Address:</strong>{{ orderBookingModel.ConsigneeAddress }}
+        </td>
+      </tr>
+      <tr>
+        <td> <strong>COD Amount</strong> </td>
+        <td>{{ orderBookingModel.CODAmount }}</td>
+      </tr>
+      <tr>
+        <td><strong>Delivery Fee</strong></td>
+        <td>{{ orderBookingModel.DeliveryFee }}</td>
+      </tr>
+      <tr>
+        <td><strong>Parcel Weight</strong></td>
+        <td>{{ orderBookingModel.WeightProfileId }}</td>
+      </tr>
+      <tr>
+        <td><strong>Product Code</strong></td>
+        <td>{{ orderBookingModel.ProductCode }}</td>
+      </tr>
+      <tr>
+        <td><strong>Product Description</strong></td>
+        <td>{{ orderBookingModel.ProductDescription }}</td>
+      </tr>
+      <tr>
+        <td><strong>Special Instructions</strong></td>
+        <td>{{ orderBookingModel.SpecialInstructions }}</td>
+      </tr>
+      <tr>
+        <td><strong>Courier</strong></td>
+        <td>Courier Name</td>
+      </tr>
+      <tr>
+        <td><strong>Barcode</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Status</strong></td>
+        <td>{{ orderBookingModel.StatusName }}</td>
+      </tr>
+      <tr>
+        <td><strong>Actions</strong></td>
+        <td><a href="">View Invoice</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row pb-2">
+    <div class="col-md-2 offset-1"><button nbButton status="success">Item Received</button></div>
+    <div class="col-md-2 offset-1"><button nbButton status="primary">Item Not Received</button></div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button nbButton status="danger"
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="modal.close('Close click')"
+  >
+  Close
+  </button>
+</div>

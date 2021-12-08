@@ -97,8 +97,8 @@ export class EditRequestComponent implements OnInit {
   get codAmount() {
     return this.editOrder.get("codAmount");
   }
-  get specialInstructions() {
-    return this.editOrder.get("specialInstructions");
+  get specialInstruction() {
+    return this.editOrder.get("specialInstruction");
   }
   get consigneeAddress() {
     return this.editOrder.get("consigneeAddress");
@@ -177,7 +177,8 @@ export class EditRequestComponent implements OnInit {
         this.orderBookingModel.ProductDescription,
         // Validators.required,
       ],
-      specialInstructions: [this.orderBookingModel.SpecialInstructions],
+      specialInstruction: [this.orderBookingModel.SpecialInstruction],
+      createdById:[this.orderBookingModel.CreatedById]
 
       // Shipment Details
     });

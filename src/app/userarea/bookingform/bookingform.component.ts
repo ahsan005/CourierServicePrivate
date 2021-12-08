@@ -66,6 +66,7 @@ export class BookingformComponent implements OnInit {
 
     this.bookingFormObj = new OrderBookingForm(this.bookingForm.value);
     this.bookingFormObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+    this.bookingFormObj.AlteredById = parseInt(localStorage.getItem("USERID"));
 
     console.log(this.bookingFormObj);
 
@@ -137,8 +138,8 @@ export class BookingformComponent implements OnInit {
   get codAmount() {
     return this.bookingForm.get("codAmount");
   }
-  get specialInstructions() {
-    return this.bookingForm.get("specialInstructions");
+  get specialInstruction() {
+    return this.bookingForm.get("specialInstruction");
   }
   get consigneeAddress() {
     return this.bookingForm.get("consigneeAddress");
@@ -170,7 +171,7 @@ export class BookingformComponent implements OnInit {
     weightprofileId: ["", Validators.required],
     codAmount: ["", Validators.required],
     productDescription: ["", Validators.required],
-    specialInstructions: ["", Validators.required],
+    specialInstruction: ["", Validators.required],
 
     // Shipment Details
   });

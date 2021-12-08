@@ -16,6 +16,7 @@ import { LOV } from "../../models/citiesLOV";
 import * as $ from "jquery";
 import { EditRequestComponent } from "./popup/edit-request/edit-request.component";
 import { NbToastrService } from "@nebular/theme";
+import { ViewrequestComponent } from "./popup/View-request/viewrequest/viewrequest.component";
 
 @Component({
   selector: "ngx-requests",
@@ -137,7 +138,7 @@ export class RequestsComponent implements OnInit {
   }
 
   editBtn(item?: OrderBookingForm) {
-    const ref = this.modalService.open(EditRequestComponent, { size: "xl" });
+    const ref = this.modalService.open(EditRequestComponent, { size: "xl",scrollable:true });
     this.orderBooking = item;
     this.citiesLOVForEditForm = this.CitiesLOV;
     console.log(this.citiesLOVForEditForm);
@@ -152,6 +153,13 @@ export class RequestsComponent implements OnInit {
         console.log("cancel CLick");
       }
     );
+  }
+  viewRequestBtn(item?:OrderBookingForm){
+    const ref = this.modalService.open(ViewrequestComponent, { size: "lg",scrollable:true });
+    this.orderBooking = item;
+    this.citiesLOVForEditForm = this.CitiesLOV;
+    ref.componentInstance.orderBookingModel = this.orderBooking;
+    ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
   }
   private index: number = 0;
 
@@ -169,8 +177,6 @@ export class RequestsComponent implements OnInit {
   SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);
   }
-  viewDetails(){
 
-  }
 
 }

@@ -139,6 +139,7 @@ export class BulkBookingComponent implements OnInit {
         }
 
         item.CreatedById = createdById;
+        item.AlteredById = createdById;
       }
 
       // Add Corresponding CityID's in Array
