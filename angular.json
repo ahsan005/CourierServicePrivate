@@ -58,7 +58,8 @@
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
-              "node_modules/jquery/dist/jquery.js"
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/jsbarcode/src/JsBarcode.js"
             ],
             "allowedCommonJsDependencies": [
               "angular2-chartjs",

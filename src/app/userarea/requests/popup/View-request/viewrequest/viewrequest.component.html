@@ -77,7 +77,9 @@
       </tr>
       <tr>
         <td><strong>Barcode</strong></td>
-        <td></td>
+       <td><ejs-barcodegenerator style="display: block;"  #barcode id="barcode" width="200px" height="150px" mode="SVG" type="Codabar" value={{orderBookingModel.OrderBookingId}}
+        ></ejs-barcodegenerator>
+       </td>
       </tr>
       <tr>
         <td><strong>Status</strong></td>
@@ -85,7 +87,7 @@
       </tr>
       <tr>
         <td><strong>Actions</strong></td>
-        <td><a href="">View Invoice</a></td>
+        <td><a (click)="viewPDFInvoice()">View Invoice</a></td>
       </tr>
     </tbody>
   </table>

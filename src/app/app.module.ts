@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HomeComponent } from "./user/home/home.component";
 import { DataTablesModule } from "angular-datatables";
 import { Ng2OrderModule } from 'ng2-order-pipe';
-
+import { BarcodeGeneratorAllModule,QRCodeGeneratorAllModule,DataMatrixGeneratorAllModule } from '@syncfusion/ej2-angular-barcode-generator';
 /**
  *
  * Copyright Akveo. All Rights Reserved.
@@ -90,7 +90,9 @@ import { config } from 'process';
     Ng2OrderModule,
     NbDateFnsDateModule,
     NbSpinnerModule,
-
+    BarcodeGeneratorAllModule,
+    QRCodeGeneratorAllModule,
+    DataMatrixGeneratorAllModule
 
 
   ],

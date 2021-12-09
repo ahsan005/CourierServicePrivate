@@ -1,7 +1,8 @@
-import { OnInit } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
-import { OrderBookingForm } from './../models/order-booking-form';
+import { OnInit } from "@angular/core";
+import { NbToastrService } from "@nebular/theme";
+import { OrderBookingForm } from "./../models/order-booking-form";
 import { jsPDF } from "jspdf";
+import * as JsBarcode from "jsbarcode";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -10,8 +11,6 @@ import html2canvas from "html2canvas";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class TableUtil {
-
-
   static exportToExcel(tableId: string, name?: string) {
     let timeSpan = new Date().toISOString();
     let prefix = name || "ExportResult";
@@ -38,7 +37,7 @@ export class TableUtil {
     });
   }
 
-  static generatePdfV2(OrderBooking:OrderBookingForm[]) {
+  static generatePdfV2(OrderBooking: OrderBookingForm[]) {
     // const documentDefinition = { content: html };
     console.log(OrderBooking);
     var docDefinition = {
@@ -80,7 +79,6 @@ export class TableUtil {
     pdfMake.createPdf(docDefinition).open();
   }
 
-
   //  SearchTable
   static SearchFunction(searchVal: any) {
     // Declare variables
@@ -110,235 +108,359 @@ export class TableUtil {
   }
   //  SearchTable
 
-
-
+  resume;
   // Generate PDF Report Using PDFMAKE
-  // generatePdf(action = 'open') {
-  //   // const documentDefinition = this.getDocumentDefinition();
-  //   switch (action) {
-  //     case 'open': pdfMake.createPdf(documentDefinition).open(); break;
-  //     case 'print': pdfMake.createPdf(documentDefinition).print(); break;
-  //     case 'download': pdfMake.createPdf(documentDefinition).download(); break;
-  //     default: pdfMake.createPdf(documentDefinition).open(); break;
-  //   }
-  // // }
-  // resetForm() {
-  //   this.resume = new Resume();
-  // }
-  // getDocumentDefinition() {
-  //   sessionStorage.setItem('resume', JSON.stringify(this.resume));
-  //   return {
-  //     content: [
-  //       {
-  //         text: 'RESUME',
-  //         bold: true,
-  //         fontSize: 20,
-  //         alignment: 'center',
-  //         margin: [0, 0, 0, 20]
-  //       },
-  //       {
-  //         columns: [
-  //           [{
-  //             text: this.resume.name,
-  //             style: 'name'
-  //           },
-  //           {
-  //             text: this.resume.address
-  //           },
-  //           {
-  //             text: 'Email : ' + this.resume.email,
-  //           },
-  //           {
-  //             text: 'Contant No : ' + this.resume.contactNo,
-  //           },
-  //           {
-  //             text: 'GitHub: ' + this.resume.socialProfile,
-  //             link: this.resume.socialProfile,
-  //             color: 'blue',
-  //           }
-  //           ],
-  //           [
-  //             this.getProfilePicObject()
-  //           ]
-  //         ]
-  //       },
-  //       {
-  //         text: 'Skills',
-  //         style: 'header'
-  //       },
-  //       {
-  //         columns : [
-  //           {
-  //             ul : [
-  //               ...this.resume.skills.filter((value, index) => index % 3 === 0).map(s => s.value)
-  //             ]
-  //           },
-  //           {
-  //             ul : [
-  //               ...this.resume.skills.filter((value, index) => index % 3 === 1).map(s => s.value)
-  //             ]
-  //           },
-  //           {
-  //             ul : [
-  //               ...this.resume.skills.filter((value, index) => index % 3 === 2).map(s => s.value)
-  //             ]
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         text: 'Experience',
-  //         style: 'header'
-  //       },
-  //       this.getExperienceObject(this.resume.experiences),
-  //       {
-  //         text: 'Education',
-  //         style: 'header'
-  //       },
-  //       this.getEducationObject(this.resume.educations),
-  //       {
-  //         text: 'Other Details',
-  //         style: 'header'
-  //       },
-  //       {
-  //         text: this.resume.otherDetails
-  //       },
-  //       {
-  //         text: 'Signature',
-  //         style: 'sign'
-  //       },
-  //       {
-  //         columns : [
-  //             { qr: this.resume.name + ', Contact No : ' + this.resume.contactNo, fit : 100 },
-  //             {
-  //             text: `(${this.resume.name})`,
-  //             alignment: 'right',
-  //             }
-  //         ]
-  //       }
-  //     ],
-  //     info: {
-  //       title: this.resume.name + '_RESUME',
-  //       author: this.resume.name,
-  //       subject: 'RESUME',
-  //       keywords: 'RESUME, ONLINE RESUME',
-  //     },
-  //       styles: {
-  //         header: {
-  //           fontSize: 18,
-  //           bold: true,
-  //           margin: [0, 20, 0, 10],
-  //           decoration: 'underline'
-  //         },
-  //         name: {
-  //           fontSize: 16,
-  //           bold: true
-  //         },
-  //         jobTitle: {
-  //           fontSize: 14,
-  //           bold: true,
-  //           italics: true
-  //         },
-  //         sign: {
-  //           margin: [0, 50, 0, 10],
-  //           alignment: 'right',
-  //           italics: true
-  //         },
-  //         tableHeader: {
-  //           bold: true,
-  //         }
-  //       }
-  //   };
-  // }
-  // getExperienceObject(experiences: Experience[]) {
-  //   const exs = [];
-  //   experiences.forEach(experience => {
-  //     exs.push(
-  //       [{
-  //         columns: [
-  //           [{
-  //             text: experience.jobTitle,
-  //             style: 'jobTitle'
-  //           },
-  //           {
-  //             text: experience.employer,
-  //           },
-  //           {
-  //             text: experience.jobDescription,
-  //           }],
-  //           {
-  //             text: 'Experience : ' + experience.experience + ' Months',
-  //             alignment: 'right'
-  //           }
-  //         ]
-  //       }]
-  //     );
-  //   });
-  //   return {
-  //     table: {
-  //       widths: ['*'],
-  //       body: [
-  //         ...exs
-  //       ]
-  //     }
-  //   };
-  // }
-  // getEducationObject(educations: Education[]) {
-  //   return {
-  //     table: {
-  //       widths: ['*', '*', '*', '*'],
-  //       body: [
-  //         [{
-  //           text: 'Degree',
-  //           style: 'tableHeader'
-  //         },
-  //         {
-  //           text: 'College',
-  //           style: 'tableHeader'
-  //         },
-  //         {
-  //           text: 'Passing Year',
-  //           style: 'tableHeader'
-  //         },
-  //         {
-  //           text: 'Result',
-  //           style: 'tableHeader'
-  //         },
-  //         ],
-  //         ...educations.map(ed => {
-  //           return [ed.degree, ed.college, ed.passingYear, ed.percentage];
-  //         })
-  //       ]
-  //     }
-  //   };
-  // }
-  // // getProfilePicObject() {
-  // //   if (this.resume.profilePic) {
-  // //     return {
-  // //       image: this.resume.profilePic ,
-  // //       width: 75,
-  // //       alignment : 'right'
-  // //     };
-  // //   }
-  // //   return null;
-  // // }
-  // // fileChanged(e) {
-  // //   const file = e.target.files[0];
-  // //   this.getBase64(file);
-  // // }
-  // // getBase64(file) {
-  // //   const reader = new FileReader();
-  // //   reader.readAsDataURL(file);
-  // //   reader.onload = () => {
-  // //     console.log(reader.result);
-  // //     this.resume.profilePic = reader.result as string;
-  // //   };
-  // //   reader.onerror = (error) => {
-  // //     console.log('Error: ', error);
-  // //   };
-  // // }
-  // // addSkill() {
-  // //   // this.resume.skills.push(new Skill());
-  // // }
-  // // Generate PDF Report Using PDFMAKE
+  static generatePdf(orderBookingObj: OrderBookingForm, action = "open") {
+    const documentDefinition = this.getDocumentDefinitionV2P(orderBookingObj);
+    switch (action) {
+      case "open":
+        pdfMake.createPdf(documentDefinition).open();
+        break;
+      case "print":
+        pdfMake.createPdf(documentDefinition).print();
+        break;
+      case "download":
+        pdfMake.createPdf(documentDefinition).download();
+        break;
+      default:
+        pdfMake.createPdf(documentDefinition).open();
+        break;
+    }
+  }
+  resetForm() {
+    // this.resume = new Resume();
+  }
+  static textToBase64Barcode(text) {
+    var canvas = document.createElement("canvas");
+    JsBarcode(canvas, text, { format: "CODE39" });
+    return canvas.toDataURL("image/png");
+  }
 
+  // http://localhost:4200/assets/images/happ1%20(1).png
+  static getDocumentDefinitionV2P(orderBookingObj: OrderBookingForm) {
+    this.toDataURL(
+      "http://localhost:4200/assets/images/happ1_JPG.jpg",
+      function (dataUrl) {
+        if (!sessionStorage.getItem("LOGO")) {
+          // logo = dataUrl;
+          // console.log(logo);
+          sessionStorage.setItem("LOGO", dataUrl);
+        }
+      }
+    );
+    var barCode = this.textToBase64Barcode(orderBookingObj.OrderBookingId);
+    console.log(barCode);
+
+    var BookingID = orderBookingObj.OrderBookingId;
+    var logoFromSession = sessionStorage.getItem("LOGO");
+
+    return {
+      header: function (pageSize) {
+        // you can apply any logic and return any valid pdfmake element
+        var currentDate = new Date();
+        var headerText =
+          currentDate.toLocaleString("en-US", { timeZone: "Asia/Karachi" }) +
+          "                                      Order/Tracking#" +
+          BookingID;
+        return [
+          { text: headerText, alignment: "left" },
+          {
+            canvas: [
+              { type: "rect", x: 170, y: 32, w: pageSize.width - 170, h: 40 },
+            ],
+          },
+        ];
+      },
+      content: [
+        {
+          style: "tableExample",
+          table: {
+            widths: [100, 150, 200],
+            body: [
+              // ["width=100", "star-sized", "width=200", "star-sized"],
+              [
+                {
+                  image: String(logoFromSession),
+                  width: 80,
+                  height: 40,
+                  border: [true, true, true, true],
+                  alignment: "center",
+                },
+                {
+                  image: String(barCode),
+                  width: 150,
+                  height: 40,
+                  border: [true, true, false, true],
+                  alignment: "center",
+                },
+                { border:[false,true,true,true],
+                  style: "tableExample",
+                  table: {
+                    widths: ["*", 20, 20],
+                    body: [
+                      // ["width=100", "star-sized", "width=200", "star-sized"],
+                      [
+                        {
+                          text: "nothing interesting here",
+                          italics: true,
+                          color: "gray",
+                          border: [true, true, false, true],
+                          alignment: "center",
+                        },
+
+                      ],
+                    ],
+                  },
+                },
+                // {
+                //   text: "nothing interesting here",
+                //   italics: true,
+                //   color: "gray",
+                // },
+              ],
+            ],
+          },
+        },
+      ],
+    };
+  }
+
+  static toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.send();
+  }
+
+  getDocumentDefinition() {
+    sessionStorage.setItem("resume", JSON.stringify(this.resume));
+    return {
+      content: [
+        {
+          text: "RESUME",
+          bold: true,
+          fontSize: 20,
+          alignment: "center",
+          margin: [0, 0, 0, 20],
+        },
+        {
+          columns: [
+            [
+              {
+                text: this.resume.name,
+                style: "name",
+              },
+              {
+                text: this.resume.address,
+              },
+              {
+                text: "Email : " + this.resume.email,
+              },
+              {
+                text: "Contant No : " + this.resume.contactNo,
+              },
+              {
+                text: "GitHub: " + this.resume.socialProfile,
+                link: this.resume.socialProfile,
+                color: "blue",
+              },
+            ],
+            [this.getProfilePicObject()],
+          ],
+        },
+        {
+          text: "Skills",
+          style: "header",
+        },
+        {
+          columns: [
+            {
+              ul: [
+                ...this.resume.skills
+                  .filter((value, index) => index % 3 === 0)
+                  .map((s) => s.value),
+              ],
+            },
+            {
+              ul: [
+                ...this.resume.skills
+                  .filter((value, index) => index % 3 === 1)
+                  .map((s) => s.value),
+              ],
+            },
+            {
+              ul: [
+                ...this.resume.skills
+                  .filter((value, index) => index % 3 === 2)
+                  .map((s) => s.value),
+              ],
+            },
+          ],
+        },
+        {
+          text: "Experience",
+          style: "header",
+        },
+        this.getExperienceObject(this.resume.experiences),
+        {
+          text: "Education",
+          style: "header",
+        },
+        this.getEducationObject(this.resume.educations),
+        {
+          text: "Other Details",
+          style: "header",
+        },
+        {
+          text: this.resume.otherDetails,
+        },
+        {
+          text: "Signature",
+          style: "sign",
+        },
+        {
+          columns: [
+            {
+              qr: this.resume.name + ", Contact No : " + this.resume.contactNo,
+              fit: 100,
+            },
+            {
+              text: `(${this.resume.name})`,
+              alignment: "right",
+            },
+          ],
+        },
+      ],
+      info: {
+        title: this.resume.name + "_RESUME",
+        author: this.resume.name,
+        subject: "RESUME",
+        keywords: "RESUME, ONLINE RESUME",
+      },
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 20, 0, 10],
+          decoration: "underline",
+        },
+        name: {
+          fontSize: 16,
+          bold: true,
+        },
+        jobTitle: {
+          fontSize: 14,
+          bold: true,
+          italics: true,
+        },
+        sign: {
+          margin: [0, 50, 0, 10],
+          alignment: "right",
+          italics: true,
+        },
+        tableHeader: {
+          bold: true,
+        },
+      },
+    };
+  }
+  getExperienceObject(experiences) {
+    const exs = [];
+    experiences.forEach((experience) => {
+      exs.push([
+        {
+          columns: [
+            [
+              {
+                text: experience.jobTitle,
+                style: "jobTitle",
+              },
+              {
+                text: experience.employer,
+              },
+              {
+                text: experience.jobDescription,
+              },
+            ],
+            {
+              text: "Experience : " + experience.experience + " Months",
+              alignment: "right",
+            },
+          ],
+        },
+      ]);
+    });
+    return {
+      table: {
+        widths: ["*"],
+        body: [...exs],
+      },
+    };
+  }
+  getEducationObject(educations) {
+    return {
+      table: {
+        widths: ["*", "*", "*", "*"],
+        body: [
+          [
+            {
+              text: "Degree",
+              style: "tableHeader",
+            },
+            {
+              text: "College",
+              style: "tableHeader",
+            },
+            {
+              text: "Passing Year",
+              style: "tableHeader",
+            },
+            {
+              text: "Result",
+              style: "tableHeader",
+            },
+          ],
+          ...educations.map((ed) => {
+            return [ed.degree, ed.college, ed.passingYear, ed.percentage];
+          }),
+        ],
+      },
+    };
+  }
+  getProfilePicObject() {
+    if (this.resume.profilePic) {
+      return {
+        image: this.resume.profilePic,
+        width: 75,
+        alignment: "right",
+      };
+    }
+    return null;
+  }
+  fileChanged(e) {
+    const file = e.target.files[0];
+    this.getBase64(file);
+  }
+  getBase64(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result);
+      this.resume.profilePic = reader.result as string;
+    };
+    reader.onerror = (error) => {
+      console.log("Error: ", error);
+    };
+  }
+  addSkill() {
+    // this.resume.skills.push(new Skill());
+  }
+  // Generate PDF Report Using PDFMAKE
 }

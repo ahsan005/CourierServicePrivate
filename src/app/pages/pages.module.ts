@@ -1,3 +1,4 @@
+import { BarcodeGeneratorAllModule, QRCodeGeneratorAllModule, DataMatrixGeneratorAllModule } from '@syncfusion/ej2-angular-barcode-generator';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FormsModule } from '@angular/forms';
@@ -42,6 +43,9 @@ NbDatepickerModule,
     NbButtonGroupModule,
     NbInputModule,
     NbDateFnsDateModule,
+    BarcodeGeneratorAllModule,
+    QRCodeGeneratorAllModule,
+    DataMatrixGeneratorAllModule
   ],
   declarations: [
     PagesComponent,

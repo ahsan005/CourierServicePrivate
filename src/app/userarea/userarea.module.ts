@@ -1,3 +1,4 @@
+import { BarcodeGeneratorAllModule, QRCodeGeneratorAllModule, DataMatrixGeneratorAllModule } from '@syncfusion/ej2-angular-barcode-generator';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +27,7 @@ import { EditComponent } from './multiple-profiles/edit/edit.component';
 import { AddProfileComponent } from './multiple-profiles/add-profile/add-profile.component';
 import { EditRequestComponent } from './requests/popup/edit-request/edit-request.component';
 import { ViewrequestComponent } from './requests/popup/View-request/viewrequest/viewrequest.component';
+import{jsBarcode} from '../../../node_modules/jsbarcode/src/jsBarcode.js'
 
 // import { ThemeModule } from '../@theme/theme.module';
 
@@ -51,6 +53,8 @@ import { ViewrequestComponent } from './requests/popup/View-request/viewrequest/
     EditRequestComponent,
     ViewrequestComponent
 
+
+
   ],
   imports: [
     CommonModule,
@@ -69,7 +73,10 @@ import { ViewrequestComponent } from './requests/popup/View-request/viewrequest/
     NbButtonGroupModule,
     NgxPaginationModule,
     NbDateFnsDateModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    BarcodeGeneratorAllModule,
+    QRCodeGeneratorAllModule,
+    DataMatrixGeneratorAllModule
 
   ]
 })

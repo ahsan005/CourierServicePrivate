@@ -157,8 +157,10 @@ export class RequestsComponent implements OnInit {
   viewRequestBtn(item?:OrderBookingForm){
     const ref = this.modalService.open(ViewrequestComponent, { size: "lg",scrollable:true });
     this.orderBooking = item;
+    console.log(this.orderBooking);
     this.citiesLOVForEditForm = this.CitiesLOV;
     ref.componentInstance.orderBookingModel = this.orderBooking;
+    console.log(ref.componentInstance.orderBookingModel);
     ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
   }
   private index: number = 0;
@@ -170,6 +172,9 @@ export class RequestsComponent implements OnInit {
       status,
     });
   }
+  viewPDFInvoice(item){
+    TableUtil.generatePdf(item);
+    }
 
 
 
