@@ -148,6 +148,10 @@ export class TableUtil {
         }
       }
     );
+    var dateString = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Karachi",
+    });
+    const date = dateString.split(",");
     var barCode = this.textToBase64Barcode(orderBookingObj.OrderBookingId);
     console.log(barCode);
 
@@ -162,6 +166,7 @@ export class TableUtil {
           currentDate.toLocaleString("en-US", { timeZone: "Asia/Karachi" }) +
           "                                      Order/Tracking#" +
           BookingID;
+
         return [
           { text: headerText, alignment: "left" },
           {
@@ -171,57 +176,248 @@ export class TableUtil {
           },
         ];
       },
+      pageSize: "A3",
+
       content: [
         {
           style: "tableExample",
           table: {
-            widths: [100, 150, 200],
+            widths: [125, 200, 60, 100, 100, 100],
+
             body: [
               // ["width=100", "star-sized", "width=200", "star-sized"],
               [
                 {
+                  rowSpan: 3,
                   image: String(logoFromSession),
                   width: 80,
-                  height: 40,
+                  height: 55,
                   border: [true, true, true, true],
                   alignment: "center",
                 },
                 {
+                  rowSpan: 3,
                   image: String(barCode),
                   width: 150,
-                  height: 40,
+                  height: 60,
                   border: [true, true, false, true],
                   alignment: "center",
                 },
-                { border:[false,true,true,true],
-                  style: "tableExample",
-                  table: {
-                    widths: ["*", 20, 20],
-                    body: [
-                      // ["width=100", "star-sized", "width=200", "star-sized"],
-                      [
-                        {
-                          text: "nothing interesting here",
-                          italics: true,
-                          color: "gray",
-                          border: [true, true, false, true],
-                          alignment: "center",
-                        },
-
-                      ],
-                    ],
-                  },
-                },
+                { text: "Date", style: "header" },
+                { text: date[0] },
+                { text: "COD Amount", style: "header" },
+                { text: orderBookingObj.CODAmount },
                 // {
                 //   text: "nothing interesting here",
                 //   italics: true,
                 //   color: "gray",
                 // },
               ],
+              [
+                {},
+                {},
+                {
+                  text: "Service",
+                  style: "header",
+                },
+                { text: "COD" },
+                { text: "" },
+                { text: "" },
+              ],
+              [
+                {},
+                {},
+                { text: "Origin", style: "header" },
+                { text: orderBookingObj.OriginCityName },
+                { text: "Destination", style: "header" },
+                { text: orderBookingObj.DestinationCityName },
+              ],
+
+              [
+                { colSpan: 2, text: "Shipper", style: "header" },
+                {},
+                {
+                  colSpan: 4,
+                  text: "Consignee",
+                  style: "header",
+                },
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Company Name",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperName,
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Name",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeName,
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Phone No",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperMobile,
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeAddress,
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperAddress,
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Phone No",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeMobile,
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Customer Ref#",
+                  style: "header",
+                },
+                {
+                  colSpan: 2,
+                  text: "hello",
+                  alignment: "center",
+                },
+                {},
+                {
+                  colSpan: 2,
+                  text: "Product Code",
+                  style: "header",
+                },
+                {},
+                {
+                  text: orderBookingObj.ProductCode,
+                },
+              ],
+              [
+                { text: "COD Amount", style: "header" },
+                {
+                  text: "Rs." + orderBookingObj.CODAmount,
+                  bold: true,
+                },
+                {
+                  text: "Weight",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.WeightProfileId,
+                  alignment: "center",
+                },
+                {
+                  text: "Quantity",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.Quantity,
+                  alignment: "center",
+                },
+              ],
+              [
+                {
+                  text: "Product Description",
+                  style: "header",
+                  margin: [10, 5, 10, 5],
+                },
+
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.ProductDescription,
+                  margin: [10, 10, 10, 10],
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Special Instruction",
+                  style: "header",
+                  margin: [10, 5, 10, 5],
+                },
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.SpecialInstruction,
+                  margin: [10, 10, 10, 10],
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  colSpan: 6,
+                  text: "Kindly do not give any additional charges to the Rider/Courier. If shipment is found in torn or damaged condition, please do not receive.",
+                },
+                {},
+                {},
+                {},
+                {},
+                {},
+              ],
             ],
           },
         },
       ],
+      styles: {
+        header: {
+          bold: true,
+          alignment: "center",
+        },
+      },
     };
   }
 
