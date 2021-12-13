@@ -20,7 +20,7 @@ export class ViewrequestComponent implements OnInit {
   ngOnInit(): void {}
 
   viewPDFInvoice(){
-    TableUtil.generatePdf(this.orderBookingModel)
+    TableUtil.generatePdfInvoice(this.orderBookingModel)
     }
 
 }

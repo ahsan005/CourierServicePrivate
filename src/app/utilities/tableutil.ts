@@ -40,38 +40,66 @@ export class TableUtil {
   static generatePdfV2(OrderBooking: OrderBookingForm[]) {
     // const documentDefinition = { content: html };
     console.log(OrderBooking);
+    var rows = [];
+    rows.push([
+      "Tracking#",
+      "Date",
+      "Product Description",
+      "Quantity",
+      "ConsigneeName",
+      "ConsigneeMobile",
+      "ConsigneeAddress",
+      "DestinationCity",
+      "Shipper Name",
+      "Shipper Mobile",
+      "Shipper Address",
+      "Origin City",
+      "COD",
+      "Delivery Fee",
+      "Status",
+    ]);
+    OrderBooking.forEach(function (item) {
+
+      rows.push([
+        item.OrderBookingId,
+        item.OrderBookingOn,
+        item.ProductCode,
+
+        item.ProductDescription,
+
+        item.ConsigneeName,
+
+        item.ConsigneeMobile,
+
+        item.ConsigneeAddress,
+
+        item.DestinationCityName,
+        item.ShipperName,
+        item.ShipperMobile,
+
+
+        item.ShipperAddress,
+        item.OriginCityName,
+
+        item.CODAmount,
+        item.DeliveryFee,
+        item.StatusName,
+      ]);
+    });
     var docDefinition = {
+      pageOrientation: 'landscape',
+      pageMargins: [5, 5, 0, 5],
       content: [
         {
           layout: "lightHorizontalLines", // optional
+
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: ["*", "auto", 100, "*", "*", "*", "*", "*"],
+            widths: [50,50,50,50,50,50,50,50,50,50,50,50,50,50,50],
 
-            body: [
-              [
-                "Sr No.",
-                "Order No.",
-                "Order Date",
-                "Shipment Details",
-                "Receiver Details",
-                "Payments",
-                "Status",
-                "Action",
-              ],
-              [
-                "Value 1",
-                "Value 2",
-                "Value 3",
-                "Value 4",
-                "Value 5 ",
-                "Value 6",
-                "Value 7",
-                "Value 8",
-              ],
-            ],
+            body: rows
           },
         },
       ],
@@ -108,10 +136,12 @@ export class TableUtil {
   }
   //  SearchTable
 
-  resume;
   // Generate PDF Report Using PDFMAKE
-  static generatePdf(orderBookingObj: OrderBookingForm, action = "open") {
-    const documentDefinition = this.getDocumentDefinitionV2P(orderBookingObj);
+  static generatePdfInvoice(
+    orderBookingObj: OrderBookingForm,
+    action = "open"
+  ) {
+    const documentDefinition = this.getDocumentDefinition(orderBookingObj);
     switch (action) {
       case "open":
         pdfMake.createPdf(documentDefinition).open();
@@ -127,9 +157,7 @@ export class TableUtil {
         break;
     }
   }
-  resetForm() {
-    // this.resume = new Resume();
-  }
+
   static textToBase64Barcode(text) {
     var canvas = document.createElement("canvas");
     JsBarcode(canvas, text, { format: "CODE39" });
@@ -137,7 +165,7 @@ export class TableUtil {
   }
 
   // http://localhost:4200/assets/images/happ1%20(1).png
-  static getDocumentDefinitionV2P(orderBookingObj: OrderBookingForm) {
+  static getDocumentDefinition(orderBookingObj: OrderBookingForm) {
     this.toDataURL(
       "http://localhost:4200/assets/images/happ1_JPG.jpg",
       function (dataUrl) {
@@ -176,13 +204,13 @@ export class TableUtil {
           },
         ];
       },
-      pageSize: "A3",
-
+      pageSize: "A4",
+      pageMargins: [5, 25, 0, 5],
       content: [
         {
           style: "tableExample",
           table: {
-            widths: [125, 200, 60, 100, 100, 100],
+            widths: [85, 250, 30, 75, 42.5, 50],
 
             body: [
               // ["width=100", "star-sized", "width=200", "star-sized"],
@@ -190,8 +218,9 @@ export class TableUtil {
                 {
                   rowSpan: 3,
                   image: String(logoFromSession),
-                  width: 80,
-                  height: 55,
+                  width: 60,
+                  height: 40,
+                  margin: [0, 12.5, 0, 0],
                   border: [true, true, true, true],
                   alignment: "center",
                 },
@@ -203,10 +232,14 @@ export class TableUtil {
                   border: [true, true, false, true],
                   alignment: "center",
                 },
-                { text: "Date", style: "header" },
-                { text: date[0] },
+                { text: "Date", style: "header", margin: [0, 5] },
+                { text: date[0], style: "content", margin: [0, 5] },
                 { text: "COD Amount", style: "header" },
-                { text: orderBookingObj.CODAmount },
+                {
+                  text: orderBookingObj.CODAmount,
+                  style: "content",
+                  margin: [0, 5],
+                },
                 // {
                 //   text: "nothing interesting here",
                 //   italics: true,
@@ -220,26 +253,40 @@ export class TableUtil {
                   text: "Service",
                   style: "header",
                 },
-                { text: "COD" },
+                { text: "COD", style: "content" },
                 { text: "" },
                 { text: "" },
               ],
               [
                 {},
                 {},
-                { text: "Origin", style: "header" },
-                { text: orderBookingObj.OriginCityName },
-                { text: "Destination", style: "header" },
-                { text: orderBookingObj.DestinationCityName },
+                { text: "Origin", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.OriginCityName,
+                  style: "content",
+                  margin: [0, 5],
+                },
+                { text: "Destination", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.DestinationCityName,
+                  style: "content",
+                  margin: [0, 5],
+                },
               ],
 
               [
-                { colSpan: 2, text: "Shipper", style: "header" },
+                {
+                  colSpan: 2,
+                  text: "Shipper",
+                  style: "header",
+                  alignment: "center",
+                },
                 {},
                 {
                   colSpan: 4,
                   text: "Consignee",
                   style: "header",
+                  alignment: "center",
                 },
                 {},
                 {},
@@ -255,6 +302,7 @@ export class TableUtil {
                 {
                   border: [false, true, false, true],
                   text: orderBookingObj.ShipperName,
+                  style: "content",
                 },
                 {
                   border: [true, true, false, true],
@@ -265,6 +313,7 @@ export class TableUtil {
                   border: [false, true, true, true],
                   colSpan: 3,
                   text: orderBookingObj.ConsigneeName,
+                  style: "content",
                 },
                 {},
                 {},
@@ -279,6 +328,7 @@ export class TableUtil {
                 {
                   border: [false, true, false, true],
                   text: orderBookingObj.ShipperMobile,
+                  style: "content",
                 },
                 {
                   border: [true, true, false, true],
@@ -289,6 +339,7 @@ export class TableUtil {
                   border: [false, true, true, true],
                   colSpan: 3,
                   text: orderBookingObj.ConsigneeAddress,
+                  style: "content",
                 },
                 {},
                 {},
@@ -303,16 +354,18 @@ export class TableUtil {
                 {
                   border: [false, true, false, true],
                   text: orderBookingObj.ShipperAddress,
+                  style: "content",
                 },
                 {
                   border: [true, true, false, true],
-                  text: "Phone No",
+                  text: "Phone#",
                   style: "header",
                 },
                 {
                   border: [false, true, true, true],
                   colSpan: 3,
                   text: orderBookingObj.ConsigneeMobile,
+                  style: "content",
                 },
                 {},
                 {},
@@ -325,25 +378,21 @@ export class TableUtil {
                 },
                 {
                   colSpan: 2,
-                  text: "hello",
+                  text: "#",
                   alignment: "center",
+                  style: "content",
                 },
                 {},
-                {
-                  colSpan: 2,
-                  text: "Product Code",
-                  style: "header",
-                },
+                { colSpan: 2, text: "Product Code", style: "header" },
                 {},
-                {
-                  text: orderBookingObj.ProductCode,
-                },
+                { text: orderBookingObj.ProductCode, style: "content" },
               ],
               [
                 { text: "COD Amount", style: "header" },
                 {
                   text: "Rs." + orderBookingObj.CODAmount,
                   bold: true,
+                  style: "content",
                 },
                 {
                   text: "Weight",
@@ -352,6 +401,7 @@ export class TableUtil {
                 {
                   text: orderBookingObj.WeightProfileId,
                   alignment: "center",
+                  style: "content",
                 },
                 {
                   text: "Quantity",
@@ -360,19 +410,21 @@ export class TableUtil {
                 {
                   text: orderBookingObj.Quantity,
                   alignment: "center",
+                  style: "content",
                 },
               ],
               [
                 {
                   text: "Product Description",
                   style: "header",
-                  margin: [10, 5, 10, 5],
+                  margin: [0, 10, 10, 5],
                 },
 
                 {
                   colSpan: 5,
                   text: orderBookingObj.ProductDescription,
-                  margin: [10, 10, 10, 10],
+                  margin: [0, 10, 10, 10],
+                  style: "content",
                 },
                 {},
                 {},
@@ -384,12 +436,13 @@ export class TableUtil {
                 {
                   text: "Special Instruction",
                   style: "header",
-                  margin: [10, 5, 10, 5],
+                  margin: [0, 10, 10, 5],
                 },
                 {
                   colSpan: 5,
                   text: orderBookingObj.SpecialInstruction,
-                  margin: [10, 10, 10, 10],
+                  margin: [0, 10, 10, 10],
+                  style: "content",
                 },
                 {},
                 {},
@@ -401,6 +454,533 @@ export class TableUtil {
                 {
                   colSpan: 6,
                   text: "Kindly do not give any additional charges to the Rider/Courier. If shipment is found in torn or damaged condition, please do not receive.",
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+                {},
+              ],
+            ],
+          },
+        },
+        { text: "", style: "headerSpacing" },
+        {
+          style: "tableExample",
+          table: {
+            widths: [85, 250, 30, 75, 42.5, 50],
+
+            body: [
+              // ["width=100", "star-sized", "width=200", "star-sized"],
+              [
+                {
+                  rowSpan: 3,
+                  image: String(logoFromSession),
+                  width: 60,
+                  height: 40,
+                  margin: [0, 12.5, 0, 0],
+                  border: [true, true, true, true],
+                  alignment: "center",
+                },
+                {
+                  rowSpan: 3,
+                  image: String(barCode),
+                  width: 150,
+                  height: 60,
+                  border: [true, true, false, true],
+                  alignment: "center",
+                },
+                { text: "Date", style: "header", margin: [0, 5] },
+                { text: date[0], style: "content", margin: [0, 5] },
+                { text: "COD Amount", style: "header" },
+                {
+                  text: orderBookingObj.CODAmount,
+                  style: "content",
+                  margin: [0, 5],
+                },
+                // {
+                //   text: "nothing interesting here",
+                //   italics: true,
+                //   color: "gray",
+                // },
+              ],
+              [
+                {},
+                {},
+                {
+                  text: "Service",
+                  style: "header",
+                },
+                { text: "COD", style: "content" },
+                { text: "" },
+                { text: "" },
+              ],
+              [
+                {},
+                {},
+                { text: "Origin", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.OriginCityName,
+                  style: "content",
+                  margin: [0, 5],
+                },
+                { text: "Destination", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.DestinationCityName,
+                  style: "content",
+                  margin: [0, 5],
+                },
+              ],
+
+              [
+                {
+                  colSpan: 2,
+                  text: "Shipper",
+                  style: "header",
+                  alignment: "center",
+                },
+                {},
+                {
+                  colSpan: 4,
+                  text: "Consignee",
+                  style: "header",
+                  alignment: "center",
+                },
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Company Name",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperName,
+                  style: "content",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Name",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeName,
+                  style: "content",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Phone No",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperMobile,
+                  style: "content",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeAddress,
+                  style: "content",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperAddress,
+                  style: "content",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Phone#",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeMobile,
+                  style: "content",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Customer Ref#",
+                  style: "header",
+                },
+                {
+                  colSpan: 2,
+                  text: "#",
+                  alignment: "center",
+                  style: "content",
+                },
+                {},
+                { colSpan: 2, text: "Product Code", style: "header" },
+                {},
+                { text: orderBookingObj.ProductCode, style: "content" },
+              ],
+              [
+                { text: "COD Amount", style: "header" },
+                {
+                  text: "Rs." + orderBookingObj.CODAmount,
+                  bold: true,
+                  style: "content",
+                },
+                {
+                  text: "Weight",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.WeightProfileId,
+                  alignment: "center",
+                  style: "content",
+                },
+                {
+                  text: "Quantity",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.Quantity,
+                  alignment: "center",
+                  style: "content",
+                },
+              ],
+              [
+                {
+                  text: "Product Description",
+                  style: "header",
+                  margin: [0, 10, 10, 5],
+                },
+
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.ProductDescription,
+                  margin: [0, 10, 10, 10],
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Special Instruction",
+                  style: "header",
+                  margin: [0, 10, 10, 5],
+                },
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.SpecialInstruction,
+                  margin: [0, 10, 10, 10],
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  colSpan: 6,
+                  text: "Kindly do not give any additional charges to the Rider/Courier. If shipment is found in torn or damaged condition, please do not receive.",
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+                {},
+              ],
+            ],
+          },
+        },
+        { text: "", style: "headerSpacing" },
+        {
+          style: "tableExample",
+          table: {
+            widths: [85, 250, 30, 75, 42.5, 50],
+
+            body: [
+              // ["width=100", "star-sized", "width=200", "star-sized"],
+              [
+                {
+                  rowSpan: 3,
+                  image: String(logoFromSession),
+                  width: 60,
+                  height: 40,
+                  margin: [0, 12.5, 0, 0],
+                  border: [true, true, true, true],
+                  alignment: "center",
+                },
+                {
+                  rowSpan: 3,
+                  image: String(barCode),
+                  width: 150,
+                  height: 60,
+                  border: [true, true, false, true],
+                  alignment: "center",
+                },
+                { text: "Date", style: "header", margin: [0, 5] },
+                { text: date[0], margin: [0, 5], style: "content" },
+                { text: "COD Amount", style: "header" },
+                {
+                  text: orderBookingObj.CODAmount,
+                  margin: [0, 5],
+                  style: "content",
+                },
+                // {
+                //   text: "nothing interesting here",
+                //   italics: true,
+                //   color: "gray",
+                // },
+              ],
+              [
+                {},
+                {},
+                {
+                  text: "Service",
+                  style: "header",
+                  margin: [0, 5],
+                },
+                { text: "COD", style: "content" },
+                { text: "" },
+                { text: "" },
+              ],
+              [
+                {},
+                {},
+                { text: "Origin", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.OriginCityName,
+                  margin: [0, 5],
+                  style: "content",
+                },
+                { text: "Destination", style: "header", margin: [0, 5] },
+                {
+                  text: orderBookingObj.DestinationCityName,
+                  margin: [0, 5],
+                  style: "content",
+                },
+              ],
+
+              [
+                {
+                  colSpan: 2,
+                  text: "Shipper",
+                  style: "header",
+                  alignment: "center",
+                },
+                {},
+                {
+                  colSpan: 4,
+                  text: "Consignee",
+                  style: "header",
+                  alignment: "center",
+                },
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Company Name",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperName,
+                  style: "content",
+                  alignment: "center",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Name",
+                  style: "header",
+                  alignment: "center",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeName,
+                  style: "content",
+                  alignment: "center",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Phone No",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperMobile,
+                  style: "content",
+                  alignment: "center",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeAddress,
+                  style: "content",
+                  alignment: "center",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  border: [true, true, false, true],
+                  text: "Address",
+                  style: "header",
+                },
+                {
+                  border: [false, true, false, true],
+                  text: orderBookingObj.ShipperAddress,
+                  style: "content",
+                  alignment: "center",
+                },
+                {
+                  border: [true, true, false, true],
+                  text: "Phone#",
+                  style: "header",
+                },
+                {
+                  border: [false, true, true, true],
+                  colSpan: 3,
+                  text: orderBookingObj.ConsigneeMobile,
+                  style: "content",
+                  alignment: "center",
+                },
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Customer Ref#",
+                  style: "header",
+                },
+                {
+                  colSpan: 2,
+                  text: "#",
+                  alignment: "center",
+                  style: "content",
+                },
+                {},
+                { colSpan: 2, text: "Product Code", style: "header" },
+                {},
+                { text: orderBookingObj.ProductCode, style: "content" },
+              ],
+              [
+                { text: "COD Amount", style: "header" },
+                {
+                  text: "Rs." + orderBookingObj.CODAmount,
+                  bold: true,
+                  style: "content",
+                },
+                {
+                  text: "Weight",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.WeightProfileId,
+                  alignment: "center",
+                  style: "content",
+                },
+                {
+                  text: "Quantity",
+                  style: "header",
+                },
+                {
+                  text: orderBookingObj.Quantity,
+                  alignment: "center",
+                  style: "content",
+                },
+              ],
+              [
+                {
+                  text: "Product Description",
+                  style: "header",
+                  margin: [0, 10, 10, 5],
+                },
+
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.ProductDescription,
+                  margin: [0, 10, 10, 10],
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  text: "Special Instruction",
+                  style: "header",
+                  margin: [0, 10, 10, 5],
+                },
+                {
+                  colSpan: 5,
+                  text: orderBookingObj.SpecialInstruction,
+                  margin: [0, 10, 10, 10],
+                  style: "content",
+                },
+                {},
+                {},
+                {},
+                {},
+              ],
+
+              [
+                {
+                  colSpan: 6,
+                  text: "Kindly do not give any additional charges to the Rider/Courier. If shipment is found in torn or damaged condition, please do not receive.",
+                  style: "content",
                 },
                 {},
                 {},
@@ -414,8 +994,15 @@ export class TableUtil {
       ],
       styles: {
         header: {
+          fontSize: 8,
           bold: true,
-          alignment: "center",
+          alignment: "left",
+        },
+        content: {
+          fontSize: 8,
+        },
+        headerSpacing: {
+          margin: [0, 0, 0, 40],
         },
       },
     };
@@ -435,228 +1022,5 @@ export class TableUtil {
     xhr.send();
   }
 
-  getDocumentDefinition() {
-    sessionStorage.setItem("resume", JSON.stringify(this.resume));
-    return {
-      content: [
-        {
-          text: "RESUME",
-          bold: true,
-          fontSize: 20,
-          alignment: "center",
-          margin: [0, 0, 0, 20],
-        },
-        {
-          columns: [
-            [
-              {
-                text: this.resume.name,
-                style: "name",
-              },
-              {
-                text: this.resume.address,
-              },
-              {
-                text: "Email : " + this.resume.email,
-              },
-              {
-                text: "Contant No : " + this.resume.contactNo,
-              },
-              {
-                text: "GitHub: " + this.resume.socialProfile,
-                link: this.resume.socialProfile,
-                color: "blue",
-              },
-            ],
-            [this.getProfilePicObject()],
-          ],
-        },
-        {
-          text: "Skills",
-          style: "header",
-        },
-        {
-          columns: [
-            {
-              ul: [
-                ...this.resume.skills
-                  .filter((value, index) => index % 3 === 0)
-                  .map((s) => s.value),
-              ],
-            },
-            {
-              ul: [
-                ...this.resume.skills
-                  .filter((value, index) => index % 3 === 1)
-                  .map((s) => s.value),
-              ],
-            },
-            {
-              ul: [
-                ...this.resume.skills
-                  .filter((value, index) => index % 3 === 2)
-                  .map((s) => s.value),
-              ],
-            },
-          ],
-        },
-        {
-          text: "Experience",
-          style: "header",
-        },
-        this.getExperienceObject(this.resume.experiences),
-        {
-          text: "Education",
-          style: "header",
-        },
-        this.getEducationObject(this.resume.educations),
-        {
-          text: "Other Details",
-          style: "header",
-        },
-        {
-          text: this.resume.otherDetails,
-        },
-        {
-          text: "Signature",
-          style: "sign",
-        },
-        {
-          columns: [
-            {
-              qr: this.resume.name + ", Contact No : " + this.resume.contactNo,
-              fit: 100,
-            },
-            {
-              text: `(${this.resume.name})`,
-              alignment: "right",
-            },
-          ],
-        },
-      ],
-      info: {
-        title: this.resume.name + "_RESUME",
-        author: this.resume.name,
-        subject: "RESUME",
-        keywords: "RESUME, ONLINE RESUME",
-      },
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 20, 0, 10],
-          decoration: "underline",
-        },
-        name: {
-          fontSize: 16,
-          bold: true,
-        },
-        jobTitle: {
-          fontSize: 14,
-          bold: true,
-          italics: true,
-        },
-        sign: {
-          margin: [0, 50, 0, 10],
-          alignment: "right",
-          italics: true,
-        },
-        tableHeader: {
-          bold: true,
-        },
-      },
-    };
-  }
-  getExperienceObject(experiences) {
-    const exs = [];
-    experiences.forEach((experience) => {
-      exs.push([
-        {
-          columns: [
-            [
-              {
-                text: experience.jobTitle,
-                style: "jobTitle",
-              },
-              {
-                text: experience.employer,
-              },
-              {
-                text: experience.jobDescription,
-              },
-            ],
-            {
-              text: "Experience : " + experience.experience + " Months",
-              alignment: "right",
-            },
-          ],
-        },
-      ]);
-    });
-    return {
-      table: {
-        widths: ["*"],
-        body: [...exs],
-      },
-    };
-  }
-  getEducationObject(educations) {
-    return {
-      table: {
-        widths: ["*", "*", "*", "*"],
-        body: [
-          [
-            {
-              text: "Degree",
-              style: "tableHeader",
-            },
-            {
-              text: "College",
-              style: "tableHeader",
-            },
-            {
-              text: "Passing Year",
-              style: "tableHeader",
-            },
-            {
-              text: "Result",
-              style: "tableHeader",
-            },
-          ],
-          ...educations.map((ed) => {
-            return [ed.degree, ed.college, ed.passingYear, ed.percentage];
-          }),
-        ],
-      },
-    };
-  }
-  getProfilePicObject() {
-    if (this.resume.profilePic) {
-      return {
-        image: this.resume.profilePic,
-        width: 75,
-        alignment: "right",
-      };
-    }
-    return null;
-  }
-  fileChanged(e) {
-    const file = e.target.files[0];
-    this.getBase64(file);
-  }
-  getBase64(file) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      console.log(reader.result);
-      this.resume.profilePic = reader.result as string;
-    };
-    reader.onerror = (error) => {
-      console.log("Error: ", error);
-    };
-  }
-  addSkill() {
-    // this.resume.skills.push(new Skill());
-  }
   // Generate PDF Report Using PDFMAKE
 }

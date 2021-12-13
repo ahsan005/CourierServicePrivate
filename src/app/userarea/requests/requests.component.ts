@@ -84,7 +84,7 @@ export class RequestsComponent implements OnInit {
     //   pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
     //   pdf.save("newPDF.pdf");
     // });
-    TableUtil.generatePDF("ExampleTable");
+    TableUtil.generatePdfV2(this.Orders);
   }
   constructor(
     private fb: FormBuilder,
@@ -172,9 +172,7 @@ export class RequestsComponent implements OnInit {
       status,
     });
   }
-  viewPDFInvoice(item){
-    TableUtil.generatePdf(item);
-    }
+
 
 
 

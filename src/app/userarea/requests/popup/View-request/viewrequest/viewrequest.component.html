@@ -13,6 +13,7 @@
   <div class="row pb-2">
     <div class="col-md-2 offset-1"><button nbButton status="success">Item Received</button></div>
     <div class="col-md-2 offset-1"><button nbButton status="primary">Item Not Received</button></div>
+    <div class="col-md-2 offset-1"><button nbButton status="Secondary" (click)="viewPDFInvoice()">View Invoice</button></div>
   </div>
   <table class="table table-bordered">
     <tbody>
@@ -86,8 +87,7 @@
         <td>{{ orderBookingModel.StatusName }}</td>
       </tr>
       <tr>
-        <td><strong>Actions</strong></td>
-        <td><a (click)="viewPDFInvoice()">View Invoice</a></td>
+
       </tr>
     </tbody>
   </table>
