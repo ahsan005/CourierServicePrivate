@@ -21,6 +21,24 @@ export class TableUtil {
     });
     XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
+
+  static exportToExcelV2(orderBooking: OrderBookingForm[], name?) {
+    let timeSpan = new Date().toISOString();
+    let prefix = name || "ExportResult";
+    let fileName = `${prefix}-${timeSpan}`;
+
+    let ws = XLSX.utils.json_to_sheet(orderBooking);
+
+    // Create a new Workbook
+    var wb = XLSX.utils.book_new();
+
+    // Name your sheet
+    XLSX.utils.book_append_sheet(wb, ws, name);
+
+    // export your excel
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
+  }
+
   static generatePDF(TableId: string, name?: string) {
     var data = document.getElementById("ExampleTable");
     html2canvas(data).then((canvas) => {
@@ -37,7 +55,7 @@ export class TableUtil {
     });
   }
 
-  static generatePdfV2(OrderBooking: OrderBookingForm[]) {
+  static generatePdfTable(OrderBooking: OrderBookingForm[]) {
     // const documentDefinition = { content: html };
     console.log(OrderBooking);
     var rows = [];
@@ -59,7 +77,6 @@ export class TableUtil {
       "Status",
     ]);
     OrderBooking.forEach(function (item) {
-
       rows.push([
         item.OrderBookingId,
         item.OrderBookingOn,
@@ -79,7 +96,7 @@ export class TableUtil {
       ]);
     });
     var docDefinition = {
-      pageOrientation: 'landscape',
+      pageOrientation: "landscape",
       pageMargins: [5, 5, 0, 5],
       content: [
         {
@@ -89,12 +106,18 @@ export class TableUtil {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: [50,50,50,50,50,50,50,50,50,50,50,50,50,50,50],
+            widths: [
+              50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+            ],
 
-            body: rows
+            body: rows,
           },
         },
       ],
+      defaultStyle: {
+        fontSize: 10,
+        bold: true,
+      },
     };
     pdfMake.createPdf(docDefinition).open();
   }

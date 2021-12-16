@@ -17,6 +17,7 @@ import * as $ from "jquery";
 import { EditRequestComponent } from "./popup/edit-request/edit-request.component";
 import { NbToastrService } from "@nebular/theme";
 import { ViewrequestComponent } from "./popup/View-request/viewrequest/viewrequest.component";
+import { NotificationService } from "../../services/notification.service";
 
 @Component({
   selector: "ngx-requests",
@@ -39,6 +40,7 @@ export class RequestsComponent implements OnInit {
   loading = false;
   // Spinner Status
 
+  // On Form Submission Function
   onSubmit() {
     console.log(this.requestFilters);
     this.requestsFilter = new Filters(this.requestFilters.value);
@@ -61,30 +63,34 @@ export class RequestsComponent implements OnInit {
         }
       });
   }
-
-  public downloadAsPDF() {
-    const doc = new jsPDF();
-
-    const pdfTable = this.pdfTable.nativeElement;
-
-    var html = htmlToPdfmake(pdfTable.innerHTML);
-    TableUtil.generatePdfV2(html);
-    // const documentDefinition = { content: html };
-    // pdfMake.createPdf(documentDefinition).open();
-  }
+  // On Form Submission Function
 
   generatePDF() {
-    // var data = document.getElementById("ExampleTable");
-    // html2canvas(data).then((canvas) => {
-    //   var imgWidth = 208;
-    //   var imgHeight = (canvas.height * imgWidth) / canvas.width;
-    //   const contentDataURL = canvas.toDataURL("image/png");
-    //   let pdf = new jsPDF("p", "mm", "a4");
-    //   var position = 0;
-    //   pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
-    //   pdf.save("newPDF.pdf");
-    // });
-    TableUtil.generatePdfV2(this.Orders);
+
+    if (this.selectedArray.length > 0) {
+      console.log(this.selectedArray);
+      TableUtil.generatePdfTable(this.selectedArray);
+    } else {
+      console.log(this.Orders);
+      TableUtil.generatePdfTable(this.Orders);
+    }
+
+  }
+
+  printInvoices() {
+    if (this.selectedArray != undefined) {
+      // TableUtil.generatePdfInvoice(this.selectedArray);
+      this.selectedArray.forEach(function (value) {
+        TableUtil.generatePdfInvoice(value, "print");
+      });
+    } else {
+      this.notificationService.showToast(
+        "warning",
+        "Please Select records for printing invoices",
+        "",
+        "top-right"
+      );
+    }
   }
   constructor(
     private fb: FormBuilder,
@@ -92,7 +98,7 @@ export class RequestsComponent implements OnInit {
     private sharedService: SharedService,
     private modalService: NgbModal,
     private toastrService: NbToastrService,
-
+    private notificationService: NotificationService
   ) {
     this.serial = 0;
     this.initialize();
@@ -102,7 +108,12 @@ export class RequestsComponent implements OnInit {
     this.initialize();
   }
   exportTable() {
-    TableUtil.exportToExcel("ExampleTable");
+    // TableUtil.exportToExcel("ExampleTable");
+    if(this.selectedArray.length < 1)
+    TableUtil.exportToExcelV2(this.Orders)
+    else
+    TableUtil.exportToExcelV2(this.selectedArray)
+
   }
   requestFilters = this.fb.group({
     destinationCityId: [""],
@@ -123,7 +134,6 @@ export class RequestsComponent implements OnInit {
     });
     this.loading = true;
     this.userService.GetOrders().subscribe((result) => {
-
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
 
@@ -136,9 +146,42 @@ export class RequestsComponent implements OnInit {
       this.loading = false;
     });
   }
+  // Array to hold selected Rows
+  selectedArray = new Array<OrderBookingForm>();
+  // Array to hold selected Rows
 
+  // Function to add Rows to selected Array
+  objToEnter: OrderBookingForm;
+  addToSelectedArray(e, item: OrderBookingForm) {
+    if (e.target.checked) {
+      console.log("hello");
+      item.isSelected = true;
+      this.selectedArray.push(item);
+
+      console.log(this.selectedArray);
+    } else {
+      const index = this.selectedArray.findIndex(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      const obj = this.selectedArray.find(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      obj.isSelected = false;
+
+      if (index > -1) {
+        this.selectedArray.splice(index, 1);
+        console.log(this.selectedArray);
+      }
+    }
+  }
+  // Function to add Rows to selected Array
+
+  // Edit Records Button
   editBtn(item?: OrderBookingForm) {
-    const ref = this.modalService.open(EditRequestComponent, { size: "xl",scrollable:true });
+    const ref = this.modalService.open(EditRequestComponent, {
+      size: "xl",
+      scrollable: true,
+    });
     this.orderBooking = item;
     this.citiesLOVForEditForm = this.CitiesLOV;
     console.log(this.citiesLOVForEditForm);
@@ -154,8 +197,14 @@ export class RequestsComponent implements OnInit {
       }
     );
   }
-  viewRequestBtn(item?:OrderBookingForm){
-    const ref = this.modalService.open(ViewrequestComponent, { size: "lg",scrollable:true });
+  // Edit Records Button
+
+  // View Request Button
+  viewRequestBtn(item?: OrderBookingForm) {
+    const ref = this.modalService.open(ViewrequestComponent, {
+      size: "lg",
+      scrollable: true,
+    });
     this.orderBooking = item;
     console.log(this.orderBooking);
     this.citiesLOVForEditForm = this.CitiesLOV;
@@ -163,6 +212,8 @@ export class RequestsComponent implements OnInit {
     console.log(ref.componentInstance.orderBookingModel);
     ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
   }
+  // View Request Button
+
   private index: number = 0;
 
   showToast(position, status) {
@@ -172,14 +223,10 @@ export class RequestsComponent implements OnInit {
       status,
     });
   }
-
-
-
-
+  // Dataset (HTMl table Search Function)
   searchVal: any;
   SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);
   }
-
-
+  // Dataset (HTMl table Search Function)
 }

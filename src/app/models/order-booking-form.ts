@@ -46,4 +46,6 @@ export class OrderBookingForm {
   public ProductDescription: string;
   public SpecialInstruction: string;
   // ShipmentInfo
+
+  public isSelected:boolean;
 }
