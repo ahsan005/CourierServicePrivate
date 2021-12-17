@@ -44,7 +44,7 @@
     </thead>
     <!-- *ngFor="let item of list" -->
     <tr class="text-center" *ngFor="let item of Orders | paginate: { itemsPerPage: 10, currentPage: p}, let i = index;" scope="row">
-      <td><input type="checkbox" ></td>
+      <td><input type="checkbox" (change)="addToSelectedArray($event,item)" ></td>
       <td class="tiny-details-Black">{{i + 1}}</td>
       <td class="tiny-details-Black"> <strong>{{item.OrderBookingId}}</strong></td>
       <td class="tiny-details-Black"><strong>{{item.OrderBookingId}}</strong></td>

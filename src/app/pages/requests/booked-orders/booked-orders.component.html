@@ -148,7 +148,7 @@
         "
         scope="row"
       >
-        <td><input type="checkbox" /></td>
+        <td><input type="checkbox" (change)="addToSelectedArray($event,item)" /></td>
 
         <td class="tiny-details-Black">
           <strong>{{ item.OrderBookingId }}</strong>

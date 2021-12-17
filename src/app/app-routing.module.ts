@@ -1,3 +1,4 @@
+import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { TermsComponent } from "./user/terms/terms.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
@@ -75,6 +76,10 @@ export const routes: Routes = [
         path: "terms",
         component: TermsComponent,
       },
+      {
+        path: "trackingdetails",
+        component: TrackingdetailsComponent,
+      }
     ],
   },
   {

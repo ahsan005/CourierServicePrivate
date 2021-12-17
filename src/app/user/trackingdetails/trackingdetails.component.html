@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-8 offset-2">
+    <nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+      <nb-card-front>
+        <nb-card status="primary" accent="success">
+          <nb-card-header>
+            {{ "Tracking#" + trackingID }}
+          </nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-2 offset-8 mb-2">
+                <button nbButton (click)="toggleFlip()">
+                  Tracking History
+                </button>
+              </div>
+              <div class="col-md-6">
+                <nb-card>
+                  <nb-card-header>Shipper Information</nb-card-header>
+                  <nb-card-body>
+                    <table class="table table-light">
+                      <tr>
+                        <td><strong>Shipper Name</strong></td>
+                        <td>{{ orderToTrack.ShipperName }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Origin</strong></td>
+                        <td>{{ orderToTrack.OriginCityName }}</td>
+                      </tr>
+                    </table>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+              <div class="col-md-6">
+                <nb-card>
+                  <nb-card-header>Receiver Information</nb-card-header>
+                  <nb-card-body>
+                    <table class="table table-light">
+                      <tr>
+                        <td><strong>Receiver Name</strong></td>
+                        <td>{{ orderToTrack.ConsigneeName }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Origin</strong></td>
+                        <td>{{ orderToTrack.DestinationCityName }}</td>
+                      </tr>
+                    </table>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+              <div class="col-md-12">
+                <nb-card>
+                  <nb-card-header> Latest Tracking Status </nb-card-header>
+                  <nb-card-body>
+                    <table class="table table-light">
+                      <tr>
+                        <td><strong>Latest Status</strong></td>
+                        <td>{{ orderToTrack.StatusName }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Dated</strong></td>
+                        <td>{{ orderTrackingDetails[0].CreatedOn }}</td>
+                      </tr>
+                    </table>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-front>
+      <nb-card-back>
+        <nb-card status="success" accent="primary">
+          <nb-card-header> Tracking History </nb-card-header>
+          <nb-card-body>
+            <table class="table table-light">
+              <tr *ngFor="let item of orderTrackingDetails">
+                <td><strong>Status</strong></td>
+                <td>{{ item.StatusName }}</td>
+                <td><strong>Dated</strong></td>
+                <td>{{ item.CreatedOn }}</td>
+              </tr>
+            </table>
+          </nb-card-body>
+          <nb-card-footer class="right-align">
+            <button nbButton (click)="toggleFlip()">Go back</button>
+          </nb-card-footer>
+        </nb-card>
+      </nb-card-back>
+    </nb-flip-card>
+  </div>
+</div>

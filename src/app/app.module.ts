@@ -20,9 +20,11 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import {
   NbButtonModule,
+  NbCardModule,
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
+  NbIconModule,
   NbMenuModule,
   NbSidebarModule,
   NbSpinnerModule,
@@ -44,6 +46,7 @@ import { TermsComponent } from "./user/terms/terms.component";
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NbDateFnsDateModule} from '@nebular/date-fns'
 import { config } from 'process';
+import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails.component';
 
 
 
@@ -59,6 +62,7 @@ import { config } from 'process';
     PrivacyComponent,
     TermsComponent,
     HomeComponent,
+    TrackingdetailsComponent,
 
 
   ],
@@ -92,7 +96,9 @@ import { config } from 'process';
     NbSpinnerModule,
     BarcodeGeneratorAllModule,
     QRCodeGeneratorAllModule,
-    DataMatrixGeneratorAllModule
+    DataMatrixGeneratorAllModule,
+    NbCardModule,
+    NbIconModule
 
 
   ],

@@ -7,8 +7,11 @@
       <div class="col-12">
         <div class="form-group">
           <label for="" class="label label-primary">Tracking No#</label>
-          <input type="text" placeholder="Enter Tracking#" class="form-control">
+          <input type="text"  [(ngModel)]="trackingID" placeholder="Enter Tracking#" class="form-control">
         </div>
+      </div>
+      <div class="col-md-2">
+        <button nbButton status="primary" (click)="onSubmit()" hero>Track your Package</button>
       </div>
     </div>
   </div>

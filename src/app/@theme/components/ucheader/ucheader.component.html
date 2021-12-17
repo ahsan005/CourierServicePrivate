@@ -151,26 +151,29 @@
       </li>
     </ul> -->
 
-
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
         <li class="nav-item">
           <a class="nav-link" (click)="isMenuCollapsed = true; scrollToHome()"
             >Home</a
           >
         </li>
-        <li class="nav-item">
+
+        <li   class="nav-item">
           <a class="nav-link" (click)="isMenuCollapsed = true; scrollToAbout()"
             >About</a
           >
         </li>
-        <li class="nav-item">
+
+        <li  class="nav-item">
           <a
             class="nav-link"
             (click)="isMenuCollapsed = true; scrollToTracking()"
             >Tracking</a
           >
         </li>
-        <li class="nav-item">
+
+        <li  class="nav-item">
           <a
             class="nav-link"
             (click)="isMenuCollapsed = true; scrollToContact()"
@@ -178,28 +181,6 @@
           >
         </li>
 
-        <!-- <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          id="navbarDropdownBlog"
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          >Blog</a
-        >
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownBlog"
-        >
-          <li>
-            <a class="dropdown-item" href="blog-home.html">Blog Home</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="blog-post.html">Blog Post</a>
-          </li>
-        </ul>
-      </li> -->
 
         <li *ngIf="this.isLoggedIn" class="nav-item">
           <button
@@ -222,17 +203,21 @@
             Admin Dashboard
           </button>
         </li>
-<li>
-  <div *ngIf="this.isLoggedIn" ngbDropdown class="d-inline-block">
-    <button class="btn btn-outline-primary" id="dropdownMyAccount" ngbDropdownToggle>{{userName}}</button>
-    <div ngbDropdownMenu aria-labelledby="dropdownMyAccount">
-      <button ngbDropdownItem>Account Settings</button>
-      <button ngbDropdownItem (click)="logout()">Log Out</button>
-
-    </div>
-  </div>
-</li>
-
+        <li>
+          <div *ngIf="this.isLoggedIn" ngbDropdown class="d-inline-block">
+            <button
+              class="btn btn-outline-primary"
+              id="dropdownMyAccount"
+              ngbDropdownToggle
+            >
+              {{ userName }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownMyAccount">
+              <button ngbDropdownItem>Account Settings</button>
+              <button ngbDropdownItem (click)="logout()">Log Out</button>
+            </div>
+          </div>
+        </li>
 
         <li *ngIf="!this.isLoggedIn" class="nav-item">
           <button
@@ -270,7 +255,7 @@
         </ul>
       </li> -->
       </ul>
-    </div>
+          </div>
     <!-- </nav> -->
   </nav>
 </div>

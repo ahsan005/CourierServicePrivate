@@ -1,3 +1,4 @@
+import { OrderTracking } from "./../models/ordertracking";
 import { Observable } from "rxjs";
 
 import { OrderBookingForm } from "./../models/order-booking-form";
@@ -77,6 +78,34 @@ export class UserService {
     );
   }
   // Order Requests Filter Method
+
+  // Get ORder by ID
+
+  GetOrderByID(id: number): Observable<OrderBookingForm> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get<OrderBookingForm>(
+      this.base_url + "api/CourierService/GetOrdersByID" + "?id=" + id,
+      httpOptions
+    );
+  }
+  // Get ORder by ID
+
+  // Get ORderTracking by ID
+
+  GetOrderTrackingByID(id: number): Observable<OrderTracking> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get<OrderTracking>(
+      this.base_url + "api/CourierService/GetOrderTrackingByID" + "?id=" + id,
+      httpOptions
+    );
+  }
+  // Get ORderTracking by ID
 
   // Bulk ORders Post Method
   BulkOrders(array: Array<OrderBookingForm>) {

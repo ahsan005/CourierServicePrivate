@@ -1,6 +1,9 @@
+// import { filter } from 'rxjs/operators';
+import 'rxjs/add/operator/filter';
 import { AuthService } from "./../../../services/auth.service";
 import { registerMap } from "echarts";
 import { Router, NavigationEnd } from "@angular/router";
+
 import {
   Component,
   ElementRef,
@@ -15,7 +18,11 @@ import {
   styleUrls: ["./ucheader.component.scss"],
 })
 export class UcheaderComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  currentRoute: string;
+  constructor(private router: Router, private authService: AuthService) {
+
+
+  }
 
   isNavbarCollapsed = true;
   userName: string;
@@ -23,6 +30,10 @@ export class UcheaderComponent implements OnInit {
   // Check Screen Width
   addclass: any;
   innerWidth: any;
+
+
+
+
   @HostListener("window:resize", ["$event"])
   onResize(event) {
     this.innerWidth = event.target.innerWidth;
@@ -38,6 +49,9 @@ export class UcheaderComponent implements OnInit {
   checkRole: string;
   // Check Windows Width At page load (IniT)
   ngOnInit() {
+
+    // this.currentRoute = this.router.url
+    // console.log(this.currentRoute)
 
     this.isLoggedIn = this.authService.isLoggedIn();
     console.log("isLoggedIn: " + this.isLoggedIn);
@@ -59,23 +73,66 @@ export class UcheaderComponent implements OnInit {
   // Check Screen Width
 
   scrollToHome() {
-    document.getElementById("home").scrollIntoView({ behavior: "smooth" });
-    console.log("Click on Home");
+
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
+    console.log('click')
+    if(this.currentRoute == '/home')
+    {
+      document.getElementById("home").scrollIntoView({ behavior: "smooth" });
+      console.log("Click on Home");
+    }
+    else{
+      this.router.navigate(["/home"])
+    }
+
   }
   scrollToAbout() {
-    document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-    console.log("about");
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
+     console.log('click')
+    if(this.currentRoute == '/home')
+    {
+      document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+      console.log("about");
+    }
+    else{
+      this.router.navigate(["/home"]);
+    }
+
   }
   scrollToTracking() {
-    document.getElementById("tracking").scrollIntoView({ behavior: "smooth" });
-    console.log("tracking");
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
+    console.log('click')
+    if(this.currentRoute == '/home')
+    {
+      document.getElementById("tracking").scrollIntoView({ behavior: "smooth" });
+      console.log("tracking");
+    }
+    else{
+      this.router.navigate(["/home"]);
+    }
+
   }
   scrollToContact() {
-    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
-    console.log("Click on Home");
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
+    console.log('click')
+    if(this.currentRoute == '/home')
+    {
+      document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+      console.log("Click on Home");
+    }
+    else{
+      this.router.navigate(["/home"]);
+    }
+
   }
   logout() {
     localStorage.clear();
     this.router.navigate(["/home"]);
   }
+
+
 }
