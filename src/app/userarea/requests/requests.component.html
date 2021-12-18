@@ -3,7 +3,7 @@
     <h4>Request Details</h4>
     <form [formGroup]="requestFilters" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
           <div class="form-group">
             <label>Select Destination</label>
             <nb-select
@@ -20,7 +20,7 @@
             </nb-select>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
           <div class="form-group">
             <label>Select Status</label>
             <nb-select
@@ -36,11 +36,12 @@
             </nb-select>
           </div>
         </div>
-        <div class="col-md-2 col-sm-6">
+        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
           <div class="form-group">
             <label for="">From</label>
             <input
               nbInput
+              fullWidth
               placeholder="Select Start Date"
               [nbDatepicker]="datepicker"
               formControlName="fromDate"
@@ -48,11 +49,12 @@
             <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
           </div>
         </div>
-        <div class="col-md-2 col-sm-6">
+        <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3">
           <div class="form-group">
             <label>To</label>
             <input
               nbInput
+              fullWidth
               placeholder="Select Ending Date"
               [nbDatepicker]="datepickerending"
               formControlName="toDate"
@@ -64,22 +66,23 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-end">
-        <div class="col-sm-2">
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-xs-12">
           <div class="form-group">
-            <button nbButton status="primary" hero (click)="printInvoices()">
-              Print Invoices
+            <button
+              type="button"
+              nbButton
+              status="primary"
+              hero
+              (click)="printInvoices()"
+            >Print Invoices
             </button>
           </div>
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-2 offset-sm-2 col-md-2 offset-md-8">
           <div class="form-group">
-            <input
-              type="submit"
-              name="Submit"
-              value="Submit"
-              class="form-control"
-            />
+            <button nbButton status="success" hero type="submit">Filter</button>
           </div>
         </div>
       </div>
@@ -122,7 +125,7 @@
       <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
       <thead class="thead-light">
         <tr>
-          <th scope="col"><input type="checkbox" /></th>
+          <th scope="col"><input [(ngModel)]="masterSelector" (change)="checkUncheckAll()" type="checkbox" /></th>
 
           <th scope="col">Tracking#</th>
           <th scope="col">Order#</th>
@@ -148,7 +151,7 @@
           <td>
             <input
               type="checkbox"
-              (change)="addToSelectedArray($event, item)"
+              (change)="addToSelectedArray($event, item);isAllSelected()"
               [checked]="item.isSelected"
             />
           </td>
@@ -192,7 +195,7 @@
             <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
           </td>
           <td class="tiny-details">
-            <strong>{{ item.ReceivedStatus }}</strong>
+            <strong>{{ item.StatusName }}</strong>
           </td>
           <td class="py-2">
             <a (click)="viewRequestBtn(item)"

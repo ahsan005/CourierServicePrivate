@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter } from "rxjs/operators";
 import { NotificationService } from "./../../../services/notification.service";
 import { Filters } from "./../../../models/filters";
@@ -6,8 +7,9 @@ import { FormBuilder } from "@angular/forms";
 import { UserService } from "../../../services/user.service";
 import { SharedService } from "./../../../services/shared.service";
 import { TableUtil } from "./../../../utilities/tableutil";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { OrderBookingForm } from "../../../models/order-booking-form";
+import { EditRequestComponent } from '../popup/edit-request/edit-request.component';
 
 @Component({
   selector: "ngx-booked-orders",
@@ -18,6 +20,8 @@ export class BookedOrdersComponent implements OnInit {
   public citiesLOV: Array<LOV>;
   public statusLOV: Array<LOV>;
   public courierLOV: Array<LOV>;
+  @Input() public orderBooking: OrderBookingForm;
+  @Input() public citiesLOVForEditForm: any;
   p: number = 1;
   searchVal;
   requestFilters: Filters;
@@ -30,9 +34,12 @@ export class BookedOrdersComponent implements OnInit {
     private sharedService: SharedService,
     private userService: UserService,
     private fb: FormBuilder,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private modalService: NgbModal
+
   ) {
     this.initialize();
+    this.masterSelector = false;
   }
   onSubmit() {
     this.requestFilters = new Filters(this.bookedOrderFilters.value);
@@ -103,7 +110,6 @@ export class BookedOrdersComponent implements OnInit {
 
       if (index > -1) {
         this.selectedArray.splice(index, 1);
-        console.log(this.selectedArray);
       }
     }
   }
@@ -158,7 +164,35 @@ export class BookedOrdersComponent implements OnInit {
 
   // Sort Filters
   status: LOV = null;
+  trackingBtn(item){
+    if(item!=undefined){
 
+        window.open('home/trackingdetails?trackingid='+item, "_blank");
+
+    }
+  }
+
+  editBtn(item?: OrderBookingForm) {
+    const ref = this.modalService.open(EditRequestComponent, {
+      size: "xl",
+      scrollable: true,
+    });
+    this.orderBooking = item;
+    this.citiesLOVForEditForm = this.citiesLOV;
+    console.log(this.citiesLOVForEditForm);
+    ref.componentInstance.orderBookingModel = this.orderBooking;
+    ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
+
+    ref.result.then(
+      (yes) => {
+        console.log("ok Click");
+      },
+      (cancel) => {
+        console.log("cancel CLick");
+      }
+    );
+  }
+  // Edit Records Button
   sortFilter() {
     // if (this.orderStatus != "" && this.assignedCourier == "")
 
@@ -178,4 +212,51 @@ export class BookedOrdersComponent implements OnInit {
     // if (this.assignedCourier != "" && this.orderStatus == "")
     // TableUtil.SearchFunction(this.orderStatus);
   }
+  checkedList:any;
+  masterSelector:boolean;
+// checkuncheckAll Logic
+checkUncheckAll() {
+  console.log('hello')
+  for (var i = 0; i < this.Orders.length; i++) {
+    this.Orders[i].isSelected = this.masterSelector;
+    if(this.masterSelector)
+    this.selectedArray.push(this.Orders[i]);
+    else
+    {
+    const index = this.selectedArray.findIndex(
+      (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+    );
+    const obj = this.selectedArray.find(
+      (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+    );
+    obj.isSelected = false;
+
+    if (index > -1) {
+      this.selectedArray.splice(index, 1);
+      console.log(this.selectedArray);
+    }
+  }
+  }
+  this.getCheckedItemList();
+}
+// checkuncheckAll Logic
+
+getCheckedItemList(){
+this.checkedList = [];
+for (var i = 0; i < this.Orders.length; i++) {
+  if(this.Orders[i].isSelected)
+  this.checkedList.push(this.Orders[i]);
+}
+this.checkedList = JSON.stringify(this.checkedList);
+}
+
+isAllSelected() {
+this.masterSelector = this.Orders.every(function(item:any) {
+    return item.isSelected == true;
+  })
+this.getCheckedItemList();
+}
+
+
+
 }

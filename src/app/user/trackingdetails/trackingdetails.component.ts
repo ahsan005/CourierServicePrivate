@@ -1,9 +1,9 @@
-import { OrderTracking } from './../../models/ordertracking';
-import { OrderBookingForm } from './../../models/order-booking-form';
+import { OrderTracking } from "./../../models/ordertracking";
+import { OrderBookingForm } from "./../../models/order-booking-form";
 import { LOV } from "./../../models/citiesLOV";
 import { SharedService } from "./../../services/shared.service";
 import { UserService } from "./../../services/user.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -14,18 +14,23 @@ import { Component, OnInit } from "@angular/core";
 export class TrackingdetailsComponent implements OnInit {
   trackingID: number;
   statusLOV: Array<LOV>;
-  orderToTrack:OrderBookingForm;
+  orderToTrack: OrderBookingForm;
   orderTrackingDetails: Array<OrderTracking>;
-  public flipped:boolean = false
 
-  public toggleFlip(){
-    this.flipped = !this.flipped
+  enterTrackingID: number;
+
+  orderExists: boolean = false;
+  public flipped: boolean = false;
+
+  public toggleFlip() {
+    this.flipped = !this.flipped;
   }
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,26 +44,37 @@ export class TrackingdetailsComponent implements OnInit {
   }
   // this.trackingID
   Initialize(trackingID: number) {
-
     this.userService.GetOrderByID(trackingID).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       console.log(response);
       console.log(response.Data);
-      this.orderToTrack = response.Data[0];
-      console.log(this.orderToTrack)
+
+      if (response.Status) {
+        this.orderToTrack = response.Data[0];
+        console.log(this.orderToTrack);
+        this.orderExists = response.Status;
+      }
     });
 
     this.userService.GetOrderTrackingByID(trackingID).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       console.log(response);
       console.log(response.Data);
-      this.orderTrackingDetails = response.Data;
-      console.log( this.orderTrackingDetails)
+      if (response.Status) {
+        this.orderTrackingDetails = response.Data;
+        console.log(this.orderTrackingDetails);
+      }
     });
-    this.orderTrackingDetails.sort((a, b) => {
-      return (
-        <any>new Date(b.CreatedOn) - <any>new Date(a.CreatedOn)
-      );
+    if (this.orderExists) {
+      this.orderTrackingDetails.sort((a, b) => {
+        return <any>new Date(b.CreatedOn) - <any>new Date(a.CreatedOn);
+      });
+    }
+  }
+
+  trackOrder() {
+    this.router.navigate(["/home/trackingdetails"], {
+      queryParams: { trackingid: this.enterTrackingID },
     });
   }
 }

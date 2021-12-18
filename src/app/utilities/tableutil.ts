@@ -124,26 +124,28 @@ export class TableUtil {
 
   //  SearchTable
   static SearchFunction(searchVal: any) {
-    // Declare variables
-    var input, filter, table, tr, td, i, j;
-    // input = document.getElementById("search_field_input");
-    // filter = input.value.toUpperCase();
-    filter = searchVal.toLowerCase();
-    table = document.getElementById("ExampleTable");
-    tr = table.getElementsByTagName("tr");
+    if (searchVal != undefined) {
+      // Declare variables
+      var input, filter, table, tr, td, i, j;
+      // input = document.getElementById("search_field_input");
+      // filter = input.value.toUpperCase();
+      filter = searchVal.toLowerCase();
+      table = document.getElementById("ExampleTable");
+      tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td");
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
 
-      for (j = 0; j < td.length; j++) {
-        let tdata = td[j];
-        if (tdata) {
-          if (tdata.innerHTML.toLowerCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            break;
-          } else {
-            tr[i].style.display = "none";
+        for (j = 0; j < td.length; j++) {
+          let tdata = td[j];
+          if (tdata) {
+            if (tdata.innerHTML.toLowerCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+              break;
+            } else {
+              tr[i].style.display = "none";
+            }
           }
         }
       }

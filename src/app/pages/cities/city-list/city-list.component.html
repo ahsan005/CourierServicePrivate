@@ -27,11 +27,14 @@
         />
       </div>
     </div>
-</div>
-<div class="col-md-12">
+  </div>
+  <div class="col-md-12">
     <table #pdfTable class="w-100 table table-bordered hover" id="ExampleTable">
       <thead class="thead-dark">
         <tr>
+          <th>
+            City ID
+          </th>
           <th (click)="sort('id')" scope="col">
             City Name <i class="fa fa-sort"></i>
           </th>
@@ -44,20 +47,18 @@
           class="text-center"
           scope="row"
           *ngFor="
-            let item of shipperProfiles
-              | orderBy: key:reverse
+            let item of citiesLOV
               | paginate: { itemsPerPage: 10, currentPage: p }
           "
         >
-          <td class="py-2 id">Rs.{{ item.SrNo }}</td>
+        <td>{{item.Value}}</td>
+          <td class="py-2 id">{{ item.Text }}</td>
 
           <td class="py-2">
             <a (click)="deleteBtn(item.ID)"
               ><nb-icon icon="trash-2-outline"></nb-icon
             ></a>
-            <a (click)="editBtn(item)"
-              ><nb-icon icon="edit-2-outline"></nb-icon
-            ></a>
+
           </td>
         </tr>
       </tbody>

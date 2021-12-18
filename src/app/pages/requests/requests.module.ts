@@ -21,6 +21,7 @@ import { PendingOrdersComponent } from './pending-orders/pending-orders.componen
 import { DataTablesModule } from "angular-datatables";
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
+import { EditRequestComponent } from './popup/edit-request/edit-request.component';
 
 
 @NgModule({
@@ -37,6 +38,8 @@ import { NbDateFnsDateModule } from '@nebular/date-fns';
     ReturnedComponent,
     CancelledNotReceivedComponent,
     PendingOrdersComponent,
+    EditRequestComponent,
+
   ],
   imports: [
     CommonModule,

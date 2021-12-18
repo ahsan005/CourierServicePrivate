@@ -31,6 +31,8 @@ export class RequestsComponent implements OnInit {
   requestsFilter: Filters;
   Orders = new Array<OrderBookingForm>();
   CitiesLOV = new Array<LOV>();
+  masterSelector:boolean;
+  checkedList:any;
   serial: number = 0;
   // Pagination Variable
   p: number = 1;
@@ -78,7 +80,8 @@ export class RequestsComponent implements OnInit {
   }
 
   printInvoices() {
-    if (this.selectedArray != undefined) {
+    if (this.selectedArray.length > 0) {
+      debugger;
       // TableUtil.generatePdfInvoice(this.selectedArray);
       this.selectedArray.forEach(function (value) {
         TableUtil.generatePdfInvoice(value, "print");
@@ -101,7 +104,9 @@ export class RequestsComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.serial = 0;
+    this.masterSelector = false;
     this.initialize();
+    this.getCheckedItemList();
   }
 
   ngOnInit(): void {
@@ -176,6 +181,48 @@ export class RequestsComponent implements OnInit {
   }
   // Function to add Rows to selected Array
 
+// checkuncheckAll Logic
+  checkUncheckAll() {
+    for (var i = 0; i < this.Orders.length; i++) {
+      this.Orders[i].isSelected = this.masterSelector;
+      if(this.masterSelector)
+      this.selectedArray.push(this.Orders[i]);
+      else
+      {
+      const index = this.selectedArray.findIndex(
+        (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+      );
+      const obj = this.selectedArray.find(
+        (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+      );
+      obj.isSelected = false;
+
+      if (index > -1) {
+        this.selectedArray.splice(index, 1);
+        console.log(this.selectedArray);
+      }
+    }
+    }
+    this.getCheckedItemList();
+  }
+// checkuncheckAll Logic
+
+getCheckedItemList(){
+  this.checkedList = [];
+  for (var i = 0; i < this.Orders.length; i++) {
+    if(this.Orders[i].isSelected)
+    this.checkedList.push(this.Orders[i]);
+  }
+  this.checkedList = JSON.stringify(this.checkedList);
+}
+
+isAllSelected() {
+  this.masterSelector = this.Orders.every(function(item:any) {
+      return item.isSelected == true;
+    })
+  this.getCheckedItemList();
+}
+
   // Edit Records Button
   editBtn(item?: OrderBookingForm) {
     const ref = this.modalService.open(EditRequestComponent, {
@@ -213,6 +260,17 @@ export class RequestsComponent implements OnInit {
     ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
   }
   // View Request Button
+
+// tracking BTn
+  trackingBtn(item){
+    if(item!=undefined){
+
+        window.open('home/trackingdetails?trackingid='+item, "_blank");
+
+    }
+  }
+
+// tracking BTn
 
   private index: number = 0;
 

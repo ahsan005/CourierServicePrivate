@@ -55,6 +55,45 @@ export class SharedService {
       //   }
       // });
   }
+
+  GetCitiesByProvince(id:number):Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http
+      .get<LOV[]>(
+        this.base_url + "api/courierService/GetCitiesByProvince?id="+id,
+
+        httpOptions
+      )
+
+  }
+
+  GetProvincesByCountry(id:number):Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http
+      .get<LOV[]>(
+        this.base_url + "api/courierService/GetProvincesByCountry?id="+id,
+
+        httpOptions
+      )
+
+  }
+
+  GetAllCountries():Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http
+      .get<LOV[]>(
+        this.base_url + "api/courierService/GetAllCountries",
+
+        httpOptions
+      )
+
+  }
   GetAllStatuses():Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),

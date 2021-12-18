@@ -14,21 +14,55 @@
     <form>
       <div class="col-md-12">
         <div class="form-group">
-          <label for="">Name: </label>
-          <input nbInput fullWidth type="text" name="" id="" />
+          <label for="">Select Country </label>
+          <select
+            class="form-control"
+            name="my-select"
+            (change)="loadProvinces()"
+            [(ngModel)]="selectedCountryID"
+          >
+            <!-- <nb-option value="" disabled selected hidden>Select City</
+            nb-option> -->
+            <option value="" [selected]="true">Select Country</option>
+            <option [value]="item.Value" *ngFor="let item of countriesLOV">
+              {{ item.Text }}
+            </option>
+          </select>
         </div>
       </div>
-
+      <div [hidden]="!this.showProvinceField"class="col-md-12">
+        <div class="form-group">
+          <label for="">Select Province </label>
+          <select
+            class="form-control"
+            name="my-select"
+            placeholder="Select Province"
+            (change)="loadCities()"
+            [(ngModel)]="selectedProvinceID"
+          >
+          <option value="" [selected]="true">Select Province</option>
+            <option [value]="item.Value" *ngFor="let item of provincesLOV">
+              {{ item.Text }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div [hidden]="!this.showCityField"class="col-md-12">
+        <div class="form-group">
+          <label for="">Add a new City</label>
+          <input
+            class="form-control"
+            name="my-select"
+            placeholder="Enter City Name"
+            [(ngModel)]="cityName"
+          />
+        </div>
+      </div>
     </form>
   </div>
 </div>
 <div class="modal-footer">
-  <button
-    nbButton
-    hero status="success"
-
-    (click)="modal.close('Save click')"
-  >
-    Add Courier
+  <button nbButton hero status="success" (click)="modal.close('Save click')">
+    Add City
   </button>
 </div>

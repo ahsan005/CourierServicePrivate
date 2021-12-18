@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 offset-2">
+  <div *ngIf="orderExists" class=" col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">
     <nb-flip-card [showToggleButton]="false" [flipped]="flipped">
       <nb-card-front>
         <nb-card status="primary" accent="success">
@@ -8,9 +8,10 @@
           </nb-card-header>
           <nb-card-body>
             <div class="row">
-              <div class="col-md-2 offset-8 mb-2">
-                <button nbButton (click)="toggleFlip()">
+              <div class="col-md-2 col-sm-12 col-xs-12 offset-md-8 mb-2">
+                <button nbButton status="secondary" (click)="toggleFlip()">
                   Tracking History
+                  <nb-icon icon="archive-outline"></nb-icon>
                 </button>
               </div>
               <div class="col-md-6">
@@ -19,11 +20,11 @@
                   <nb-card-body>
                     <table class="table table-light">
                       <tr>
-                        <td><strong>Shipper Name</strong></td>
+                        <th>Shipper Name</th>
                         <td>{{ orderToTrack.ShipperName }}</td>
                       </tr>
                       <tr>
-                        <td><strong>Origin</strong></td>
+                        <th>Origin</th>
                         <td>{{ orderToTrack.OriginCityName }}</td>
                       </tr>
                     </table>
@@ -36,11 +37,11 @@
                   <nb-card-body>
                     <table class="table table-light">
                       <tr>
-                        <td><strong>Receiver Name</strong></td>
+                        <th >Receiver Name</th>
                         <td>{{ orderToTrack.ConsigneeName }}</td>
                       </tr>
                       <tr>
-                        <td><strong>Origin</strong></td>
+                        <th>Origin</th>
                         <td>{{ orderToTrack.DestinationCityName }}</td>
                       </tr>
                     </table>
@@ -53,11 +54,11 @@
                   <nb-card-body>
                     <table class="table table-light">
                       <tr>
-                        <td><strong>Latest Status</strong></td>
+                        <th>Latest Status</th>
                         <td>{{ orderToTrack.StatusName }}</td>
                       </tr>
                       <tr>
-                        <td><strong>Dated</strong></td>
+                        <th>Dated</th>
                         <td>{{ orderTrackingDetails[0].CreatedOn }}</td>
                       </tr>
                     </table>
@@ -74,18 +75,43 @@
           <nb-card-body>
             <table class="table table-light">
               <tr *ngFor="let item of orderTrackingDetails">
-                <td><strong>Status</strong></td>
+                <th>Status</th>
                 <td>{{ item.StatusName }}</td>
-                <td><strong>Dated</strong></td>
-                <td>{{ item.CreatedOn }}</td>
+                <th>{{ item.CreatedOn }}</th>
+
               </tr>
             </table>
           </nb-card-body>
           <nb-card-footer class="right-align">
-            <button nbButton (click)="toggleFlip()">Go back</button>
+            <button nbButton (click)="toggleFlip()">
+              <nb-icon icon="arrow-back-outline"></nb-icon> Go back
+            </button>
           </nb-card-footer>
         </nb-card>
       </nb-card-back>
     </nb-flip-card>
+  </div>
+
+  <div *ngIf="!orderExists" class="col-md-8 offset-md-2 col-sm-10 col-xs-12">
+    <nb-card>
+      <nb-card-header> Sorry, Something went wrong! </nb-card-header>
+      <nb-card-body>
+        <h6>Order Not Found!, Please enter a valid tracking#</h6>
+      </nb-card-body>
+      <nb-card-footer>
+        <input
+          nbInput
+          fullWidth
+          type="text"
+          placeholder="Enter a Valid Tracking#"
+          [(ngModel)]="enterTrackingID"
+        />
+        <div class="row">
+          <div class="col-md-2 offset-md-5 col-sm-12 col-xs-12">
+            <button nbButton (click)="trackOrder()" status="secondary" class="mt-2">Track Order</button>
+          </div>
+        </div>
+      </nb-card-footer>
+    </nb-card>
   </div>
 </div>

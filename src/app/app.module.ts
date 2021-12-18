@@ -25,6 +25,7 @@ import {
   NbDatepickerModule,
   NbDialogModule,
   NbIconModule,
+  NbInputModule,
   NbMenuModule,
   NbSidebarModule,
   NbSpinnerModule,
@@ -98,7 +99,8 @@ import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails
     QRCodeGeneratorAllModule,
     DataMatrixGeneratorAllModule,
     NbCardModule,
-    NbIconModule
+    NbIconModule,
+    NbInputModule
 
 
   ],

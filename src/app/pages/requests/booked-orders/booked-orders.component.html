@@ -4,11 +4,12 @@
   </div>
   <form action="" [formGroup]="bookedOrderFilters" (ngSubmit)="onSubmit()">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <label for="">From</label>
           <input
             nbInput
+            fullWidth
             placeholder="Select Start Date"
             [nbDatepicker]="datepicker"
             formControlName="fromDate"
@@ -16,11 +17,12 @@
           <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
         </div>
       </div>
-      <div class="col-md-2 ml-5">
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <label for="">To</label>
           <input
             nbInput
+            fullWidth
             placeholder="Select End Date"
             [nbDatepicker]="enddatepicker"
             formControlName="toDate"
@@ -28,11 +30,11 @@
           <nb-datepicker format="MM.dd.yyyy" #enddatepicker></nb-datepicker>
         </div>
       </div>
-      <div class="col-sm-2 ml-5">
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <label>Select Pickup City</label>
           <nb-select
-            class="ml-5"
+
             fullWidth
             placeholder="Select Pickup City"
             formControlName="originCityId"
@@ -43,14 +45,14 @@
           </nb-select>
         </div>
       </div>
-      <div class="col-md-2 ml-5">
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <button
           nbButton
           status="primary" hero
             style="margin-top: 25.5px"
             type="submit"
-
+            fullWidth
 
           >Submit</button>
         </div>
@@ -60,7 +62,7 @@
 
     <div class="row">
       <h4>Sort-By</h4>
-      <div class="col-md-2">
+      <div class="col-md-4 col-sm-6 col-xs-6">
         <label for="">Status</label>
         <div class="form-group">
           <nb-select [(ngModel)]="orderStatus" fullWidth placeholder="Select Status">
@@ -68,20 +70,20 @@
           </nb-select>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4 col-sm-6 col-xs-6">
         <div class="form-group">
           <label for="">Assigned Courier</label>
-          <nb-select [(ngModel)]="assignedCourier" placeholder="Assigned Courier">
+          <nb-select [(ngModel)]="assignedCourier" fullWidth placeholder="Assigned Courier">
             <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{item.Text}}</nb-option>
 
           </nb-select>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4 col-sm-6 col-xs-6">
         <div class="form-group">
           <button
             style="margin-top: 27px"
-
+            fullWidth
             nbButton hero status="primary"
            (click)="sortFilter()"
           >Update</button>
@@ -126,7 +128,7 @@
       <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
       <thead class="thead-dark">
         <tr>
-          <th scope="col"><input type="checkbox" /></th>
+          <th scope="col"><input type="checkbox" (change)="checkUncheckAll()" [(ngModel)]="masterSelector" /></th>
 
           <th scope="col">Tracking#</th>
           <th scope="col">Order#</th>
@@ -148,7 +150,7 @@
         "
         scope="row"
       >
-        <td><input type="checkbox" (change)="addToSelectedArray($event,item)" /></td>
+        <td><input type="checkbox" [checked]="item.isSelected" (change)="addToSelectedArray($event,item); isAllSelected()" /></td>
 
         <td class="tiny-details-Black">
           <strong>{{ item.OrderBookingId }}</strong>
