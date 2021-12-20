@@ -1,23 +1,32 @@
-import { SharedService } from './../../../services/shared.service';
-import { LOV } from './../../../models/citiesLOV';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { NotificationService } from "./../../../services/notification.service";
+import { UserService } from "./../../../services/user.service";
+import { City } from "./../../../models/city";
+import { SharedService } from "./../../../services/shared.service";
+import { LOV } from "./../../../models/citiesLOV";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'ngx-add-city',
-  templateUrl: './add-city.component.html',
-  styleUrls: ['./add-city.component.scss']
+  selector: "ngx-add-city",
+  templateUrl: "./add-city.component.html",
+  styleUrls: ["./add-city.component.scss"],
 })
 export class AddCityComponent implements OnInit {
   selectedCountryID;
   selectedProvinceID;
-  cityName;
-  showCityField:boolean = false;
-  showProvinceField:boolean = false;
+  // cityFormModel
+  city = { cityName: "", cityCode: "", cityShort: "" };
+  // cityFormModel
+  showCityField: boolean = false;
+  showProvinceField: boolean = false;
   countriesLOV = new Array<LOV>();
   provincesLOV = new Array<LOV>();
 
-  constructor(public modal: NgbActiveModal,private sharedService:SharedService) {
+  constructor(
+    public modal: NgbActiveModal,
+    private sharedService: SharedService,
+    private notificationService: NotificationService
+  ) {
     this.initialize();
   }
 
@@ -25,41 +34,62 @@ export class AddCityComponent implements OnInit {
     this.initialize();
   }
 
-  initialize(){
-      this.sharedService.GetAllCountries().subscribe((data)=>{
-        var response = JSON.parse(JSON.stringify(data));
-        this.countriesLOV = response.Data;
-      })
-  }
-
-  loadProvinces(){
-    console.log(this.selectedCountryID)
-    this.sharedService.GetProvincesByCountry(this.selectedCountryID).subscribe((data)=>{
+  initialize() {
+    this.sharedService.GetAllCountries().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
-      this.provincesLOV = response.Data;
-      console.log(this.provincesLOV);
-      console.log(response);
-      if(response.Status)
-    this.showProvinceField = true;
-    })
-
+      this.countriesLOV = response.Data;
+    });
   }
 
-  loadCities(){
+  loadProvinces() {
+    console.log(this.selectedCountryID);
+    this.sharedService
+      .GetProvincesByCountry(this.selectedCountryID)
+      .subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        this.provincesLOV = response.Data;
+        console.log(this.provincesLOV);
+        console.log(response);
+        if (response.Status) this.showProvinceField = true;
+      });
+  }
+
+  loadCities() {
     this.showCityField = true;
   }
 
-
-
-  onSubmit() {
-    // this.editedStudent = new Student(this.studentEditForm.value)
-    // this.listService.UpdateStudent(this.editedStudent).subscribe((result)=>{
-      // console.log("result",result);
-      this.modal.close()
-      // this.listService.filter("Register click")
-    // })
-    // console.log(this.studentEditForm,this.editedStudent)
+  cityToAdd = new City();
+  spinner: boolean = false;
+  addCity() {
+    this.spinner = true;
+    this.cityToAdd.CityName = this.city.cityName;
+    this.cityToAdd.CityShortName = this.city.cityShort;
+    this.cityToAdd.CityCode = parseInt(this.city.cityCode);
+    this.cityToAdd.CreatedById = parseInt(localStorage.getItem("USERID"));
+    this.cityToAdd.AlteredById = parseInt(localStorage.getItem("USERID"));
+    this.cityToAdd.ProvinceId = this.selectedProvinceID;
+    this.sharedService.AddNewCity(this.cityToAdd).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.spinner = false;
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.sharedService.filter("Added New City");
+        this.modal.close();
+      } else {
+        this.spinner = false;
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
   }
-
-
 }

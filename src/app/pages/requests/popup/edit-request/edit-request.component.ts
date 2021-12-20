@@ -1,18 +1,17 @@
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from './../../../../services/user.service';
-import { SharedService } from './../../../../services/shared.service';
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { NbToastrService } from '@nebular/theme';
-import { OrderBookingForm } from '../../../../models/order-booking-form';
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { UserService } from "./../../../../services/user.service";
+import { SharedService } from "./../../../../services/shared.service";
+import { Component, OnInit } from "@angular/core";
+import { Validators, FormBuilder } from "@angular/forms";
+import { NbToastrService } from "@nebular/theme";
+import { OrderBookingForm } from "../../../../models/order-booking-form";
 
 @Component({
-  selector: 'ngx-edit-request',
-  templateUrl: './edit-request.component.html',
-  styleUrls: ['./edit-request.component.scss']
+  selector: "ngx-edit-request",
+  templateUrl: "./edit-request.component.html",
+  styleUrls: ["./edit-request.component.scss"],
 })
 export class EditRequestComponent implements OnInit {
-
   constructor(
     public modal: NgbActiveModal,
     private fb: FormBuilder,
@@ -178,7 +177,7 @@ export class EditRequestComponent implements OnInit {
         // Validators.required,
       ],
       specialInstruction: [this.orderBookingModel.SpecialInstruction],
-      createdById:[this.orderBookingModel.CreatedById]
+      createdById: [this.orderBookingModel.CreatedById],
 
       // Shipment Details
     });
@@ -188,37 +187,36 @@ export class EditRequestComponent implements OnInit {
     console.log(this.editOrder);
     this.editOrderObj = new OrderBookingForm(this.editOrder.value);
 
-
-
     this.editOrderObj.AlteredById = parseInt(localStorage.getItem("USERID"));
 
     console.log(this.editOrderObj);
-    this.modal.close('Close Modal')
+    this.modal.close("Close Modal");
     this.userService.OrderBooking(this.editOrderObj).subscribe((data) => {
-
       var response = JSON.parse(JSON.stringify(data));
-      console.log(response)
+      console.log(response);
       if (response.Status) {
-        this.showToast('success',response.Message,'','top-right');
-        console.log(response.Message)
+        this.showToast("success", response.Message, "", "top-right");
+        this.userService.filter("New Entry");
+        console.log(response.Message);
       } else {
-        this.showToast('danger',response.Message,'Operation failed','top-right');
+        this.showToast(
+          "danger",
+          response.Message,
+          "Operation failed",
+          "top-right"
+        );
       }
     });
   }
-  closeModal(){
-    this.modal.close('close modal');
+  closeModal() {
+    this.modal.close("close modal");
   }
   // private index:number = 0;
-  showToast( status, title?,description?,position?) {
+  showToast(status, title?, description?, position?) {
     // this.index += 1;
     // const iconConfig: NbIconConfig = { icon: iconName, pack: 'eva' };
     // position='top-right'
 
-    this.toastrService.show(
-      status || description,
-      title,
-      { position, status});
+    this.toastrService.show(status || description, title, { position, status });
   }
-
 }

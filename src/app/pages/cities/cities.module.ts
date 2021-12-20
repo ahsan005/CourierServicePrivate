@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NbCardModule, NbButtonModule, NbInputModule, NbButtonGroupModule, NbIconLibraries, NbIconModule, NbSelectModule } from '@nebular/theme';
+import { NbCardModule, NbButtonModule, NbInputModule, NbButtonGroupModule, NbIconLibraries, NbIconModule, NbSelectModule, NbSpinnerModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -33,7 +33,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     FormsModule,
     NbButtonGroupModule,
     NbSelectModule,
-    NbIconModule
+    NbIconModule,
+    NbSpinnerModule
   ]
 })
 export class CitiesModule { }

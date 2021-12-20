@@ -1,4 +1,4 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { filter } from "rxjs/operators";
 import { NotificationService } from "./../../../services/notification.service";
 import { Filters } from "./../../../models/filters";
@@ -9,7 +9,8 @@ import { SharedService } from "./../../../services/shared.service";
 import { TableUtil } from "./../../../utilities/tableutil";
 import { Component, Input, OnInit } from "@angular/core";
 import { OrderBookingForm } from "../../../models/order-booking-form";
-import { EditRequestComponent } from '../popup/edit-request/edit-request.component';
+import { EditRequestComponent } from "../popup/edit-request/edit-request.component";
+import { Observable, Subscription, timer } from "rxjs";
 
 @Component({
   selector: "ngx-booked-orders",
@@ -22,13 +23,15 @@ export class BookedOrdersComponent implements OnInit {
   public courierLOV: Array<LOV>;
   @Input() public orderBooking: OrderBookingForm;
   @Input() public citiesLOVForEditForm: any;
+
+  subscription: Subscription;
+  everyTwentyFiveSeconds: Observable<number> = timer(0, 25000);
   p: number = 1;
   searchVal;
   requestFilters: Filters;
 
-  unfilteredOrders:Array<OrderBookingForm>;
-  Orders:Array<OrderBookingForm>;
-
+  unfilteredOrders: Array<OrderBookingForm>;
+  Orders: Array<OrderBookingForm>;
 
   constructor(
     private sharedService: SharedService,
@@ -36,9 +39,13 @@ export class BookedOrdersComponent implements OnInit {
     private fb: FormBuilder,
     private notificationService: NotificationService,
     private modalService: NgbModal
-
   ) {
     this.initialize();
+
+    this.sharedService.listen().subscribe((m: any) => {
+      console.log(m);
+      this.GetOrders();
+    });
     this.masterSelector = false;
   }
   onSubmit() {
@@ -114,7 +121,16 @@ export class BookedOrdersComponent implements OnInit {
     }
   }
   // Function to add Rows to selected Array
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+      this.GetOrders();
+    });
+
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   bookedOrderFilters;
   initialize() {
     this.bookedOrderFilters = this.fb.group({
@@ -145,30 +161,35 @@ export class BookedOrdersComponent implements OnInit {
     //   this.courierLOV = response.Data;
     // });
 
-    this.userService.GetOrders().subscribe((result) => {
-      console.warn("result", result);
-      var response = JSON.parse(JSON.stringify(result));
-
-      this.Orders = response.Data;
-      this.Orders.sort((a, b) => {
-        return (
-          <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
-        );
-      });
-      this.unfilteredOrders = this.Orders;
-    });
+    this.GetOrders()
   }
+
+
+GetOrders(){
+  this.userService.GetOrders().subscribe((result) => {
+    console.warn("result", result);
+    var response = JSON.parse(JSON.stringify(result));
+
+    this.Orders = response.Data;
+    this.Orders.sort((a, b) => {
+      return (
+        <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+      );
+    });
+    this.unfilteredOrders = this.Orders;
+  });
+}
+
+
   // Sort Filters
   orderStatus;
   assignedCourier;
 
   // Sort Filters
   status: LOV = null;
-  trackingBtn(item){
-    if(item!=undefined){
-
-        window.open('home/trackingdetails?trackingid='+item, "_blank");
-
+  trackingBtn(item) {
+    if (item != undefined) {
+      window.open("home/trackingdetails?trackingid=" + item, "_blank");
     }
   }
 
@@ -198,65 +219,59 @@ export class BookedOrdersComponent implements OnInit {
 
     let statusToFind = this.orderStatus;
     let allStatus = this.statusLOV;
-    let statusObj = allStatus.find((x) => x.Value == statusToFind)
+    let statusObj = allStatus.find((x) => x.Value == statusToFind);
     console.log(statusObj);
 
     // TableUtil.SearchFunction(statusObj.Text);
-    this.Orders = this.unfilteredOrders.filter(i => i.StatusName == statusObj.Text);
+    this.Orders = this.unfilteredOrders.filter(
+      (i) => i.StatusName == statusObj.Text
+    );
 
     this.Orders.sort((a, b) => {
-      return (
-        <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
-      );
+      return <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn);
     });
     // if (this.assignedCourier != "" && this.orderStatus == "")
     // TableUtil.SearchFunction(this.orderStatus);
   }
-  checkedList:any;
-  masterSelector:boolean;
-// checkuncheckAll Logic
-checkUncheckAll() {
-  console.log('hello')
-  for (var i = 0; i < this.Orders.length; i++) {
-    this.Orders[i].isSelected = this.masterSelector;
-    if(this.masterSelector)
-    this.selectedArray.push(this.Orders[i]);
-    else
-    {
-    const index = this.selectedArray.findIndex(
-      (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
-    );
-    const obj = this.selectedArray.find(
-      (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
-    );
-    obj.isSelected = false;
+  checkedList: any;
+  masterSelector: boolean;
+  // checkuncheckAll Logic
+  checkUncheckAll() {
+    console.log("hello");
+    for (var i = 0; i < this.Orders.length; i++) {
+      this.Orders[i].isSelected = this.masterSelector;
+      if (this.masterSelector) this.selectedArray.push(this.Orders[i]);
+      else {
+        const index = this.selectedArray.findIndex(
+          (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+        );
+        const obj = this.selectedArray.find(
+          (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+        );
+        obj.isSelected = false;
 
-    if (index > -1) {
-      this.selectedArray.splice(index, 1);
-      console.log(this.selectedArray);
+        if (index > -1) {
+          this.selectedArray.splice(index, 1);
+          console.log(this.selectedArray);
+        }
+      }
     }
+    this.getCheckedItemList();
   }
+  // checkuncheckAll Logic
+
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.Orders.length; i++) {
+      if (this.Orders[i].isSelected) this.checkedList.push(this.Orders[i]);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
   }
-  this.getCheckedItemList();
-}
-// checkuncheckAll Logic
 
-getCheckedItemList(){
-this.checkedList = [];
-for (var i = 0; i < this.Orders.length; i++) {
-  if(this.Orders[i].isSelected)
-  this.checkedList.push(this.Orders[i]);
-}
-this.checkedList = JSON.stringify(this.checkedList);
-}
-
-isAllSelected() {
-this.masterSelector = this.Orders.every(function(item:any) {
-    return item.isSelected == true;
-  })
-this.getCheckedItemList();
-}
-
-
-
+  isAllSelected() {
+    this.masterSelector = this.Orders.every(function (item: any) {
+      return item.isSelected == true;
+    });
+    this.getCheckedItemList();
+  }
 }

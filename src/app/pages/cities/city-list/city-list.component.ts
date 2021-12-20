@@ -1,3 +1,4 @@
+import { NotificationService } from "./../../../services/notification.service";
 import { SharedService } from "./../../../services/shared.service";
 import { AddCityComponent } from "./../add-city/add-city.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -15,8 +16,14 @@ export class CityListComponent implements OnInit {
   p: number = 1;
   constructor(
     private modalService: NgbModal,
-    private sharedService: SharedService
-  ) {}
+    private sharedService: SharedService,
+    private notificationService: NotificationService
+  ) {
+    this.sharedService.listen().subscribe((m: any) => {
+      console.log(m);
+      this.refreshList();
+    });
+  }
   onSubmit() {}
 
   AddBtn() {
@@ -31,57 +38,53 @@ export class CityListComponent implements OnInit {
   generatePDF() {
     TableUtil.generatePDF("ExampleTable");
   }
-citiesLOV:Array<LOV>
-  initialize(){
-    this.sharedService.GetAllCities().subscribe((data) =>
-    {
-      var response = JSON.parse(JSON.stringify(data));
-      if (response.Status)
-      {
-        this.citiesLOV = response.Data;
-        console.log(response.Data)
-        console.log(this.citiesLOV)
+  citiesLOV: Array<LOV>;
 
-      }
-      else
-      console.error(response.Message);
-    })
+  initialize() {
+    this.sharedService.GetAllCities().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.citiesLOV = response.Data;
+        console.log(response.Data);
+        console.log(this.citiesLOV);
+      } else console.error(response.Message);
+    });
   }
 
   ngOnInit(): void {
-
     this.initialize();
   }
-  shipperProfiles: Array<Object> = [
-    {
-      SrNo: 1,
-      ShipperName: "Micheal",
-      ShipperPhone: "0333-41111111",
-      ShipperEmail: "ahsan105@icloud.com",
-      ShipperAddress: "ABC Street",
-    },
-    {
-      SrNo: 2,
-      ShipperName: "Trevor",
-      ShipperPhone: "0333-33333333",
-      ShipperEmail: "Kill@icloud.com",
-      ShipperAddress: "DEF Street",
-    },
-    {
-      SrNo: 3,
-      ShipperName: "Franklin",
-      ShipperPhone: "0333-65674859",
-      ShipperEmail: "TEST@icloud.com",
-      ShipperAddress: "GHI Street",
-    },
-    {
-      SrNo: 4,
-      ShipperName: "Micheal Jordan",
-      ShipperPhone: "0333-0987654321",
-      ShipperEmail: "exotic@gmail.com",
-      ShipperAddress: "XYZVBN Street",
-    },
-  ];
+
+  DeleteBtn(item) {
+    if (confirm("Are you sure you want to delete " + item.Text + " city")) {
+      this.sharedService.DeleteCity(item.Value).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        console.warn(response);
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.sharedService.filter("deleted an item");
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+    }
+  }
+  // refresh List
+  refreshList() {
+    this.initialize();
+  }
+  // refresh List
+
   // Sorting
   key = "id";
   reverse: boolean;

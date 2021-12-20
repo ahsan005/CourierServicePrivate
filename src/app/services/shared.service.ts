@@ -1,13 +1,15 @@
-import { LOV } from '../models/citiesLOV';
-import { Observable, throwError } from "rxjs";
+import { LOV } from "../models/citiesLOV";
+import { Observable, Subject, throwError } from "rxjs";
 import { environment } from "./../../environments/environment";
-import { map } from 'rxjs/operators';
+import { map } from "rxjs/operators";
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { City } from "../models/city";
+import { DeliveryCharges } from "../models/deliverycharges";
 
 @Injectable({
   providedIn: "root",
@@ -35,89 +37,140 @@ export class SharedService {
     console.log(this.errorString);
   }
 
-
-  GetAllCities():Observable<LOV[]> {
+  GetAllCities(): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetAllCities",
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllCities",
 
-        httpOptions
-      )
-      // .subscribe((data) => {
-      //   var response = JSON.parse(JSON.stringify(data));
-      //   if (response.Status) {
-      //     console.log(response.Data);
-      //   } else {
-      //     this.handleError(response.Status, response.Message);
-      //   }
-      // });
+      httpOptions
+    );
+    // .subscribe((data) => {
+    //   var response = JSON.parse(JSON.stringify(data));
+    //   if (response.Status) {
+    //     console.log(response.Data);
+    //   } else {
+    //     this.handleError(response.Status, response.Message);
+    //   }
+    // });
   }
 
-  GetCitiesByProvince(id:number):Observable<LOV[]> {
+  GetCitiesByProvince(id: number): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetCitiesByProvince?id="+id,
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetCitiesByProvince?id=" + id,
 
-        httpOptions
-      )
-
+      httpOptions
+    );
   }
 
-  GetProvincesByCountry(id:number):Observable<LOV[]> {
+  GetProvincesByCountry(id: number): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetProvincesByCountry?id="+id,
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetProvincesByCountry?id=" + id,
 
-        httpOptions
-      )
-
+      httpOptions
+    );
   }
-
-  GetAllCountries():Observable<LOV[]> {
+  AddNewCity(obj: City): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetAllCountries",
-
-        httpOptions
-      )
-
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/CourierService/AddCity",
+      body,
+      httpOptions
+    );
   }
-  GetAllStatuses():Observable<LOV[]> {
+  DeleteCity(id:number):Observable<Object>{
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetAllOrderStatus",
 
-        httpOptions
-      )
-
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteCity?id="+id,
+      httpOptions
+    );
   }
-  GetAllCourier():Observable<LOV[]> {
+
+  AddDeliveryCharges(obj:DeliveryCharges):Observable<Object>{
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    return this.http
-      .get<LOV[]>(
-        this.base_url + "api/courierService/GetAllCourier",
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/CourierService/AddDeliveryCharges",
+      body,
+      httpOptions
+    );
+  }
+  GetAllDeliveryCharges():Observable<DeliveryCharges>{
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
 
-        httpOptions
-      )
+    return this.http.get<DeliveryCharges>(
+      this.base_url + "api/CourierService/GetDeliveryCharges",
 
+      httpOptions
+    );
   }
 
+  DeleteDeliveryCharges(id:number):Observable<Object>{
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteDeliveryCharges?id="+id,
+      httpOptions
+    );
+  }
+
+  GetAllCountries(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllCountries",
+
+      httpOptions
+    );
+  }
+  GetAllStatuses(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllOrderStatus",
+
+      httpOptions
+    );
+  }
+  GetAllCourier(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllCourier",
+
+      httpOptions
+    );
+  }
+
+  private _listeners = new Subject<any>();
+  listen(): Observable<any> {
+    return this._listeners.asObservable();
+  }
+  filter(filterBy: string){
+    this._listeners.next(filterBy);
+  }
 }
-

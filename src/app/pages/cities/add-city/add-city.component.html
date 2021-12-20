@@ -14,7 +14,7 @@
     <form>
       <div class="col-md-12">
         <div class="form-group">
-          <label for="">Select Country </label>
+          <label for="">Select Country</label>
           <select
             class="form-control"
             name="my-select"
@@ -30,7 +30,7 @@
           </select>
         </div>
       </div>
-      <div [hidden]="!this.showProvinceField"class="col-md-12">
+      <div [hidden]="!this.showProvinceField" class="col-md-12">
         <div class="form-group">
           <label for="">Select Province </label>
           <select
@@ -40,21 +40,77 @@
             (change)="loadCities()"
             [(ngModel)]="selectedProvinceID"
           >
-          <option value="" [selected]="true">Select Province</option>
+            <option value="" [selected]="true">Select Province</option>
             <option [value]="item.Value" *ngFor="let item of provincesLOV">
               {{ item.Text }}
             </option>
           </select>
         </div>
       </div>
-      <div [hidden]="!this.showCityField"class="col-md-12">
+      <div [hidden]="!this.showCityField" class="col-md-12">
         <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="cityName.invalid && (cityName.dirty || cityName.touched)"
+          >
+            <div *ngIf="cityName.errors?.required">City Name is required.</div>
+          </div>
           <label for="">Add a new City</label>
           <input
             class="form-control"
             name="my-select"
             placeholder="Enter City Name"
-            [(ngModel)]="cityName"
+            required
+            #cityName="ngModel"
+            [(ngModel)]="city.cityName"
+          />
+        </div>
+      </div>
+      <div [hidden]="!this.showCityField" class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="cityCode.invalid && (cityCode.dirty || cityCode.touched)"
+          >
+            <div *ngIf="cityCode.errors?.required">City Code is required.</div>
+            <div *ngIf="cityCode.errors?.minlength">
+            City Code must be minimum 3 digits.
+            </div>
+          </div>
+          <label for="">Enter City Code</label>
+          <input
+            class="form-control"
+            name="citycode"
+            required
+            minlength="3"
+            placeholder="Enter City Code"
+            #cityCode="ngModel"
+            [(ngModel)]="city.cityCode"
+          />
+        </div>
+      </div>
+      <div [hidden]="!this.showCityField" class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="cityShort.invalid && (cityShort.dirty || cityShort.touched)"
+          >
+            <div *ngIf="cityShort.errors?.required">
+              Short Name is required.
+            </div>
+            <div *ngIf="cityShort.errors?.minlength">
+              Short Name must be minimum 3 Letters.
+            </div>
+          </div>
+          <label for="">Enter ShortName For City</label>
+          <input
+            class="form-control"
+            name="shortname"
+            placeholder="ShortName"
+            required
+            minlength="3"
+            #cityShort="ngModel"
+            [(ngModel)]="city.cityShort"
           />
         </div>
       </div>
@@ -62,7 +118,14 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button nbButton hero status="success" (click)="modal.close('Save click')">
+  <button
+    nbButton
+    hero
+    status="success"
+    [nbSpinner]="spinner"
+    nbSpinnerStatus="primary"
+    (click)="addCity()"
+  >
     Add City
   </button>
 </div>

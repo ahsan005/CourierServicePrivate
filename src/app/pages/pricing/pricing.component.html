@@ -1,47 +1,91 @@
 <nb-card>
   <nb-card-header>Pricing</nb-card-header>
   <nb-card-body>
-    <form (ngSubmit)="OnSubmit()">
+    <form (ngSubmit)="OnSubmit()" [formGroup]="DeliveryCharges">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="">City From</label>
+            <nb-select
+              fullWidth
+              formControlName="FromCityId"
+              placeholder="Select City"
+            >
+              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
+                item.Text
+              }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="">City To</label>
+            <nb-select
+              formControlName="ToCityId"
+              fullWidth
+              placeholder="Select City"
+            >
+              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
+                item.Text
+              }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-2 mr-2">
+          <div class="form-group">
+            <label for="">Price for 1st KG</label>
+            <input
+              type="number"
+              formControlName="FirstKGPrice"
+              nbInput
+              name=""
+              id=""
+            />
+          </div>
+        </div>
+        <div class="col-md-2 ml-5">
+          <div class="form-group">
+            <label for="">Price per KG</label>
+            <input
+              type="number"
+              formControlName="PricePerKG"
+              nbInput
+              name=""
+              id=""
+            />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button type="submit" nbButton hero status="success">
+            Add Delivery Charges
+          </button>
+        </div>
+      </div>
+    </form>
     <div class="row">
-      <div class="col-md-2">
-        <div class="form-group">
-          <label for="">City From</label>
-          <nb-select fullWidth placeholder="Select City">
-            <nb-option value="KRC">Karachi</nb-option>
-            <nb-option value="LHR">Lahore</nb-option>
-            <nb-option value="PSH">Peshawar</nb-option>
-            <nb-option value="QTA">Quetta</nb-option>
-          </nb-select>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <label for="">City To</label>
-          <nb-select fullWidth placeholder="Select City">
-            <nb-option value="KRC">Karachi</nb-option>
-            <nb-option value="LHR">Lahore</nb-option>
-            <nb-option value="PSH">Peshawar</nb-option>
-            <nb-option value="QTA">Quetta</nb-option>
-          </nb-select>
-        </div>
-      </div>
-      <div class="col-md-2 mr-2">
-        <div class="form-group">
-          <label for="">Price for 1st KG</label>
-          <input type="number" nbInput name="" id="">
-        </div>
-      </div>
-      <div class="col-md-2 ml-5">
-        <div class="form-group">
-          <label for="">Price per KG</label>
-          <input type="number" nbInput name="" id="">
-        </div>
-      </div>
       <div class="col-md-12">
-        <button type="submit" nbButton hero status="success" >Add </button>
+        <table class="table table-bordered">
+          <thead>
+            <th>From City</th>
+            <th>To City</th>
+            <th>Price First KG</th>
+            <th>Price Per KG</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of deliveryChargesList">
+              <td>{{ item.FromCityName }}</td>
+              <td>{{ item.ToCityName }}</td>
+              <td>{{ item.FirstKGPrice }}</td>
+              <td>{{ item.PricePerKG }}</td>
+              <td>{{ item.PricePerKG }}</td>
+              <td>
+                <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  </form>
-
   </nb-card-body>
 </nb-card>

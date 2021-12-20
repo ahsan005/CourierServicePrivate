@@ -1,7 +1,7 @@
 import { BarcodeGeneratorAllModule, QRCodeGeneratorAllModule, DataMatrixGeneratorAllModule } from '@syncfusion/ej2-angular-barcode-generator';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { NbButton, NbButtonModule, NbMenuModule, NbIconModule, NbCardModule, NbButtonGroupModule, NbInputModule, NbSelectModule, NbDatepickerModule } from '@nebular/theme';
@@ -45,7 +45,8 @@ NbDatepickerModule,
     NbDateFnsDateModule,
     BarcodeGeneratorAllModule,
     QRCodeGeneratorAllModule,
-    DataMatrixGeneratorAllModule
+    DataMatrixGeneratorAllModule,
+    ReactiveFormsModule
   ],
   declarations: [
     PagesComponent,
