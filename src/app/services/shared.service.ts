@@ -10,6 +10,7 @@ import {
 import { Injectable } from "@angular/core";
 import { City } from "../models/city";
 import { DeliveryCharges } from "../models/deliverycharges";
+import { CourierSetting } from "../models/courier-settings";
 
 @Injectable({
   providedIn: "root",
@@ -90,12 +91,13 @@ export class SharedService {
     );
   }
   DeleteCity(id:number):Observable<Object>{
+    var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCity?id="+id,
+      this.base_url + "api/CourierService/DeleteCity?id="+id+'&AlteredById='+ AlteredById,
       httpOptions
     );
   }
@@ -125,12 +127,13 @@ export class SharedService {
   }
 
   DeleteDeliveryCharges(id:number):Observable<Object>{
+    var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteDeliveryCharges?id="+id,
+      this.base_url + "api/CourierService/DeleteDeliveryCharges?id="+id+'&AlteredById='+AlteredById,
       httpOptions
     );
   }
@@ -162,6 +165,40 @@ export class SharedService {
     return this.http.get<LOV[]>(
       this.base_url + "api/courierService/GetAllCourier",
 
+      httpOptions
+    );
+  }
+
+  GetCourierSettings():Observable<CourierSetting[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<CourierSetting[]>(
+      this.base_url + "api/courierService/GetAllCourierSettings",
+
+      httpOptions
+    );
+  }
+ AddCourierSettings(obj:CourierSetting):Observable<Object>{
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/AddCourierSettings",
+      body,
+      httpOptions
+    );
+  }
+  DeleteCourierSettings(id:number):Observable<Object>{
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteCourierSettings?id="+id+'&AlteredById='+AlteredById,
       httpOptions
     );
   }

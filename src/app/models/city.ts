@@ -4,7 +4,7 @@ export class City{
 }
 
 
-public CityCode:number;
+public CityCode:string;
 public CityId:number;
 public CityName:string;
 public CityShortName:string;

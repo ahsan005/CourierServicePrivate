@@ -60,6 +60,7 @@
             class="form-control"
             name="my-select"
             placeholder="Enter City Name"
+            type="text"
             required
             #cityName="ngModel"
             [(ngModel)]="city.cityName"
@@ -83,7 +84,8 @@
             name="citycode"
             required
             minlength="3"
-            placeholder="Enter City Code"
+            type="number"
+            placeholder="Enter City Code Without initial 0"
             #cityCode="ngModel"
             [(ngModel)]="city.cityCode"
           />
@@ -108,6 +110,8 @@
             name="shortname"
             placeholder="ShortName"
             required
+            type="text"
+
             minlength="3"
             #cityShort="ngModel"
             [(ngModel)]="city.cityShort"

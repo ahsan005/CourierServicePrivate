@@ -4,7 +4,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
-import { NbButton, NbButtonModule, NbMenuModule, NbIconModule, NbCardModule, NbButtonGroupModule, NbInputModule, NbSelectModule, NbDatepickerModule } from '@nebular/theme';
+import { NbButton, NbButtonModule, NbMenuModule, NbIconModule, NbCardModule, NbButtonGroupModule, NbInputModule, NbSelectModule, NbDatepickerModule, NbSpinnerModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -46,7 +46,8 @@ NbDatepickerModule,
     BarcodeGeneratorAllModule,
     QRCodeGeneratorAllModule,
     DataMatrixGeneratorAllModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NbSpinnerModule
   ],
   declarations: [
     PagesComponent,

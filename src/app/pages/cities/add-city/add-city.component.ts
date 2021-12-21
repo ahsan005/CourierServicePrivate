@@ -64,7 +64,8 @@ export class AddCityComponent implements OnInit {
     this.spinner = true;
     this.cityToAdd.CityName = this.city.cityName;
     this.cityToAdd.CityShortName = this.city.cityShort;
-    this.cityToAdd.CityCode = parseInt(this.city.cityCode);
+    this.cityToAdd.CityCode = '0' + this.city.cityCode
+    console.log(this.cityToAdd.CityCode)
     this.cityToAdd.CreatedById = parseInt(localStorage.getItem("USERID"));
     this.cityToAdd.AlteredById = parseInt(localStorage.getItem("USERID"));
     this.cityToAdd.ProvinceId = this.selectedProvinceID;

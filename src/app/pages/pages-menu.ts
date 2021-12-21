@@ -236,7 +236,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Setting',
     icon: 'settings-2-outline',
-    link:'/admin/setting'
+    link:'/admin/settings'
 
     // children: [
     //   {

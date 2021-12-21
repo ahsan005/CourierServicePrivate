@@ -2,38 +2,65 @@
   <nb-card-header>Pricing</nb-card-header>
   <nb-card-body>
     <form (ngSubmit)="OnSubmit()" [formGroup]="DeliveryCharges">
+      <div *ngIf="DeliveryCharges.invalid && (DeliveryCharges.dirty || DeliveryCharges.touched)" class="row">
+        <div class="col-md-12 alert">
+          <h6>All Fields with * Next to them are Mandatory</h6>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
-            <label for="">City From</label>
-            <nb-select
-              fullWidth
-              formControlName="FromCityId"
-              placeholder="Select City"
-            >
-              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
-                item.Text
-              }}</nb-option>
-            </nb-select>
+            <div
+            class="text-danger"
+            *ngIf="FromCityId.invalid && (FromCityId.dirty || FromCityId.touched)"
+          >
+            <div *ngIf="FromCityId.errors?.required">
+              From City is required.
+            </div>
+
+          </div>
+            <label for="">City From <Span class="text-danger">*</Span></label>
+            <select fullWidth formControlName="FromCityId" class="form-control">
+              <option value="" [selected]="true">Select City</option>
+              <option [value]="item.Value" *ngFor="let item of citiesLOV">
+                {{ item.Text }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="">City To</label>
-            <nb-select
-              formControlName="ToCityId"
-              fullWidth
-              placeholder="Select City"
-            >
-              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
-                item.Text
-              }}</nb-option>
-            </nb-select>
+
+            <div
+            class="text-danger"
+            *ngIf="ToCityId.invalid && (ToCityId.dirty || ToCityId.touched)"
+          >
+            <div *ngIf="ToCityId.errors?.required">
+              To City Field is required.
+            </div>
+
+          </div>
+            <label for="">City To <Span class="text-danger">*</Span></label>
+            <select formControlName="ToCityId" fullWidth class="form-control">
+              <option value="" [selected]="true">Select City</option>
+              <option [value]="item.Value" *ngFor="let item of citiesLOV">
+                {{ item.Text }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-2 mr-2">
           <div class="form-group">
-            <label for="">Price for 1st KG</label>
+            <div
+            class="text-danger"
+            *ngIf="FirstKGPrice.invalid && (FirstKGPrice.dirty || FirstKGPrice.touched)"
+          >
+            <div *ngIf="FirstKGPrice.errors?.required">
+              First KG Price is required.
+            </div>
+
+          </div>
+            <label for="">Price for 1st KG <Span class="text-danger">*</Span></label>
             <input
               type="number"
               formControlName="FirstKGPrice"
@@ -45,7 +72,16 @@
         </div>
         <div class="col-md-2 ml-5">
           <div class="form-group">
-            <label for="">Price per KG</label>
+          <div
+            class="text-danger"
+            *ngIf="PricePerKG.invalid && (PricePerKG.dirty || PricePerKG.touched)"
+          >
+            <div *ngIf="PricePerKG.errors?.required">
+              Price Per KG is required.
+            </div>
+
+          </div>
+            <label for="">Price per KG <Span class="text-danger">*</Span></label>
             <input
               type="number"
               formControlName="PricePerKG"
@@ -55,17 +91,42 @@
             />
           </div>
         </div>
-        <div class="col-md-12">
-          <button type="submit" nbButton hero status="success">
+        <div class="col-md-12 mb-2">
+          <button
+            *ngIf="!editMode"
+            [nbSpinner]="OnSubmitSpinner"
+            nbSpinnerStatus="danger"
+            nbSpinnerSize="large"
+            nbSpinnerMessage=""
+            type="submit"
+            nbButton
+            hero
+            status="success"
+          >
             Add Delivery Charges
+          </button>
+
+          <button
+            *ngIf="editMode"
+            [nbSpinner]="OnSubmitSpinner"
+            nbSpinnerStatus="danger"
+            nbSpinnerSize="large"
+            nbSpinnerMessage=""
+            type="submit"
+            nbButton
+            hero
+            status="primary"
+            hero
+          >
+            Save Changes
           </button>
         </div>
       </div>
     </form>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-bordered">
-          <thead>
+        <table class="table table-bordered ">
+          <thead class="thead-dark">
             <th>From City</th>
             <th>To City</th>
             <th>Price First KG</th>
@@ -73,18 +134,23 @@
             <th>Actions</th>
           </thead>
           <tbody>
-            <tr *ngFor="let item of deliveryChargesList">
+            <tr *ngFor="let item of deliveryChargesList  | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{ item.FromCityName }}</td>
               <td>{{ item.ToCityName }}</td>
               <td>{{ item.FirstKGPrice }}</td>
               <td>{{ item.PricePerKG }}</td>
-              <td>{{ item.PricePerKG }}</td>
+
               <td>
                 <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+                <a (click)="deleteBtn(item.DeliveryChargesId)"
+                  ><nb-icon icon="trash-2-outline"></nb-icon
+                ></a>
               </td>
             </tr>
           </tbody>
         </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
       </div>
     </div>
   </nb-card-body>
