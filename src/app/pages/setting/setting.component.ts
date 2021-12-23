@@ -25,9 +25,13 @@ export class SettingComponent implements OnInit {
         this.CourierSettings = response.Data;
         this.GST = this.CourierSettings[0].GSTPercentage;
         console.log(response);
-      }
-      else{
-        this.notificationService.showToast('danger',response.Message,'','top-right')
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
         console.warn(response.Message);
       }
     });
@@ -39,11 +43,9 @@ export class SettingComponent implements OnInit {
     var currentUserId = localStorage.getItem("USERID");
 
     if (this.CourierSettings.length > 0) {
-
       this.SaveCourierSettings = this.CourierSettings[0];
       this.SaveCourierSettings.AlteredById = parseInt(currentUserId);
       this.SaveCourierSettings.GSTPercentage = this.GST;
-
     } else {
       this.SaveCourierSettings.GSTPercentage = this.GST;
       this.SaveCourierSettings.CreatedById = parseInt(currentUserId);

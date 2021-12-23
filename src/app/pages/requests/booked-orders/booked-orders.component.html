@@ -130,6 +130,7 @@
         <tr>
           <th scope="col"><input type="checkbox" (change)="checkUncheckAll()" [(ngModel)]="masterSelector" /></th>
 
+          <th scope="col">ClientInfo</th>
           <th scope="col">Tracking#</th>
           <th scope="col">Order#</th>
           <th scope="col">Order Date</th>
@@ -152,6 +153,9 @@
       >
         <td><input type="checkbox" [checked]="item.isSelected" (change)="addToSelectedArray($event,item); isAllSelected()" /></td>
 
+        <td class="tiny-details-Black">
+          <strong>{{ item.OrderBookingId }}</strong>
+        </td>
         <td class="tiny-details-Black">
           <strong>{{ item.OrderBookingId }}</strong>
         </td>

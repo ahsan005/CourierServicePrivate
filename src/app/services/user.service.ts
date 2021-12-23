@@ -64,6 +64,19 @@ export class UserService {
   }
   // Get All Orders
 
+  // Get Orders By User
+  GetOrdersByUser(): Observable<OrderBookingForm[]> {
+    var LoggedInUserId = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<OrderBookingForm[]>(
+      this.base_url + "api/CourierService/GetOrdersByUserID?id=" + LoggedInUserId,
+      httpOptions
+    );
+  }
+  // Get Orders By UserId
+
   GetOrdersFiltered(filters: Filters): Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -122,13 +135,11 @@ export class UserService {
   }
   // Bulk ORders Post Method
 
-
-
   private _listeners = new Subject<any>();
   listen(): Observable<any> {
     return this._listeners.asObservable();
   }
-  filter(filterBy: string){
+  filter(filterBy: string) {
     this._listeners.next(filterBy);
   }
 }

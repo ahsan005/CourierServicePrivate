@@ -9,5 +9,6 @@ public selectStatus:string;
 public assignedCourier:string;
 public fromDate:Date;
 public toDate:Date;
+public createdById:number;
 
 }

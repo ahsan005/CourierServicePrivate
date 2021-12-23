@@ -112,6 +112,7 @@ export class BulkBookingComponent implements OnInit {
     let weightObj;
 
     let createdById = parseInt(localStorage.getItem("USERID"));
+    let partyLocationId = parseInt(localStorage.getItem("PARTYLOCATIONID"));
     this.loading = true;
     console.log(array);
     array.forEach(
@@ -140,6 +141,7 @@ export class BulkBookingComponent implements OnInit {
 
         item.CreatedById = createdById;
         item.AlteredById = createdById;
+        item.PartyLocationId = partyLocationId;
       }
 
       // Add Corresponding CityID's in Array

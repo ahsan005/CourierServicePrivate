@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("USERNAME", response.Data.UserName);
           localStorage.setItem("ROLEID", response.Data.RoleId);
           localStorage.setItem("ROLENAME", response.roleName);
-          localStorage.setItem("LOCATIONID", response.Data.PartyLocationId);
+          localStorage.setItem("PARTYLOCATIONID", response.Data.PartyLocationId);
 
           console.log(response.Data);
 

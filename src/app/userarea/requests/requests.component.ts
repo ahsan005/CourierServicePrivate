@@ -31,8 +31,8 @@ export class RequestsComponent implements OnInit {
   requestsFilter: Filters;
   Orders = new Array<OrderBookingForm>();
   CitiesLOV = new Array<LOV>();
-  masterSelector:boolean;
-  checkedList:any;
+  masterSelector: boolean;
+  checkedList: any;
   serial: number = 0;
   // Pagination Variable
   p: number = 1;
@@ -48,6 +48,7 @@ export class RequestsComponent implements OnInit {
     this.requestsFilter = new Filters(this.requestFilters.value);
     this.serial = 0;
     console.log(this.requestsFilter);
+    this.requestsFilter.createdById = parseInt(localStorage.getItem("USERID"));
     this.userService
       .GetOrdersFiltered(this.requestsFilter)
       .subscribe((data) => {
@@ -68,7 +69,6 @@ export class RequestsComponent implements OnInit {
   // On Form Submission Function
 
   generatePDF() {
-
     if (this.selectedArray.length > 0) {
       console.log(this.selectedArray);
       TableUtil.generatePdfTable(this.selectedArray);
@@ -76,7 +76,6 @@ export class RequestsComponent implements OnInit {
       console.log(this.Orders);
       TableUtil.generatePdfTable(this.Orders);
     }
-
   }
 
   printInvoices() {
@@ -114,11 +113,8 @@ export class RequestsComponent implements OnInit {
   }
   exportTable() {
     // TableUtil.exportToExcel("ExampleTable");
-    if(this.selectedArray.length < 1)
-    TableUtil.exportToExcelV2(this.Orders)
-    else
-    TableUtil.exportToExcelV2(this.selectedArray)
-
+    if (this.selectedArray.length < 1) TableUtil.exportToExcelV2(this.Orders);
+    else TableUtil.exportToExcelV2(this.selectedArray);
   }
   requestFilters = this.fb.group({
     destinationCityId: [""],
@@ -138,7 +134,7 @@ export class RequestsComponent implements OnInit {
       this.CitiesLOV = response.Data;
     });
     this.loading = true;
-    this.userService.GetOrders().subscribe((result) => {
+    this.userService.GetOrdersByUser().subscribe((result) => {
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
 
@@ -181,47 +177,44 @@ export class RequestsComponent implements OnInit {
   }
   // Function to add Rows to selected Array
 
-// checkuncheckAll Logic
+  // checkuncheckAll Logic
   checkUncheckAll() {
     for (var i = 0; i < this.Orders.length; i++) {
       this.Orders[i].isSelected = this.masterSelector;
-      if(this.masterSelector)
-      this.selectedArray.push(this.Orders[i]);
-      else
-      {
-      const index = this.selectedArray.findIndex(
-        (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
-      );
-      const obj = this.selectedArray.find(
-        (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
-      );
-      obj.isSelected = false;
+      if (this.masterSelector) this.selectedArray.push(this.Orders[i]);
+      else {
+        const index = this.selectedArray.findIndex(
+          (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+        );
+        const obj = this.selectedArray.find(
+          (x) => x.OrderBookingId === this.Orders[i].OrderBookingId
+        );
+        obj.isSelected = false;
 
-      if (index > -1) {
-        this.selectedArray.splice(index, 1);
-        console.log(this.selectedArray);
+        if (index > -1) {
+          this.selectedArray.splice(index, 1);
+          console.log(this.selectedArray);
+        }
       }
-    }
     }
     this.getCheckedItemList();
   }
-// checkuncheckAll Logic
+  // checkuncheckAll Logic
 
-getCheckedItemList(){
-  this.checkedList = [];
-  for (var i = 0; i < this.Orders.length; i++) {
-    if(this.Orders[i].isSelected)
-    this.checkedList.push(this.Orders[i]);
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.Orders.length; i++) {
+      if (this.Orders[i].isSelected) this.checkedList.push(this.Orders[i]);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
   }
-  this.checkedList = JSON.stringify(this.checkedList);
-}
 
-isAllSelected() {
-  this.masterSelector = this.Orders.every(function(item:any) {
+  isAllSelected() {
+    this.masterSelector = this.Orders.every(function (item: any) {
       return item.isSelected == true;
-    })
-  this.getCheckedItemList();
-}
+    });
+    this.getCheckedItemList();
+  }
 
   // Edit Records Button
   editBtn(item?: OrderBookingForm) {
@@ -261,16 +254,14 @@ isAllSelected() {
   }
   // View Request Button
 
-// tracking BTn
-  trackingBtn(item){
-    if(item!=undefined){
-
-        window.open('home/trackingdetails?trackingid='+item, "_blank");
-
+  // tracking BTn
+  trackingBtn(item) {
+    if (item != undefined) {
+      window.open("home/trackingdetails?trackingid=" + item, "_blank");
     }
   }
 
-// tracking BTn
+  // tracking BTn
 
   private index: number = 0;
 
