@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Filters } from "../models/filters";
 import { HttpParams } from "@angular/common/http";
+import { Employee } from "../models/employee";
 @Injectable({
   providedIn: "root",
 })
@@ -134,6 +135,29 @@ export class UserService {
     );
   }
   // Bulk ORders Post Method
+
+
+AddEmployee(obj:Employee):Observable<Object>{
+  const httpOptions = {
+    headers: new HttpHeaders({ "Content-Type": " application/json" }),
+  };
+  const body = JSON.stringify(obj);
+  console.log(body);
+  return this.http.post(
+    this.base_url + "api/courierService/AddCourier",
+    body,
+    httpOptions
+  );
+}
+GetEmployees(): Observable<Employee[]> {
+  const httpOptions = {
+    headers: new HttpHeaders({ "Content-Type": " application/json" }),
+  };
+  return this.http.get<Employee[]>(
+    this.base_url + "api/CourierService/GetAllCouriers",
+    httpOptions
+  );
+}
 
   private _listeners = new Subject<any>();
   listen(): Observable<any> {

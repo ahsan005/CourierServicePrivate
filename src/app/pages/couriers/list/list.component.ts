@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   }
 
   AddBtn(){
-    const ref = this.modalService.open(AddComponent,{size:'tiny'});
+    const ref = this.modalService.open(AddComponent,{size:'lg',scrollable:true});
 
   }
   SearchFunction(){
