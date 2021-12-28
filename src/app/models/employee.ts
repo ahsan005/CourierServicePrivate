@@ -2,7 +2,7 @@ export class Employee{
   public constructor(init?: Partial<Employee>) {
     Object.assign(this, init);
 }
-
+public EmployeeId:number;
 public EmployeeName:string;
 public PartyLocationId:number;
 public Email:string;

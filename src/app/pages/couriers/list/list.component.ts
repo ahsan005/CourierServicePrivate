@@ -1,80 +1,122 @@
-import { AddComponent } from './../add/add.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TableUtil } from './../../../utilities/tableutil';
-import { Component, OnInit } from '@angular/core';
+import { EditEmployeeComponent } from "./../popup/edit-employee/edit-employee.component";
+import { NotificationService } from "./../../../services/notification.service";
+import { UserService } from "./../../../services/user.service";
+import { AddComponent } from "./../add/add.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TableUtil } from "./../../../utilities/tableutil";
+import { Component, Input, OnInit } from "@angular/core";
+import { Employee } from "../../../models/employee";
 
 @Component({
-  selector: 'ngx-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "ngx-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-
-
-
-  searchVal:any;
-  p:number=1;
-  constructor(private modalService:NgbModal) { }
-  onSubmit(){
-
+  empList = new Array<Employee>();
+  @Input() public employeeObj: Employee;
+  searchVal: any;
+  p: number = 1;
+  constructor(
+    private modalService: NgbModal,
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {
+    this.userService.listen().subscribe((m: any) => {
+      console.log(m);
+      this.refreshList();
+    });
+  }
+  onSubmit() {}
+  refreshList() {
+    this.userService.GetCourierEmployees().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.empList = response.Data;
+        console.log(response.Data);
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
   }
 
-  AddBtn(){
-    const ref = this.modalService.open(AddComponent,{size:'lg',scrollable:true});
-
+  editBtn(item?: Employee) {
+    const ref = this.modalService.open(EditEmployeeComponent, {
+      size: "xl",
+      scrollable: true,
+    });
+    this.employeeObj = item;
+    // this.citiesLOVForEditForm = this.citiesLOV;
+    // console.log(this.citiesLOVForEditForm);
+    ref.componentInstance.employeeModel = this.employeeObj;
+    ref.result.then(
+      (yes) => {
+        console.log("ok Click");
+        this.userService.filter('entry Edited')
+      },
+      (cancel) => {
+        console.log("cancel CLick");
+      }
+    );
   }
-  SearchFunction(){
-    TableUtil.SearchFunction(this.searchVal)
+  deleteBtn(item) {
+    this.userService.DeleteCourierEmployee(item).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.userService.filter("List refresh upon delete");
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+      }
+    });
   }
-  exportTable(){
-    TableUtil.exportToExcel('ExampleTable')
+  AddBtn() {
+    const ref = this.modalService.open(AddComponent, {
+      size: "lg",
+      scrollable: true,
+    });
+    ref.result.then(
+      (yes) => {
+        console.log("ok Click");
+        this.userService.filter("New Entry")
+      },
+      (cancel) => {
+        console.log("cancel CLick");
+      }
+    );
   }
-  generatePDF(){
-    TableUtil.generatePDF('ExampleTable')
+  SearchFunction() {
+    TableUtil.SearchFunction(this.searchVal);
+  }
+  exportTable() {
+    TableUtil.exportToExcelV2(this.empList);
+  }
+  generatePDF() {
+    TableUtil.generatePdfTableEmployee(this.empList);
   }
   ngOnInit(): void {
+    this.refreshList();
   }
-  shipperProfiles: Array<Object> = [
-    {
-      SrNo: 1,
-      ShipperName: "Micheal",
-      ShipperPhone: "0333-41111111",
-      ShipperEmail: "ahsan105@icloud.com",
-      ShipperAddress: "ABC Street",
-    },
-    {
-      SrNo: 2,
-      ShipperName: "Trevor",
-      ShipperPhone: "0333-33333333",
-      ShipperEmail: "Kill@icloud.com",
-      ShipperAddress: "DEF Street",
-    },
-    {
-      SrNo: 3,
-      ShipperName: "Franklin",
-      ShipperPhone: "0333-65674859",
-      ShipperEmail: "TEST@icloud.com",
-      ShipperAddress: "GHI Street",
-    },
-    {
-      SrNo: 4,
-      ShipperName: "Micheal Jordan",
-      ShipperPhone: "0333-0987654321",
-      ShipperEmail: "exotic@gmail.com",
-      ShipperAddress: "XYZVBN Street",
-    },
-
-  ];
- // Sorting
- key='id';
- reverse:boolean;
- sort(key){
-   this.key = key
-   this.reverse=!this.reverse
- }
- // Sorting
-
-
-
-
+  openImage(base64Image: string, employeeName: string) {
+    var newTab = window.open();
+    newTab.document.body.innerHTML =
+      '<img src="' + base64Image + '" width="300px" height="250px">';
+    newTab.document.title = employeeName;
+  }
 }

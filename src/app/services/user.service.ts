@@ -72,7 +72,9 @@ export class UserService {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<OrderBookingForm[]>(
-      this.base_url + "api/CourierService/GetOrdersByUserID?id=" + LoggedInUserId,
+      this.base_url +
+        "api/CourierService/GetOrdersByUserID?id=" +
+        LoggedInUserId,
       httpOptions
     );
   }
@@ -136,29 +138,64 @@ export class UserService {
   }
   // Bulk ORders Post Method
 
+  DeleteBookedOrder(item): Observable<Object> {
+    let id = item;
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
 
-AddEmployee(obj:Employee):Observable<Object>{
-  const httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": " application/json" }),
-  };
-  const body = JSON.stringify(obj);
-  console.log(body);
-  return this.http.post(
-    this.base_url + "api/courierService/AddCourier",
-    body,
-    httpOptions
-  );
-}
-GetEmployees(): Observable<Employee[]> {
-  const httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": " application/json" }),
-  };
-  return this.http.get<Employee[]>(
-    this.base_url + "api/CourierService/GetAllCouriers",
-    httpOptions
-  );
-}
+    return this.http.get(
+      this.base_url +
+        "api/CourierService/DeleteOrderBooking?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
+      httpOptions
+    );
+  }
 
+  // Courier Emloyee
+  AddCourierEmployee(obj: Employee): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/AddCourier",
+      body,
+      httpOptions
+    );
+  }
+  GetCourierEmployees(): Observable<Employee[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<Employee[]>(
+      this.base_url + "api/CourierService/GetAllCouriers",
+      httpOptions
+    );
+  }
+  DeleteCourierEmployee(item): Observable<Object> {
+    let id = item;
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url +
+        "api/CourierService/DeleteCourierEmployee?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
+      httpOptions
+    );
+  }
+  // Courier Emloyee
+
+  // Service Event Listeners
   private _listeners = new Subject<any>();
   listen(): Observable<any> {
     return this._listeners.asObservable();
@@ -166,4 +203,5 @@ GetEmployees(): Observable<Employee[]> {
   filter(filterBy: string) {
     this._listeners.next(filterBy);
   }
+  // Service Event Listeners
 }

@@ -125,7 +125,6 @@ export class BookedOrdersComponent implements OnInit {
     this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
       this.GetOrders();
     });
-
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -161,25 +160,23 @@ export class BookedOrdersComponent implements OnInit {
     //   this.courierLOV = response.Data;
     // });
 
-    this.GetOrders()
+    this.GetOrders();
   }
 
+  GetOrders() {
+    this.userService.GetOrders().subscribe((result) => {
+      console.warn("result", result);
+      var response = JSON.parse(JSON.stringify(result));
 
-GetOrders(){
-  this.userService.GetOrders().subscribe((result) => {
-    console.warn("result", result);
-    var response = JSON.parse(JSON.stringify(result));
-
-    this.Orders = response.Data;
-    this.Orders.sort((a, b) => {
-      return (
-        <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
-      );
+      this.Orders = response.Data;
+      this.Orders.sort((a, b) => {
+        return (
+          <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+        );
+      });
+      this.unfilteredOrders = this.Orders;
     });
-    this.unfilteredOrders = this.Orders;
-  });
-}
-
+  }
 
   // Sort Filters
   orderStatus;
@@ -192,7 +189,32 @@ GetOrders(){
       window.open("home/trackingdetails?trackingid=" + item, "_blank");
     }
   }
-
+  deleteBtn(item) {
+    let confirmationFlag = confirm(
+      "Are you sure you want to delete this Order#" + item
+    );
+    if (confirmationFlag) {
+      this.userService.DeleteBookedOrder(item).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.userService.filter("List refresh upon delete");
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+    }
+  }
   editBtn(item?: OrderBookingForm) {
     const ref = this.modalService.open(EditRequestComponent, {
       size: "xl",

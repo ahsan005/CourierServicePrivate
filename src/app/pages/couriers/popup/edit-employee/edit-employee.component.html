@@ -1,0 +1,139 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add New Courier</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form [formGroup]="editCourierForm">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Name: </label>
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            id=""
+            formControlName="EmployeeName"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Email: </label>
+          <input
+            class="form-control"
+            type="email"
+            name=""
+            id=""
+            formControlName="Email"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Mobile#</label>
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            id=""
+            formControlName="Mobile1"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">CNIC</label>
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            id=""
+            formControlName="CNIC"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Driving License No</label>
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            id=""
+            formControlName="LicenseNo"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Date of Birth: </label>
+          <strong> {{this.employeeModel.DOB}}</strong>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Edit Date of Birth</label>
+          <div class="input-group">
+            <input
+              id="dateOfBirth"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              formControlName="DOB"
+              (click)="dp.toggle()"
+              name="dp"
+              ngbDatepicker
+              #dp="ngbDatepicker"
+              [minDate]="{ year: 1950, month: 1, day: 1 }"
+
+            />
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Picture</label>
+          <input
+            class="form-control"
+            (change)="fileChangeEvent($event)"
+            type="file"
+            name="fileInput"
+            id=""
+            #fileInput
+          />
+        </div>
+      </div>
+      <div class="col-md-4 offset-md-5 img-space">
+        <ng-container
+          class="text-center"
+          *ngIf="isImageSaved; else elseTemplate"
+        >
+          <img width="100" height="150" [src]="cardImageBase64" />
+        </ng-container>
+        <ng-template #elseTemplate>
+          <img
+            width="100"
+            height="150"
+            [src]="this.employeeModel.EmployeePictureString"
+            class="img-responsive"
+          />
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button [nbSpinner]="onSubmitSpinner"
+  nbSpinnerStatus="danger"
+  nbSpinnerSize="large"
+  nbSpinnerMessage="" class="btn btn-primary" (click)="onSubmit()">Edit Courier</button>
+</div>

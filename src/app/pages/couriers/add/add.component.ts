@@ -61,7 +61,7 @@ export class AddComponent implements OnInit {
     this.courierObj.DOB =  DOB.year+'-'+DOB.month+'-'+DOB.day
 
     console.log(this.courierObj);
-    this.userService.AddEmployee(this.courierObj).subscribe((data) => {
+    this.userService.AddCourierEmployee(this.courierObj).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       debugger;
       if (response.Status) {

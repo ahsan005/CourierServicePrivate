@@ -7,6 +7,7 @@ import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import html2canvas from "html2canvas";
+import { Employee } from "../models/employee";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -22,12 +23,12 @@ export class TableUtil {
     XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
 
-  static exportToExcelV2(orderBooking: OrderBookingForm[], name?) {
+  static exportToExcelV2(listOfObjects:any, name?) {
     let timeSpan = new Date().toISOString();
     let prefix = name || "ExportResult";
     let fileName = `${prefix}-${timeSpan}`;
 
-    let ws = XLSX.utils.json_to_sheet(orderBooking);
+    let ws = XLSX.utils.json_to_sheet(listOfObjects);
 
     // Create a new Workbook
     var wb = XLSX.utils.book_new();
@@ -108,6 +109,56 @@ export class TableUtil {
             headerRows: 1,
             widths: [
               50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+            ],
+
+            body: rows,
+          },
+        },
+      ],
+      defaultStyle: {
+        fontSize: 10,
+        bold: true,
+      },
+    };
+    pdfMake.createPdf(docDefinition).open();
+  }
+
+  static generatePdfTableEmployee(employeeList: Employee[]) {
+    // const documentDefinition = { content: html };
+    console.log(employeeList);
+    var rows = [];
+    rows.push([
+      "EmployeeId",
+      "EmployeeName",
+      "Mobile",
+      "CNIC",
+      "License No",
+      "Date Of Birth",
+
+    ]);
+    employeeList.forEach(function (item) {
+      rows.push([
+        item.EmployeeId,
+        item.EmployeeName,
+        item.Mobile1,
+        item.CNIC,
+        item.LicenseNo,
+        item.DOB,
+      ]);
+    });
+    var docDefinition = {
+      pageOrientation: "portrait",
+      pageMargins: [5, 5, 0, 5],
+      content: [
+        {
+          layout: "lightHorizontalLines", // optional
+
+          table: {
+            // headers are automatically repeated if the table spans over multiple pages
+            // you can declare how many rows should be treated as headers
+            headerRows: 1,
+            widths: [
+              75, 75, 75, 75, 75, 75
             ],
 
             body: rows,
