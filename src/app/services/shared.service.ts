@@ -158,12 +158,12 @@ export class SharedService {
       httpOptions
     );
   }
-  GetAllCourier(): Observable<LOV[]> {
+  GetAllCourierLOV(): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<LOV[]>(
-      this.base_url + "api/courierService/GetAllCourier",
+      this.base_url + "api/courierService/GetAllCourierLOV",
 
       httpOptions
     );

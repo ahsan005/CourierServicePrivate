@@ -1,4 +1,4 @@
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AuthModule } from './auth/auth.module';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HomeComponent } from "./user/home/home.component";
@@ -100,7 +100,8 @@ import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails
     DataMatrixGeneratorAllModule,
     NbCardModule,
     NbIconModule,
-    NbInputModule
+    NbInputModule,
+    NgMultiSelectDropDownModule.forRoot()
 
 
   ],

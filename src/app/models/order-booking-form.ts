@@ -47,5 +47,12 @@ export class OrderBookingForm {
   public SpecialInstruction: string;
   // ShipmentInfo
 
+  // Party Info
+  public PartyId:number;
+  public PartyName:string;
+  public PartyLocationName:string;
+  public BusinessName:string;
+  // Party Info
+
   public isSelected:boolean;
 }

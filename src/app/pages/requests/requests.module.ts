@@ -1,7 +1,8 @@
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule, NbIconModule } from '@nebular/theme';
+import { NbSelectModule, NbDatepickerModule, NbButtonGroupModule, NbInputModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -59,6 +60,8 @@ import { EditRequestComponent } from './popup/edit-request/edit-request.componen
     NbButtonGroupModule,
     ReactiveFormsModule,
     NbDateFnsDateModule,
+    NbSpinnerModule,
+    NgMultiSelectDropDownModule
   ]
 })
 export class RequestsModule { }

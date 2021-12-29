@@ -33,69 +33,97 @@
       <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <label>Select Pickup City</label>
-          <nb-select
-
-            fullWidth
-            placeholder="Select Pickup City"
-            formControlName="originCityId"
-          >
-            <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
-              item.Text
-            }}</nb-option>
-          </nb-select>
+          <!-- <ng-multiselect-dropdown
+          [placeholder]="'Select Courier'"
+          [settings]="dropdownSettings"
+          [data]="citiesLOV"
+         formControlName="originCityId"
+        >
+        </ng-multiselect-dropdown> -->
+        <nb-select
+        fullWidth
+        placeholder="Select Pickup City"
+        formControlName="originCityId"
+      >
+        <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">{{
+          item.Text
+        }}</nb-option>
+      </nb-select>
         </div>
       </div>
       <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
         <div class="form-group">
           <button
-          nbButton
-          status="primary" hero
+            nbButton
+            status="primary"
+            hero
             style="margin-top: 25.5px"
             type="submit"
             fullWidth
-
-          >Submit</button>
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
   </form>
 
-    <div class="row">
-      <h4>Sort-By</h4>
-      <div class="col-md-4 col-sm-6 col-xs-6">
-        <label for="">Status</label>
-        <div class="form-group">
-          <nb-select [(ngModel)]="orderStatus" fullWidth placeholder="Select Status">
-            <nb-option [value]="item.Value" *ngFor="let item of statusLOV">{{item.Text}}</nb-option>
-          </nb-select>
-        </div>
+  <div class="row">
+    <h4>Sort-By</h4>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+      <label for="">Status</label>
+      <div class="form-group">
+        <nb-select
+          [(ngModel)]="orderStatus"
+          fullWidth
+          placeholder="Select Status"
+        >
+          <nb-option [value]="item.Value" *ngFor="let item of statusLOV">{{
+            item.Text
+          }}</nb-option>
+        </nb-select>
       </div>
-      <div class="col-md-4 col-sm-6 col-xs-6">
-        <div class="form-group">
-          <label for="">Assigned Courier</label>
-          <nb-select [(ngModel)]="assignedCourier" fullWidth placeholder="Assigned Courier">
-            <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{item.Text}}</nb-option>
-
-          </nb-select>
-        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+      <div class="form-group">
+        <label for="">Assigned Courier</label>
+        <!-- <nb-select
+          [(ngModel)]="assignedCourier"
+          fullWidth
+          placeholder="Assigned Courier"
+        >
+          <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{
+            item.Text
+          }}</nb-option>
+        </nb-select> -->
+        <ng-multiselect-dropdown
+          [placeholder]="'Select Courier'"
+          [settings]="dropdownSettings"
+          [data]="courierLOV"
+          [(ngModel)]="assignedCourier"
+        >
+        </ng-multiselect-dropdown>
       </div>
-      <div class="col-md-4 col-sm-6 col-xs-6">
-        <div class="form-group">
-          <button
-            style="margin-top: 27px"
-            fullWidth
-            nbButton hero status="primary"
-           (click)="sortFilter()"
-          >Update</button>
-        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+      <div class="form-group">
+        <button
+          style="margin-top: 27px"
+          fullWidth
+          nbButton
+          hero
+          status="primary"
+          (click)="sortFilter()"
+        >
+          Update
+        </button>
       </div>
-
-        <!-- <div class="col-md-2">
-          <button nbButton style="margin-top: 27px;" (click)="RemoveFilters()" status="danger" hero>Remove Filters</button>
-        </div> -->
-
     </div>
 
+    <!-- <div class="col-md-2">
+          <button nbButton style="margin-top: 27px;" (click)="RemoveFilters()" status="danger" hero>Remove Filters</button>
+        </div> -->
+  </div>
 
   <div class="col-md-2">
     <!-- <button nbButton status="primary" hero (click)="exportTable()">
@@ -121,6 +149,10 @@
   </div>
   <div class="col-md-12">
     <table
+      [nbSpinner]="loadingSpinner"
+      nbSpinnerStatus="danger"
+      nbSpinnerSize="large"
+      nbSpinnerMessage=""
       #pdfTable
       class="table table-sm mt-2 table-bordered"
       id="ExampleTable"
@@ -128,7 +160,13 @@
       <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
       <thead class="thead-dark">
         <tr>
-          <th scope="col"><input type="checkbox" (change)="checkUncheckAll()" [(ngModel)]="masterSelector" /></th>
+          <th scope="col">
+            <input
+              type="checkbox"
+              (change)="checkUncheckAll()"
+              [(ngModel)]="masterSelector"
+            />
+          </th>
 
           <th scope="col">ClientInfo</th>
           <th scope="col">Tracking#</th>
@@ -151,10 +189,20 @@
         "
         scope="row"
       >
-        <td><input type="checkbox" [checked]="item.isSelected" (change)="addToSelectedArray($event,item); isAllSelected()" /></td>
+        <td>
+          <input
+            type="checkbox"
+            [checked]="item.isSelected"
+            (change)="addToSelectedArray($event, item); isAllSelected()"
+          />
+        </td>
 
-        <td class="tiny-details-Black">
-          <strong>{{ item.OrderBookingId }}</strong>
+        <td class="tiny-details">
+          <strong>Party Id:</strong> {{ item.PartyId }} <br />
+          <strong>Party Name:</strong> {{ item.PartyName }}
+          <br />
+          <strong>Business Name:</strong> {{ item.BusinessName }}
+          <br />
         </td>
         <td class="tiny-details-Black">
           <strong>{{ item.OrderBookingId }}</strong>
@@ -198,7 +246,9 @@
           <strong>{{ item.StatusName }}</strong>
         </td>
         <td class="py-2">
-          <a (click)="deleteBtn(item.OrderBookingId)"><nb-icon icon="close"></nb-icon></a>
+          <a (click)="deleteBtn(item.OrderBookingId)"
+            ><nb-icon icon="close"></nb-icon
+          ></a>
           <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
           <a (click)="trackingBtn(item.OrderBookingId)"
             ><nb-icon icon="car-outline"></nb-icon

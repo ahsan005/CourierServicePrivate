@@ -1,4 +1,5 @@
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { IDropdownSettings } from "ng-multiselect-dropdown";
 import { filter } from "rxjs/operators";
 import { NotificationService } from "./../../../services/notification.service";
 import { Filters } from "./../../../models/filters";
@@ -18,6 +19,7 @@ import { Observable, Subscription, timer } from "rxjs";
   styleUrls: ["./booked-orders.component.scss"],
 })
 export class BookedOrdersComponent implements OnInit {
+  loadingSpinner: boolean = false;
   public citiesLOV: Array<LOV>;
   public statusLOV: Array<LOV>;
   public courierLOV: Array<LOV>;
@@ -129,6 +131,17 @@ export class BookedOrdersComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  // NGX MultiSelect
+  dropdownSettings: IDropdownSettings = {
+    singleSelection: true,
+    idField: "Value",
+    textField: "Text",
+    enableCheckAll: false,
+    closeDropDownOnSelection: true,
+    allowSearchFilter: true,
+  };
+
+  // NGX MultiSelect
 
   bookedOrderFilters;
   initialize() {
@@ -153,28 +166,39 @@ export class BookedOrdersComponent implements OnInit {
       this.statusLOV = response.Data;
       console.log(this.statusLOV);
     });
-    // this.sharedService.GetAllCourier().subscribe((result) => {
-    //   var response = JSON.parse(JSON.stringify(result));
-    //   console.log(response);
+    this.sharedService.GetAllCourierLOV().subscribe((result) => {
+      var response = JSON.parse(JSON.stringify(result));
+      console.log(response);
 
-    //   this.courierLOV = response.Data;
-    // });
+      this.courierLOV = response.Data;
+    });
 
     this.GetOrders();
   }
 
   GetOrders() {
+    this.loadingSpinner = true;
     this.userService.GetOrders().subscribe((result) => {
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
-
-      this.Orders = response.Data;
-      this.Orders.sort((a, b) => {
-        return (
-          <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+      if (response.Status) {
+        this.Orders = response.Data;
+        this.Orders.sort((a, b) => {
+          return (
+            <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+          );
+        });
+        this.unfilteredOrders = this.Orders;
+        this.loadingSpinner = false;
+      } else {
+        this.loadingSpinner = false;
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
         );
-      });
-      this.unfilteredOrders = this.Orders;
+      }
     });
   }
 
