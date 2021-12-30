@@ -1,4 +1,4 @@
-import { AddPaymentComponent } from './customer-payments/add-payment/add-payment.component';
+import { AddPaymentComponent } from "./customer-payments/add-payment/add-payment.component";
 import { SettingComponent } from "./setting/setting.component";
 import { PricingComponent } from "./pricing/pricing.component";
 import { ShipmentReportComponent } from "./shipment-report/shipment-report.component";
@@ -14,6 +14,8 @@ import { NgModule } from "@angular/core";
 import { PagesComponent } from "./pages.component";
 
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
+import { GeneralComponent } from "./setting/general/general.component";
+import { AppConfigurationComponent } from "./setting/app-configuration/app-configuration.component";
 
 const routes: Routes = [
   {
@@ -36,12 +38,12 @@ const routes: Routes = [
       {
         path: "customer-payments",
         component: CustomerPaymentsComponent,
-        children:[
+        children: [
           {
-            path:'add',
-            component:AddPaymentComponent
-          }
-        ]
+            path: "add",
+            component: AddPaymentComponent,
+          },
+        ],
       },
       {
         path: "order-report",
@@ -55,10 +57,22 @@ const routes: Routes = [
         path: "pricing",
         component: PricingComponent,
       },
+      // {
+      //   path: "settings",
+      //   component: SettingComponent,
+      //   children:[
+
+      //   ]
+      // }, {
       {
-        path: "settings",
-        component: SettingComponent,
+        path: "general-config",
+        component: GeneralComponent,
       },
+      {
+        path: "app-config",
+        component: AppConfigurationComponent,
+      },
+
       {
         path: "add-payment",
         component: AddPaymentComponent,

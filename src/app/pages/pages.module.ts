@@ -18,14 +18,17 @@ import { OrderReportComponent } from './order-report/order-report.component';
 import { ShipmentReportComponent } from './shipment-report/shipment-report.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { SettingComponent } from './setting/setting.component';
-
+import { RouterModule } from '@angular/router';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AddPaymentComponent } from './customer-payments/add-payment/add-payment.component';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
+import { AppConfigurationComponent } from './setting/app-configuration/app-configuration.component';
+import { GeneralComponent } from './setting/general/general.component';
 
 @NgModule({
   imports: [
+    RouterModule,
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
@@ -47,7 +50,8 @@ NbDatepickerModule,
     QRCodeGeneratorAllModule,
     DataMatrixGeneratorAllModule,
     ReactiveFormsModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbSelectModule
   ],
   declarations: [
     PagesComponent,
@@ -59,6 +63,9 @@ NbDatepickerModule,
     PricingComponent,
     SettingComponent,
     AddPaymentComponent,
+    AppConfigurationComponent,
+    GeneralComponent,
+
   ],
 })
 export class PagesModule {

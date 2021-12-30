@@ -236,13 +236,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Setting',
     icon: 'settings-2-outline',
-    link:'/admin/settings'
 
-    // children: [
-    //   {
-    //     title: 'Login',
-    //     link: '/auth/login',
-    //   },
+
+    children: [
+      {
+        title: 'General',
+        link: '/admin/general-config',
+      },
+      {
+        title: 'App-Configuration',
+        link: '/admin/app-config',
+      }
     //   {
     //     title: 'Register',
     //     link: '/auth/register',
@@ -255,6 +259,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     //     title: 'Reset Password',
     //     link: '/auth/reset-password',
     //   },
-    // ],
+    ],
   },
 ];

@@ -58,7 +58,7 @@ export class ListComponent implements OnInit {
     ref.result.then(
       (yes) => {
         console.log("ok Click");
-        this.userService.filter('entry Edited')
+        this.userService.filter("entry Edited");
       },
       (cancel) => {
         console.log("cancel CLick");
@@ -66,25 +66,29 @@ export class ListComponent implements OnInit {
     );
   }
   deleteBtn(item) {
-    this.userService.DeleteCourierEmployee(item).subscribe((data) => {
-      var response = JSON.parse(JSON.stringify(data));
-      if (response.Status) {
-        this.notificationService.showToast(
-          "success",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.userService.filter("List refresh upon delete");
-      } else {
-        this.notificationService.showToast(
-          "danger",
-          response.Message,
-          "",
-          "top-right"
-        );
-      }
-    });
+    if (confirm("Are you sure you want to Delete " + item.EmployeeName)) {
+      this.userService
+        .DeleteCourierEmployee(item.EmployeeId)
+        .subscribe((data) => {
+          var response = JSON.parse(JSON.stringify(data));
+          if (response.Status) {
+            this.notificationService.showToast(
+              "success",
+              response.Message,
+              "",
+              "top-right"
+            );
+            this.userService.filter("List refresh");
+          } else {
+            this.notificationService.showToast(
+              "danger",
+              response.Message,
+              "",
+              "top-right"
+            );
+          }
+        });
+    }
   }
   AddBtn() {
     const ref = this.modalService.open(AddComponent, {
@@ -94,7 +98,7 @@ export class ListComponent implements OnInit {
     ref.result.then(
       (yes) => {
         console.log("ok Click");
-        this.userService.filter("New Entry")
+        this.userService.filter("New Entry");
       },
       (cancel) => {
         console.log("cancel CLick");

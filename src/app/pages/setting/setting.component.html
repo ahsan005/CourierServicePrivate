@@ -1,28 +1,2 @@
-<nb-card>
-  <nb-card-header>Settings</nb-card-header>
-<nb-card-body>
 
 
-  <div class="row">
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="">GST(%)</label>
-        <input type="number" nbInput [(ngModel)]="GST" name="" id="">
-      </div>
-
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-      <div class="form-group">
-        <button nbButton [nbSpinner]="onSaveSpinner"
-        nbSpinnerStatus="danger"
-        nbSpinnerSize="large"
-        nbSpinnerMessage="" (click)="SaveBtn()" type="button" hero status="Success">Save</button>
-      </div>
-    </div>
-  </div>
-
-
-</nb-card-body>
-</nb-card>
