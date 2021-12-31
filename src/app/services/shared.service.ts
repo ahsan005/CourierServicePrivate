@@ -38,6 +38,24 @@ export class SharedService {
     console.log(this.errorString);
   }
 
+  GetAllCurrencies(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllCurrencies",
+
+      httpOptions
+    );
+    // .subscribe((data) => {
+    //   var response = JSON.parse(JSON.stringify(data));
+    //   if (response.Status) {
+    //     console.log(response.Data);
+    //   } else {
+    //     this.handleError(response.Status, response.Message);
+    //   }
+    // });
+  }
   GetAllCities(): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),

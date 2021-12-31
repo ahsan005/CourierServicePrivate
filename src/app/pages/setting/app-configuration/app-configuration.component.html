@@ -1,208 +1,383 @@
 <nb-card status="primary">
   <nb-card-header> Application Configuration </nb-card-header>
   <nb-card-body>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Organization Name</label>
-              <input type="text" name="" nbInput fullWidth id="" />
+    <form [formGroup]="AppConfigForm">
+      <div formGroupName="Organization" class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label class="label label-info" for=""
+                  >Organization Name <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  formControlName="OrginizationName"
+                  name=""
+                  nbInput
+                  fullWidth
+                  id=""
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label class="label label-info" for=""
+                  >Currency <span class="text-danger">*</span></label
+                >
+                <nb-select fullWidth formControlName="CurrencyId">
+                  <nb-option [value]="item.Value" *ngFor="let item of currencyLOV">{{item.Text}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="label label-info" for=""
+                  >Organization Title <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  formControlName="OrginizationTitle"
+                  name=""
+                  nbInput
+                  fullWidth
+                  id=""
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div  class="form-group">
+                <label class="label label-info" for="">NTN</label>
+                <input
+                  type="text"
+                  name=""
+                  formControlName="NTN"
+                  nbInput
+                  fullWidth
+                  id=""
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label class="label label-info" for="">STN</label>
+                <input
+                  type="text"
+                  name=""
+                  formControlName="STN"
+                  nbInput
+                  fullWidth
+                  id=""
+                />
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Currency</label>
-              <input type="text" name="" nbInput fullWidth id="" />
+        </div>
+
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-12 text-center col-sm-12 col-xs-12">
+              <label class="label label-info" for="">Organization Logo</label>
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="">Organization Title</label>
-              <input type="text" name="" nbInput fullWidth id="" />
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+              <ng-container
+                class="text-center"
+                *ngIf="isImageSaved; else elseTemplate"
+              >
+                <img width="100" height="125" [src]="cardImageBase64" />
+              </ng-container>
+              <ng-template #elseTemplate>
+                <img
+                  width="100"
+                  height="150"
+                  src="../../../../assets/images/img_placeholder.jpeg"
+                  class="img-responsive"
+                />
+              </ng-template>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">NTN</label>
-              <input type="text" name="" nbInput fullWidth id="" />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">STN</label>
-              <input type="text" name="" nbInput fullWidth id="" />
+            <div class="col-md-12 col-sm-12 text-center col-xs-12">
+              <input type="file" (change)="fileChangeEvent($event)" nbInput />
             </div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <label for="">Organization Logo</label>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <img
-              src="../../../../assets/images/img_placeholder.jpeg"
-              width="100"
-              height="125"
-              alt=""
+      <div class="row" formGroupName="Location">
+        <h6>Location</h6>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for=""
+              >Location Name <span class="text-danger">*</span></label
+            >
+            <input
+              nbInput
+              fullWidth
+              formControlName="LocationName"
+              type="text"
+              name=""
+              id=""
             />
           </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <input type="file" nbInput />
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for=""
+              >Location Short Name <span class="text-danger">*</span></label
+            >
+            <input
+              nbInput
+              formControlName="LocationShortName"
+              fullWidth
+              type="text"
+              name=""
+              id=""
+            />
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <h6>Location</h6>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="">Location Name</label>
-          <input nbInput fullWidth type="text" name="" id="" />
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Sub Location Name</label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="SubLocationName"
+              type="text"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="">Location Short Name</label>
-          <input nbInput fullWidth type="text" name="" id="" />
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Location Email</label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="Email"
+              type="email"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="">Sub Location Name</label>
-          <input nbInput fullWidth type="text" name="" id="" />
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for=""
+              >Location Type <span class="text-danger">*</span></label
+            >
+            <nb-select
+              placeholder="Select Location Type"
+              formControlName="LocationTypeProfileId"
+              fullWidth
+            ></nb-select>
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="">Location Email</label>
-          <input nbInput fullWidth type="email" name="" id="" />
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Location Type</label>
-          <nb-select placeholder="Select Location Type" fullWidth></nb-select>
-        </div>
-      </div>
-      <div class="col-md-4">
+        <!-- <div class="col-md-4">
         <div class="form-group">
           <label for="">Tel1</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+          <input nbInput fullWidth type="number" formControlName="TEl1" name="" id="" />
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label for="">Tel2</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+          <input nbInput fullWidth formControlName="Tel2" type="number" name="" id="" />
         </div>
-      </div>
-      <div class="col-md-4">
+      </div> -->
+        <!-- <div class="col-md-4">
         <div class="form-group">
           <label for="">Fax</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+          <input nbInput fullWidth type="number" formControlName="Fax" name="" id="" />
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Mobile 1</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+      </div> -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Mobile 1 <span class="text-danger">*</span></label>
+            <input
+              nbInput
+              fullWidth
+              type="number"
+              formControlName="Mobile1"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Mobile 2</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Mobile 2</label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="Mobile2"
+              type="number"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
+        <!-- <div class="col-md-4">
         <div class="form-group">
           <label for="">Website</label>
-          <input nbInput fullWidth type="text" name="" id="" />
+          <input nbInput fullWidth formControlName="Website" type="text" name="" id="" />
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Portal-URL</label>
-          <input nbInput fullWidth type="text" name="" id="" />
+      </div> -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for=""
+              >Website Portal-URL <span class="text-danger">*</span></label
+            >
+            <input
+              nbInput
+              fullWidth
+              type="text"
+              formControlName="PortalURL"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">License No</label>
-          <input nbInput fullWidth type="number" name="" id="" />
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">License No <span class="text-danger">*</span></label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="LicenseNo"
+              type="number"
+              name=""
+              id=""
+            />
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Country</label>
-          <nb-select placeholder="Select Country" fullWidth></nb-select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Province</label>
-          <nb-select placeholder="Select Province" fullWidth></nb-select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">City</label>
-          <nb-select placeholder="Select City" fullWidth></nb-select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Latitude</label>
-          <input nbInput fullWidth type="number" name="" id="" />
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="">Longitude</label>
-          <input nbInput fullWidth type="number" name="" id="" />
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="">Address Details</label>
-          <textarea
-            class="form-control"
-            name=""
-            id=""
-            cols="30"
-            rows="5"
-          ></textarea>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">Header Details</label>
 
-          <textarea
-            name=""
-            class="form-control"
-            id=""
-            cols="70"
-            rows="5"
-          ></textarea>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Country <span class="text-danger">*</span></label>
+            <nb-select
+              (selectedChange)="GetSecondaryLOV()"
+              placeholder="Select Country"
+              formControlName="CountryId"
+              fullWidth
+            >
+              <nb-option [value]="item.Value" *ngFor="let item of countriesLOV">
+                {{ item.Text }}
+              </nb-option></nb-select
+            >
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Province <span class="text-danger">*</span></label>
+            <nb-select
+              (selectedChange)="GetSecondaryLOV()"
+              placeholder="Select Province"
+              fullWidth
+              formControlName="ProvinceId"
+            >
+              <nb-option [value]="item.Value" *ngFor="let item of provinceLOV">
+                {{ item.Text }}
+              </nb-option></nb-select
+            >
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">City <span class="text-danger">*</span></label>
+            <nb-select
+              placeholder="Select City"
+              fullWidth
+              formControlName="CityId"
+            >
+              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+                {{ item.Text }}
+              </nb-option></nb-select
+            >
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Latitude <span class="text-danger">*</span></label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="Latitude"
+              type="number"
+              name=""
+              id=""
+            />
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Longitude <span class="text-danger">*</span></label>
+            <input
+              nbInput
+              formControlName="Longitude"
+              fullWidth
+              type="number"
+              name=""
+              id=""
+            />
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Altitude <span class="text-danger">*</span></label>
+            <input
+              nbInput
+              formControlName="Altitude"
+              fullWidth
+              type="number"
+              name=""
+              id=""
+            />
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group" formGroupName="Address">
+            <label class="label label-info" for="">Address Details</label>
+            <textarea
+              class="form-control"
+              formControlName="AddressDetail"
+              name=""
+              id=""
+              cols="30"
+              rows="5"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Header Details</label>
+
+            <textarea
+              formControlName="HeaderDetail"
+              name=""
+              class="form-control"
+              id=""
+              cols="70"
+              rows="5"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="form-group">
+            <label class="label label-info" for="">Footer Details</label>
+            <textarea
+              formControlName="FooterDetail"
+              name=""
+              class="form-control"
+              id=""
+              cols="70"
+              rows="5"
+            ></textarea>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">Footer Details</label>
-          <textarea
-            name=""
-            class="form-control"
-            id=""
-            cols="70"
-            rows="5"
-          ></textarea>
-        </div>
-      </div>
-    </div>
+    </form>
   </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="OnSubmit()" status="success">Save</button>
+  </nb-card-footer>
 </nb-card>

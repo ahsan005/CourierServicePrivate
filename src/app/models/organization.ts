@@ -10,7 +10,7 @@ public OrginizationName:string;
 public OrginizationTitle:string;
 public NTN:string;
 public STN:string;
-public Logo:string;
+public LogoImageURL:string;
 public WaterMark:string;
 public Certificate1:number;
 public Certificate2:number;

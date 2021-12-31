@@ -1,3 +1,5 @@
+import { Address } from "./Address";
+
 export class Location {
   public constructor(init?: Partial<Location>) {
     Object.assign(this, init);
@@ -7,6 +9,7 @@ export class Location {
   public OrginizationId: number;
   public LocationSettingId: number;
   public AddressId: number;
+  public Address:Address;
   public LocationTypeProfileId: number;
   public LocationName: string;
   public LicenseNo: string;

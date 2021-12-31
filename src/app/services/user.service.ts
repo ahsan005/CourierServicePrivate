@@ -9,6 +9,8 @@ import { Injectable } from "@angular/core";
 import { Filters } from "../models/filters";
 import { HttpParams } from "@angular/common/http";
 import { Employee } from "../models/employee";
+import { Organization } from "../models/organization";
+import { Location } from "../models/location";
 @Injectable({
   providedIn: "root",
 })
@@ -194,6 +196,36 @@ export class UserService {
     );
   }
   // Courier Emloyee
+
+  // Add Organization
+  AddOrganization(obj: Organization): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/SaveOrganizationInfo",
+      body,
+      httpOptions
+    );
+  }
+  // Add Organization
+
+  // AddOrganizationLocation
+  AddOrganizationLocation(obj: Location): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/SaveOrganizationLocationInfo",
+      body,
+      httpOptions
+    );
+  }
+  // AddOrganizationLocation
 
   // Service Event Listeners
   private _listeners = new Subject<any>();
