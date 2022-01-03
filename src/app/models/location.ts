@@ -10,6 +10,19 @@ export class Location {
   public LocationSettingId: number;
   public AddressId: number;
   public Address:Address;
+  public AddressDetail:string;
+  public CityId:number;
+  public CountryId:number;
+  public ProvinceId:number;
+  public Latitude:number;
+  public Longitude:number;
+  public Altitude:number;
+
+
+
+
+
+
   public LocationTypeProfileId: number;
   public LocationName: string;
   public LicenseNo: string;

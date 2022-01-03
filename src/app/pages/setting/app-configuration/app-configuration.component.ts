@@ -28,10 +28,103 @@ export class AppConfigurationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getLOVs;
     this.Initialize();
   }
+  organizationObj = new Organization();
+  locationObj = new Location();
+  addressObj = new Address();
 
-  Initialize() {
+  AppConfigForm;
+  async Initialize() {
+    await this.GetOrganization();
+
+    await this.GetLocation();
+    // this.AppConfigForm.controls['OrginizationName'].setValue("Hello");
+
+    this.AppConfigForm = this.fb.group({
+      OrganizationSHIT:[''],
+      Organization: this.fb.group({
+        OrginizationId: [
+          this.organizationObj.OrginizationId,
+          Validators.required,
+        ],
+        OrginizationSettingId: [this.organizationObj.OrginizationSettingId],
+        CurrencyId: [this.organizationObj.CurrencyId, Validators.required],
+        OrginizationName: [
+          this.organizationObj.OrginizationName,
+          Validators.required,
+        ],
+        OrginizationTitle: [
+          this.organizationObj.OrginizationTitle,
+          Validators.required,
+        ],
+        NTN: [this.organizationObj.NTN],
+        STN: [this.organizationObj.STN],
+
+        WaterMark: [this.organizationObj.WaterMark],
+        Certificate1: [this.organizationObj.Certificate1],
+        Certificate2: [this.organizationObj.Certificate2],
+        CreatedById: [this.organizationObj.CreatedById],
+        CreatedOn: [this.organizationObj.CreatedOn],
+        AlteredById: [this.organizationObj.AlteredById],
+        AlteredOn: [this.organizationObj.AlteredOn],
+        ActionTypeId: [this.organizationObj.ActionTypeId],
+        UserLogId: [this.organizationObj.UserLogId],
+      }),
+      Location: this.fb.group({
+        LocationId: [this.locationObj.LocationId, Validators.required],
+        OrginizationId: [this.locationObj.OrginizationId, Validators.required],
+        LocationSettingId: [this.locationObj.LocationSettingId],
+
+        Address: this.fb.group({
+          AddressId: [this.addressObj.AddressId],
+          CountryId: [this.addressObj.CountryId, Validators.required],
+          ProvinceId: [this.addressObj.ProvinceId, Validators.required],
+          CityId: [this.addressObj.CityId, Validators.required],
+          LocationId: [this.addressObj.LocationId, Validators.required],
+          AddressDetail: [this.addressObj.AddressDetail, Validators.required],
+          Latitude: [this.addressObj.Latitude, Validators.required],
+          Longitude: [this.addressObj.Longitude, Validators.required],
+          Altitude: [this.addressObj.Altitude, Validators.required],
+        }),
+        LocationTypeProfileId: [
+          this.locationObj.LocationTypeProfileId,
+          Validators.required,
+        ],
+        LocationName: [this.locationObj.LocationName, Validators.required],
+        LicenseNo: [this.locationObj.LicenseNo, Validators.required],
+        SubLocationName: [
+          this.locationObj.SubLocationName,
+          Validators.required,
+        ],
+        LocationShortName: [
+          this.locationObj.LocationShortName,
+          Validators.required,
+        ],
+        Mobile1: [this.locationObj.Mobile1, Validators.required],
+        Mobile2: [this.locationObj.Mobile2],
+        Email: [this.locationObj.Email, Validators.required],
+        PortalURL: [this.locationObj.PortalURL],
+        HeaderDetail: [this.locationObj.HeaderDetail],
+        FooterDetail: [this.locationObj.FooterDetail],
+        IsDefaultLocation: [this.locationObj.IsDefaultLocation],
+        CreatedById: [this.locationObj.CreatedById],
+        CreatedOn: [this.locationObj.CreatedOn],
+        AlteredById: [this.locationObj.AlteredById],
+        AlteredOn: [this.locationObj.AlteredOn],
+        ActionTypeId: [this.locationObj.ActionTypeId],
+        UserLogId: [this.locationObj.UserLogId],
+      }),
+    });
+  }
+
+  SetFormValue() {
+    this.AppConfigForm.patchValue({
+      OrganizationSHIT: "Helloooooo ORG",
+    });
+  }
+  getLOVs() {
     this.sharedService.GetAllCountries().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       this.countriesLOV = response.Data;
@@ -39,6 +132,32 @@ export class AppConfigurationComponent implements OnInit {
     this.sharedService.GetAllCurrencies().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       this.currencyLOV = response.Data;
+    });
+  }
+  async GetOrganization() {
+    this.userService.GetOrganization().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.organizationObj = response.Data[0];
+        console.log(this.organizationObj);
+        this.SetFormValue();
+      } else {
+        console.warn(response);
+      }
+    });
+  }
+  async GetLocation() {
+    this.userService.GetLocation().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.locationObj = response.Data[0];
+        this.addressObj = this.locationObj.Address;
+
+        console.log(this.locationObj);
+        console.log(this.addressObj);
+      } else {
+        console.warn(response);
+      }
     });
   }
   GetProvinceByCountry(countryId: number) {
@@ -78,62 +197,6 @@ export class AppConfigurationComponent implements OnInit {
       this.GetCityByProvince(selectedProvince);
     }
   }
-  AppConfigForm = this.fb.group({
-    Organization: this.fb.group({
-      OrginizationId: ["", Validators.required],
-      OrginizationSettingId: [""],
-      CurrencyId: ["", Validators.required],
-      OrginizationName: ["", Validators.required],
-      OrginizationTitle: ["", Validators.required],
-      NTN: [""],
-      STN: [""],
-
-      WaterMark: [""],
-      Certificate1: [""],
-      Certificate2: [""],
-      CreatedById: [""],
-      CreatedOn: [""],
-      AlteredById: [""],
-      AlteredOn: [""],
-      ActionTypeId: [""],
-      UserLogId: [""],
-    }),
-    Location: this.fb.group({
-      LocationId: ["", Validators.required],
-      OrginizationId: ["", Validators.required],
-      LocationSettingId: [""],
-
-      Address: this.fb.group({
-        AddressId: [""],
-        CountryId: ["", Validators.required],
-        ProvinceId: ["", Validators.required],
-        CityId: ["", Validators.required],
-        LocationId: ["", Validators.required],
-        AddressDetail: ["", Validators.required],
-        Latitude: ["", Validators.required],
-        Longitude: ["", Validators.required],
-        Altitude: ["", Validators.required],
-      }),
-      LocationTypeProfileId: ["", Validators.required],
-      LocationName: ["", Validators.required],
-      LicenseNo: ["", Validators.required],
-      SubLocationName: ["", Validators.required],
-      LocationShortName: ["", Validators.required],
-      Mobile1: ["", Validators.required],
-      Mobile2: [""],
-      Email: ["", Validators.required],
-      PortalURL: [""],
-      HeaderDetail: [""],
-      FooterDetail: [""],
-      IsDefaultLocation: [""],
-      CreatedById: [""],
-      CreatedOn: [""],
-      AlteredById: [""],
-      AlteredOn: [""],
-      ActionTypeId: [""],
-      UserLogId: [""],
-    }),
-  });
 
   fileChangeEvent(fileInput: any) {
     this.imageError = null;
@@ -272,9 +335,7 @@ export class AppConfigurationComponent implements OnInit {
   // Validation Elements
 
   // Form Submission
-  organizationObj = new Organization();
-  locationObj = new Location();
-  addressObj = new Address();
+
   OnSubmit() {
     let flag = false;
     console.log(this.AppConfigForm);
@@ -285,6 +346,9 @@ export class AppConfigurationComponent implements OnInit {
       if (response.Status) {
         this.locationObj.OrginizationId = response.ID;
         flag = true;
+        if (flag) {
+          this.PostLocation();
+        }
       } else {
         this.notificationService.showToast(
           "danger",
@@ -294,35 +358,37 @@ export class AppConfigurationComponent implements OnInit {
         );
       }
     });
-    if (flag) {
-      this.locationObj = this.AppConfigForm.get("Location").value;
-      this.locationObj.Address =
-        this.AppConfigForm.get("Location").get("Address").value;
-      this.userService
-        .AddOrganizationLocation(this.locationObj)
-        .subscribe((data) => {
-          var response = JSON.parse(JSON.stringify(data));
-          if (response.Status) {
-            this.notificationService.showToast(
-              "success",
-              response.Message,
-              "",
-              "top-right"
-            );
-          } else {
-            this.notificationService.showToast(
-              "danger",
-              response.Message,
-              "",
-              "top-right"
-            );
-          }
-        });
-      console.log(this.AppConfigForm.value);
-      console.log(this.locationObj);
-      console.log(this.organizationObj);
-      // console.log(this.addressObj);
-    }
+  }
+
+  PostLocation() {
+    console.log("Post Location OBj");
+    this.locationObj = this.AppConfigForm.get("Location").value;
+    this.locationObj.Address =
+      this.AppConfigForm.get("Location").get("Address").value;
+    this.userService
+      .AddOrganizationLocation(this.locationObj)
+      .subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+    console.log(this.AppConfigForm.value);
+    console.log(this.locationObj);
+    console.log(this.organizationObj);
+    // console.log(this.addressObj);
   }
   // Form Submission
 }

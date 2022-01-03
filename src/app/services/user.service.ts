@@ -212,6 +212,25 @@ export class UserService {
   }
   // Add Organization
 
+  GetOrganization() {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<Organization[]>(
+      this.base_url + "api/CourierService/GetOrganization",
+      httpOptions
+    );
+  }
+
+  GetLocation() {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<Location[]>(
+      this.base_url + "api/CourierService/GetLocation",
+      httpOptions
+    );
+  }
   // AddOrganizationLocation
   AddOrganizationLocation(obj: Location): Observable<Object> {
     const httpOptions = {

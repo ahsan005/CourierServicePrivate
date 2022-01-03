@@ -8,7 +8,7 @@ public CountryId:number;
 public ProvinceId:number;
 public CityId:number;
 public LocationId:number;
-public AddressDetail:number;
+public AddressDetail:string;
 public AreaName:number;
 public Email:string;
 public ZipCode:number;

@@ -26,7 +26,11 @@
                   >Currency <span class="text-danger">*</span></label
                 >
                 <nb-select fullWidth formControlName="CurrencyId">
-                  <nb-option [value]="item.Value" *ngFor="let item of currencyLOV">{{item.Text}}</nb-option>
+                  <nb-option
+                    [value]="item.Value"
+                    *ngFor="let item of currencyLOV"
+                    >{{ item.Text }}</nb-option
+                  >
                 </nb-select>
               </div>
             </div>
@@ -46,7 +50,7 @@
               </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <div  class="form-group">
+              <div class="form-group">
                 <label class="label label-info" for="">NTN</label>
                 <input
                   type="text"
@@ -191,7 +195,9 @@
       </div> -->
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
-            <label class="label label-info" for="">Mobile 1 <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Mobile 1 <span class="text-danger">*</span></label
+            >
             <input
               nbInput
               fullWidth
@@ -238,7 +244,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
-            <label class="label label-info" for="">License No <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >License No <span class="text-danger">*</span></label
+            >
             <input
               nbInput
               fullWidth
@@ -252,7 +260,9 @@
 
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">Country <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Country <span class="text-danger">*</span></label
+            >
             <nb-select
               (selectedChange)="GetSecondaryLOV()"
               placeholder="Select Country"
@@ -267,7 +277,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">Province <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Province <span class="text-danger">*</span></label
+            >
             <nb-select
               (selectedChange)="GetSecondaryLOV()"
               placeholder="Select Province"
@@ -282,7 +294,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">City <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >City <span class="text-danger">*</span></label
+            >
             <nb-select
               placeholder="Select City"
               fullWidth
@@ -296,7 +310,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">Latitude <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Latitude <span class="text-danger">*</span></label
+            >
             <input
               nbInput
               fullWidth
@@ -309,7 +325,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">Longitude <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Longitude <span class="text-danger">*</span></label
+            >
             <input
               nbInput
               formControlName="Longitude"
@@ -322,7 +340,9 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group" formGroupName="Address">
-            <label class="label label-info" for="">Altitude <span class="text-danger">*</span></label>
+            <label class="label label-info" for=""
+              >Altitude <span class="text-danger">*</span></label
+            >
             <input
               nbInput
               formControlName="Altitude"
