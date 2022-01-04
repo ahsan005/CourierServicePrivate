@@ -74,13 +74,31 @@ export class SharedService {
     //   }
     // });
   }
+  GetAllLocationType(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllLocationType",
+
+      httpOptions
+    );
+    // .subscribe((data) => {
+    //   var response = JSON.parse(JSON.stringify(data));
+    //   if (response.Status) {
+    //     console.log(response.Data);
+    //   } else {
+    //     this.handleError(response.Status, response.Message);
+    //   }
+    // });
+  }
 
   GetCitiesByProvince(id: number): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<LOV[]>(
-      this.base_url + "api/courierService/GetCitiesByProvince?id=" + id,
+      this.base_url + "api/CourierService/GetCitiesByProvince?id="+ id,
 
       httpOptions
     );

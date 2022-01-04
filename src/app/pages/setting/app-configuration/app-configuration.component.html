@@ -25,13 +25,11 @@
                 <label class="label label-info" for=""
                   >Currency <span class="text-danger">*</span></label
                 >
-                <nb-select fullWidth formControlName="CurrencyId">
-                  <nb-option
-                    [value]="item.Value"
-                    *ngFor="let item of currencyLOV"
-                    >{{ item.Text }}</nb-option
-                  >
-                </nb-select>
+                <select class="form-control" formControlName="CurrencyId">
+                  <option [value]="item.Value" *ngFor="let item of currencyLOV">
+                    {{ item.Text }}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12">
@@ -94,7 +92,7 @@
                 <img
                   width="100"
                   height="150"
-                  src="../../../../assets/images/img_placeholder.jpeg"
+                  src="../../../../assets/images/logo-placeholder-image-150x150.png"
                   class="img-responsive"
                 />
               </ng-template>
@@ -163,16 +161,33 @@
             />
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center mt-4">
+          <div class="form-group">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              formControlName="IsDefaultLocation"
+            />
+            <label class="form-check-label" for="flexCheckDefault"
+              >is Default Location<span class="text-danger">*</span></label
+            >
+          </div>
+        </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
             <label class="label label-info" for=""
               >Location Type <span class="text-danger">*</span></label
             >
-            <nb-select
+            <select
               placeholder="Select Location Type"
               formControlName="LocationTypeProfileId"
-              fullWidth
-            ></nb-select>
+              class="form-control"
+            >
+              <option [value]="item.Value" *ngFor="let item of locationTypeLOV">
+                {{ item.Text }}
+              </option>
+            </select>
           </div>
         </div>
         <!-- <div class="col-md-4">
@@ -201,7 +216,7 @@
             <input
               nbInput
               fullWidth
-              type="number"
+              type="text"
               formControlName="Mobile1"
               name=""
               id=""
@@ -215,7 +230,7 @@
               nbInput
               fullWidth
               formControlName="Mobile2"
-              type="number"
+              type="text"
               name=""
               id=""
             />
@@ -251,7 +266,7 @@
               nbInput
               fullWidth
               formControlName="LicenseNo"
-              type="number"
+              type="text"
               name=""
               id=""
             />
@@ -263,16 +278,16 @@
             <label class="label label-info" for=""
               >Country <span class="text-danger">*</span></label
             >
-            <nb-select
+            <select
               (selectedChange)="GetSecondaryLOV()"
               placeholder="Select Country"
               formControlName="CountryId"
-              fullWidth
+              class="form-control"
             >
-              <nb-option [value]="item.Value" *ngFor="let item of countriesLOV">
+              <option [value]="item.Value" *ngFor="let item of countriesLOV">
                 {{ item.Text }}
-              </nb-option></nb-select
-            >
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
@@ -280,16 +295,17 @@
             <label class="label label-info" for=""
               >Province <span class="text-danger">*</span></label
             >
-            <nb-select
+            <select
               (selectedChange)="GetSecondaryLOV()"
               placeholder="Select Province"
               fullWidth
+              class="form-control"
               formControlName="ProvinceId"
             >
-              <nb-option [value]="item.Value" *ngFor="let item of provinceLOV">
+              <option [value]="item.Value" *ngFor="let item of provinceLOV">
                 {{ item.Text }}
-              </nb-option></nb-select
-            >
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
@@ -297,15 +313,16 @@
             <label class="label label-info" for=""
               >City <span class="text-danger">*</span></label
             >
-            <nb-select
+            <select
               placeholder="Select City"
               fullWidth
               formControlName="CityId"
+              class="form-control"
             >
-              <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+              <option [value]="item.Value" *ngFor="let item of citiesLOV">
                 {{ item.Text }}
-              </nb-option></nb-select
-            >
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">

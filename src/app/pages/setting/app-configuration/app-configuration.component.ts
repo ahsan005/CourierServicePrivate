@@ -13,6 +13,7 @@ import { NotificationService } from "../../../services/notification.service";
   styleUrls: ["./app-configuration.component.scss"],
 })
 export class AppConfigurationComponent implements OnInit {
+  //  declarations
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
@@ -20,6 +21,13 @@ export class AppConfigurationComponent implements OnInit {
   countriesLOV;
   provinceLOV;
   currencyLOV;
+  locationTypeLOV;
+
+  organizationObj = new Organization();
+  locationObj = new Location();
+  addressObj = new Address();
+  //  declarations
+
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -28,12 +36,11 @@ export class AppConfigurationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getLOVs;
+    this.getLOVs();
     this.Initialize();
   }
-  organizationObj = new Organization();
-  locationObj = new Location();
-  addressObj = new Address();
+
+
 
   AppConfigForm;
   async Initialize() {
@@ -43,70 +50,45 @@ export class AppConfigurationComponent implements OnInit {
     // this.AppConfigForm.controls['OrginizationName'].setValue("Hello");
 
     this.AppConfigForm = this.fb.group({
-      OrganizationSHIT:[''],
       Organization: this.fb.group({
-        OrginizationId: [
-          this.organizationObj.OrginizationId,
-          Validators.required,
-        ],
-        OrginizationSettingId: [this.organizationObj.OrginizationSettingId],
-        CurrencyId: [this.organizationObj.CurrencyId, Validators.required],
-        OrginizationName: [
-          this.organizationObj.OrginizationName,
-          Validators.required,
-        ],
-        OrginizationTitle: [
-          this.organizationObj.OrginizationTitle,
-          Validators.required,
-        ],
-        NTN: [this.organizationObj.NTN],
-        STN: [this.organizationObj.STN],
+        OrginizationId: ["", Validators.required],
+        OrginizationSettingId: [""],
+        CurrencyId: ["", Validators.required],
+        OrginizationName: ["", Validators.required],
+        OrginizationTitle: ["", Validators.required],
+        NTN: [""],
+        STN: [""],
 
-        WaterMark: [this.organizationObj.WaterMark],
-        Certificate1: [this.organizationObj.Certificate1],
-        Certificate2: [this.organizationObj.Certificate2],
-        CreatedById: [this.organizationObj.CreatedById],
-        CreatedOn: [this.organizationObj.CreatedOn],
-        AlteredById: [this.organizationObj.AlteredById],
-        AlteredOn: [this.organizationObj.AlteredOn],
-        ActionTypeId: [this.organizationObj.ActionTypeId],
-        UserLogId: [this.organizationObj.UserLogId],
+        WaterMark: [""],
+        Certificate1: [""],
+        Certificate2: [""],
       }),
       Location: this.fb.group({
-        LocationId: [this.locationObj.LocationId, Validators.required],
-        OrginizationId: [this.locationObj.OrginizationId, Validators.required],
-        LocationSettingId: [this.locationObj.LocationSettingId],
+        LocationId: ["", Validators.required],
+        OrginizationId: ["", Validators.required],
+        LocationSettingId: [""],
 
         Address: this.fb.group({
-          AddressId: [this.addressObj.AddressId],
-          CountryId: [this.addressObj.CountryId, Validators.required],
-          ProvinceId: [this.addressObj.ProvinceId, Validators.required],
-          CityId: [this.addressObj.CityId, Validators.required],
-          LocationId: [this.addressObj.LocationId, Validators.required],
-          AddressDetail: [this.addressObj.AddressDetail, Validators.required],
-          Latitude: [this.addressObj.Latitude, Validators.required],
-          Longitude: [this.addressObj.Longitude, Validators.required],
-          Altitude: [this.addressObj.Altitude, Validators.required],
+          AddressId: [""],
+          CountryId: ["", Validators.required],
+          ProvinceId: ["", Validators.required],
+          CityId: ["", Validators.required],
+          LocationId: ["", Validators.required],
+          AddressDetail: ["", Validators.required],
+          Latitude: ["", Validators.required],
+          Longitude: ["", Validators.required],
+          Altitude: ["", Validators.required],
         }),
-        LocationTypeProfileId: [
-          this.locationObj.LocationTypeProfileId,
-          Validators.required,
-        ],
-        LocationName: [this.locationObj.LocationName, Validators.required],
-        LicenseNo: [this.locationObj.LicenseNo, Validators.required],
-        SubLocationName: [
-          this.locationObj.SubLocationName,
-          Validators.required,
-        ],
-        LocationShortName: [
-          this.locationObj.LocationShortName,
-          Validators.required,
-        ],
-        Mobile1: [this.locationObj.Mobile1, Validators.required],
-        Mobile2: [this.locationObj.Mobile2],
-        Email: [this.locationObj.Email, Validators.required],
-        PortalURL: [this.locationObj.PortalURL],
-        HeaderDetail: [this.locationObj.HeaderDetail],
+        LocationTypeProfileId: ["", Validators.required],
+        LocationName: ["", Validators.required],
+        LicenseNo: ["", Validators.required],
+        SubLocationName: ["", Validators.required],
+        LocationShortName: ["", Validators.required],
+        Mobile1: ["", Validators.required],
+        Mobile2: [""],
+        Email: ["", Validators.required],
+        PortalURL: [""],
+        HeaderDetail: [""],
         FooterDetail: [this.locationObj.FooterDetail],
         IsDefaultLocation: [this.locationObj.IsDefaultLocation],
         CreatedById: [this.locationObj.CreatedById],
@@ -119,19 +101,74 @@ export class AppConfigurationComponent implements OnInit {
     });
   }
 
-  SetFormValue() {
+  SetFormOrganization() {
     this.AppConfigForm.patchValue({
-      OrganizationSHIT: "Helloooooo ORG",
+      Organization: {
+        OrginizationId: this.organizationObj.OrginizationId,
+        OrginizationName: this.organizationObj.OrginizationName,
+        CurrencyId: this.organizationObj.CurrencyId,
+        OrginizationTitle: this.organizationObj.OrginizationTitle,
+        NTN: this.organizationObj.NTN,
+        STN: this.organizationObj.STN,
+      },
+    });
+
+    if (
+      this.organizationObj.LogoImageURL != null ||
+      this.organizationObj.LogoImageURL != "" ||
+      this.organizationObj.LogoImageURL != undefined
+    ) {
+      this.isImageSaved = true;
+      this.cardImageBase64 = this.organizationObj.LogoImageURL;
+    }
+  }
+
+  SetFormLocation() {
+    this.AppConfigForm.patchValue({
+      Location: {
+        LocationId: this.locationObj.LocationId,
+        OrginizationId: this.organizationObj.OrginizationId,
+        LocationSettingId: this.locationObj.LocationSettingId,
+        Address: {
+          CountryId: this.addressObj.CountryId,
+          ProvinceId: this.addressObj.ProvinceId,
+          CityId: this.addressObj.CityId,
+          LocationId: this.addressObj.LocationId,
+          AddressDetail: this.addressObj.AddressDetail,
+          Latitude: this.addressObj.Latitude,
+          Longitude: this.addressObj.Longitude,
+          Altitude: this.addressObj.Altitude,
+        },
+        LocationTypeProfileId: this.locationObj.LocationTypeProfileId,
+        LocationName: this.locationObj.LocationName,
+        LicenseNo: this.locationObj.LicenseNo,
+        SubLocationName: this.locationObj.SubLocationName,
+        LocationShortName: this.locationObj.LocationShortName,
+        Mobile1: this.locationObj.Mobile1,
+        Mobile2: this.locationObj.Mobile2,
+        Email: this.locationObj.Email,
+        PortalURL: this.locationObj.PortalURL,
+        HeaderDetail: this.locationObj.HeaderDetail,
+        FooterDetail: this.locationObj.FooterDetail,
+        IsDefaultLocation: this.locationObj.IsDefaultLocation,
+      },
     });
   }
   getLOVs() {
     this.sharedService.GetAllCountries().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       this.countriesLOV = response.Data;
+      console.log(response);
     });
     this.sharedService.GetAllCurrencies().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       this.currencyLOV = response.Data;
+      console.log(response);
+    });
+    this.sharedService.GetAllLocationType().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      this.locationTypeLOV = response.Data;
+      console.log(response);
     });
   }
   async GetOrganization() {
@@ -139,22 +176,50 @@ export class AppConfigurationComponent implements OnInit {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
         this.organizationObj = response.Data[0];
+
+        if (
+          this.organizationObj.Logo != null ||
+          this.organizationObj.Logo != ""
+        )
+          var base64 = this._arrayBufferToBase64(this.organizationObj.Logo);
+
+        console.log(base64);
+        this.organizationObj.LogoImageURL = "data:image/png;base64," + base64;
+        console.log(this.organizationObj.LogoImageURL);
         console.log(this.organizationObj);
-        this.SetFormValue();
+        this.SetFormOrganization();
       } else {
         console.warn(response);
       }
     });
+  }
+  _arrayBufferToBase64(buffer) {
+    var binary = "";
+    var bytes = new Uint8Array(buffer);
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
   async GetLocation() {
     this.userService.GetLocation().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
         this.locationObj = response.Data[0];
-        this.addressObj = this.locationObj.Address;
-
+        this.addressObj.AddressId = this.locationObj.AddressId;
+        this.addressObj.AddressDetail = this.locationObj.AddressDetail;
+        this.addressObj.CityId = this.locationObj.CityId;
+        this.addressObj.CountryId = this.locationObj.CountryId;
+        this.addressObj.ProvinceId = this.locationObj.ProvinceId;
+        this.addressObj.Longitude = this.locationObj.Longitude;
+        this.addressObj.Latitude = this.locationObj.Latitude;
+        this.addressObj.Altitude = this.locationObj.Altitude;
+        this.GetProvinceByCountry(this.addressObj.CountryId);
+        this.GetCityByProvince(this.addressObj.ProvinceId);
         console.log(this.locationObj);
         console.log(this.addressObj);
+        this.SetFormLocation();
       } else {
         console.warn(response);
       }
@@ -203,7 +268,7 @@ export class AppConfigurationComponent implements OnInit {
     if (fileInput.target.files && fileInput.target.files[0]) {
       // Size Filter Bytes
       const max_size = 20971520;
-      const allowed_types = ["image/png", "image/jpeg"];
+      const allowed_types = ["image/png"];
       const max_height = 15200;
       const max_width = 25600;
 

@@ -11,6 +11,7 @@ public OrginizationTitle:string;
 public NTN:string;
 public STN:string;
 public LogoImageURL:string;
+public Logo;
 public WaterMark:string;
 public Certificate1:number;
 public Certificate2:number;
