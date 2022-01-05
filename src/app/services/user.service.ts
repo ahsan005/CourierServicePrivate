@@ -11,6 +11,7 @@ import { HttpParams } from "@angular/common/http";
 import { Employee } from "../models/employee";
 import { Organization } from "../models/organization";
 import { Location } from "../models/location";
+import { CustomerInfo } from "../models/CustomerInfo";
 @Injectable({
   providedIn: "root",
 })
@@ -98,7 +99,6 @@ export class UserService {
   // Order Requests Filter Method
 
   // Get ORder by ID
-
   GetOrderByID(id: number): Observable<OrderBookingForm> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -111,8 +111,47 @@ export class UserService {
   }
   // Get ORder by ID
 
+  // Get All Users
+  GetAllUsers(): Observable<CustomerInfo> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get<CustomerInfo>(
+      this.base_url + "api/CourierService/GetAllUsers",
+      httpOptions
+    );
+  }
+  // Get All Users
+
+  ActivateCustomer(item): Observable<Object> {
+    let id = item.PartyId;
+
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/ActivateCustomer?id=" + id,
+      // "&AlteredById=" +
+      // AlteredById,
+      httpOptions
+    );
+  }
   // Get ORderTracking by ID
 
+  DeleteCustomer(item): Observable<Object> {
+    let id = item.PartyId;
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteCourierCustomer?id=" + id,
+      httpOptions
+    );
+  }
   GetOrderTrackingByID(id: number): Observable<OrderTracking> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),

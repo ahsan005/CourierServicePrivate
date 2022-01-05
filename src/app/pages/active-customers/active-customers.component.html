@@ -16,7 +16,7 @@
           <button nbButton (click)="generatePDF()">PDF</button>
         </nb-button-group>
         <br />
-        <div class="float-right">
+        <!-- <div class="float-right">
           <div class="form-group">
 
             <input
@@ -29,7 +29,7 @@
               id="searchbox"
             />
           </div>
-        </div>
+        </div> -->
 
         <table
           #pdfTable
@@ -38,29 +38,17 @@
         >
           <thead class="thead-dark">
             <tr>
-              <th (click)="sort('id')" scope="col">
-                Order# <i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Sr No.<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Order Date<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Sender Details<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Receiver Details<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Shipment Details<i class="fa fa-sort"></i>
-              </th>
-              <th (click)="sort('id')" scope="col">
-                Payments<i class="fa fa-sort"></i>
-              </th>
+              <th scope="col">UserID</th>
+              <th scope="col">Business Name</th>
+              <th scope="col">Party Location Name<i class="fa fa-sort"></i></th>
+              <th scope="col">Address Detail</th>
+              <th scope="col">Party Location Id</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Login Name</th>
 
-              <th scope="col">Action</th>
+              <th scope="col">Active</th>
+              <th scope="col">Created On</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -68,23 +56,42 @@
               class="text-center"
               scope="row"
               *ngFor="
-                let item of shipperProfiles
-                  | orderBy: key:reverse
+                let item of userList
                   | paginate: { itemsPerPage: 10, currentPage: p }
               "
             >
-              <td class="py-2 id">{{ item.SrNo }}</td>
-              <td class="py-2">{{ item.ShipperName }}</td>
-              <td class="py-2">{{ item.ShipperPhone }}</td>
-              <td class="py-2">{{ item.ShipperEmail }}</td>
-              <td class="py-2">{{ item.ShipperAddress }}</td>
-              <td class="py-2">{{ item.ShipperAddress }}</td>
+              <td class="py-2 id">{{ item.UserId }}</td>
+              <td class="py-2">{{ item.BusinessName }}</td>
+              <td class="py-2">{{ item.PartyLocationName }}</td>
               <td class="py-2">
-                <a (click)="deleteBtn(item.ID)"
-                  ><nb-icon icon="eye-outline"></nb-icon
-                ></a>
+                <strong>Address Detail: </strong>{{ item.AddressDetail }} <br />
+                {{ item.CityName }}, {{ item.ProvinceName }}, {{
+                  item.CountryName
+                }}
+              </td>
+              <td class="py-2">{{ item.PartyLocationId }}</td>
+              <td class="py-2">{{ item.UserName }}</td>
+              <td class="py-2">{{ item.LoginName }}</td>
+              <td class="py-2">
+                <input
+                  [nbSpinner]="checkBoxSpinner"
+                  nbSpinnerStatus="danger"
+                  nbSpinnerSize="small"
+                  nbSpinnerMessage=""
+                  type="checkbox"
+                  (change)="changeActiveStatus(item)"
+                  [checked]="item.IsActive"
+                  Class="form-check-input"
+                />
+              </td>
+              <td class="py-2">{{ item.CreatedOn }}</td>
+              <td class="py-2">
+
                 <a (click)="editBtn(item)"
                   ><nb-icon icon="car-outline"></nb-icon
+                ></a>
+                <a (click)="deleteBtn(item)"
+                  ><nb-icon icon="trash-2-outline"></nb-icon
                 ></a>
               </td>
             </tr>

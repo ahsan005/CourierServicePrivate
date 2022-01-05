@@ -1,70 +1,106 @@
-import { TableUtil } from './../../utilities/tableutil';
-import { Component, OnInit } from '@angular/core';
+import { TableUtil } from "./../../utilities/tableutil";
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../../services/user.service";
+import { NotificationService } from "../../services/notification.service";
 
 @Component({
-  selector: 'ngx-pending-customers',
-  templateUrl: './pending-customers.component.html',
-  styleUrls: ['./pending-customers.component.scss']
+  selector: "ngx-pending-customers",
+  templateUrl: "./pending-customers.component.html",
+  styleUrls: ["./pending-customers.component.scss"],
 })
 export class PendingCustomersComponent implements OnInit {
+  searchVal: any;
+  p: number = 1;
+  userList;
+  constructor(
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {
+    this.userService.listen().subscribe((m: any) => {
+      console.log(m);
+      this.Initilalize();
+    });
+  }
 
-  searchVal:any;
-  p:number=1;
-  constructor() { }
-  onSubmit(){
+  checkBoxSpinner: boolean = false;
+  changeActiveStatus(item) {
+    console.log('hello');
+    this.checkBoxSpinner = true;
+    this.userService.ActivateCustomer(item).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.userService.filter("refresh List On Change");
+        this.checkBoxSpinner = false;
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.userService.filter("refresh List On Change");
 
+        this.checkBoxSpinner = false;
+      }
+    });
   }
-  SearchFunction(){
-    TableUtil.SearchFunction(this.searchVal)
+
+  Initilalize() {
+    this.userService.GetAllUsers().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.userList = response.Data.filter(user => !user.IsActive )
+        console.log(this.userList);
+        console.log(response.Data);
+      }
+
+    });
   }
-  exportTable(){
-    TableUtil.exportToExcel('ExampleTable')
+  onSubmit() {}
+  deleteBtn(item) {
+    if(confirm("Are you sure you want to delete User "+ item.UserName))
+    {
+
+    this.userService.DeleteCustomer(item).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.userService.filter("refresh List On Delete");
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        this.userService.filter("refresh List On Delete");
+      }
+    });
   }
-  generatePDF(){
-    TableUtil.generatePDF('ExampleTable')
+  }
+  SearchFunction() {
+    TableUtil.SearchFunction(this.searchVal);
+  }
+  exportTable() {
+    TableUtil.exportToExcel("ExampleTable");
+  }
+  generatePDF() {
+    TableUtil.generatePDF("ExampleTable");
   }
   ngOnInit(): void {
+    this.Initilalize();
   }
-  shipperProfiles: Array<Object> = [
-    {
-      SrNo: 1,
-      ShipperName: "Micheal",
-      ShipperPhone: "0333-41111111",
-      ShipperEmail: "ahsan105@icloud.com",
-      ShipperAddress: "ABC Street",
-    },
-    {
-      SrNo: 2,
-      ShipperName: "Trevor",
-      ShipperPhone: "0333-33333333",
-      ShipperEmail: "Kill@icloud.com",
-      ShipperAddress: "DEF Street",
-    },
-    {
-      SrNo: 3,
-      ShipperName: "Franklin",
-      ShipperPhone: "0333-65674859",
-      ShipperEmail: "TEST@icloud.com",
-      ShipperAddress: "GHI Street",
-    },
-    {
-      SrNo: 4,
-      ShipperName: "Micheal Jordan",
-      ShipperPhone: "0333-0987654321",
-      ShipperEmail: "exotic@gmail.com",
-      ShipperAddress: "XYZVBN Street",
-    },
-
-  ];
- // Sorting
- key='id';
- reverse:boolean;
- sort(key){
-   this.key = key
-   this.reverse=!this.reverse
- }
- // Sorting
-
 
 
 }
