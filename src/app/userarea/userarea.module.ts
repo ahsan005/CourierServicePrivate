@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { BarcodeGeneratorAllModule, QRCodeGeneratorAllModule, DataMatrixGeneratorAllModule } from '@syncfusion/ej2-angular-barcode-generator';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -76,7 +77,8 @@ import{jsBarcode} from '../../../node_modules/jsbarcode/src/jsBarcode.js'
     NbSpinnerModule,
     BarcodeGeneratorAllModule,
     QRCodeGeneratorAllModule,
-    DataMatrixGeneratorAllModule
+    DataMatrixGeneratorAllModule,
+    NgxMaskModule
 
   ]
 })

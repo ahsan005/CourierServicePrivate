@@ -216,6 +216,33 @@ export class RequestsComponent implements OnInit {
     this.getCheckedItemList();
   }
 
+
+  deleteBtn(item) {
+    let confirmationFlag = confirm(
+      "Are you sure you want to delete this Order#" + item
+    );
+    if (confirmationFlag) {
+      this.userService.DeleteBookedOrder(item).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.userService.filter("List refresh upon delete");
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+    }
+  }
   // Edit Records Button
   editBtn(item?: OrderBookingForm) {
     const ref = this.modalService.open(EditRequestComponent, {

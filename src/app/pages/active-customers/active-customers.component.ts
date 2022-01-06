@@ -29,22 +29,23 @@ export class ActiveCustomersComponent implements OnInit {
     this.userService.ActivateCustomer(item).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
+        this.userService.filter("refresh List On Change");
         this.notificationService.showToast(
           "success",
           response.Message,
           "",
           "top-right"
         );
-        this.userService.filter("refresh List On Change");
         this.checkBoxSpinner = false;
       } else {
+        this.userService.filter("refresh List On Change");
+
         this.notificationService.showToast(
           "danger",
           response.Message,
           "",
           "top-right"
         );
-        this.userService.filter("refresh List On Change");
 
         this.checkBoxSpinner = false;
       }
@@ -66,30 +67,28 @@ export class ActiveCustomersComponent implements OnInit {
   }
   onSubmit() {}
   deleteBtn(item) {
-    if(confirm("Are you sure you want to delete User "+ item.UserName))
-    {
-
-    this.userService.DeleteCustomer(item).subscribe((data) => {
-      var response = JSON.parse(JSON.stringify(data));
-      if (response.Status) {
-        this.notificationService.showToast(
-          "success",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.userService.filter("refresh List On Delete");
-      } else {
-        this.notificationService.showToast(
-          "danger",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.userService.filter("refresh List On Delete");
-      }
-    });
-  }
+    if (confirm("Are you sure you want to delete User " + item.UserName)) {
+      this.userService.DeleteCustomer(item).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.userService.filter("refresh List On Delete");
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.userService.filter("refresh List On Delete");
+        }
+      });
+    }
   }
   SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);

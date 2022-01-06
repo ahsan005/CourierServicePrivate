@@ -126,15 +126,15 @@ export class UserService {
 
   ActivateCustomer(item): Observable<Object> {
     let id = item.PartyId;
-
+    var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": "application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/ActivateCustomer?id=" + id,
-      // "&AlteredById=" +
-      // AlteredById,
+      this.base_url + "api/CourierService/ActivateCustomer?id=" + id+
+      "&AlteredById=" +
+      AlteredById,
       httpOptions
     );
   }
@@ -148,7 +148,8 @@ export class UserService {
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCourierCustomer?id=" + id,
+      this.base_url + "api/CourierService/DeleteCourierCustomer?id=" + id+ "&AlteredById=" +
+      AlteredById,
       httpOptions
     );
   }

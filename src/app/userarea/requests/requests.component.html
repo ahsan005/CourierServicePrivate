@@ -163,7 +163,7 @@
             <strong>{{ item.OrderBookingId }}</strong>
           </td>
           <td class="tiny-details-Black">
-            <strong>{{ item.OrderBookingOn }}</strong>
+            <strong>{{ item.OrderBookingOn|mask:"0000/M0/d0 Hh:m0:s0" }}</strong>
           </td>
           <td class="tiny-details">
             <strong>Product Code:</strong> {{ item.ProductCode }} <br />
@@ -172,7 +172,7 @@
 
             <strong>Quantity:</strong> {{ item.Quantity }} <br />
             <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
-            <strong>CODAmount:</strong> {{ item.CODAmount }}<br />
+
             <strong>Delivery Fee:</strong> {{ item.DeliveryFee }}<br />
           </td>
           <td class="tiny-details">
@@ -191,8 +191,8 @@
           </td>
 
           <td class="tiny-details">
-            <strong>COD:</strong>{{ item.CODAmount }} <br />
-            <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
+            <strong>COD:</strong> Rs.{{ item.CODAmount | mask:"000000" }} <br />
+            <strong>Delivery Fee:</strong> Rs.{{ item.DeliveryFee | mask:"000000" }}
           </td>
           <td class="tiny-details">
             <strong>{{ item.StatusName }}</strong>
@@ -205,7 +205,7 @@
             <a (click)="trackingBtn(item.OrderBookingId)"
               ><nb-icon icon="car-outline"></nb-icon
             ></a>
-            <a (click)="deleteBtn(item.ID)"><nb-icon icon="close"></nb-icon></a>
+            <a (click)="deleteBtn(item.OrderBookingId)"><nb-icon icon="close"></nb-icon></a>
           </td>
         </tr>
       </tbody>

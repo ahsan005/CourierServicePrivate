@@ -1,5 +1,5 @@
 <div
-  class=" alert alert-danger"
+  class="alert alert-danger"
   *ngIf="bookingForm.invalid && (bookingForm.dirty || bookingForm.touched)"
 >
   <h6>
@@ -105,6 +105,10 @@
               >
               <input
                 type="text"
+                prefix="0"
+                mask="000-0000000"
+                [showMaskTyped]="false"
+                placeHolderCharacter="-"
                 name="shipperMobile"
                 formControlName="shipperMobile"
                 nbInput
@@ -132,6 +136,9 @@
               >
               <input
                 type="string"
+                mask="A*@S*.SSS"
+                [showMaskTyped]="false"
+                placeHolderCharacter="-"
                 nbInput
                 fullWidth
                 name="shipperEmail"
@@ -245,6 +252,10 @@
                 <input
                   nbInput
                   type="text"
+                  prefix="0"
+                  mask="000-0000000"
+                  [showMaskTyped]="false"
+                  placeHolderCharacter="-"
                   name=""
                   fullWidth
                   formControlName="consigneeMobile"
@@ -271,6 +282,9 @@
               <input
                 nbInput
                 type="email"
+                mask="A*@S*.SSS"
+                [showMaskTyped]="false"
+                placeHolderCharacter="-"
                 name=""
                 fullWidth
                 formControlName="consigneeEmail"
@@ -319,7 +333,6 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-
                     <div
                       class="text-danger"
                       *ngIf="
@@ -328,7 +341,7 @@
                       "
                     >
                       <div *ngIf="productCode.errors?.required">
-                       ProductCode is required.
+                        ProductCode is required.
                       </div>
                     </div>
                     <label for="" class="label label-primary"
@@ -336,6 +349,9 @@
                     >
                     <input
                       type="text"
+                      mask="A*"
+                      [showMaskTyped]="false"
+                      placeHolderCharacter="-"
                       nbInput
                       fullWidth
                       name="productCode"
@@ -362,6 +378,9 @@
                     <input
                       type="text"
                       fullWidth
+                      mask="0*"
+                      [showMaskTyped]="false"
+                      placeHolderCharacter="-"
                       nbInput
                       name="Quantity"
                       formControlName="quantity"
@@ -420,8 +439,12 @@
                       >COD Amount <span class="text-danger"> *</span></label
                     >
                     <input
-                      type="number"
+                      type="text"
                       nbInput
+                      prefix="Rs."
+                      mask="00000"
+                      [showMaskTyped]="false"
+                      placeHolderCharacter="-"
                       fullWidth
                       name="codAmount"
                       formControlName="codAmount"

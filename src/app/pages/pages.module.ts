@@ -25,6 +25,7 @@ import { AddPaymentComponent } from './customer-payments/add-payment/add-payment
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { AppConfigurationComponent } from './setting/app-configuration/app-configuration.component';
 import { GeneralComponent } from './setting/general/general.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ NbDatepickerModule,
     NbSpinnerModule,
     NbSelectModule,
     NbCheckboxModule,
+    NgxMaskModule
   ],
   declarations: [
     PagesComponent,

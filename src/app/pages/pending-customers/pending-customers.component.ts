@@ -24,27 +24,28 @@ export class PendingCustomersComponent implements OnInit {
 
   checkBoxSpinner: boolean = false;
   changeActiveStatus(item) {
-    console.log('hello');
+    console.log("hello");
     this.checkBoxSpinner = true;
     this.userService.ActivateCustomer(item).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
+        this.userService.filter("refresh List On Change");
         this.notificationService.showToast(
           "success",
           response.Message,
           "",
           "top-right"
         );
-        this.userService.filter("refresh List On Change");
         this.checkBoxSpinner = false;
       } else {
+        this.userService.filter("refresh List On Change");
+
         this.notificationService.showToast(
           "danger",
           response.Message,
           "",
           "top-right"
         );
-        this.userService.filter("refresh List On Change");
 
         this.checkBoxSpinner = false;
       }
@@ -55,39 +56,36 @@ export class PendingCustomersComponent implements OnInit {
     this.userService.GetAllUsers().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
-        this.userList = response.Data.filter(user => !user.IsActive )
+        this.userList = response.Data.filter((user) => !user.IsActive);
         console.log(this.userList);
         console.log(response.Data);
       }
-
     });
   }
   onSubmit() {}
   deleteBtn(item) {
-    if(confirm("Are you sure you want to delete User "+ item.UserName))
-    {
-
-    this.userService.DeleteCustomer(item).subscribe((data) => {
-      var response = JSON.parse(JSON.stringify(data));
-      if (response.Status) {
-        this.notificationService.showToast(
-          "success",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.userService.filter("refresh List On Delete");
-      } else {
-        this.notificationService.showToast(
-          "danger",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.userService.filter("refresh List On Delete");
-      }
-    });
-  }
+    if (confirm("Are you sure you want to delete User " + item.UserName)) {
+      this.userService.DeleteCustomer(item).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.userService.filter("refresh List On Delete");
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+        } else {
+          this.userService.filter("refresh List On Delete");
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+    }
   }
   SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);
@@ -101,6 +99,4 @@ export class PendingCustomersComponent implements OnInit {
   ngOnInit(): void {
     this.Initilalize();
   }
-
-
 }

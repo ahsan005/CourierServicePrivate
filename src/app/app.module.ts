@@ -47,10 +47,13 @@ import { TermsComponent } from "./user/terms/terms.component";
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NbDateFnsDateModule} from '@nebular/date-fns'
 import { config } from 'process';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails.component';
 
 
-
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +81,7 @@ import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfig),
 
     NbChatModule.forRoot({
       messageGoogleMapKey: "AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY",

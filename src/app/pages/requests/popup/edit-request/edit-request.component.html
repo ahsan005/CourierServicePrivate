@@ -140,6 +140,9 @@
                 <input
                   type="text"
                   name="shipperMobile"
+                  prefix="0"
+                mask="000-0000000"
+                [showMaskTyped]="false"
                   formControlName="shipperMobile"
                   nbInput
                   id="shipperMobile"
@@ -169,6 +172,9 @@
               <input
                 type="string"
                 nbInput
+
+                mask="A*@S*.SSS"
+                [showMaskTyped]="false"
                 fullWidth
                 name="shipperEmail"
                 id="shipperEmail"

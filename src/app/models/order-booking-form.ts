@@ -7,11 +7,6 @@ export class OrderBookingForm {
   // Shipper Info
   public OrderBookingId: number;
   public OrderBookingOn: number;
-  public ActionTypeId: number;
-  public AlteredById: number;
-  public AlteredOn: Date;
-  public CreatedById: number;
-  public CreatedOn: Date;
   public LocationId: number;
   public OriginCityId: number;
   public OriginCityName: string;
@@ -53,6 +48,14 @@ export class OrderBookingForm {
   public PartyLocationName:string;
   public BusinessName:string;
   // Party Info
+
+  // DB InforMatics
+  public ActionTypeId: number;
+  public AlteredById: number;
+  public AlteredOn: Date;
+  public CreatedById: number;
+  public CreatedOn: Date;
+  // DB InforMatics
 
   public isSelected:boolean;
 }
