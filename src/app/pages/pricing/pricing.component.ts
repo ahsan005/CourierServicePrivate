@@ -1,6 +1,10 @@
+import { TableUtil } from './../../utilities/tableutil';
+import { registerMap } from 'echarts';
+import { UserService } from "./../../services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { LOV } from "../../models/citiesLOV";
+import { CustomerInfo } from "../../models/CustomerInfo";
 import { DeliveryCharges } from "../../models/deliverycharges";
 import { NotificationService } from "../../services/notification.service";
 import { SharedService } from "../../services/shared.service";
@@ -12,13 +16,21 @@ import { SharedService } from "../../services/shared.service";
 })
 export class PricingComponent implements OnInit {
   // page number
+  searchVal;
   p: number = 1;
   // page number
-
+  deliveryChargesObj: DeliveryCharges;
+  OnSubmitSpinner: boolean = false;
+  PartyLocationId: number = 1;
+  PartyList = new Array<CustomerInfo>();
+  citiesLOV = new Array<LOV>();
+  deliveryChargesList = new Array<DeliveryCharges>();
+  DeliveryCharges;
   constructor(
     private sharedService: SharedService,
     private notificationService: NotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService
   ) {
     this.sharedService.listen().subscribe((m: any) => {
       console.log(m);
@@ -26,13 +38,11 @@ export class PricingComponent implements OnInit {
     });
     // this.Initialize();
   }
-  citiesLOV = new Array<LOV>();
-  deliveryChargesList = new Array<DeliveryCharges>();
 
   ngOnInit(): void {
     this.Initialize();
   }
-  DeliveryCharges;
+
   Initialize() {
     this.sharedService.GetAllCities().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
@@ -40,8 +50,22 @@ export class PricingComponent implements OnInit {
         this.citiesLOV = response.Data;
       }
     });
+    this.userService.GetAllUsers().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.PartyList = response.Data;
+        console.log(this.PartyList);
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
 
-    this.RefreshDeliveryChargesList();
 
     this.DeliveryCharges = this.fb.group({
       // ShipperInfo
@@ -54,8 +78,10 @@ export class PricingComponent implements OnInit {
       CreatedOn: [""],
       AlteredById: [""],
       AlteredOn: [""],
+      PartyLocationId: [""],
       // Shipment Details
     });
+    this.RefreshDeliveryChargesList();
   }
 
   // Validation Functions
@@ -76,7 +102,20 @@ export class PricingComponent implements OnInit {
   // Validation Functions
 
   RefreshDeliveryChargesList() {
-    this.sharedService.GetAllDeliveryCharges().subscribe((data) => {
+    if (this.PartyLocationId == 1) {
+      this.GetStandardDeliveryCharges();
+
+    } else {
+      this.DeliveryCharges.reset()
+      this.DeliveryCharges.patchValue({
+        FromCityId: "",
+        ToCityId: "",
+      })
+      this.GetDeliveryChargesbyPartyLocation();
+    }
+  }
+  GetStandardDeliveryCharges() {
+    this.sharedService.GetStandardDeliveryCharges().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       console.log(response);
       if (response.Status) {
@@ -84,98 +123,128 @@ export class PricingComponent implements OnInit {
       }
     });
   }
+  GetDeliveryChargesbyPartyLocation() {
+    this.sharedService
+      .GetDeliveryChargesByPartyLocation(this.PartyLocationId)
+      .subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          if (response.NoEntries) {
+            this.deliveryChargesList.length = 0;
+          } else {
+            this.deliveryChargesList = response.Data;
+            this.notificationService.showToast(
+              "success",
+              response.Message,
+              "",
+              "top-right"
+            );
+          }
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+        }
+      });
+  }
 
-  deliveryChargesObj: DeliveryCharges;
-  OnSubmitSpinner: boolean = false;
   OnSubmit() {
-    if (!this.editMode) {
-      this.OnSubmitSpinner = true;
-      this.deliveryChargesObj = this.DeliveryCharges.value;
-      this.deliveryChargesObj.CreatedById = parseInt(
-        localStorage.getItem("USERID")
-      );
-      this.deliveryChargesObj.AlteredById = parseInt(
-        localStorage.getItem("USERID")
-      );
-      console.log(this.DeliveryCharges.value);
-      console.log(this.deliveryChargesObj);
+    if (!this.DeliveryCharges.invalid) {
+      if (!this.editMode) {
+        this.OnSubmitSpinner = true;
+        this.deliveryChargesObj = this.DeliveryCharges.value;
+        this.deliveryChargesObj.CreatedById = parseInt(
+          localStorage.getItem("USERID")
+        );
+        if (this.PartyLocationId != null) {
+          this.deliveryChargesObj.PartyLocationId = this.PartyLocationId;
+        }
+        console.log(this.DeliveryCharges.value);
+        console.log(this.deliveryChargesObj);
 
-      this.sharedService
-        .AddDeliveryCharges(this.deliveryChargesObj)
-        .subscribe((data) => {
-          var response = JSON.parse(JSON.stringify(data));
-          if (response.Status) {
-            this.notificationService.showToast(
-              "success",
-              response.Message,
-              "",
-              "top-right"
-            );
-            this.sharedService.filter("Refresh List");
-            this.OnSubmitSpinner = false;
-          } else {
-            console.warn(response.Message);
-            this.notificationService.showToast(
-              "danger",
-              response.Message,
-              "",
-              "top-right"
-            );
-            this.OnSubmitSpinner = false;
-          }
-        });
+        this.sharedService
+          .AddDeliveryCharges(this.deliveryChargesObj)
+          .subscribe((data) => {
+            var response = JSON.parse(JSON.stringify(data));
+            if (response.Status) {
+              this.notificationService.showToast(
+                "success",
+                response.Message,
+                "",
+                "top-right"
+              );
+              this.sharedService.filter("Refresh List");
+              this.OnSubmitSpinner = false;
+            } else {
+              console.warn(response.Message);
+              this.notificationService.showToast(
+                "danger",
+                response.Message,
+                "",
+                "top-right"
+              );
+              this.OnSubmitSpinner = false;
+            }
+          });
+      } else {
+        this.OnSubmitSpinner = true;
+        this.deliveryChargesObj = this.DeliveryCharges.value;
+        this.deliveryChargesObj.AlteredById = parseInt(
+          localStorage.getItem("USERID")
+        );
+
+        this.sharedService
+          .AddDeliveryCharges(this.deliveryChargesObj)
+          .subscribe((data) => {
+            this.OnSubmitSpinner = true;
+            var response = JSON.parse(JSON.stringify(data));
+            if (response.Status) {
+              this.notificationService.showToast(
+                "success",
+                "Edit Operation Successful",
+                "",
+                "top-right"
+              );
+              this.sharedService.filter("Refresh List");
+              this.OnSubmitSpinner = false;
+              this.editMode = false;
+            } else {
+              this.notificationService.showToast(
+                "danger",
+                response.Message,
+                "",
+                "top-right"
+              );
+              this.OnSubmitSpinner = false;
+            }
+          });
+      }
     } else {
-      this.OnSubmitSpinner = true;
-      this.deliveryChargesObj = this.DeliveryCharges.value;
-      this.deliveryChargesObj.AlteredById = parseInt(
-        localStorage.getItem("USERID")
-      );
-
-      this.sharedService
-        .AddDeliveryCharges(this.deliveryChargesObj)
-        .subscribe((data) => {
-          this.OnSubmitSpinner = true;
-          var response = JSON.parse(JSON.stringify(data));
-          if (response.Status) {
-            this.notificationService.showToast(
-              "success",
-              "Edit Operation Successful",
-              "",
-              "top-right"
-            );
-            this.sharedService.filter("Refresh List");
-            this.OnSubmitSpinner = false;
-            this.editMode = false;
-          } else {
-            this.notificationService.showToast(
-              "danger",
-              response.Message,
-              "",
-              "top-right"
-            );
-            this.OnSubmitSpinner = false;
-          }
-        });
+      this.DeliveryCharges.markAsTouched();
+      console.log(this.DeliveryCharges.value);
     }
   }
   editMode: Boolean = false;
   editBtn(item: DeliveryCharges) {
     console.log(item);
-    this.DeliveryCharges = this.fb.group({
-      // ShipperInfo
-      DeliveryChargesId: [item.DeliveryChargesId],
-      FromCityId: [item.FromCityId, Validators.required],
-      ToCityId: [item.ToCityId, Validators.required],
-      FirstKGPrice: [item.FirstKGPrice, Validators.required],
-      PricePerKG: [item.PricePerKG, Validators.required],
-      CreatedById: [item.CreatedById],
-      CreatedOn: [item.CreatedOn],
-      AlteredById: [item.AlteredById],
-      AlteredOn: [item.AlteredOn],
-      // Shipment Details
+    this.DeliveryCharges.patchValue({
+      DeliveryChargesId: item.DeliveryChargesId,
+      FromCityId: item.FromCityId,
+      ToCityId: item.ToCityId,
+      FirstKGPrice: item.FirstKGPrice,
+      PricePerKG: item.PricePerKG,
+      CreatedById: item.CreatedById,
+      CreatedOn: item.CreatedOn,
+      AlteredById: item.AlteredById,
+      AlteredOn: item.AlteredOn,
     });
+
     this.editMode = true;
   }
+
   deleteBtn(item) {
     this.sharedService.DeleteDeliveryCharges(item).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
@@ -186,6 +255,7 @@ export class PricingComponent implements OnInit {
           "",
           "top-right"
         );
+        this.sharedService.filter("Deleted Entry Refresh list");
       } else {
         this.notificationService.showToast(
           "danger",
@@ -195,5 +265,8 @@ export class PricingComponent implements OnInit {
         );
       }
     });
+  }
+  SearchFunction(){
+    TableUtil.SearchFunction(this.searchVal);
   }
 }

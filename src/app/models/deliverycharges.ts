@@ -4,6 +4,7 @@ export class DeliveryCharges{
 }
 
 public ActionTypeId:number;
+public PartyLocationId:number;
 public AlteredById:number;
 public CreatedById:number;
 public AlteredOn:number;

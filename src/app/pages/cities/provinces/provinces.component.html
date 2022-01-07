@@ -1,0 +1,72 @@
+<nb-card status="primary">
+  <nb-card-header>Countries</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-2 ">
+        <nb-select [(ngModel)]="countryId" fullWidth (ngModelChange)="refreshList()"  placeholder="Select Country" required>
+          <nb-option [value]="item.Value" *ngFor="let item of countryList">{{
+            item.Text
+          }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-2 offset-md-8 mb-2">
+        <button  nbButton (click)="AddBtn()" status="primary" hero>
+          Add Province
+        </button>
+      </div>
+
+
+      <div class="col-md-12">
+        <!-- <button nbButton status="primary" hero (click)="exportTable()">
+        Export
+      </button> -->
+
+        <div class="float-right">
+          <div class="form-group">
+            <input
+              type="text"
+              nbInput
+              [(ngModel)]="searchVal"
+              name="search"
+              placeholder="Search"
+              (keyup)="SearchFunction()"
+              id="searchbox"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table #pdfTable id="ExampleTable" class="table table-bordered hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>Province ID</th>
+              <th scope="col">Province Name</th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="text-center"
+              scope="row"
+              *ngFor="
+                let item of provinceList
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              "
+            >
+              <td>{{ item.Value }}</td>
+              <td class="py-2 id">{{ item.Text }}</td>
+
+              <td class="py-2">
+                <a (click)="DeleteBtn(item)"
+                  ><nb-icon icon="trash-2-outline"></nb-icon
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

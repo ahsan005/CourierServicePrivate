@@ -11,6 +11,8 @@ import { Injectable } from "@angular/core";
 import { City } from "../models/city";
 import { DeliveryCharges } from "../models/deliverycharges";
 import { CourierSetting } from "../models/courier-settings";
+import { Province } from "../models/province";
+import { Country } from "../models/country";
 
 @Injectable({
   providedIn: "root",
@@ -114,6 +116,52 @@ export class SharedService {
       httpOptions
     );
   }
+  AddNewCountry(obj: Country): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/CourierService/AddCountry",
+      body,
+      httpOptions
+    );
+  }
+  DeleteCountry(id:number):Observable<Object>{
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteCountry?id="+id+'&AlteredById='+ AlteredById,
+      httpOptions
+    );
+  }
+  AddNewProvince(obj: Province): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/CourierService/AddProvince",
+      body,
+      httpOptions
+    );
+  }
+  DeleteProvince(id:number):Observable<Object>{
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url + "api/CourierService/DeleteProvince?id="+id+'&AlteredById='+ AlteredById,
+      httpOptions
+    );
+  }
   AddNewCity(obj: City): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -150,18 +198,27 @@ export class SharedService {
       httpOptions
     );
   }
-  GetAllDeliveryCharges():Observable<DeliveryCharges>{
+  GetStandardDeliveryCharges():Observable<DeliveryCharges>{
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get<DeliveryCharges>(
-      this.base_url + "api/CourierService/GetDeliveryCharges",
+      this.base_url + "api/CourierService/GetStandardDeliveryCharges",
 
       httpOptions
     );
   }
+  GetDeliveryChargesByPartyLocation(id: number): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetDeliveryChargesByPartyLocationId?id=" + id,
 
+      httpOptions
+    );
+  }
   DeleteDeliveryCharges(id:number):Observable<Object>{
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {

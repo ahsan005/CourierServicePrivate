@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add New City</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="
+              CountryName.invalid && (CountryName.dirty || CountryName.touched)
+            "
+          >
+            <div *ngIf="Country.CountryName.errors?.required">
+              City Name is required.
+            </div>
+          </div>
+          <label for="">Country Name</label>
+          <input
+            type="text"
+            nbInput
+            name="CountryName"
+            fullWidth
+            placeholder="Country Name"
+            [(ngModel)]="Country.CountryName"
+            #CountryName="ngModel"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="CountryShortName.dirty || CountryShortName.touched"
+          >
+            <div *ngIf="Country.CountryShortName.errors?.required">
+              City Name is required.
+            </div>
+          </div>
+          <label for="">Country ShortName</label>
+          <input
+            type="text"
+            name="CountryShortName"
+            placeholder="Enter ShortName For County"
+            #CountryShortName="ngModel"
+            [(ngModel)]="Country.CountryShortName"
+            #name="ngModel"
+            nbInput
+            fullWidth
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="
+              CountryCode.invalid && (CountryCode.dirty || CountryCode.touched)
+            "
+          >
+            <div *ngIf="Country.CountryCode.errors?.required">
+              City Country is required.
+            </div>
+            <div *ngIf="Country.CountryCode.errors?.minlength">
+              Country Code must be minimum 3 digits.
+            </div>
+          </div>
+          <label for="">Country Code</label>
+          <input
+            nbInput
+            name="CountryCode"
+
+            placeholder="Enter Country Code"
+            type="text"
+            required
+            #CountryCode="ngModel"
+            [(ngModel)]="Country.CountryCode"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    nbButton
+    hero
+    status="success"
+    [nbSpinner]="spinner"
+    nbSpinnerStatus="primary"
+    (click)="addCountry()"
+  >
+    Add City
+  </button>
+</div>

@@ -94,7 +94,7 @@ const routes: Routes = [
           import("./couriers/couriers.module").then((m) => m.CouriersModule),
       },
       {
-        path: "cities",
+        path: "Destinations",
         loadChildren: () =>
           import("./cities/cities.module").then((m) => m.CitiesModule),
       },

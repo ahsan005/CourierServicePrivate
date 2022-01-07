@@ -210,14 +210,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/admin/couriers/list'
   },
   {
-    title: 'Cities',
+    title: 'Add Destinations',
     icon: 'pin-outline',
     // link:'/admin/cities/list'
     children:[
       {
-        title:'Cities List',
-        link:'/admin/cities/list'
-      }
+        title:'Country',
+        link:'/admin/Destinations/country-list'
+      },
+      {
+        title:'Province',
+        link:'/admin/Destinations/province-list'
+      },
+      {
+        title:'City',
+        link:'/admin/Destinations/city-list'
+      },
+
+
     ]
   }
 

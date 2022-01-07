@@ -1,131 +1,175 @@
 <nb-card>
   <nb-card-header>Pricing</nb-card-header>
   <nb-card-body>
-    <form (ngSubmit)="OnSubmit()" [formGroup]="DeliveryCharges">
-      <div *ngIf="DeliveryCharges.invalid && (DeliveryCharges.dirty || DeliveryCharges.touched)" class="row">
+    <form [formGroup]="DeliveryCharges" (ngSubmit)="OnSubmit()" novalidate >
+      <div *ngIf="DeliveryCharges.invalid && DeliveryCharges.dirty" class="row">
         <div class="col-md-12 alert">
           <h6>All Fields with * Next to them are Mandatory</h6>
         </div>
       </div>
+
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-4 col-xs-12">
           <div class="form-group">
-            <div
-            class="text-danger"
-            *ngIf="FromCityId.invalid && (FromCityId.dirty || FromCityId.touched)"
-          >
-            <div *ngIf="FromCityId.errors?.required">
-              From City is required.
-            </div>
-
-          </div>
             <label for="">City From <Span class="text-danger">*</Span></label>
-            <select fullWidth formControlName="FromCityId" class="form-control">
+            <select formControlName="FromCityId" class="form-select">
               <option value="" [selected]="true">Select City</option>
               <option [value]="item.Value" *ngFor="let item of citiesLOV">
                 {{ item.Text }}
               </option>
             </select>
+            <div
+              class="text-danger"
+              *ngIf="
+                FromCityId.invalid && (FromCityId.dirty || FromCityId.touched)
+              "
+            >
+              <div *ngIf="FromCityId.errors?.required">
+                From City is required.
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-4 col-xs-12">
           <div class="form-group">
-
-            <div
-            class="text-danger"
-            *ngIf="ToCityId.invalid && (ToCityId.dirty || ToCityId.touched)"
-          >
-            <div *ngIf="ToCityId.errors?.required">
-              To City Field is required.
-            </div>
-
-          </div>
             <label for="">City To <Span class="text-danger">*</Span></label>
-            <select formControlName="ToCityId" fullWidth class="form-control">
-              <option value="" [selected]="true">Select City</option>
+            <select formControlName="ToCityId" class="form-select">
+              <option value="" [selected]="true" hidden>Select City</option>
               <option [value]="item.Value" *ngFor="let item of citiesLOV">
                 {{ item.Text }}
               </option>
             </select>
-          </div>
-        </div>
-        <div class="col-md-2 mr-2">
-          <div class="form-group">
             <div
-            class="text-danger"
-            *ngIf="FirstKGPrice.invalid && (FirstKGPrice.dirty || FirstKGPrice.touched)"
-          >
-            <div *ngIf="FirstKGPrice.errors?.required">
-              First KG Price is required.
+              class="text-danger"
+              *ngIf="ToCityId.invalid && (ToCityId.dirty || ToCityId.touched)"
+            >
+              <div *ngIf="ToCityId.errors?.required">
+                To City Field is required.
+              </div>
             </div>
-
-          </div>
-            <label for="">Price for 1st KG <Span class="text-danger">*</Span></label>
-            <input
-              type="number"
-              formControlName="FirstKGPrice"
-              nbInput
-              name=""
-              id=""
-            />
           </div>
         </div>
-        <div class="col-md-2 ml-5">
+        <div class="col-md-2 col-sm-4 col-xs-12">
           <div class="form-group">
-          <div
-            class="text-danger"
-            *ngIf="PricePerKG.invalid && (PricePerKG.dirty || PricePerKG.touched)"
-          >
-            <div *ngIf="PricePerKG.errors?.required">
-              Price Per KG is required.
-            </div>
-
-          </div>
-            <label for="">Price per KG <Span class="text-danger">*</Span></label>
+            <label for=""
+              >Price for 1st KG <Span class="text-danger">*</Span></label
+            >
             <input
-              type="number"
-              formControlName="PricePerKG"
+              type="text"
+              formControlName="FirstKGPrice"
+              mask="000000"
+              prefix="Rs."
               nbInput
               name=""
               id=""
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                FirstKGPrice.invalid &&
+                (FirstKGPrice.dirty || FirstKGPrice.touched)
+              "
+            >
+              <div *ngIf="FirstKGPrice.errors?.required">
+                First KG Price is required.
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-12 mb-2">
+        <div class="col-md-2 col-sm-4 col-xs-12 offset-1 offset-md-1 offset-sm-1">
+          <div class="form-group">
+            <label for=""
+              >Price per KG <Span class="text-danger">*</Span></label
+            >
+            <input
+              type="text"
+              formControlName="PricePerKG"
+              mask="000000"
+              prefix="Rs."
+              nbInput
+              name=""
+              id=""
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                PricePerKG.invalid && (PricePerKG.dirty || PricePerKG.touched)
+              "
+            >
+              <div *ngIf="PricePerKG.errors?.required">
+                Price Per KG is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
           <button
-            *ngIf="!editMode"
-            [nbSpinner]="OnSubmitSpinner"
-            nbSpinnerStatus="danger"
-            nbSpinnerSize="large"
-            nbSpinnerMessage=""
-            type="submit"
-            nbButton
-            hero
-            status="success"
-          >
-            Add Delivery Charges
-          </button>
+          *ngIf="!editMode"
+          [disabled]="!DeliveryCharges.valid"
+          [nbSpinner]="OnSubmitSpinner"
+          nbSpinnerStatus="danger"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+          type="submit"
+          nbButton
+          hero
+          status="success"
+        >
+          Add Delivery Charges
+        </button>
 
-          <button
-            *ngIf="editMode"
-            [nbSpinner]="OnSubmitSpinner"
-            nbSpinnerStatus="danger"
-            nbSpinnerSize="large"
-            nbSpinnerMessage=""
-            type="submit"
-            nbButton
-            hero
-            status="primary"
-            hero
-          >
-            Save Changes
-          </button>
+        <button
+          *ngIf="editMode"
+          [disabled]="!DeliveryCharges.valid"
+          [nbSpinner]="OnSubmitSpinner"
+          nbSpinnerStatus="danger"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+          type="submit"
+
+          nbButton
+          hero
+          status="primary"
+          hero
+        >
+          Save Changes
+        </button>
         </div>
       </div>
     </form>
+    <div class="row mt-4">
+      <div class="col-md-2">
+        <input
+          type="text"
+          nbInput
+          [(ngModel)]="searchVal"
+          name="search"
+          placeholder="Search"
+          (keyup)="SearchFunction()"
+          id="searchbox"
+        />
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12 offset-md-5 offset-sm-5 mb-2">
+        <nb-select
+          fullWidth
+          [(ngModel)]="PartyLocationId"
+          (ngModelChange)="RefreshDeliveryChargesList()"
+          placeholder="Select Party "
+        >
+          <nb-option [value]="1">Standard Delivery Charges</nb-option>
+          <nb-option
+            [value]="item.PartyLocationId"
+            *ngFor="let item of PartyList"
+          >
+            {{ item.BusinessName }}({{ item.UserName }})
+          </nb-option>
+        </nb-select>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-bordered ">
+        <table class="table table-bordered" id="ExampleTable">
           <thead class="thead-dark">
             <th>From City</th>
             <th>To City</th>
@@ -134,7 +178,17 @@
             <th>Actions</th>
           </thead>
           <tbody>
-            <tr *ngFor="let item of deliveryChargesList  | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngIf="deliveryChargesList.length < 1">
+              <td class="text-center" colspan="5">
+                <Strong>No Entry Found!</Strong>
+              </td>
+            </tr>
+            <tr
+              *ngFor="
+                let item of deliveryChargesList
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              "
+            >
               <td>{{ item.FromCityName }}</td>
               <td>{{ item.ToCityName }}</td>
               <td>{{ item.FirstKGPrice }}</td>
@@ -150,7 +204,6 @@
           </tbody>
         </table>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
       </div>
     </div>
   </nb-card-body>
