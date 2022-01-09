@@ -43,6 +43,11 @@
       </tr>
     </thead>
     <!-- *ngFor="let item of list" -->
+    <tr *ngIf="Orders.length < 1">
+      <td class="text-center" colspan="11">
+        <Strong>No Entry Found!</Strong>
+      </td>
+    </tr>
     <tr class="text-center" *ngFor="let item of Orders | paginate: { itemsPerPage: 10, currentPage: p}, let i = index;" scope="row">
       <td><input type="checkbox" (change)="addToSelectedArray($event,item)" ></td>
       <td class="tiny-details-Black">{{i + 1}}</td>

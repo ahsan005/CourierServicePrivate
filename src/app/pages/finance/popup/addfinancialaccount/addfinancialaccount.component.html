@@ -1,0 +1,165 @@
+<form #FinancialAccountForm="ngForm" (ngSubmit)="FinancialAccountForm.valid && addFinancialAccount()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Add Financial Account
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="AccountCode.dirty || AccountCode.touched"
+          >
+            <div *ngIf="AccountCode.errors?.required">
+              Account Code is required.
+            </div>
+            <div *ngIf="AccountCode?.errors?.minlength">
+              Account Code must be atleast 4 character.
+            </div>
+          </div>
+          <label for="">Account Code</label>
+          <input
+            type="text"
+            nbInput
+            name="AccountCode"
+            minlength="4"
+            maxlength="16"
+            mask="0000-0000-0000-0000"
+            fullWidth
+            placeholder="Account Code"
+            [(ngModel)]="FinancialAccount.AccountCode"
+            required
+            #AccountCode="ngModel"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="AccountName.dirty || AccountName.touched"
+          >
+            <div *ngIf="AccountName.errors?.required">
+              Account Name is required.
+            </div>
+            <div *ngIf="AccountName.errors?.minlength">
+              Account Name must be atleast 6 characters long
+            </div>
+          </div>
+          <label for="">Account Name</label>
+          <input
+            type="text"
+            name="AccountName"
+            placeholder="Account Name"
+            #CountryShortName="ngModel"
+            mask="S*"
+            minlength="6"
+            maxlength="30"
+            [(ngModel)]="FinancialAccount.AccountName"
+            #AccountName="ngModel"
+            nbInput
+            required
+            fullWidth
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="AccountPrefix.dirty || AccountPrefix.touched"
+          >
+            <div *ngIf="AccountPrefix.errors?.required">
+              Account Prefix is required.
+            </div>
+            <div *ngIf="AccountPrefix.errors?.minlength">
+              Account Prefix must be minimum 3 characters.
+            </div>
+          </div>
+          <label for="">Account Prefix</label>
+          <input
+            nbInput
+            name="AccountPrefix"
+            placeholder="Account Prefix"
+            type="text"
+            fullWidth
+            required
+            mask="SSS-SSSS"
+            minlength="3"
+            maxlength="8"
+            #AccountPrefix="ngModel"
+            [(ngModel)]="FinancialAccount.AccountPrefix"
+          />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="AccountSubTypeId.dirty || AccountSubTypeId.touched"
+          >
+            <div *ngIf="AccountSubTypeId.errors?.required">
+              Account SubType is required.
+            </div>
+
+          </div>
+          <label for="">Account Sub Type</label>
+          <select
+            placeholder="Enter Country Code"
+            class="form-select"
+            #AccountSubTypeId="ngModel"
+            [(ngModel)]="FinancialAccount.AccountSubTypeId"
+            name="AccountSubType"
+            required
+          ></select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="SubControlAccountId.dirty || SubControlAccountId.touched"
+          >
+            <div *ngIf="SubControlAccountId.errors?.required">
+              Account Sub type is required.
+            </div>
+          </div>
+          <label for="">Account Sub Type</label>
+          <select
+            placeholder="Account Sub Type"
+            class="form-select"
+            required
+            name="SubControlAccountId"
+            #SubControlAccountId="ngModel"
+            [(ngModel)]="FinancialAccount.SubControlAccountId"
+          >
+            <option value="-1">Select Account Sub Type</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      nbButton
+      hero
+      [disabled]="!FinancialAccountForm.valid"
+      status="success"
+      [nbSpinner]="spinner"
+      nbSpinnerStatus="primary"
+      type="submit"
+    >
+      Add Account
+    </button>
+  </div>
+</form>

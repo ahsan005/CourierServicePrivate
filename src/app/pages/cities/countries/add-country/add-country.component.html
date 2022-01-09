@@ -1,17 +1,17 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Add New City</h4>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="modal.dismiss('Cross click')"
-  >
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <div class="row">
-    <form>
+<form #CountryForm (ngSubmit)="addCountry()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add New City</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
       <div class="col-md-12">
         <div class="form-group">
           <div
@@ -78,7 +78,6 @@
           <input
             nbInput
             name="CountryCode"
-
             placeholder="Enter Country Code"
             type="text"
             required
@@ -87,18 +86,19 @@
           />
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-  <button
-    nbButton
-    hero
-    status="success"
-    [nbSpinner]="spinner"
-    nbSpinnerStatus="primary"
-    (click)="addCountry()"
-  >
-    Add City
-  </button>
-</div>
+  <div class="modal-footer">
+    <button
+      nbButton
+      hero
+      status="success"
+      [nbSpinner]="spinner"
+      nbSpinnerStatus="primary"
+      type="submit"
+      [disabled]="!CountryForm.valid"
+    >
+      Add City
+    </button>
+  </div>
+</form>

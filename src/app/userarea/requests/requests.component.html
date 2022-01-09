@@ -140,6 +140,11 @@
       </thead>
       <!-- *ngFor="let item of list" -->
       <tbody>
+        <tr *ngIf="Orders.length < 1">
+          <td class="text-center" colspan="10">
+            <Strong>No Entry Found!</Strong>
+          </td>
+        </tr>
         <tr
           class="text-center"
           *ngFor="

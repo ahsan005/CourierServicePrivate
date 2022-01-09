@@ -27,11 +27,11 @@ export const routes: Routes = [
     path: "admin",
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
-      canActivate:[AuthGuard],
+  //     canActivate:[AuthGuard],
 
-      data: {
-        role: 'ADMIN'
-   }
+  //     data: {
+  //       role: 'ADMIN'
+  //  }
 
   },
   {

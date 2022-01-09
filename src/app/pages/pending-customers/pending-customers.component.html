@@ -49,6 +49,11 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngIf="userList.length < 1">
+              <td class="text-center" colspan="10">
+                <Strong>No Entry Found!</Strong>
+              </td>
+            </tr>
             <tr
               class="text-center"
               scope="row"

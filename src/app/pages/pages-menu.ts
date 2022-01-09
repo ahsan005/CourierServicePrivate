@@ -1,10 +1,10 @@
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem } from "@nebular/theme";
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Dashboard',
-    icon: 'browser-outline',
-    link: '/admin/admin',
+    title: "Dashboard",
+    icon: "browser-outline",
+    link: "/admin/admin",
     home: true,
   },
   // {
@@ -17,124 +17,75 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   group: true,
   // },
   {
-    title: 'Profile',
-    icon: 'person-outline',
+    title: "Profile",
+    icon: "person-outline",
     children: [
       {
-        title: 'Edit Profile',
-        link: '/admin/profile/edit-profile',
+        title: "Edit Profile",
+        link: "/admin/profile/edit-profile",
       },
       {
-        title: 'Change Password',
-        link: '/admin/profile/change-pass',
+        title: "Change Password",
+        link: "/admin/profile/change-pass",
       },
+    ],
+  },
+  {
+    title: "Requests",
+    icon: "edit-2-outline",
+    children: [
+      {
+        title: "Booked Orders",
+        link: "/admin/requests/booked-orders",
+      },
+      {
+        title: "Item Received for Lahore",
+        link: "/admin/requests/items-received-lhr",
+      },
+      {
+        title: "Delivery Run Sheet",
+        link: "/admin/requests/delivery-run",
+      },
+      {
+        title: "View Order Assignment",
+        link: "/admin/requests/order-assignment",
+      },
+      {
+        title: "Item Received for Outstation",
+        link: "/admin/requests/items-received-out",
+      },
+      {
+        title: "Dispatch Orders",
+        link: "/admin/requests/dispatch-orders",
+      },
+    ],
+  },
+  {
+    title: "Customers",
+    icon: "person-outline",
+    // link: "/admin/pnd-customers",
+    children: [
+      {
+        title: "Pending Customers",
 
-    ],
-  },
-  {
-    title: 'Requests',
-    icon: 'edit-2-outline',
-    children: [
-      {
-        title: 'Booked Orders',
-        link: '/admin/requests/booked-orders',
+        link: "/admin/pnd-customers",
       },
       {
-        title: 'Item Received for Lahore',
-        link: '/admin/requests/items-received-lhr',
-      },
-      {
-        title: 'Delivery Run Sheet',
-        link: '/admin/requests/delivery-run',
-      },
-      {
-        title: 'View Order Assignment',
-        link: '/admin/requests/order-assignment',
-      },
-      {
-        title: 'Item Received for Outstation',
-        link: '/admin/requests/items-received-out',
-      },
-      {
-        title: 'Dispatch Orders',
-        link: '/admin/requests/dispatch-orders',
-      },
-      {
-        title: 'Assigned',
-        link: '/admin/requests/assigned',
-      },
-      {
-        title: 'Delivered',
-        link: '/admin/requests/delivered',
-      },
-      {
-        title: 'Returned',
-        link: '/admin/requests/returned',
-      },
-      {
-        title: 'Cancelled / Not Received',
-        link: '/admin/requests/cancelled',
-      },
-      {
-        title: 'Pending Orders',
-        link: '/admin/requests/pending-orders',
+        title: "Active Customers",
+
+        link: "/admin/active-customers",
       },
     ],
   },
   {
-    title: 'Pending Customers',
-    icon: 'person-outline',
-    link: '/admin/pnd-customers',
-    // children: [
-    //   {
-    //     title: 'Grid',
-    //     link: '/admin/ui-features/grid',
-    //   },
-    //   {
-    //     title: 'Icons',
-    //     link: '/admin/ui-features/icons',
-    //   },
-    //   {
-    //     title: 'Typography',
-    //     link: '/admin/ui-features/typography',
-    //   },
-    //   {
-    //     title: 'Animated Searches',
-    //     link: '/admin/ui-features/search-fields',
-    //   },
-    // ],
+    title: "Active Customers",
+    icon: "person-outline",
+    link: "/admin/active-customers",
   },
   {
-    title: 'Active Customers',
-    icon: 'person-outline',
-    link: '/admin/active-customers'
-    // children: [
-    //   {
-    //     title: 'Dialog',
-    //     link: '/admin/modal-overlays/dialog',
-    //   },
-    //   {
-    //     title: 'Window',
-    //     link: '/admin/modal-overlays/window',
-    //   },
-    //   {
-    //     title: 'Popover',
-    //     link: '/admin/modal-overlays/popover',
-    //   },
-    //   {
-    //     title: 'Toastr',
-    //     link: '/admin/modal-overlays/toastr',
-    //   },
-    //   {
-    //     title: 'Tooltip',
-    //     link: '/admin/modal-overlays/tooltip',
-    //   },
-    // ],
-  },
-  {
-    title: 'Customer Payments',
-    icon: 'people-outline',
-    link: '/admin/customer-payments'
+    title: "Finance Management",
+    icon: "people-outline",
+    link: "/admin/finance",
     // children: [
     //   {
     //     title: 'Calendar',
@@ -162,80 +113,36 @@ export const MENU_ITEMS: NbMenuItem[] = [
     //   },
     // ],
   },
+
   {
-    title: 'Order Report',
-    icon: 'file-outline',
-    link: '/admin/order-report'
-    // children: [
-    //   {
-    //     title: 'Google Maps',
-    //     link: '/admin/maps/gmaps',
-    //   },
-    //   {
-    //     title: 'Leaflet Maps',
-    //     link: '/admin/maps/leaflet',
-    //   },
-    //   {
-    //     title: 'Bubble Maps',
-    //     link: '/admin/maps/bubble',
-    //   },
-    //   {
-    //     title: 'Search Maps',
-    //     link: '/admin/maps/searchmap',
-    //   },
-    // ],
+    title: "Couriers",
+    icon: "people-outline",
+    link: "/admin/couriers/list",
   },
   {
-    title: 'Shipment Report',
-    icon: 'file-outline',
-    link: '/admin/shipment-report'
-    // children: [
-    //   {
-    //     title: 'Echarts',
-    //     link: '/admin/charts/echarts',
-    //   },
-    //   {
-    //     title: 'Charts.js',
-    //     link: '/admin/charts/chartjs',
-    //   },
-    //   {
-    //     title: 'D3',
-    //     link: '/admin/charts/d3',
-    //   },
-    // ],
-  },
-  {
-    title: 'Couriers',
-    icon: 'people-outline',
-    link: '/admin/couriers/list'
-  },
-  {
-    title: 'Add Destinations',
-    icon: 'pin-outline',
+    title: "Add Destinations",
+    icon: "pin-outline",
     // link:'/admin/cities/list'
-    children:[
+    children: [
       {
-        title:'Country',
-        link:'/admin/Destinations/country-list'
+        title: "Country",
+        link: "/admin/Destinations/country-list",
       },
       {
-        title:'Province',
-        link:'/admin/Destinations/province-list'
+        title: "Province",
+        link: "/admin/Destinations/province-list",
       },
       {
-        title:'City',
-        link:'/admin/Destinations/city-list'
+        title: "City",
+        link: "/admin/Destinations/city-list",
       },
+    ],
+  },
 
-
-    ]
-  }
-
- ,
   {
-    title: 'Pricing',
-    icon: 'pricetags-outline',
-    link:'/admin/pricing'
+    title: "Pricing",
+    icon: "pricetags-outline",
+    link: "/admin/pricing",
     // children: [
     //   {
     //     title: '404',
@@ -244,31 +151,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
     // ],
   },
   {
-    title: 'Setting',
-    icon: 'settings-2-outline',
-
+    title: "Setting",
+    icon: "settings-2-outline",
 
     children: [
       {
-        title: 'General',
-        link: '/admin/general-config',
+        title: "General",
+        link: "/admin/general-config",
       },
       {
-        title: 'App-Configuration',
-        link: '/admin/app-config',
-      }
-    //   {
-    //     title: 'Register',
-    //     link: '/auth/register',
-    //   },
-    //   {
-    //     title: 'Request Password',
-    //     link: '/auth/request-password',
-    //   },
-    //   {
-    //     title: 'Reset Password',
-    //     link: '/auth/reset-password',
-    //   },
+        title: "App-Configuration",
+        link: "/admin/app-config",
+      },
+      //   {
+      //     title: 'Register',
+      //     link: '/auth/register',
+      //   },
+      //   {
+      //     title: 'Request Password',
+      //     link: '/auth/request-password',
+      //   },
+      //   {
+      //     title: 'Reset Password',
+      //     link: '/auth/reset-password',
+      //   },
     ],
   },
 ];

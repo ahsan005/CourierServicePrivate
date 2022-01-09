@@ -24,15 +24,12 @@ import { DeliveryRunSheetComponent } from "./delivery-run-sheet/delivery-run-she
 import { ViewOrderAssignmentComponent } from "./view-order-assignment/view-order-assignment.component";
 import { ItemsReceivedOutstationsComponent } from "./items-received-outstations/items-received-outstations.component";
 import { DispatchOrdersComponent } from "./dispatch-orders/dispatch-orders.component";
-import { AssignedComponent } from "./assigned/assigned.component";
-import { DeliveredComponent } from "./delivered/delivered.component";
-import { ReturnedComponent } from "./returned/returned.component";
-import { CancelledNotReceivedComponent } from "./cancelled-not-received/cancelled-not-received.component";
-import { PendingOrdersComponent } from "./pending-orders/pending-orders.component";
+
 import { DataTablesModule } from "angular-datatables";
 import { Ng2OrderModule } from "ng2-order-pipe";
 import { NbDateFnsDateModule } from "@nebular/date-fns";
 import { EditRequestComponent } from "./popup/edit-request/edit-request.component";
+import { UpdateRequestStatusComponent } from "./popup/update-request-status/update-request-status.component";
 
 @NgModule({
   declarations: [
@@ -43,12 +40,8 @@ import { EditRequestComponent } from "./popup/edit-request/edit-request.componen
     ViewOrderAssignmentComponent,
     ItemsReceivedOutstationsComponent,
     DispatchOrdersComponent,
-    AssignedComponent,
-    DeliveredComponent,
-    ReturnedComponent,
-    CancelledNotReceivedComponent,
-    PendingOrdersComponent,
     EditRequestComponent,
+    UpdateRequestStatusComponent,
   ],
   imports: [
     CommonModule,

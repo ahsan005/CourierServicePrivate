@@ -48,6 +48,11 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngIf="empList.length < 1">
+              <td class="text-center" colspan="8">
+                <Strong>No Entry Found!</Strong>
+              </td>
+            </tr>
             <tr
               class="text-center"
               scope="row"

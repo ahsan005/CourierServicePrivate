@@ -39,7 +39,7 @@ export class CountriesComponent implements OnInit {
   generatePDF() {
     TableUtil.generatePDF("ExampleTable");
   }
-  countryList: Array<LOV>;
+  countryList = new Array<LOV>();
 
   initialize() {
     this.sharedService.GetAllCountries().subscribe((data) => {

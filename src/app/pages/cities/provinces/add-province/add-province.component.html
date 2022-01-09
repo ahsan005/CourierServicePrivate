@@ -1,3 +1,5 @@
+<form #ProvinceForm (ngSubmit)="ProvinceForm.valid && addProvince()">
+
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title">Add New City</h4>
   <button
@@ -11,7 +13,6 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    <form>
       <div class="col-md-12">
         <div class="form-group">
           <div
@@ -20,7 +21,7 @@
             ProvinceName.invalid && (ProvinceName.dirty || ProvinceName.touched)
             "
           >
-            <div *ngIf="Province.ProvinceName.errors?.required">
+            <div *ngIf="ProvinceName.errors?.required">
               Province Name is required.
             </div>
           </div>
@@ -30,6 +31,7 @@
             nbInput
             name="CountryName"
             fullWidth
+            required
             placeholder="Province Name"
             [(ngModel)]="Province.ProvinceName"
             #ProvinceName="ngModel"
@@ -87,7 +89,6 @@
           />
         </div>
       </div> -->
-    </form>
   </div>
 </div>
 <div class="modal-footer">
@@ -97,8 +98,11 @@
     status="success"
     [nbSpinner]="spinner"
     nbSpinnerStatus="primary"
-    (click)="addProvince()"
+   type="submit"
+   [disabled]="!ProvinceForm.valid"
   >
     Add City
   </button>
 </div>
+</form>
+

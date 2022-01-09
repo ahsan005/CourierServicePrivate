@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReturnedComponent } from './returned.component';
+import { FinanceComponent } from './finance.component';
 
-describe('ReturnedComponent', () => {
-  let component: ReturnedComponent;
-  let fixture: ComponentFixture<ReturnedComponent>;
+describe('FinanceComponent', () => {
+  let component: FinanceComponent;
+  let fixture: ComponentFixture<FinanceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReturnedComponent ]
+      declarations: [ FinanceComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReturnedComponent);
+    fixture = TestBed.createComponent(FinanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

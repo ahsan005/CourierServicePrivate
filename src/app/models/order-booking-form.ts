@@ -18,6 +18,7 @@ export class OrderBookingForm {
   public ShipperAddress: string;
   // Shipper Info
 
+  public EmployeeId:number;
   // Consignee Info
   public OrderBookingNo: number;
   public DestinationCityId: number;

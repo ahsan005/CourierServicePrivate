@@ -15,7 +15,7 @@ import { AddProvinceComponent } from "./add-province/add-province.component";
 export class ProvincesComponent implements OnInit {
   @Input() public CountryId: number;
   countryId: number;
-  provinceList;
+  provinceList = new Array<LOV>();
   searchVal: any;
   p: number = 1;
   constructor(
@@ -107,7 +107,7 @@ export class ProvincesComponent implements OnInit {
 
   // refresh List
   refreshList() {
-    
+
     this.GetProvincesList();
   }
   // refresh List

@@ -38,7 +38,7 @@ export class CityListComponent implements OnInit {
   generatePDF() {
     TableUtil.generatePDF("ExampleTable");
   }
-  citiesLOV: Array<LOV>;
+  citiesLOV = new Array<LOV>();
 
   initialize() {
     this.sharedService.GetAllCities().subscribe((data) => {

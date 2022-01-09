@@ -1,3 +1,4 @@
+import { CustomerInfo } from './../../models/CustomerInfo';
 import { TableUtil } from "./../../utilities/tableutil";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../services/user.service";
@@ -11,7 +12,7 @@ import { NotificationService } from "../../services/notification.service";
 export class ActiveCustomersComponent implements OnInit {
   searchVal: any;
   p: number = 1;
-  userList;
+  userList = new Array<CustomerInfo>();
   constructor(
     private userService: UserService,
     private notificationService: NotificationService

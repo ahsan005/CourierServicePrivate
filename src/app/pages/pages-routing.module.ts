@@ -1,9 +1,7 @@
-import { AddPaymentComponent } from "./customer-payments/add-payment/add-payment.component";
 import { SettingComponent } from "./setting/setting.component";
 import { PricingComponent } from "./pricing/pricing.component";
-import { ShipmentReportComponent } from "./shipment-report/shipment-report.component";
-import { OrderReportComponent } from "./order-report/order-report.component";
-import { CustomerPaymentsComponent } from "./customer-payments/customer-payments.component";
+
+
 import { ActiveCustomersComponent } from "./active-customers/active-customers.component";
 import { PendingCustomersComponent } from "./pending-customers/pending-customers.component";
 import { AdminComponent } from "./admin/admin.component";
@@ -16,6 +14,7 @@ import { PagesComponent } from "./pages.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 import { GeneralComponent } from "./setting/general/general.component";
 import { AppConfigurationComponent } from "./setting/app-configuration/app-configuration.component";
+import { FinanceComponent } from "./finance/finance.component";
 
 const routes: Routes = [
   {
@@ -36,23 +35,16 @@ const routes: Routes = [
         component: ActiveCustomersComponent,
       },
       {
-        path: "customer-payments",
-        component: CustomerPaymentsComponent,
-        children: [
-          {
-            path: "add",
-            component: AddPaymentComponent,
-          },
-        ],
+        path: "finance",
+        component: FinanceComponent,
+        // children: [
+        //   {
+        //     path: "add",
+        //     component: AddAccountComponent,
+        //   },
+        // ],
       },
-      {
-        path: "order-report",
-        component: OrderReportComponent,
-      },
-      {
-        path: "shipment-report",
-        component: ShipmentReportComponent,
-      },
+
       {
         path: "pricing",
         component: PricingComponent,
@@ -73,10 +65,10 @@ const routes: Routes = [
         component: AppConfigurationComponent,
       },
 
-      {
-        path: "add-payment",
-        component: AddPaymentComponent,
-      },
+      // {
+      //   path: "add-payment",
+      //   component: AddPaymentComponent,
+      // },
 
       {
         path: "profile",

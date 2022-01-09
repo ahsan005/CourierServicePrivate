@@ -1,5 +1,6 @@
+import { FinanacialAccount } from "./../models/FinancialAccount";
 import { OrderTracking } from "./../models/ordertracking";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, throwError } from "rxjs";
 
 import { OrderBookingForm } from "./../models/order-booking-form";
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
@@ -23,22 +24,41 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   errorString: string;
-  // Handle Error Based on  response.Status
-  handleError(
-    Status: boolean,
-    Message: string,
-    error?: HttpErrorResponse
-  ): string {
-    if (Status == false && Message != "") {
-      console.error("An error occurred: ", Message);
-      (this.errorString = "An error occurred: "), Message;
-      console.log(this.errorString);
+
+  public handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error("An error occurred:", error.error);
+    } else if (error.status === 500) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error("An error occurred:", error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
     }
-    if (Status == false && Message == "")
-      return (this.errorString =
-        "Something bad happened; please try again later.");
-    console.log(this.errorString);
+    // Return an observable with a user-facing error message.
+    return throwError("Something bad happened; please try again later.");
   }
+  // Handle Error Based on  response.Status
+  // handleError(
+  //   Status: boolean,
+  //   Message: string,
+  //   error?: HttpErrorResponse
+  // ): string {
+  //   if (Status == false && Message != "") {
+  //     console.error("An error occurred: ", Message);
+  //     (this.errorString = "An error occurred: "), Message;
+  //     console.log(this.errorString);
+  //   }
+  //   if (Status == false && Message == "")
+  //     return (this.errorString =
+  //       "Something bad happened; please try again later.");
+  //   console.log(this.errorString);
+  // }
   // Handle Error Based on  response.Status
 
   // Order Post method
@@ -132,9 +152,11 @@ export class UserService {
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/ActivateCustomer?id=" + id+
-      "&AlteredById=" +
-      AlteredById,
+      this.base_url +
+        "api/CourierService/ActivateCustomer?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -148,8 +170,11 @@ export class UserService {
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCourierCustomer?id=" + id+ "&AlteredById=" +
-      AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteCourierCustomer?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -237,6 +262,21 @@ export class UserService {
   }
   // Courier Emloyee
 
+  // BulkUpdate Order Status
+  BulkUpdateOrderStatus(array): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(array);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/BulkUpdateOrderStatus",
+      body,
+      httpOptions
+    );
+  }
+  // BulkUpdate Order Status
+
   // Add Organization
   AddOrganization(obj: Organization): Observable<Object> {
     const httpOptions = {
@@ -251,6 +291,39 @@ export class UserService {
     );
   }
   // Add Organization
+
+  // Add Financial Account
+  AddFinancialAccount(obj: FinanacialAccount): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/SaveFinancialAccount",
+      body,
+      httpOptions
+    );
+  }
+  // Add Financial Account
+
+  // Get Financial Account
+  GetFinancialAccount(): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    var OrginizationId = localStorage.getItem("OrginizationId");
+    // const body = JSON.stringify(obj);
+    // console.log(body);
+    return this.http.post(
+      this.base_url +
+        "api/courierService/GetFinancialAccount?organizationid=" +
+        OrginizationId,
+      // body,
+      httpOptions
+    );
+  }
+  // Get Financial Account
 
   GetOrganization() {
     const httpOptions = {
