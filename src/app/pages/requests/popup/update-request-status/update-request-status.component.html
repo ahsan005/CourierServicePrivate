@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Update Request Details</h4>
+  <h4 class="modal-title" id="modal-basic-title">Update Order Status</h4>
   <button
     type="button"
     class="close"
@@ -25,42 +25,61 @@
         <nb-card status="primary">
           <nb-card-header>Shipper-INFO</nb-card-header>
           <nb-card-body>
-            <div class="col-md-12">
-              <div class="form-group">
-                <input formControlName="OrderBookingId" type="text" hidden />
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input formControlName="OrderBookingId" type="text" hidden />
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  nbInput
-                  formControlName="OrderBookingOn"
-                  type="text"
-                  disabled="true"
-                />
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input
+                    nbInput
+                    formControlName="OrderBookingOn"
+                    type="text"
+                    disabled="true"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <select
-                  class="form-control"
-                  placeholder="Order Status"
-                  formControlName="StatusProfileId"
-                  name="Select Status"
-                  id=""
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select
+                    class="form-control"
+                    placeholder="Order Status"
+                    formControlName="StatusProfileId"
+                    name="Select Status"
+                    id=""
+                  >
+                    <option *ngFor="let item of StatusLOV" [value]="item.Value">
+                      {{ item.Text }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 offset-md-6">
+                <button
+                  nbButton
+                  [disabled]="
+                    editOrder.invalid &&
+                    (editOrder.dirty ||
+                      editOrder.touched ||
+                      editOrder.untouched)
+                  "
+                  type="submit"
+                  hero
+                  shape="round"
+                  size="large"
+                  status="primary"
                 >
-                  <option *ngFor="let item of StatusLOV" [value]="item.Value">
-                    {{ item.Text }}
-                  </option>
-                </select>
+                  Update Order Status
+                </button>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="label label-info" for="origin"
-                  >Origin: <span class="text-danger"> *</span></label
-                >
-                <!-- <nb-select
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="label label-info" for="origin"
+                    >Origin: <span class="text-danger"> *</span></label
+                  >
+                  <!-- <nb-select
                 fullWidth
                 name="my-select"
                 placeholder="Origin"
@@ -72,39 +91,39 @@
                   {{ item.Text }}
                 </nb-option>
               </nb-select> -->
-                <select
-                  class="form-control"
-                  placeholder="Origin"
-                  formControlName="originCityId"
-                  name="Select Origin City"
-                  disabled="true"
-                  id=""
-                >
-                  <option *ngFor="let item of citiesLOV" [value]="item.Value">
-                    {{ item.Text }}
-                  </option>
-                </select>
-
-                <div
-                  class="row alert text-danger"
-                  *ngIf="
-                    originCityId.invalid &&
-                    (originCityId.dirty || originCityId.touched)
-                  "
-                >
-                  <div
-                    class="alert text-danger"
-                    *ngIf="originCityId.errors?.required"
+                  <select
+                    class="form-control"
+                    placeholder="Origin"
+                    formControlName="originCityId"
+                    name="Select Origin City"
+                    disabled="true"
+                    id=""
                   >
-                    City is required.
+                    <option *ngFor="let item of citiesLOV" [value]="item.Value">
+                      {{ item.Text }}
+                    </option>
+                  </select>
+
+                  <div
+                    class="row alert text-danger"
+                    *ngIf="
+                      originCityId.invalid &&
+                      (originCityId.dirty || originCityId.touched)
+                    "
+                  >
+                    <div
+                      class="alert text-danger"
+                      *ngIf="originCityId.errors?.required"
+                    >
+                      City is required.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="" class="label label-info">Select Profile</label>
-                <!-- <nb-select
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="" class="label label-info">Select Profile</label>
+                  <!-- <nb-select
                 placeholder="Select Profile"
                 fullWidth
                 formControlName="selectProfile"
@@ -115,144 +134,145 @@
                 <nb-option value="4">Option 4</nb-option>
               </nb-select> -->
 
-                <select
-                  class="form-control"
-                  placeholder="Select Profile"
-                  formControlName="selectProfile"
-                  name="Select Profile"
-                  disabled="true"
-                  id=""
-                >
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
-                  <option value="4">Option 4</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="" class="label label-info"
-                    >Shipper Name <span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="text"
-                    name="shipperName"
-                    formControlName="shipperName"
-                    nbInput
+                  <select
+                    class="form-control"
+                    placeholder="Select Profile"
+                    formControlName="selectProfile"
+                    name="Select Profile"
                     disabled="true"
-                    id="shipperName"
-                  />
-                  <div
-                    class="row alert text-danger"
-                    *ngIf="
-                      shipperName.invalid &&
-                      (shipperName.dirty || shipperName.touched)
-                    "
+                    id=""
                   >
-                    <div
-                      class="alert text-danger"
-                      *ngIf="shipperName.errors?.required"
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="" class="label label-info"
+                      >Shipper Name <span class="text-danger">*</span></label
                     >
-                      shipperName is required.
+                    <input
+                      type="text"
+                      name="shipperName"
+                      formControlName="shipperName"
+                      nbInput
+                      disabled="true"
+                      id="shipperName"
+                    />
+                    <div
+                      class="row alert text-danger"
+                      *ngIf="
+                        shipperName.invalid &&
+                        (shipperName.dirty || shipperName.touched)
+                      "
+                    >
+                      <div
+                        class="alert text-danger"
+                        *ngIf="shipperName.errors?.required"
+                      >
+                        shipperName is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="" class="label label-info"
+                      >Shipper Mobile <span class="text-danger"> *</span></label
+                    >
+                    <input
+                      type="text"
+                      name="shipperMobile"
+                      prefix="0"
+                      disabled="true"
+                      mask="000-0000000"
+                      [showMaskTyped]="false"
+                      formControlName="shipperMobile"
+                      nbInput
+                      id="shipperMobile"
+                    />
+                    <div
+                      class="row alert text-danger"
+                      *ngIf="
+                        shipperMobile.invalid &&
+                        (shipperMobile.dirty || shipperMobile.touched)
+                      "
+                    >
+                      <div
+                        class="alert text-danger"
+                        *ngIf="shipperMobile.errors?.required"
+                      >
+                        shipperMobile is required.
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="col-md-12">
                 <div class="form-group">
                   <label for="" class="label label-info"
-                    >Shipper Mobile <span class="text-danger"> *</span></label
+                    >Shipper Email <span class="text-danger"> *</span></label
                   >
                   <input
-                    type="text"
-                    name="shipperMobile"
-                    prefix="0"
+                    type="string"
+                    nbInput
+                    mask="A*@S*.SSS"
                     disabled="true"
-                    mask="000-0000000"
                     [showMaskTyped]="false"
-                    formControlName="shipperMobile"
-                    nbInput
-                    id="shipperMobile"
+                    fullWidth
+                    name="shipperEmail"
+                    id="shipperEmail"
+                    formControlName="shipperEmail"
                   />
+
                   <div
                     class="row alert text-danger"
                     *ngIf="
-                      shipperMobile.invalid &&
-                      (shipperMobile.dirty || shipperMobile.touched)
+                      shipperEmail.invalid &&
+                      (shipperEmail.dirty || shipperEmail.touched)
                     "
                   >
                     <div
                       class="alert text-danger"
-                      *ngIf="shipperMobile.errors?.required"
+                      *ngIf="shipperEmail.errors?.required"
                     >
-                      shipperMobile is required.
+                      shipperEmail is required.
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="" class="label label-info"
-                  >Shipper Email <span class="text-danger"> *</span></label
-                >
-                <input
-                  type="string"
-                  nbInput
-                  mask="A*@S*.SSS"
-                  disabled="true"
-                  [showMaskTyped]="false"
-                  fullWidth
-                  name="shipperEmail"
-                  id="shipperEmail"
-                  formControlName="shipperEmail"
-                />
-
-                <div
-                  class="row alert text-danger"
-                  *ngIf="
-                    shipperEmail.invalid &&
-                    (shipperEmail.dirty || shipperEmail.touched)
-                  "
-                >
-                  <div
-                    class="alert text-danger"
-                    *ngIf="shipperEmail.errors?.required"
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="" class="label label-info"
+                    >Shipper Address <span class="text-danger"> *</span></label
                   >
-                    shipperEmail is required.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="" class="label label-info"
-                  >Shipper Address <span class="text-danger"> *</span></label
-                >
-                <input
-                  type="text"
-                  nbInput
-                  disabled="true"
-                  fullWidth
-                  name="shipperAddress"
-                  id="shipperAddress"
-                  formControlName="shipperAddress"
-                />
+                  <input
+                    type="text"
+                    nbInput
+                    disabled="true"
+                    fullWidth
+                    name="shipperAddress"
+                    id="shipperAddress"
+                    formControlName="shipperAddress"
+                  />
 
-                <div
-                  class="row alert text-danger"
-                  *ngIf="
-                    shipperAddress.invalid &&
-                    (shipperAddress.dirty || shipperAddress.touched)
-                  "
-                >
                   <div
-                    class="alert text-danger"
-                    *ngIf="shipperAddress.errors?.required"
+                    class="row alert text-danger"
+                    *ngIf="
+                      shipperAddress.invalid &&
+                      (shipperAddress.dirty || shipperAddress.touched)
+                    "
                   >
-                    shipperAddress is required.
+                    <div
+                      class="alert text-danger"
+                      *ngIf="shipperAddress.errors?.required"
+                    >
+                      shipperAddress is required.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -654,7 +674,7 @@
       </div>
     </div>
     <div class="row mt-2">
-      <div
+      <!-- <div
         class="col-md-2 col-sm-2 col-xs-1 offset-sm-0 offset-md-8 offset-lg-8 offset-xl-8 pb-3"
       >
         <button
@@ -671,7 +691,7 @@
         >
           Update Order Status
         </button>
-      </div>
+      </div> -->
       <div class="col-md-2 col-sm-2 col-xs-1 pb-3">
         <button
           nbButton

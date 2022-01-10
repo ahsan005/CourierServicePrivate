@@ -11,8 +11,38 @@
 </div>
 <div class="modal-body">
   <div class="row pb-2">
-    <div class="col-md-2 offset-1"><button nbButton status="success">Item Received</button></div>
-    <div class="col-md-2 offset-1"><button nbButton status="primary">Item Not Received</button></div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <select
+          class="form-select"
+          placeholder="Order Status"
+          [(ngModel)]="StatusProfileId"
+          name="Select Status"
+          id=""
+        >
+          <option *ngFor="let item of StatusLOV" [value]="item.Value">
+            {{ item.Text }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button
+        nbButton
+        [disabled]=""
+        (click)="UpdateStatusBtn()"
+        hero
+        shape="round"
+        status="primary"
+      >
+        Update Order Status
+      </button>
+    </div>
+    <div class="col-md-2 offset-3">
+      <button nbButton status="Secondary" (click)="viewPDFInvoice()">
+        View Invoice
+      </button>
+    </div>
   </div>
   <table class="table table-bordered">
     <tbody>
@@ -32,28 +62,36 @@
       <tr>
         <td><strong>Sender</strong></td>
         <td>
-          <strong class="details">Name:</strong>{{ orderBookingModel.ShipperName }} <br />
-          <strong class="details">Email:</strong> {{ orderBookingModel.ShipperEmail }} <br />
-          <strong class="details">Mobile:</strong>{{ orderBookingModel.ShipperMobile }}<br />
-          <strong class="details">Address:</strong>{{ orderBookingModel.ShipperAddress }}
+          <strong class="details">Name:</strong
+          >{{ orderBookingModel.ShipperName }} <br />
+          <strong class="details">Email:</strong>
+          {{ orderBookingModel.ShipperEmail }} <br />
+          <strong class="details">Mobile:</strong
+          >{{ orderBookingModel.ShipperMobile | mask: "0000-0000000" }}<br />
+          <strong class="details">Address:</strong
+          >{{ orderBookingModel.ShipperAddress }}
         </td>
       </tr>
       <tr>
         <td><strong>Receiver</strong></td>
         <td>
-          <strong class="details">Name:</strong>{{ orderBookingModel.ConsigneeName }} <br />
-          <strong class="details">Email:</strong> {{ orderBookingModel.ConsigneeEmail }}<br />
-          <strong class="details">Mobile:</strong>{{ orderBookingModel.ConsigneeMobile }}<br />
-          <strong class="details">Address:</strong>{{ orderBookingModel.ConsigneeAddress }}
+          <strong class="details">Name:</strong
+          >{{ orderBookingModel.ConsigneeName }} <br />
+          <strong class="details">Email:</strong>
+          {{ orderBookingModel.ConsigneeEmail }}<br />
+          <strong class="details">Mobile:</strong
+          >{{ orderBookingModel.ConsigneeMobile | mask: "0000-0000000" }}<br />
+          <strong class="details">Address:</strong
+          >{{ orderBookingModel.ConsigneeAddress }}
         </td>
       </tr>
       <tr>
-        <td> <strong>COD Amount</strong> </td>
-        <td>{{ orderBookingModel.CODAmount }}</td>
+        <td><strong>COD Amount</strong></td>
+        <td>{{ orderBookingModel.CODAmount | mask: "0*.00" }}</td>
       </tr>
       <tr>
         <td><strong>Delivery Fee</strong></td>
-        <td>{{ orderBookingModel.DeliveryFee }}</td>
+        <td>{{ orderBookingModel.DeliveryFee | mask: "0*.00" }}</td>
       </tr>
       <tr>
         <td><strong>Parcel Weight</strong></td>
@@ -77,29 +115,43 @@
       </tr>
       <tr>
         <td><strong>Barcode</strong></td>
-        <td></td>
+        <td>
+          <ejs-barcodegenerator
+            style="display: block"
+            #barcode
+            id="barcode"
+            width="200px"
+            height="150px"
+            mode="SVG"
+            type="Codabar"
+            value="{{ orderBookingModel.OrderBookingId }}"
+          ></ejs-barcodegenerator>
+        </td>
       </tr>
       <tr>
         <td><strong>Status</strong></td>
         <td>{{ orderBookingModel.StatusName }}</td>
       </tr>
-      <tr>
-        <td><strong>Actions</strong></td>
-        <td><a href="">View Invoice</a></td>
-      </tr>
+      <tr></tr>
     </tbody>
   </table>
   <div class="row pb-2">
-    <div class="col-md-2 offset-1"><button nbButton status="success">Item Received</button></div>
-    <div class="col-md-2 offset-1"><button nbButton status="primary">Item Not Received</button></div>
+    <div class="col-md-2 offset-1">
+      <button nbButton status="success">Item Received</button>
+    </div>
+    <div class="col-md-2 offset-1">
+      <button nbButton status="primary">Item Not Received</button>
+    </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button nbButton status="danger"
+  <button
+    nbButton
+    status="danger"
     type="button"
     class="btn btn-outline-dark"
     (click)="modal.close('Close click')"
   >
-  Close
+    Close
   </button>
 </div>

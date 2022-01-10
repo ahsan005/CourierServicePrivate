@@ -1,10 +1,9 @@
-import { TrackingdetailsComponent } from './user/trackingdetails/trackingdetails.component';
-import { AuthGuard } from './_guards/auth.guard';
+import { TrackingdetailsComponent } from "./user/trackingdetails/trackingdetails.component";
+import { AuthGuard } from "./_guards/auth.guard";
 import { TermsComponent } from "./user/terms/terms.component";
 import { PrivacyComponent } from "./user/privacy/privacy.component";
 
 import { ContactComponent } from "./user/contact/contact.component";
-
 
 import { AboutComponent } from "./user/about/about.component";
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
@@ -22,28 +21,25 @@ import { HomeComponent } from "./user/home/home.component";
 import { TrackingComponent } from "./user/tracking/tracking.component";
 
 export const routes: Routes = [
-
   {
     path: "admin",
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
-  //     canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
 
-  //     data: {
-  //       role: 'ADMIN'
-  //  }
-
+    data: {
+      role: "ADMIN",
+    },
   },
   {
     path: "user",
     loadChildren: () =>
       import("./userarea/userarea.module").then((m) => m.UserareaModule),
-      canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
 
-      data: {
-        role: 'HOSPITAL PARTY'
-   }
-
+    data: {
+      role: "HOSPITAL PARTY",
+    },
   },
   {
     path: "home",
@@ -79,13 +75,12 @@ export const routes: Routes = [
       {
         path: "trackingdetails",
         component: TrackingdetailsComponent,
-      }
+      },
     ],
   },
   {
-    path:'auth',
-    loadChildren: () =>
-    import("./auth/auth.module").then((m) => m.AuthModule),
+    path: "auth",
+    loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
     // children: [
     //   {
     //     path: "",

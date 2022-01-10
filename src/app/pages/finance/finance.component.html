@@ -2,7 +2,9 @@
   <nb-card-header> Finance Management </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-2 col-lg-1 col-sm-4 col-xs-8 offset-lg-9 offset-md-9 offset-md-10">
+      <div
+        class="col-md-2 col-lg-1 col-sm-4 col-xs-8 offset-lg-9 offset-md-9 offset-md-10"
+      >
         <button nbButton (click)="AddBtn()" status="primary">
           Add Financial Account
         </button>
@@ -41,8 +43,8 @@
               <th>AccountName</th>
               <th>Organization ID</th>
               <!-- <th>SubControlAccountId</th> -->
-              <th>Altered On</th>
-              <th>Created By ID</th>
+              <th>Sub Control Account</th>
+              <th>Account Sub Type</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -61,19 +63,17 @@
                   | paginate: { itemsPerPage: 10, currentPage: p }
               "
             >
-              <td class="py-2 id">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
-              <td class="py-2">Rs.{{ item.SrNo }}</td>
+              <td class="py-2 id">{{ item.AccountCode }}</td>
+              <td class="py-2">{{ item.AccountId }}</td>
+              <td class="py-2">{{ item.AccountName }}</td>
+              <td class="py-2">{{ item.OrginizationId }}</td>
+              <td class="py-2">{{ item.SubControlAccountName }}</td>
+              <td class="py-2">{{ item.AccountSubTypeName }}</td>
               <td class="py-2">
                 <a (click)="deleteBtn(item.ID)"
                   ><nb-icon icon="eye-outline"></nb-icon
                 ></a>
-                <a (click)="editBtn(item)"
-                  ><nb-icon icon="car-outline"></nb-icon
-                ></a>
+                <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
               </td>
             </tr>
           </tbody>

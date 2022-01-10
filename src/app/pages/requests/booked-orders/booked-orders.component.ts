@@ -14,6 +14,7 @@ import { EditRequestComponent } from "../popup/edit-request/edit-request.compone
 import { Observable, Subscription, throwError, timer } from "rxjs";
 import { UpdateRequestStatusComponent } from "../popup/update-request-status/update-request-status.component";
 import { CustomerInfo } from "../../../models/CustomerInfo";
+import { ViewrequestComponent } from "../popup/viewrequest/viewrequest.component";
 
 @Component({
   selector: "ngx-booked-orders",
@@ -301,6 +302,21 @@ export class BookedOrdersComponent implements OnInit {
       }
     );
   }
+  // View Request Button
+  viewRequestBtn(item?: OrderBookingForm) {
+    const ref = this.modalService.open(ViewrequestComponent, {
+      size: "lg",
+      scrollable: true,
+    });
+    this.orderBooking = item;
+    console.log(this.orderBooking);
+    this.citiesLOVForEditForm = this.citiesLOV;
+    ref.componentInstance.orderBookingModel = this.orderBooking;
+    ref.componentInstance.StatusLOV = this.statusLOV;
+    console.log(ref.componentInstance.orderBookingModel);
+    ref.componentInstance.citiesLOV = this.citiesLOVForEditForm;
+  }
+  // View Request Button
   // Edit Records Button
 
   UpdateStatusActionBtn(item?: OrderBookingForm) {
@@ -327,6 +343,7 @@ export class BookedOrdersComponent implements OnInit {
   // Edit Records Button
   sortFilter() {
     // if (this.orderStatus != "" && this.assignedCourier == "")
+    this.subscription.unsubscribe();
     if (
       this.orderStatus != null ||
       this.assignedCourier != null ||
@@ -338,10 +355,8 @@ export class BookedOrdersComponent implements OnInit {
         var statusObj = allStatus.find((x) => x.Value == statusToFind);
 
       console.log(statusObj);
-      this.FilterByStatus(statusObj);
 
-      if (this.assignedCourier != null) {
-      }
+      this.FilterByStatus(statusObj, this.assignedCourier, this.partyId);
 
       this.SortByDate();
       // TableUtil.SearchFunction(statusObj.Text);
@@ -351,6 +366,7 @@ export class BookedOrdersComponent implements OnInit {
     }
   }
   FilterByStatus(statusObj = null, assignedCourier = null, partyId = null) {
+    debugger;
     this.Orders = this.unfilteredOrders.filter(
       (i) =>
         (statusObj == null || i.StatusName == statusObj.Text) &&

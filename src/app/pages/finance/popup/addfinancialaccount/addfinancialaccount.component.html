@@ -1,8 +1,9 @@
-<form #FinancialAccountForm="ngForm" (ngSubmit)="FinancialAccountForm.valid && addFinancialAccount()">
+<form
+  #FinancialAccountForm="ngForm"
+  (ngSubmit)="FinancialAccountForm.valid && addFinancialAccount()"
+>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      Add Financial Account
-    </h4>
+    <h4 class="modal-title" id="modal-basic-title">Add Financial Account</h4>
     <button
       type="button"
       class="close"
@@ -111,7 +112,6 @@
             <div *ngIf="AccountSubTypeId.errors?.required">
               Account SubType is required.
             </div>
-
           </div>
           <label for="">Account Sub Type</label>
           <select
@@ -121,7 +121,15 @@
             [(ngModel)]="FinancialAccount.AccountSubTypeId"
             name="AccountSubType"
             required
-          ></select>
+          >
+            <option value="-1" [selected]="true">Select Account Sub Type</option>
+            <option
+              [value]="item.Value"
+              *ngFor="let item of AccountSubTypeLOVForModal"
+            >
+              {{ item.Text }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="col-md-12">
@@ -131,19 +139,27 @@
             *ngIf="SubControlAccountId.dirty || SubControlAccountId.touched"
           >
             <div *ngIf="SubControlAccountId.errors?.required">
-              Account Sub type is required.
+              Sub Control Account is required.
             </div>
           </div>
-          <label for="">Account Sub Type</label>
+          <label for="">Sub Control Account</label>
           <select
-            placeholder="Account Sub Type"
+            placeholder="Sub Control Account"
             class="form-select"
             required
             name="SubControlAccountId"
             #SubControlAccountId="ngModel"
             [(ngModel)]="FinancialAccount.SubControlAccountId"
           >
-            <option value="-1">Select Account Sub Type</option>
+            <option value="-1" [selected]="true">
+              Select Sub Control Account
+            </option>
+            <option
+              [value]="item.Value"
+              *ngFor="let item of SubControlAccountLOVForModal"
+            >
+              {{ item.Text }}
+            </option>
           </select>
         </div>
       </div>
@@ -153,6 +169,7 @@
     <button
       nbButton
       hero
+      *ngIf="financialAccountToEdit == null"
       [disabled]="!FinancialAccountForm.valid"
       status="success"
       [nbSpinner]="spinner"
@@ -160,6 +177,18 @@
       type="submit"
     >
       Add Account
+    </button>
+    <button
+      *ngIf="financialAccountToEdit != null"
+      nbButton
+      hero
+      [disabled]="!FinancialAccountForm.valid"
+      status="primary"
+      [nbSpinner]="spinner"
+      nbSpinnerStatus="primary"
+      type="submit"
+    >
+      Edit Account
     </button>
   </div>
 </form>

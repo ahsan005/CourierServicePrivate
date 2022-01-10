@@ -13,6 +13,7 @@ import { Employee } from "../models/employee";
 import { Organization } from "../models/organization";
 import { Location } from "../models/location";
 import { CustomerInfo } from "../models/CustomerInfo";
+import { LOV } from "../models/citiesLOV";
 @Injectable({
   providedIn: "root",
 })
@@ -262,6 +263,28 @@ export class UserService {
   }
   // Courier Emloyee
 
+  // Update ORder Status
+  UpdateOrderStatus(orderBookingId: number, statusProfileId: number) {
+    let OrderBookingId = orderBookingId;
+    let StatusProfileId = statusProfileId;
+    var AlteredById = localStorage.getItem("USERID");
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get(
+      this.base_url +
+        "api/CourierService/UpdatOrderStatus?Orderid=" +
+        OrderBookingId +
+        "&StatusId=" +
+        StatusProfileId +
+        "&AlteredById=" +
+        AlteredById,
+      httpOptions
+    );
+  }
+  // Update ORder Status
+
   // BulkUpdate Order Status
   BulkUpdateOrderStatus(array): Observable<Object> {
     const httpOptions = {
@@ -300,7 +323,7 @@ export class UserService {
     const body = JSON.stringify(obj);
     console.log(body);
     return this.http.post(
-      this.base_url + "api/courierService/SaveFinancialAccount",
+      this.base_url + "api/courierService/AddFinancialAccount",
       body,
       httpOptions
     );
@@ -308,22 +331,43 @@ export class UserService {
   // Add Financial Account
 
   // Get Financial Account
-  GetFinancialAccount(): Observable<Object> {
+  GetFinancialAccount(): Observable<FinanacialAccount[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    var OrginizationId = localStorage.getItem("OrginizationId");
+    var OrginizationId = parseInt(localStorage.getItem("ORGANIZATIONID"));
     // const body = JSON.stringify(obj);
     // console.log(body);
-    return this.http.post(
+    return this.http.get<FinanacialAccount[]>(
       this.base_url +
-        "api/courierService/GetFinancialAccount?organizationid=" +
+        "api/courierService/GetFinancialAccountsByOrganization?organizationid=" +
         OrginizationId,
       // body,
       httpOptions
     );
   }
   // Get Financial Account
+
+  GetAccountSubTypeLOV(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllAccountSubType",
+
+      httpOptions
+    );
+  }
+  GetSubControlAccountLOV(): Observable<LOV[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllSubControlAccount",
+
+      httpOptions
+    );
+  }
 
   GetOrganization() {
     const httpOptions = {

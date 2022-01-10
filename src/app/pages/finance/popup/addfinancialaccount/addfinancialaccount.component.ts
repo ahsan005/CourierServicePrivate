@@ -1,4 +1,5 @@
-import { UserService } from './../../../../services/user.service';
+import { LOV } from "./../../../../models/citiesLOV";
+import { UserService } from "./../../../../services/user.service";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Component, OnInit } from "@angular/core";
 import { Country } from "../../../../models/country";
@@ -7,15 +8,17 @@ import { NotificationService } from "../../../../services/notification.service";
 import { FinanacialAccount } from "../../../../models/FinancialAccount";
 
 @Component({
-  selector: 'ngx-addfinancialaccount',
-  templateUrl: './addfinancialaccount.component.html',
-  styleUrls: ['./addfinancialaccount.component.scss']
+  selector: "ngx-addfinancialaccount",
+  templateUrl: "./addfinancialaccount.component.html",
+  styleUrls: ["./addfinancialaccount.component.scss"],
 })
 export class AddfinancialaccountComponent implements OnInit {
-
   // selectedCountryID;
   // selectedProvinceID;
   // cityFormModel
+  financialAccountToEdit;
+  SubControlAccountLOVForModal;
+  AccountSubTypeLOVForModal;
   FinancialAccount = new FinanacialAccount();
   // cityFormModel
   // showCityField: boolean = false;
@@ -26,37 +29,75 @@ export class AddfinancialaccountComponent implements OnInit {
   constructor(
     public modal: NgbActiveModal,
     private sharedService: SharedService,
-    private userService:UserService,
+    private userService: UserService,
     private notificationService: NotificationService
   ) {
     // this.initialize();
   }
 
   ngOnInit(): void {
-    // this.initialize();
+    if (this.financialAccountToEdit != null) {
+      this.InitializeForEdit();
+    }
   }
-
-  // initialize() {
-  //   this.sharedService.GetAllCountries().subscribe((data) => {
+  AccountSubTypeLOV = new Array<LOV>();
+  SubControlAccountLOV = new Array<LOV>();
+  // GetLOVs() {
+  //   this.userService.GetAccountSubTypeLOV().subscribe((data) => {
   //     var response = JSON.parse(JSON.stringify(data));
-  //     this.countriesLOV = response.Data;
+  //     if (response.Status) {
+  //       this.AccountSubTypeLOV = response.Data;
+  //       console.log(this.AccountSubTypeLOV);
+  //     }
+  //   });
+  //   this.userService.GetSubControlAccountLOV().subscribe((data) => {
+  //     var response = JSON.parse(JSON.stringify(data));
+  //     if (response.Status) {
+  //       this.SubControlAccountLOV = response.Data;
+  //       console.log(this.SubControlAccountLOV);
+  //     }
   //   });
   // }
+  InitializeForEdit() {
+    if (this.financialAccountToEdit != null) {
+      this.FinancialAccount = this.financialAccountToEdit;
+      console.log(this.FinancialAccount);
+    }
+  }
+  editFinancialAccount() {
+    this.spinner = true;
 
-  // loadProvinces() {
-  //   console.log(this.selectedCountryID);
-  //   this.sharedService
-  //     .GetProvincesByCountry(this.selectedCountryID)
-  //     .subscribe((data) => {
-  //       var response = JSON.parse(JSON.stringify(data));
-  //       this.provincesLOV = response.Data;
-  //       console.log(this.provincesLOV);
-  //       console.log(response);
-  //       if (response.Status) this.showProvinceField = true;
-  //     });
-  // }
+    this.FinancialAccount.AlteredById = parseInt(
+      localStorage.getItem("USERID")
+    );
 
-  // countryToAdd = new Country();
+    // Calling Service
+    this.userService
+      .AddFinancialAccount(this.FinancialAccount)
+      .subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.spinner = false;
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.sharedService.filter("Added New FinancialAccount");
+          this.modal.close();
+        } else {
+          this.spinner = false;
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+          console.warn(response.Message);
+        }
+      });
+  }
   spinner: boolean = false;
   addFinancialAccount() {
     // if(this.FinancialAccountForm.invalid)
@@ -67,29 +108,31 @@ export class AddfinancialaccountComponent implements OnInit {
     );
 
     // Calling Service
-    this.userService.AddFinancialAccount(this.FinancialAccount).subscribe((data) => {
-      var response = JSON.parse(JSON.stringify(data));
-      if (response.Status) {
-        this.spinner = false;
-        this.notificationService.showToast(
-          "success",
-          response.Message,
-          "",
-          "top-right"
-        );
-        this.sharedService.filter("Added New FinancialAccount");
-        this.modal.close();
-      } else {
-        this.spinner = false;
-        this.notificationService.showToast(
-          "danger",
-          response.Message,
-          "",
-          "top-right"
-        );
-        console.warn(response.Message);
-      }
-    });
+    this.userService
+      .AddFinancialAccount(this.FinancialAccount)
+      .subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.spinner = false;
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          this.sharedService.filter("Added New FinancialAccount");
+          this.modal.close();
+        } else {
+          this.spinner = false;
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+          console.warn(response.Message);
+        }
+      });
     // Calling Service
   }
 }

@@ -7,7 +7,7 @@ export class FinanacialAccount {
   public AccountId: number;
   public AccountName: string;
   public AccountPrefix: string;
-  public AccountSubType: string;
+  public AccountSubTypeName: string;
   public AccountSubTypeId: number;
   public ActionTypeId: number;
   public AlteredById: number;
@@ -15,7 +15,7 @@ export class FinanacialAccount {
   public CreatedById: number;
   public CreatedOn: Date;
   public OrginizationId: number;
-  public SubControlAccount: string;
+  public SubControlAccountName: string;
   public SubControlAccountId: number;
   public UserLogId: number;
 }

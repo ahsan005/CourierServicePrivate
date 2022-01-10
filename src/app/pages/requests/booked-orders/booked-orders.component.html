@@ -73,80 +73,77 @@
         </div>
       </form>
 
-
-        <h4>Sort-By</h4>
-        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
-          <label for="">Customer</label>
-          <div class="form-group">
-            <nb-select
-              [(ngModel)]="partyId"
-              fullWidth
-              placeholder="Select Customer"
+      <h4>Sort-By</h4>
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+        <label for="">Customer</label>
+        <div class="form-group">
+          <nb-select
+            [(ngModel)]="partyId"
+            fullWidth
+            placeholder="Select Customer"
+          >
+            <nb-option [value]="item.PartyId" *ngFor="let item of CustomerList"
+              >{{ item.BusinessName }}({{ item.UserName }})</nb-option
             >
-              <nb-option
-                [value]="item.PartyId"
-                *ngFor="let item of CustomerList"
-                >{{ item.BusinessName }}({{ item.UserName }})</nb-option
-              >
-            </nb-select>
-          </div>
+          </nb-select>
         </div>
-        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
-          <label for="">Status</label>
-          <div class="form-group">
-            <nb-select
-              [(ngModel)]="orderStatus"
-              fullWidth
-              placeholder="Select Status"
-            >
-              <nb-option [value]="item.Value" *ngFor="let item of statusLOV">{{
-                item.Text
-              }}</nb-option>
-            </nb-select>
-          </div>
+      </div>
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+        <label for="">Status</label>
+        <div class="form-group">
+          <nb-select
+            [(ngModel)]="orderStatus"
+            fullWidth
+            placeholder="Select Status"
+          >
+            <nb-option [value]="item.Value" *ngFor="let item of statusLOV">{{
+              item.Text
+            }}</nb-option>
+          </nb-select>
         </div>
-        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
-          <div class="form-group">
-            <label for="">Assigned Courier</label>
-            <nb-select
-              [(ngModel)]="assignedCourier"
-              fullWidth
-              placeholder="Assigned Courier"
-            >
-              <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{
-                item.Text
-              }}</nb-option>
-            </nb-select>
-            <!-- <ng-multiselect-dropdown
+      </div>
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+        <div class="form-group">
+          <label for="">Assigned Courier</label>
+          <nb-select
+            [(ngModel)]="assignedCourier"
+            fullWidth
+            placeholder="Assigned Courier"
+          >
+            <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{
+              item.Text
+            }}</nb-option>
+          </nb-select>
+          <!-- <ng-multiselect-dropdown
               [placeholder]="'Select Courier'"
               [settings]="dropdownSettings"
               [data]="courierLOV"
               [(ngModel)]="assignedCourier"
             >
             </ng-multiselect-dropdown> -->
-          </div>
         </div>
-        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
-          <div class="form-group">
-            <button
-              style="margin-top: 27px"
-              fullWidth
-              nbButton
-              hero
-              status="primary"
-              (click)="sortFilter()"
-            >
-              Update
-            </button>
-          </div>
+      </div>
+      <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+        <div class="form-group">
+          <button
+            style="margin-top: 27px"
+            fullWidth
+            nbButton
+            hero
+            status="primary"
+            (click)="sortFilter()"
+          >
+            Update
+          </button>
         </div>
+      </div>
 
-        <!-- <div class="col-md-2">
+      <!-- <div class="col-md-2">
             <button nbButton style="margin-top: 27px;" (click)="RemoveFilters()" status="danger" hero>Remove Filters</button>
           </div> -->
 
       <!--  -->
-      <div *ngIf="selectedArray.length > 0" >
+      <div *ngIf="selectedArray.length > 0">
         <div class="col-md-2 col-sm-3 col-xs-6">
           <div class="form-group">
             <label for="" class="label label-info"
@@ -319,8 +316,11 @@
               <a (click)="trackingBtn(item.OrderBookingId)"
                 ><nb-icon icon="car-outline"></nb-icon
               ></a>
-              <a (click)="UpdateStatusBtn(item)"
+              <!-- <a (click)="UpdateStatusActionBtn(item)"
                 ><nb-icon icon="clipboard-outline"></nb-icon
+              ></a> -->
+              <a (click)="viewRequestBtn(item)"
+                ><nb-icon icon="eye-outline"></nb-icon
               ></a>
             </td>
           </tr>

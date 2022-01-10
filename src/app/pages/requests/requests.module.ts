@@ -30,6 +30,12 @@ import { Ng2OrderModule } from "ng2-order-pipe";
 import { NbDateFnsDateModule } from "@nebular/date-fns";
 import { EditRequestComponent } from "./popup/edit-request/edit-request.component";
 import { UpdateRequestStatusComponent } from "./popup/update-request-status/update-request-status.component";
+import {
+  BarcodeGeneratorAllModule,
+  QRCodeGeneratorAllModule,
+  DataMatrixGeneratorAllModule,
+} from "@syncfusion/ej2-angular-barcode-generator";
+import { ViewrequestComponent } from "./popup/viewrequest/viewrequest.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +48,7 @@ import { UpdateRequestStatusComponent } from "./popup/update-request-status/upda
     DispatchOrdersComponent,
     EditRequestComponent,
     UpdateRequestStatusComponent,
+    ViewrequestComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +71,9 @@ import { UpdateRequestStatusComponent } from "./popup/update-request-status/upda
     NbSpinnerModule,
     NgMultiSelectDropDownModule,
     NgxMaskModule,
+    BarcodeGeneratorAllModule,
+    QRCodeGeneratorAllModule,
+    DataMatrixGeneratorAllModule,
   ],
 })
 export class RequestsModule {}
