@@ -1,3 +1,4 @@
+import { AccountSubType } from "./../../../../models/AccountSubType";
 import { LOV } from "./../../../../models/citiesLOV";
 import { UserService } from "./../../../../services/user.service";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
@@ -18,8 +19,13 @@ export class AddfinancialaccountComponent implements OnInit {
   // cityFormModel
   financialAccountToEdit;
   SubControlAccountLOVForModal;
-  AccountSubTypeLOVForModal;
+  AccountSubTypeListForModal = new Array<AccountSubType>();
+  AccountTypeLOVForModal;
+  AccountTypeId: number = -1;
+
+  AccountTypeLOV = new Array<LOV>();
   FinancialAccount = new FinanacialAccount();
+
   // cityFormModel
   // showCityField: boolean = false;
   // showProvinceField: boolean = false;
@@ -36,12 +42,24 @@ export class AddfinancialaccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.FinancialAccount.AccountSubTypeId = -1;
+    this.FinancialAccount.SubControlAccountId = -1;
+
     if (this.financialAccountToEdit != null) {
       this.InitializeForEdit();
     }
   }
-  AccountSubTypeLOV = new Array<LOV>();
+  AccountSubTypeLOV = new Array<AccountSubType>();
   SubControlAccountLOV = new Array<LOV>();
+
+  loadAccountSubTypes() {
+    console.log("Load LOV Event Fired");
+    if (this.AccountTypeId != null || this.AccountTypeId != -1) {
+      this.AccountSubTypeLOV = this.AccountSubTypeListForModal.filter(
+        (i) => i.AccountTypeProfileId == this.AccountTypeId
+      );
+    }
+  }
   // GetLOVs() {
   //   this.userService.GetAccountSubTypeLOV().subscribe((data) => {
   //     var response = JSON.parse(JSON.stringify(data));
@@ -61,6 +79,9 @@ export class AddfinancialaccountComponent implements OnInit {
   InitializeForEdit() {
     if (this.financialAccountToEdit != null) {
       this.FinancialAccount = this.financialAccountToEdit;
+      console.log(this.financialAccountToEdit);
+      this.AccountTypeId = this.FinancialAccount.AccountTypeId;
+      this.loadAccountSubTypes();
       console.log(this.FinancialAccount);
     }
   }

@@ -14,6 +14,7 @@ import { Organization } from "../models/organization";
 import { Location } from "../models/location";
 import { CustomerInfo } from "../models/CustomerInfo";
 import { LOV } from "../models/citiesLOV";
+import { AccountSubType } from "../models/AccountSubType";
 @Injectable({
   providedIn: "root",
 })
@@ -90,7 +91,7 @@ export class UserService {
   // Get All Orders
 
   // Get Orders By User
-  GetOrdersByUser(): Observable<OrderBookingForm[]> {
+  GetOrdersByLoggedInUser(): Observable<OrderBookingForm[]> {
     var LoggedInUserId = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -103,7 +104,18 @@ export class UserService {
     );
   }
   // Get Orders By UserId
+  GetOrdersByUserId(id:number): Observable<OrderBookingForm[]> {
 
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<OrderBookingForm[]>(
+      this.base_url +
+        "api/CourierService/GetOrdersByUserID?id=" +
+        id,
+      httpOptions
+    );
+  }
   GetOrdersFiltered(filters: Filters): Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
@@ -348,11 +360,21 @@ export class UserService {
   }
   // Get Financial Account
 
-  GetAccountSubTypeLOV(): Observable<LOV[]> {
+  GetAccountTypeLOV(): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<LOV[]>(
+      this.base_url + "api/courierService/GetAllAccountType",
+
+      httpOptions
+    );
+  }
+  GetAccountSubType(): Observable<AccountSubType[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<AccountSubType[]>(
       this.base_url + "api/courierService/GetAllAccountSubType",
 
       httpOptions

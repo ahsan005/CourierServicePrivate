@@ -61,6 +61,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: "Order-Receiving",
+    icon: "edit-2-outline",
+    link: "/admin/Receiving/list",
+
+  },
+  {
     title: "Customers",
     icon: "person-outline",
     // link: "/admin/pnd-customers",

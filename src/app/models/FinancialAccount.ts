@@ -4,6 +4,8 @@ export class FinanacialAccount {
   }
 
   public AccountCode: string;
+  public AccountTypeName: string;
+  public AccountTypeId: number;
   public AccountId: number;
   public AccountName: string;
   public AccountPrefix: string;

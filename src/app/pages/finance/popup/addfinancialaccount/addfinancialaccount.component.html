@@ -19,6 +19,93 @@
         <div class="form-group">
           <div
             class="text-danger"
+            *ngIf="AccountTypeIdd.dirty || AccountTypeIdd.touched"
+          >
+            <div *ngIf="AccountTypeIdd.errors?.required">
+              Account Type is required.
+            </div>
+          </div>
+          <label for="">Account Type</label>
+          <select
+            class="form-select"
+            #AccountTypeIdd="ngModel"
+            [(ngModel)]="AccountTypeId"
+            (ngModelChange)="loadAccountSubTypes()"
+            name="AccountType"
+            required
+          >
+            <option value="-1">Select Account Type</option>
+            <option
+              [value]="item.Value"
+              *ngFor="let item of AccountTypeLOVForModal"
+            >
+              {{ item.Text }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="AccountSubTypeId.dirty || AccountSubTypeId.touched"
+          >
+            <div *ngIf="AccountSubTypeId.errors?.required">
+              Account SubType is required.
+            </div>
+          </div>
+          <label for="">Account Sub Type</label>
+          <select
+            placeholder="Enter Country Code"
+            class="form-select"
+            #AccountSubTypeId="ngModel"
+            [(ngModel)]="FinancialAccount.AccountSubTypeId"
+            name="AccountSubType"
+            required
+          >
+            <option value="-1">Select Account Sub Type</option>
+            <option
+              [value]="item.AccountSubTypeId"
+              *ngFor="let item of AccountSubTypeLOV"
+            >
+              {{ item.AccountSubTypeName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
+            *ngIf="SubControlAccountId.dirty || SubControlAccountId.touched"
+          >
+            <div *ngIf="SubControlAccountId.errors?.required">
+              Sub Control Account is required.
+            </div>
+          </div>
+          <label for="">Sub Control Account</label>
+          <select
+            placeholder="Sub Control Account"
+            class="form-select"
+            required
+            name="SubControlAccountId"
+            #SubControlAccountId="ngModel"
+            [(ngModel)]="FinancialAccount.SubControlAccountId"
+          >
+            <option value="-1">Select Sub Control Account</option>
+            <option
+              [value]="item.Value"
+              *ngFor="let item of SubControlAccountLOVForModal"
+            >
+              {{ item.Text }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div
+            class="text-danger"
             *ngIf="AccountCode.dirty || AccountCode.touched"
           >
             <div *ngIf="AccountCode.errors?.required">
@@ -63,7 +150,7 @@
             name="AccountName"
             placeholder="Account Name"
             #CountryShortName="ngModel"
-            mask="S*"
+
             minlength="6"
             maxlength="30"
             [(ngModel)]="FinancialAccount.AccountName"
@@ -101,66 +188,6 @@
             #AccountPrefix="ngModel"
             [(ngModel)]="FinancialAccount.AccountPrefix"
           />
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <div
-            class="text-danger"
-            *ngIf="AccountSubTypeId.dirty || AccountSubTypeId.touched"
-          >
-            <div *ngIf="AccountSubTypeId.errors?.required">
-              Account SubType is required.
-            </div>
-          </div>
-          <label for="">Account Sub Type</label>
-          <select
-            placeholder="Enter Country Code"
-            class="form-select"
-            #AccountSubTypeId="ngModel"
-            [(ngModel)]="FinancialAccount.AccountSubTypeId"
-            name="AccountSubType"
-            required
-          >
-            <option value="-1" [selected]="true">Select Account Sub Type</option>
-            <option
-              [value]="item.Value"
-              *ngFor="let item of AccountSubTypeLOVForModal"
-            >
-              {{ item.Text }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <div
-            class="text-danger"
-            *ngIf="SubControlAccountId.dirty || SubControlAccountId.touched"
-          >
-            <div *ngIf="SubControlAccountId.errors?.required">
-              Sub Control Account is required.
-            </div>
-          </div>
-          <label for="">Sub Control Account</label>
-          <select
-            placeholder="Sub Control Account"
-            class="form-select"
-            required
-            name="SubControlAccountId"
-            #SubControlAccountId="ngModel"
-            [(ngModel)]="FinancialAccount.SubControlAccountId"
-          >
-            <option value="-1" [selected]="true">
-              Select Sub Control Account
-            </option>
-            <option
-              [value]="item.Value"
-              *ngFor="let item of SubControlAccountLOVForModal"
-            >
-              {{ item.Text }}
-            </option>
-          </select>
         </div>
       </div>
     </div>

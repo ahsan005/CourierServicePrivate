@@ -43,6 +43,7 @@ import { NgxMaskModule } from "ngx-mask";
 import { FinanceComponent } from "./finance/finance.component";
 
 import { AddfinancialaccountComponent } from "./finance/popup/addfinancialaccount/addfinancialaccount.component";
+import { OrderReceivingModule } from "./order-receiving/order-receiving.module";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { AddfinancialaccountComponent } from "./finance/popup/addfinancialaccoun
     NbMenuModule,
     MiscellaneousModule,
     AdminModule,
+    OrderReceivingModule,
     FormsModule,
     NbButtonModule,
     NgxPaginationModule,

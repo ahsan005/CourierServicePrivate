@@ -6,6 +6,8 @@ import { TableUtil } from "../../utilities/tableutil";
 import { UserService } from "../../services/user.service";
 import { NotificationService } from "../../services/notification.service";
 import { LOV } from "../../models/citiesLOV";
+import { AccountSubType } from "../../models/AccountSubType";
+import { Observable, timer } from "rxjs";
 
 @Component({
   selector: "ngx-finance",
@@ -15,9 +17,11 @@ import { LOV } from "../../models/citiesLOV";
 export class FinanceComponent implements OnInit {
   financialAccountList = new Array<FinanacialAccount>();
   @Input() public financialAccountToEdit = new FinanacialAccount();
-  @Input() public AccountSubTypeLOVForModal = new LOV();
+  @Input() public AccountSubTypeListForModal = new AccountSubType();
   @Input() public SubControlAccountLOVForModal = new LOV();
+  @Input() public AccountTypeLOVForModal = new LOV();
   searchVal: any;
+  AccountTypeLOV;
 
   p: number = 1;
   constructor(
@@ -30,14 +34,19 @@ export class FinanceComponent implements OnInit {
       this.refreshList();
     });
   }
-
+  //// setTimeout(, 2500);
+  LoadFlag = false;
+  changeLoadFlagStatus() {
+    this.LoadFlag = true;
+  }
   AddBtn() {
     const ref = this.modalService.open(AddfinancialaccountComponent, {
       size: "tiny",
     });
     ref.componentInstance.SubControlAccountLOVForModal =
       this.SubControlAccountLOV;
-    ref.componentInstance.AccountSubTypeLOVForModal = this.AccountSubTypeLOV;
+    ref.componentInstance.AccountSubTypeListForModal = this.AccountSubTypeList;
+    ref.componentInstance.AccountTypeLOVForModal = this.AccountTypeLOV;
   }
   onSubmit() {}
   SearchFunction() {
@@ -50,9 +59,13 @@ export class FinanceComponent implements OnInit {
     TableUtil.generatePDF("ExampleTable");
   }
   ngOnInit(): void {
+    setTimeout(() => {
+      this.changeLoadFlagStatus();
+    }, 2500);
     this.refreshList();
+    this.GetLOVs();
   }
-  AccountSubTypeLOV;
+  AccountSubTypeList = new Array<AccountSubType>();
   SubControlAccountLOV;
   refreshList() {
     console.log("Refresh List");
@@ -70,12 +83,13 @@ export class FinanceComponent implements OnInit {
         );
       }
     });
-
-    this.userService.GetAccountSubTypeLOV().subscribe((data) => {
+  }
+  GetLOVs() {
+    this.userService.GetAccountSubType().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
-        this.AccountSubTypeLOV = response.Data;
-        console.log(this.AccountSubTypeLOV);
+        this.AccountSubTypeList = response.Data;
+        console.log(this.AccountSubTypeList);
       }
     });
     this.userService.GetSubControlAccountLOV().subscribe((data) => {
@@ -83,6 +97,13 @@ export class FinanceComponent implements OnInit {
       if (response.Status) {
         this.SubControlAccountLOV = response.Data;
         console.log(this.SubControlAccountLOV);
+      }
+    });
+    this.userService.GetAccountTypeLOV().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.AccountTypeLOV = response.Data;
+        console.log(this.AccountTypeLOV);
       }
     });
   }
@@ -95,7 +116,8 @@ export class FinanceComponent implements OnInit {
     ref.componentInstance.financialAccountToEdit = item;
     ref.componentInstance.SubControlAccountLOVForModal =
       this.SubControlAccountLOV;
-    ref.componentInstance.AccountSubTypeLOVForModal = this.AccountSubTypeLOV;
+    ref.componentInstance.AccountSubTypeListForModal = this.AccountSubTypeList;
+    ref.componentInstance.AccountTypeLOVForModal = this.AccountTypeLOV;
 
     ref.result.then(
       (yes) => {

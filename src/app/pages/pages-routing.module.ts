@@ -91,12 +91,18 @@ const routes: Routes = [
           import("./cities/cities.module").then((m) => m.CitiesModule),
       },
 
+
       {
         path: "miscellaneous",
         loadChildren: () =>
           import("./miscellaneous/miscellaneous.module").then(
             (m) => m.MiscellaneousModule
           ),
+      },
+      {
+        path: "receiving",
+        loadChildren: () =>
+          import("./order-receiving/order-receiving.module").then((m) => m.OrderReceivingModule),
       },
       {
         path: "",

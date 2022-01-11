@@ -134,7 +134,7 @@ export class RequestsComponent implements OnInit {
       this.CitiesLOV = response.Data;
     });
     this.loading = true;
-    this.userService.GetOrdersByUser().subscribe((result) => {
+    this.userService.GetOrdersByLoggedInUser().subscribe((result) => {
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
 

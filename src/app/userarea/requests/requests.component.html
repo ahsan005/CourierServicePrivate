@@ -1,220 +1,245 @@
-<div class="row">
-  <div class="col-md-12">
-    <h4>Request Details</h4>
-    <form [formGroup]="requestFilters" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
-          <div class="form-group">
-            <label>Select Destination</label>
-            <nb-select
-              fullWidth
-              name="my-select"
-              placeholder="Destination"
-              formControlName="destinationCityId"
-            >
-              <!-- <nb-option value="" disabled selected hidden>Select City</
-            nb-option> -->
-              <nb-option [value]="item.Value" *ngFor="let item of CitiesLOV">
-                {{ item.Text }}
-              </nb-option>
-            </nb-select>
+<nb-card status="primary">
+  <nb-card-header>Request Details</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="requestFilters" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
+              <div class="form-group">
+                <label>Select Destination</label>
+                <nb-select
+                  fullWidth
+                  name="my-select"
+                  placeholder="Destination"
+                  formControlName="destinationCityId"
+                >
+                  <!-- <nb-option value="" disabled selected hidden>Select City</
+                nb-option> -->
+                  <nb-option
+                    [value]="item.Value"
+                    *ngFor="let item of CitiesLOV"
+                  >
+                    {{ item.Text }}
+                  </nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
+              <div class="form-group">
+                <label>Select Status</label>
+                <nb-select
+                  fullWidth
+                  placeholder="Select Status"
+                  formControlName="status"
+                >
+                  <nb-option value="COMP">Completed</nb-option>
+                  <nb-option value="PEND">Pending</nb-option>
+                  <nb-option value="PROC">Processing</nb-option>
+                  <nb-option value="TRAN">In-transit</nb-option>
+                  <nb-option value="DLV">Delivered</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
+              <div class="form-group">
+                <label for="">From</label>
+                <input
+                  nbInput
+                  fullWidth
+                  placeholder="Select Start Date"
+                  [nbDatepicker]="datepicker"
+                  formControlName="fromDate"
+                />
+                <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3">
+              <div class="form-group">
+                <label>To</label>
+                <input
+                  nbInput
+                  fullWidth
+                  placeholder="Select Ending Date"
+                  [nbDatepicker]="datepickerending"
+                  formControlName="toDate"
+                />
+                <nb-datepicker
+                  format="MM.dd.yyyy"
+                  #datepickerending
+                ></nb-datepicker>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
-          <div class="form-group">
-            <label>Select Status</label>
-            <nb-select
-              fullWidth
-              placeholder="Select Status"
-              formControlName="status"
-            >
-              <nb-option value="COMP">Completed</nb-option>
-              <nb-option value="PEND">Pending</nb-option>
-              <nb-option value="PROC">Processing</nb-option>
-              <nb-option value="TRAN">In-transit</nb-option>
-              <nb-option value="DLV">Delivered</nb-option>
-            </nb-select>
+          <div class="row">
+            <div class="col-sm-2 col-md-2 col-xs-12">
+              <div class="form-group">
+                <button
+                  type="button"
+                  nbButton
+                  status="primary"
+                  hero
+                  (click)="printInvoices()"
+                >
+                  Print Invoices
+                </button>
+              </div>
+            </div>
+
+            <div class="col-sm-2 offset-sm-2 col-md-2 offset-md-8">
+              <div class="form-group">
+                <button nbButton status="success" hero type="submit">
+                  Filter
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6 col-xs-6 col-md-3 col-lg-3">
-          <div class="form-group">
-            <label for="">From</label>
-            <input
-              nbInput
-              fullWidth
-              placeholder="Select Start Date"
-              [nbDatepicker]="datepicker"
-              formControlName="fromDate"
-            />
-            <nb-datepicker format="MM.dd.yyyy" #datepicker></nb-datepicker>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3">
-          <div class="form-group">
-            <label>To</label>
-            <input
-              nbInput
-              fullWidth
-              placeholder="Select Ending Date"
-              [nbDatepicker]="datepickerending"
-              formControlName="toDate"
-            />
-            <nb-datepicker
-              format="MM.dd.yyyy"
-              #datepickerending
-            ></nb-datepicker>
-          </div>
-        </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="col-sm-2 col-md-2 col-xs-12">
-          <div class="form-group">
-            <button
-              type="button"
-              nbButton
-              status="primary"
-              hero
-              (click)="printInvoices()"
-            >Print Invoices
-            </button>
+      <div class="col-md-12">
+        <!-- <button nbButton status="primary" hero (click)="exportTable()">
+            Export
+          </button> -->
+        <div class="row">
+          <div class="col-md-2">
+            <h6>Export As:</h6>
+            <nb-button-group status="info">
+              <button nbButton (click)="exportTable()">Excel</button>
+              <button nbButton (click)="generatePDF()">PDF</button>
+            </nb-button-group>
+          </div>
+          <div class="col-md-2 offset-7 mt-4">
+            <input
+              nbInput
+              type="text"
+              [(ngModel)]="searchVal"
+              name="search"
+              placeholder="Search"
+              (keyup)="SearchFunction()"
+              id="searchbox"
+            />
           </div>
         </div>
 
-        <div class="col-sm-2 offset-sm-2 col-md-2 offset-md-8">
-          <div class="form-group">
-            <button nbButton status="success" hero type="submit">Filter</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-12">
-    <!-- <button nbButton status="primary" hero (click)="exportTable()">
-        Export
-      </button> -->
-    <div class="row">
-      <div class="col-md-2">
-        <h6>Export As:</h6>
-        <nb-button-group status="info">
-          <button nbButton (click)="exportTable()">Excel</button>
-          <button nbButton (click)="generatePDF()">PDF</button>
-        </nb-button-group>
-      </div>
-      <div class="col-md-2 offset-6 mt-4">
-        <input
-          nbInput
-          type="text"
-          [(ngModel)]="searchVal"
-          name="search"
-          placeholder="Search"
-          (keyup)="SearchFunction()"
-          id="searchbox"
-        />
+        <table
+          #pdfTable
+          class="table table-sm mt-2 table-hover table-bordered"
+          id="ExampleTable"
+          [nbSpinner]="loading"
+          nbSpinnerStatus="primary"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+        >
+          <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">
+                <input
+                  [(ngModel)]="masterSelector"
+                  (change)="checkUncheckAll()"
+                  type="checkbox"
+                />
+              </th>
+
+              <th scope="col">Tracking#</th>
+              <th scope="col">Order#</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Shipment Details</th>
+              <th scope="col">Consignee Details</th>
+              <th scope="col">Shipper Info</th>
+              <th scope="col">Payments</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <!-- *ngFor="let item of list" -->
+          <tbody>
+            <tr *ngIf="Orders.length < 1">
+              <td class="text-center" colspan="10">
+                <Strong>No Entry Found!</Strong>
+              </td>
+            </tr>
+            <tr
+              class="text-center"
+              *ngFor="
+                let item of Orders
+                  | paginate: { itemsPerPage: 10, currentPage: p };
+                let i = index
+              "
+              scope="row"
+            >
+              <td>
+                <input
+                  type="checkbox"
+                  (change)="addToSelectedArray($event, item); isAllSelected()"
+                  [checked]="item.isSelected"
+                />
+              </td>
+
+              <td class="tiny-details-Black">
+                <strong>{{ item.OrderBookingId }}</strong>
+              </td>
+              <td class="tiny-details-Black">
+                <strong>{{ item.OrderBookingId }}</strong>
+              </td>
+              <td class="tiny-details-Black">
+                <strong>{{
+                  item.OrderBookingOn | mask: "0000/M0/d0 Hh:m0:s0"
+                }}</strong>
+              </td>
+              <td class="tiny-details">
+                <strong>Product Code:</strong> {{ item.ProductCode }} <br />
+                <strong>Product Description:</strong>
+                {{ item.ProductDescription }}
+                <br />
+
+                <strong>Quantity:</strong> {{ item.Quantity }} <br />
+                <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
+
+                <!-- <strong>Delivery Fee:</strong> {{ item.DeliveryFee }}<br /> -->
+              </td>
+              <td class="tiny-details">
+                <strong> Name:</strong> {{ item.ConsigneeName }}<br />
+                <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
+                <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
+                <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
+                <strong>City:</strong> {{ item.DestinationCityName }} <br />
+              </td>
+              <td class="tiny-details">
+                <strong>Name:</strong>{{ item.ShipperName }} <br />
+                <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
+                <strong>Email:</strong>{{ item.ShipperEmail }} <br />
+                <strong>Address:</strong>{{ item.ShipperAddress }}<br />
+                <strong>City:</strong>{{ item.OriginCityName }}<br />
+              </td>
+
+              <td class="tiny-details">
+                <strong>COD:</strong> Rs.{{ item.CODAmount | mask: "000000" }}
+                <br />
+                <strong>Delivery Fee:</strong> Rs.{{
+                  item.DeliveryFee | mask: "000000"
+                }}
+              </td>
+              <td class="tiny-details">
+                <strong>{{ item.StatusName }}</strong>
+              </td>
+              <td class="py-2">
+                <a (click)="viewRequestBtn(item)"
+                  ><nb-icon icon="eye-outline"></nb-icon
+                ></a>
+                <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+                <a (click)="trackingBtn(item.OrderBookingId)"
+                  ><nb-icon icon="car-outline"></nb-icon
+                ></a>
+                <a (click)="deleteBtn(item.OrderBookingId)"
+                  ><nb-icon icon="close"></nb-icon
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
-
-    <table
-      #pdfTable
-      class="table table-sm mt-2 table-bordered"
-      id="ExampleTable"
-      [nbSpinner]="loading"
-      nbSpinnerStatus="primary"
-      nbSpinnerSize="large"
-      nbSpinnerMessage=""
-    >
-      <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
-      <thead class="thead-light">
-        <tr>
-          <th scope="col"><input [(ngModel)]="masterSelector" (change)="checkUncheckAll()" type="checkbox" /></th>
-
-          <th scope="col">Tracking#</th>
-          <th scope="col">Order#</th>
-          <th scope="col">Order Date</th>
-          <th scope="col">Shipment Details</th>
-          <th scope="col">Consignee Details</th>
-          <th scope="col">Shipper Info</th>
-          <th scope="col">Payments</th>
-          <th scope="col">Status</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <!-- *ngFor="let item of list" -->
-      <tbody>
-        <tr *ngIf="Orders.length < 1">
-          <td class="text-center" colspan="10">
-            <Strong>No Entry Found!</Strong>
-          </td>
-        </tr>
-        <tr
-          class="text-center"
-          *ngFor="
-            let item of Orders | paginate: { itemsPerPage: 10, currentPage: p };
-            let i = index
-          "
-          scope="row"
-        >
-          <td>
-            <input
-              type="checkbox"
-              (change)="addToSelectedArray($event, item);isAllSelected()"
-              [checked]="item.isSelected"
-            />
-          </td>
-
-          <td class="tiny-details-Black">
-            <strong>{{ item.OrderBookingId }}</strong>
-          </td>
-          <td class="tiny-details-Black">
-            <strong>{{ item.OrderBookingId }}</strong>
-          </td>
-          <td class="tiny-details-Black">
-            <strong>{{ item.OrderBookingOn|mask:"0000/M0/d0 Hh:m0:s0" }}</strong>
-          </td>
-          <td class="tiny-details">
-            <strong>Product Code:</strong> {{ item.ProductCode }} <br />
-            <strong>Product Description:</strong> {{ item.ProductDescription }}
-            <br />
-
-            <strong>Quantity:</strong> {{ item.Quantity }} <br />
-            <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
-
-            <strong>Delivery Fee:</strong> {{ item.DeliveryFee }}<br />
-          </td>
-          <td class="tiny-details">
-            <strong> Name:</strong> {{ item.ConsigneeName }}<br />
-            <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
-            <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
-            <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
-            <strong>City:</strong> {{ item.DestinationCityName }} <br />
-          </td>
-          <td class="tiny-details">
-            <strong>Name:</strong>{{ item.ShipperName }} <br />
-            <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
-            <strong>Email:</strong>{{ item.ShipperEmail }} <br />
-            <strong>Address:</strong>{{ item.ShipperAddress }}<br />
-            <strong>City:</strong>{{ item.OriginCityName }}<br />
-          </td>
-
-          <td class="tiny-details">
-            <strong>COD:</strong> Rs.{{ item.CODAmount | mask:"000000" }} <br />
-            <strong>Delivery Fee:</strong> Rs.{{ item.DeliveryFee | mask:"000000" }}
-          </td>
-          <td class="tiny-details">
-            <strong>{{ item.StatusName }}</strong>
-          </td>
-          <td class="py-2">
-            <a (click)="viewRequestBtn(item)"
-              ><nb-icon icon="eye-outline"></nb-icon
-            ></a>
-            <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
-            <a (click)="trackingBtn(item.OrderBookingId)"
-              ><nb-icon icon="car-outline"></nb-icon
-            ></a>
-            <a (click)="deleteBtn(item.OrderBookingId)"><nb-icon icon="close"></nb-icon></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  </div>
-</div>
+  </nb-card-body>
+</nb-card>
