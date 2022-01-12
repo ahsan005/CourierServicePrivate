@@ -1,3 +1,4 @@
+import { Calculation } from "./../../../models/Calculation";
 import { OrderBookingForm } from "./../../../models/order-booking-form";
 import { NotificationService } from "./../../../services/notification.service";
 import { SharedService } from "./../../../services/shared.service";
@@ -16,6 +17,8 @@ import { UserService } from "../../../services/user.service";
 })
 export class ListComponent implements OnInit {
   searchVal: any;
+  startDate: Date;
+  endDate: Date;
   loadingSpinner: boolean = false;
   p: number = 1;
   UserId;
@@ -34,14 +37,13 @@ export class ListComponent implements OnInit {
   }
 
   RefreshBookedOrderList() {
-    debugger;
     var userId = this.UserId;
     this.userService.GetOrdersByUserId(userId).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
         this.BookedOrderList = response.Data;
         console.log(this.BookedOrderList);
-        this.CalculateAggregates()
+        this.CalculateAggregates();
       } else {
         console.warn(response.Message);
         this.notificationService.showToast(
@@ -53,10 +55,74 @@ export class ListComponent implements OnInit {
       }
     });
   }
-  CalculateAggregates(){
-    
+  CalculatedValues = new Calculation();
+  CalculateAggregates() {
+    debugger;
+    var TotalCODAmount = 0;
+    var TotalDeliveryFee = 0;
+    var TotalPayable = 0;
+    this.BookedOrderList.forEach((element) => {
+      TotalCODAmount = TotalCODAmount + element.CODAmount;
+      TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
+      TotalPayable = TotalCODAmount - TotalDeliveryFee;
+    });
+    this.CalculatedValues.TotalCODAmount = TotalCODAmount;
+    this.CalculatedValues.TotalDeliveryFee = TotalDeliveryFee;
+    this.CalculatedValues.TotalPayable = TotalPayable;
+    console.log(this.CalculatedValues);
+  }
+  unFiteredOrders;
+  curatedEndDate;
+  AddDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+  SubtractDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() - days);
+    return result;
+  }
+  endDateErrorCorrected: Date;
+  startDateErrorCorrected: Date;
+  DateFilter() {
+    // 12T00:00:00.000Z
+    // this.startDate = this.addDays(this.startDate, 1);
+    this.startDateErrorCorrected = this.AddDays(this.startDate, 1);
+
+    let StartDate = this.startDateErrorCorrected.toJSON().replace("T19", "T00");
+    // .toJSON()
+    // .replace("T19:00:00.000", "T23:59:59.999");
+    this.endDateErrorCorrected = this.AddDays(this.endDate, 1);
+    let EndDate = this.endDateErrorCorrected
+      .toJSON()
+      .replace("T19:00:00.000", "T23:59:59.999");
+    // .toJSON()
+    // .replace("T19:00:00.000", "T23:59:59.999");
+
+    debugger;
+    if (this.UserId != null && this.BookedOrderList.length > 0) {
+      this.unFiteredOrders = this.BookedOrderList;
+    }
+    if (StartDate != null && EndDate != null && EndDate > StartDate) {
+      // this.BookedOrderList = this.unFiteredOrders.filter((x) => {
+      //   x.OrderBookingOn > StartDate && x.OrderBookingOn < EndDate
+      // });
+      console.log(StartDate, EndDate);
+      this.BookedOrderList = this.unFiteredOrders.filter(
+        (m) =>
+          new Date(m.OrderBookingOn) >= new Date(StartDate) &&
+          new Date(m.OrderBookingOn) <= new Date(EndDate)
+      );
+
+      console.log(this.BookedOrderList);
+      this.CalculateAggregates();
+    }
   }
   onSubmit() {}
+  AcceptReceivingBtn() {
+    confirm("Are you sure you want to confirm receiving ?");
+  }
   // Check Uncheck
   // Array to hold selected Rows
   selectedArray = new Array<OrderBookingForm>();

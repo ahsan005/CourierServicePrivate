@@ -1,3 +1,4 @@
+import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
@@ -10,6 +11,7 @@ import {
   NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
+  NbDatepickerModule,
   NbIconModule,
   NbInputModule,
   NbSelectModule,
@@ -17,6 +19,7 @@ import {
 } from "@nebular/theme";
 import { Ng2OrderModule } from "ng2-order-pipe";
 import { AppRoutingModule } from "../../app-routing.module";
+import { NgxMaskModule } from "ngx-mask";
 
 @NgModule({
   declarations: [OrderReceivingComponent, ListComponent],
@@ -28,10 +31,13 @@ import { AppRoutingModule } from "../../app-routing.module";
     NbInputModule,
     Ng2OrderModule,
     NgxPaginationModule,
+    NgxMaskModule,
     FormsModule,
     NbButtonGroupModule,
     NbSelectModule,
     NbIconModule,
+    NbDatepickerModule,
+    NbDateFnsDateModule,
     NbSpinnerModule,
   ],
 })

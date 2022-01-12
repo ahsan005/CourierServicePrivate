@@ -63,7 +63,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: "Order-Receiving",
     icon: "edit-2-outline",
-    link: "/admin/Receiving/list",
+    link: "/admin/receiving/list",
 
   },
   {

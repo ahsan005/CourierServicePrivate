@@ -1,39 +1,79 @@
 <nb-card status="primary">
-  <nb-card-header>Cities</nb-card-header>
+  <nb-card-header>Order-Receiving</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-3 mb-2">
-        <nb-select
-          fullWidth
-          [(ngModel)]="UserId"
-          (ngModelChange)="RefreshBookedOrderList()"
-          placeholder="Select Party "
-        >
-          <nb-option [value]="item.UserId" *ngFor="let item of PartyList">
-            {{ item.BusinessName }}({{ item.UserName }})
-          </nb-option>
-        </nb-select>
-      </div>
-
-      <div class="col-md-2">
-        <!-- <button nbButton status="primary" hero (click)="exportTable()">
-        Export
-       </button> -->
-
-        <div class="form-group">
-          <input
-            type="text"
-            nbInput
-            [(ngModel)]="searchVal"
-            name="search"
-            placeholder="Search"
-            (keyup)="SearchFunction()"
-            id="searchbox"
-          />
+      <div class="col-md-5 col-sm-5 col-xs-12 mb-2">
+        <div class="row">
+          <div class="col-md-6">
+            <nb-select
+              fullWidth
+              [(ngModel)]="UserId"
+              (ngModelChange)="RefreshBookedOrderList()"
+              placeholder="Select Party "
+            >
+              <nb-option [value]="item.UserId" *ngFor="let item of PartyList">
+                {{ item.BusinessName }}({{ item.UserName }})
+              </nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                [(ngModel)]="searchVal"
+                name="search"
+                placeholder="Search"
+                (keyup)="SearchFunction()"
+                id="searchbox"
+              />
+            </div>
+          </div>
+          <h6>Date Range</h6>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">From</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Select Start Date"
+                [nbDatepicker]="datepicker"
+                [(ngModel)]="startDate"
+              />
+              <nb-datepicker format="yyyy-MM-dd" #datepicker></nb-datepicker>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">To</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Select End Date"
+                [nbDatepicker]="enddatepicker"
+                [(ngModel)]="endDate"
+                (ngModelChange)="DateFilter()"
+              />
+              <nb-datepicker format="yyyy-MM-dd" #enddatepicker></nb-datepicker>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-6 offset-1">
-        <table class="table table-bordered">
+      <div class="col-md-6 col-sm-6 col-xs-12 offset-1">
+        <table class="table table-bordered table-hover">
+          <tr class="text-center">
+            <td colspan="2">
+              <button
+                nbButton
+                status="success"
+                hero
+                (click)="AcceptReceivingBtn()"
+              >
+                Accept Receiving!
+              </button>
+            </td>
+          </tr>
           <tr>
             <td><strong>Total Orders</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
@@ -43,16 +83,20 @@
           <tr>
             <td><strong>Total COD Amount</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              {{ BookedOrderList.length }}
+              Rs.{{ CalculatedValues.TotalCODAmount | mask: "0*.00" }}
             </td>
-
           </tr>
           <tr>
             <td><strong>Total Delivery Fee</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              {{ BookedOrderList.length }}
+              Rs.{{ CalculatedValues.TotalDeliveryFee | mask: "0*.00" }}
             </td>
-
+          </tr>
+          <tr>
+            <td><strong>Total Payable</strong></td>
+            <td *ngIf="BookedOrderList.length > -1">
+              Rs.{{ CalculatedValues.TotalPayable | mask: "0*.00" }}
+            </td>
           </tr>
         </table>
       </div>
@@ -63,7 +107,7 @@
           nbSpinnerSize="large"
           nbSpinnerMessage=""
           #pdfTable
-          class="table table-sm mt-2 table-bordered"
+          class="table table-sm mt-2 table-bordered table-hover table-responsive-sm"
           id="ExampleTable"
         >
           <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->

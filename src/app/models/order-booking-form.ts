@@ -6,7 +6,7 @@ export class OrderBookingForm {
   }
   // Shipper Info
   public OrderBookingId: number;
-  public OrderBookingOn: number;
+  public OrderBookingOn: Date;
   public LocationId: number;
   public OriginCityId: number;
   public OriginCityName: string;
