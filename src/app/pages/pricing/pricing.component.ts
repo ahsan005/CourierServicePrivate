@@ -1,5 +1,5 @@
-import { TableUtil } from './../../utilities/tableutil';
-import { registerMap } from 'echarts';
+import { TableUtil } from "./../../utilities/tableutil";
+import { registerMap } from "echarts";
 import { UserService } from "./../../services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -66,7 +66,6 @@ export class PricingComponent implements OnInit {
       }
     });
 
-
     this.DeliveryCharges = this.fb.group({
       // ShipperInfo
       DeliveryChargesId: [""],
@@ -104,13 +103,12 @@ export class PricingComponent implements OnInit {
   RefreshDeliveryChargesList() {
     if (this.PartyLocationId == 1) {
       this.GetStandardDeliveryCharges();
-
     } else {
-      this.DeliveryCharges.reset()
+      this.DeliveryCharges.reset();
       this.DeliveryCharges.patchValue({
         FromCityId: "",
         ToCityId: "",
-      })
+      });
       this.GetDeliveryChargesbyPartyLocation();
     }
   }
@@ -120,6 +118,8 @@ export class PricingComponent implements OnInit {
       console.log(response);
       if (response.Status) {
         this.deliveryChargesList = response.Data;
+        console.log(this.deliveryChargesList);
+        console.log(response.Data);
       }
     });
   }
@@ -159,7 +159,7 @@ export class PricingComponent implements OnInit {
         this.deliveryChargesObj.CreatedById = parseInt(
           localStorage.getItem("USERID")
         );
-        if (this.PartyLocationId != null) {
+        if (this.PartyLocationId != null && this.PartyLocationId != 1) {
           this.deliveryChargesObj.PartyLocationId = this.PartyLocationId;
         }
         console.log(this.DeliveryCharges.value);
@@ -266,7 +266,7 @@ export class PricingComponent implements OnInit {
       }
     });
   }
-  SearchFunction(){
+  SearchFunction() {
     TableUtil.SearchFunction(this.searchVal);
   }
 }

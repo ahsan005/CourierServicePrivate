@@ -77,7 +77,7 @@
           <tr>
             <td><strong>Total Orders</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              {{ BookedOrderList.length }}
+              {{ CalculatedValues.TotalOrders }}
             </td>
           </tr>
           <tr>
@@ -116,7 +116,7 @@
               <th scope="col">
                 <input
                   type="checkbox"
-                  (change)="checkUncheckAll()"
+                  (change)="checkUncheckAll(); CalculateAggregates()"
                   [(ngModel)]="masterSelector"
                 />
               </th>
@@ -125,7 +125,7 @@
               <th scope="col">Order Date</th>
               <th scope="col">Shipment Details</th>
               <th scope="col">Consignee Details</th>
-              <th scope="col">Shipper Info</th>
+
               <th scope="col">Payments</th>
 
               <th scope="col">Action</th>
@@ -150,7 +150,11 @@
               <input
                 type="checkbox"
                 [checked]="item.isSelected"
-                (change)="addToSelectedArray($event, item); isAllSelected()"
+                (change)="
+                  addToSelectedArray($event, item);
+                  isAllSelected();
+                  CalculateAggregates()
+                "
               />
             </td>
 
@@ -161,31 +165,31 @@
             <td class="tiny-details-Black">
               <strong>{{ item.OrderBookingOn }}</strong>
             </td>
-            <td class="tiny-details">
+            <td class="tiny-details left-align">
               <strong>Product Code:</strong> {{ item.ProductCode }} <br />
-              <strong>Product Description:</strong>
+              <strong>Description:</strong>
               {{ item.ProductDescription }}
               <br />
 
               <strong>Quantity:</strong> {{ item.Quantity }} <br />
               <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
             </td>
-            <td class="tiny-details">
+            <td class="tiny-details left-align">
               <strong> Name:</strong> {{ item.ConsigneeName }}<br />
               <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
               <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
               <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
               <strong>City:</strong> {{ item.DestinationCityName }} <br />
             </td>
-            <td class="tiny-details">
+            <!-- <td class="tiny-details">
               <strong>Name:</strong>{{ item.ShipperName }} <br />
               <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
               <strong>Email:</strong>{{ item.ShipperEmail }} <br />
               <strong>Address:</strong>{{ item.ShipperAddress }}<br />
               <strong>City:</strong>{{ item.OriginCityName }}<br />
-            </td>
+            </td> -->
 
-            <td class="tiny-details">
+            <td class="tiny-details left-align">
               <strong>COD:</strong>{{ item.CODAmount }} <br />
               <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
             </td>

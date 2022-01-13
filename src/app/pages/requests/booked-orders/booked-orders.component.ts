@@ -52,6 +52,10 @@ export class BookedOrdersComponent implements OnInit {
     this.sharedService.listen().subscribe((m: any) => {
       console.log(m);
       this.GetOrders();
+      this.selectedArray = this.selectedArray.splice(
+        0,
+        this.selectedArray.length
+      );
     });
     this.masterSelector = false;
   }
@@ -107,6 +111,8 @@ export class BookedOrdersComponent implements OnInit {
   // Function to add Rows to selected Array
   objToEnter: OrderBookingForm;
   addToSelectedArray(e, item: OrderBookingForm) {
+    this.subscription.unsubscribe();
+
     if (e.target.checked) {
       console.log("hello");
       item.isSelected = true;
@@ -124,6 +130,11 @@ export class BookedOrdersComponent implements OnInit {
 
       if (index > -1) {
         this.selectedArray.splice(index, 1);
+      }
+      if (this.selectedArray.length < 1) {
+        this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+          this.GetOrders();
+        });
       }
     }
   }
@@ -152,11 +163,11 @@ export class BookedOrdersComponent implements OnInit {
     if (this.updateOrderStatus != null) {
       let statusToUpdate = this.updateOrderStatus;
       this.selectedArray.forEach((element) => {
-        this.ArrayOfOrdersToUpdate.push(element.OrderBookingId, statusToUpdate);
+        this.ArrayOfOrdersToUpdate.push(element.OrderBookingId);
       });
       if (this.ArrayOfOrdersToUpdate != null) {
         this.userService
-          .BulkUpdateOrderStatus(this.ArrayOfOrdersToUpdate)
+          .BulkUpdateOrderStatus(this.ArrayOfOrdersToUpdate, statusToUpdate)
           .subscribe((data) => {
             var response = JSON.parse(JSON.stringify(data));
             if (response.Status) {

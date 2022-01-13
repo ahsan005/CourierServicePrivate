@@ -1,3 +1,4 @@
+import { DeliveryCharges } from "./../../models/deliverycharges";
 import { NotificationService } from "./../../services/notification.service";
 import * as $ from "jquery";
 import { LOV } from "../../models/citiesLOV";
@@ -50,13 +51,26 @@ export class BulkBookingComponent implements OnInit {
     private userService: UserService,
     private notificationService: NotificationService
   ) {}
-
+  deliveryChargesList = new Array<DeliveryCharges>();
+  partyDeliveryChargesList = new Array<DeliveryCharges>();
   ngOnInit(): void {
     this.sharedService.GetAllCities().subscribe((result) => {
       var response = JSON.parse(JSON.stringify(result));
       console.log(response);
 
       this.citiesLOV = response.Data;
+    });
+    var PartyLocationId = parseInt(localStorage.getItem("PARTYLOCATIONID"));
+    this.sharedService.GetAllDeliveryCharges().subscribe((result) => {
+      var response = JSON.parse(JSON.stringify(result));
+      console.log(response);
+
+      this.deliveryChargesList = response.Data;
+      this.partyDeliveryChargesList = this.deliveryChargesList.filter((x) => {
+        if (x.PartyLocationId == PartyLocationId) {
+          return true;
+        }
+      });
     });
 
     $(document).ready(function () {
@@ -113,10 +127,11 @@ export class BulkBookingComponent implements OnInit {
 
     let createdById = parseInt(localStorage.getItem("USERID"));
     let partyLocationId = parseInt(localStorage.getItem("PARTYLOCATIONID"));
+    let deliveryChargesDetail;
     this.loading = true;
     console.log(array);
     array.forEach(
-      function (item) {
+      (item) => {
         originCityObj = cities.find(
           (x) => x.Text.toUpperCase() == item.OriginCityName.toUpperCase()
         );
@@ -127,6 +142,17 @@ export class BulkBookingComponent implements OnInit {
         weightObj = weightList.find(
           (x) => x.Text == String(item.WeightProfileId)
         );
+        if (originCityObj != null && destinationCityObj != null)
+          deliveryChargesDetail = this.GetDeliveryChargesDetail(
+            originCityObj.Value,
+            destinationCityObj.Value
+          );
+
+        if (deliveryChargesDetail != null) {
+          item.DeliveryFee = this.CalculateDeliveryCharges(
+            item.WeightProfileId
+          );
+        }
 
         if (originCityObj != null) {
           item.OriginCityId = parseInt(originCityObj.Value);
@@ -135,6 +161,7 @@ export class BulkBookingComponent implements OnInit {
         if (destinationCityObj != null) {
           item.DestinationCityId = parseInt(destinationCityObj.Value);
         }
+
         if (weightObj != null) {
           item.WeightProfileId = parseInt(weightObj.Value);
         }
@@ -155,17 +182,62 @@ export class BulkBookingComponent implements OnInit {
     // Make Request to HTTPService
   }
 
+  deliveryChargesDetailObj = new DeliveryCharges();
+  GetDeliveryChargesDetail(originCityId, destinationCityId): DeliveryCharges {
+    debugger;
+    // var originCity;
+    // var destinationCity;
+
+    if (this.partyDeliveryChargesList.length < 1) {
+      this.deliveryChargesDetailObj = this.deliveryChargesList.find((x) => {
+        if (x.FromCityId == originCityId && x.ToCityId == destinationCityId) {
+          return true;
+        }
+        // && x.ToCityId == destinationCity;
+      });
+    } else {
+      this.deliveryChargesDetailObj = this.partyDeliveryChargesList.find(
+        (x) => {
+          if (x.FromCityId == originCityId && x.ToCityId == destinationCityId) {
+            return true;
+          }
+        }
+      );
+    }
+    return this.deliveryChargesDetailObj;
+    console.warn(this.deliveryChargesDetailObj);
+  }
+  calculatedDeliveryCharges: number = 0;
+  CalculateDeliveryCharges(selected): number {
+    debugger;
+
+    if (this.deliveryChargesDetailObj != null) {
+      if (selected > 1) {
+        this.calculatedDeliveryCharges =
+          this.deliveryChargesDetailObj.FirstKGPrice +
+          this.deliveryChargesDetailObj.PricePerKG * selected;
+      } else {
+        this.calculatedDeliveryCharges =
+          this.deliveryChargesDetailObj.FirstKGPrice;
+      }
+    }
+
+    return this.calculatedDeliveryCharges;
+
+    console.log(this.calculatedDeliveryCharges);
+  }
+
   PostBulk(array: Array<OrderBookingForm>) {
     if (array.length > 0) {
       this.userService.BulkOrders(array).subscribe((result) => {
         var response = JSON.parse(JSON.stringify(result));
         if (response.Status) {
           this.loading = false;
-          console.log(response.Message)
+          console.log(response.Message);
           this.notificationService.showToast("success", response.Message);
         } else {
           this.loading = false;
-          console.log(response.Message)
+          console.log(response.Message);
           this.notificationService.showToast("danger", response.Message);
         }
       });

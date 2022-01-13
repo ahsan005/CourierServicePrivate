@@ -82,7 +82,6 @@
     "ngx-echarts": "^4.2.2",
     "ngx-mask": "^13.0.1",
     "ngx-pagination": "^5.1.1",
-    "node-sass": "^4.12.0",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
     "pdfmake": "^0.2.2",

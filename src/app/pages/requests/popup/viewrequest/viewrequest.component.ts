@@ -50,6 +50,7 @@ export class ViewrequestComponent implements OnInit {
               "top-right"
             );
             this.modal.close();
+            this.userService.filter("refresh List on Status Update");
             this.onUpdateSpinner = false;
           } else {
             this.notificationService.showToast(

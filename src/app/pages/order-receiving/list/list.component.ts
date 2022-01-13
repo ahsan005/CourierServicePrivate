@@ -1,10 +1,11 @@
+import { EditForOrderReceivingComponent } from './../edit-for-order-receiving/edit-for-order-receiving.component';
 import { Calculation } from "./../../../models/Calculation";
 import { OrderBookingForm } from "./../../../models/order-booking-form";
 import { NotificationService } from "./../../../services/notification.service";
 import { SharedService } from "./../../../services/shared.service";
 
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { TableUtil } from "../../../utilities/tableutil";
 import { LOV } from "../../../models/citiesLOV";
 import { CustomerInfo } from "../../../models/CustomerInfo";
@@ -18,12 +19,23 @@ import { UserService } from "../../../services/user.service";
 export class ListComponent implements OnInit {
   searchVal: any;
   startDate: Date;
+  endDateErrorCorrected: Date;
+  startDateErrorCorrected: Date;
   endDate: Date;
+  CalculatedValues = new Calculation();
+  unFiteredOrders;
+  curatedEndDate;
   loadingSpinner: boolean = false;
   p: number = 1;
+  // Array to hold selected Rows
+  selectedArray = new Array<OrderBookingForm>();
+  // Array to hold selected Rows
   UserId;
   PartyList = new Array<CustomerInfo>();
   BookedOrderList = new Array<OrderBookingForm>();
+
+  checkedList: any;
+  masterSelector: boolean;
   constructor(
     private modalService: NgbModal,
     private sharedService: SharedService,
@@ -55,24 +67,34 @@ export class ListComponent implements OnInit {
       }
     });
   }
-  CalculatedValues = new Calculation();
   CalculateAggregates() {
     debugger;
     var TotalCODAmount = 0;
     var TotalDeliveryFee = 0;
     var TotalPayable = 0;
-    this.BookedOrderList.forEach((element) => {
-      TotalCODAmount = TotalCODAmount + element.CODAmount;
-      TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
-      TotalPayable = TotalCODAmount - TotalDeliveryFee;
-    });
+    var TotalOrders = 0;
+    if (this.selectedArray.length < 1) {
+      this.BookedOrderList.forEach((element) => {
+        TotalCODAmount = TotalCODAmount + element.CODAmount;
+        TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
+        TotalPayable = TotalCODAmount - TotalDeliveryFee;
+      });
+      TotalOrders = this.BookedOrderList.length;
+    } else {
+      this.selectedArray.forEach((element) => {
+        TotalCODAmount = TotalCODAmount + element.CODAmount;
+        TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
+        TotalPayable = TotalCODAmount - TotalDeliveryFee;
+      });
+      TotalOrders = this.selectedArray.length;
+    }
     this.CalculatedValues.TotalCODAmount = TotalCODAmount;
     this.CalculatedValues.TotalDeliveryFee = TotalDeliveryFee;
     this.CalculatedValues.TotalPayable = TotalPayable;
+    this.CalculatedValues.TotalOrders = TotalOrders;
     console.log(this.CalculatedValues);
   }
-  unFiteredOrders;
-  curatedEndDate;
+
   AddDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
@@ -83,8 +105,7 @@ export class ListComponent implements OnInit {
     result.setDate(result.getDate() - days);
     return result;
   }
-  endDateErrorCorrected: Date;
-  startDateErrorCorrected: Date;
+
   DateFilter() {
     // 12T00:00:00.000Z
     // this.startDate = this.addDays(this.startDate, 1);
@@ -119,14 +140,32 @@ export class ListComponent implements OnInit {
       this.CalculateAggregates();
     }
   }
+
+  @Input() public orderBooking: OrderBookingForm;
+  @Input() public citiesLOVForEditForm: any;
+  editBtn(item?: OrderBookingForm) {
+    const ref = this.modalService.open(EditForOrderReceivingComponent, {
+      size: "xl",
+      scrollable: true,
+    });
+    this.orderBooking = item;
+    ref.componentInstance.orderBookingModel = this.orderBooking;
+    ref.componentInstance.citiesLOV = this.citiesLOV;
+
+    ref.result.then(
+      (yes) => {
+        console.log("ok Click");
+      },
+      (cancel) => {
+        console.log("cancel CLick");
+      }
+    );
+  }
   onSubmit() {}
   AcceptReceivingBtn() {
     confirm("Are you sure you want to confirm receiving ?");
   }
   // Check Uncheck
-  // Array to hold selected Rows
-  selectedArray = new Array<OrderBookingForm>();
-  // Array to hold selected Rows
 
   // Function to add Rows to selected Array
   objToEnter: OrderBookingForm;
@@ -153,8 +192,6 @@ export class ListComponent implements OnInit {
   }
   // Function to add Rows to selected Array
 
-  checkedList: any;
-  masterSelector: boolean;
   // checkuncheckAll Logic
 
   checkUncheckAll() {
@@ -217,6 +254,21 @@ export class ListComponent implements OnInit {
       if (response.Status) {
         this.PartyList = response.Data;
         console.log(this.PartyList);
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
+    this.sharedService.GetAllCities().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.citiesLOV = response.Data;
+        console.log(this.citiesLOV);
       } else {
         this.notificationService.showToast(
           "danger",

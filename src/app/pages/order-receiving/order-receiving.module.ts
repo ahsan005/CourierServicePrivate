@@ -6,7 +6,7 @@ import { OrderReceivingRoutingModule } from "./order-receiving-routing.module";
 import { OrderReceivingComponent } from "../order-receiving/order-receiving.component";
 import { ListComponent } from "./list/list.component";
 import { NgxPaginationModule } from "ngx-pagination";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   NbButtonGroupModule,
   NbButtonModule,
@@ -20,9 +20,10 @@ import {
 import { Ng2OrderModule } from "ng2-order-pipe";
 import { AppRoutingModule } from "../../app-routing.module";
 import { NgxMaskModule } from "ngx-mask";
+import { EditForOrderReceivingComponent } from './edit-for-order-receiving/edit-for-order-receiving.component';
 
 @NgModule({
-  declarations: [OrderReceivingComponent, ListComponent],
+  declarations: [OrderReceivingComponent, ListComponent, EditForOrderReceivingComponent],
   imports: [
     CommonModule,
     OrderReceivingRoutingModule,
@@ -37,6 +38,7 @@ import { NgxMaskModule } from "ngx-mask";
     NbSelectModule,
     NbIconModule,
     NbDatepickerModule,
+    ReactiveFormsModule,
     NbDateFnsDateModule,
     NbSpinnerModule,
   ],

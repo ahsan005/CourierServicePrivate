@@ -1,3 +1,4 @@
+import { DeliveryCharges } from "./../../models/deliverycharges";
 import { NotificationService } from "./../../services/notification.service";
 import { Router } from "@angular/router";
 import { NbToastrService } from "@nebular/theme";
@@ -14,6 +15,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./bookingform.component.scss"],
 })
 export class BookingformComponent implements OnInit {
+  deliveryChargesList = new Array<DeliveryCharges>();
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -53,6 +55,7 @@ export class BookingformComponent implements OnInit {
 
       this.citiesLOV = response.Data;
     });
+    this.GetAllDeliveryCharges();
   }
   ngOnInit(): void {
     this.initialize();
@@ -97,6 +100,108 @@ export class BookingformComponent implements OnInit {
       }
     });
   }
+  originCity = null;
+  destinationCity = null;
+  GetAllDeliveryCharges() {
+    this.sharedService.GetAllDeliveryCharges().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      console.log(response);
+      if (response.Status) {
+        this.deliveryChargesList = response.Data;
+        console.log(this.deliveryChargesList);
+        console.log(response.Data);
+        this.GetDeliveryChargesbyPartyLocation();
+        this.bookingForm
+          .get("weightprofileId")
+          .valueChanges.subscribe((selectedValue) => {
+            this.CalculateDeliveryCharges(selectedValue - 1);
+          });
+        this.bookingForm
+          .get("originCityId")
+          .valueChanges.subscribe((selectedValue) => {
+            this.originCity = selectedValue;
+            if (this.originCity != null && this.destinationCity != null) {
+              this.GetDeliveryChargesDetail();
+            }
+          });
+        this.bookingForm
+          .get("destinationCityId")
+          .valueChanges.subscribe((selectedValue) => {
+            this.destinationCity = selectedValue;
+            if (this.originCity != null && this.destinationCity != null) {
+              this.GetDeliveryChargesDetail();
+            }
+          });
+      }
+    });
+  }
+  GetStandardDeliveryCharges() {
+    this.sharedService.GetStandardDeliveryCharges().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      console.log(response);
+      if (response.Status) {
+        this.deliveryChargesList = response.Data;
+        console.log(this.deliveryChargesList);
+        console.log(response.Data);
+      }
+    });
+  }
+
+  partyDeliveryChargesList = new Array<DeliveryCharges>();
+
+  GetDeliveryChargesbyPartyLocation() {
+    var PartyLocationId = parseInt(localStorage.getItem("PARTYLCOATIONID"));
+    this.partyDeliveryChargesList = this.deliveryChargesList.filter((x) => {
+      x.PartyLocationId == PartyLocationId;
+    });
+  }
+  deliveryChargesDetailObj = new DeliveryCharges();
+  GetDeliveryChargesDetail() {
+    debugger;
+    var originCity;
+    var destinationCity;
+
+    originCity = parseInt(this.bookingForm.get("originCityId").value);
+    destinationCity = parseInt(this.bookingForm.get("destinationCityId").value);
+    if (this.partyDeliveryChargesList.length < 1) {
+      this.deliveryChargesDetailObj = this.deliveryChargesList.find((x) => {
+        if (x.FromCityId == originCity && x.ToCityId == destinationCity) {
+          return true;
+        }
+        // && x.ToCityId == destinationCity;
+      });
+    } else {
+      this.deliveryChargesDetailObj = this.partyDeliveryChargesList.find(
+        (x) => {
+          if (x.FromCityId == originCity && x.ToCityId == destinationCity) {
+            return true;
+          }
+        }
+      );
+    }
+    console.warn(this.deliveryChargesDetailObj);
+  }
+  calculatedDeliveryCharges: Number = 0;
+  CalculateDeliveryCharges(selected) {
+    debugger;
+    if (this.originCity != null && this.destinationCity != null) {
+      if (this.deliveryChargesDetailObj != null) {
+        if (selected > 1) {
+          this.calculatedDeliveryCharges =
+            this.deliveryChargesDetailObj.FirstKGPrice +
+            this.deliveryChargesDetailObj.PricePerKG * selected;
+        } else {
+          this.calculatedDeliveryCharges =
+            this.deliveryChargesDetailObj.FirstKGPrice;
+        }
+      }
+      this.bookingForm.patchValue({
+        deliveryFee: this.calculatedDeliveryCharges,
+      });
+    }
+    console.log(this.calculatedDeliveryCharges);
+  }
+
   get originCityId() {
     return this.bookingForm.get("originCityId");
   }
@@ -148,7 +253,7 @@ export class BookingformComponent implements OnInit {
   get consigneeEmail() {
     return this.bookingForm.get("consigneeEmail");
   }
-
+  Add;
   bookingForm = this.fb.group({
     // ShipperInfo
     originCityId: ["", Validators.required],
@@ -167,6 +272,7 @@ export class BookingformComponent implements OnInit {
     consigneeEmail: ["", Validators.required],
     // Consignee Info
     // Shipment Details
+    deliveryFee: [""],
     productCode: ["", Validators.required],
     quantity: ["", Validators.required],
     weightprofileId: ["", Validators.required],

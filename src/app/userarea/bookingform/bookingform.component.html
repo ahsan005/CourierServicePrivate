@@ -35,6 +35,7 @@
               name="my-select"
               placeholder="Origin"
               formControlName="originCityId"
+              (ngModelChange)="GetDeliveryChargesDetail()"
             >
               <!-- <nb-option value="" disabled selected hidden>Select City</
                 nb-option> -->
@@ -135,12 +136,11 @@
                 >Shipper Email <span class="text-danger"> *</span></label
               >
               <input
-                type="string"
-                mask="A*@S*.SSS"
-                [showMaskTyped]="false"
-                placeHolderCharacter="-"
+                type="email"
                 nbInput
                 fullWidth
+                maxlength="50"
+                minlength="10"
                 name="shipperEmail"
                 id="shipperEmail"
                 formControlName="shipperEmail"
@@ -273,7 +273,10 @@
                 "
               >
                 <div *ngIf="consigneeEmail.errors?.required">
-                  consigneeEmail is required.
+                  ConsigneeEmail is required.
+                </div>
+                <div *ngIf="consigneeEmail.errors?.invalid">
+                  Must be a Valid Email
                 </div>
               </div>
               <label for="" class="label label-info"
@@ -282,10 +285,8 @@
               <input
                 nbInput
                 type="email"
-                mask="A*@S*.SSS"
-                [showMaskTyped]="false"
-                placeHolderCharacter="-"
-                name=""
+                maxlength="50"
+                minlength="10"
                 fullWidth
                 formControlName="consigneeEmail"
               />
@@ -408,7 +409,15 @@
                     </div>
                     <label for="" class="label label-info"
                       >Weight (Kg) <span class="text-danger"> *</span></label
+                    ><span
+                      class="text-decoration-underline"
+                      *ngIf="
+                        calculatedDeliveryCharges != null ||
+                        calculatedDeliveryCharges != 0
+                      "
                     >
+                      Rs.{{ calculatedDeliveryCharges | mask: "000000.00" }}
+                    </span>
                     <nb-select
                       placeholder="Select Weight"
                       fullWidth

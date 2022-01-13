@@ -104,15 +104,12 @@ export class UserService {
     );
   }
   // Get Orders By UserId
-  GetOrdersByUserId(id:number): Observable<OrderBookingForm[]> {
-
+  GetOrdersByUserId(id: number): Observable<OrderBookingForm[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<OrderBookingForm[]>(
-      this.base_url +
-        "api/CourierService/GetOrdersByUserID?id=" +
-        id,
+      this.base_url + "api/CourierService/GetOrdersByUserID?id=" + id,
       httpOptions
     );
   }
@@ -286,7 +283,7 @@ export class UserService {
 
     return this.http.get(
       this.base_url +
-        "api/CourierService/UpdatOrderStatus?Orderid=" +
+        "api/CourierService/UpdateOrderStatus?OrderId=" +
         OrderBookingId +
         "&StatusId=" +
         StatusProfileId +
@@ -298,14 +295,20 @@ export class UserService {
   // Update ORder Status
 
   // BulkUpdate Order Status
-  BulkUpdateOrderStatus(array): Observable<Object> {
+  BulkUpdateOrderStatus(array, statusToUpdate): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
+    var AlteredById = localStorage.getItem("USERID");
+
     const body = JSON.stringify(array);
     console.log(body);
     return this.http.post(
-      this.base_url + "api/courierService/BulkUpdateOrderStatus",
+      this.base_url +
+        "api/courierService/BulkUpdateOrderStatus?StatusId=" +
+        statusToUpdate +
+        "&AlteredById=" +
+        AlteredById,
       body,
       httpOptions
     );

@@ -100,7 +100,7 @@ export class SharedService {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<LOV[]>(
-      this.base_url + "api/CourierService/GetCitiesByProvince?id="+ id,
+      this.base_url + "api/CourierService/GetCitiesByProvince?id=" + id,
 
       httpOptions
     );
@@ -128,14 +128,18 @@ export class SharedService {
       httpOptions
     );
   }
-  DeleteCountry(id:number):Observable<Object>{
+  DeleteCountry(id: number): Observable<Object> {
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCountry?id="+id+'&AlteredById='+ AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteCountry?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -151,14 +155,18 @@ export class SharedService {
       httpOptions
     );
   }
-  DeleteProvince(id:number):Observable<Object>{
+  DeleteProvince(id: number): Observable<Object> {
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteProvince?id="+id+'&AlteredById='+ AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteProvince?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -174,19 +182,23 @@ export class SharedService {
       httpOptions
     );
   }
-  DeleteCity(id:number):Observable<Object>{
+  DeleteCity(id: number): Observable<Object> {
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCity?id="+id+'&AlteredById='+ AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteCity?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
 
-  AddDeliveryCharges(obj:DeliveryCharges):Observable<Object>{
+  AddDeliveryCharges(obj: DeliveryCharges): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -198,7 +210,7 @@ export class SharedService {
       httpOptions
     );
   }
-  GetStandardDeliveryCharges():Observable<DeliveryCharges>{
+  GetStandardDeliveryCharges(): Observable<DeliveryCharges> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -209,24 +221,42 @@ export class SharedService {
       httpOptions
     );
   }
+
+  GetAllDeliveryCharges(): Observable<DeliveryCharges> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get<DeliveryCharges>(
+      this.base_url + "api/CourierService/GetAllDeliveryCharges",
+
+      httpOptions
+    );
+  }
   GetDeliveryChargesByPartyLocation(id: number): Observable<LOV[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
     return this.http.get<LOV[]>(
-      this.base_url + "api/courierService/GetDeliveryChargesByPartyLocationId?id=" + id,
+      this.base_url +
+        "api/courierService/GetDeliveryChargesByPartyLocationId?id=" +
+        id,
 
       httpOptions
     );
   }
-  DeleteDeliveryCharges(id:number):Observable<Object>{
+  DeleteDeliveryCharges(id: number): Observable<Object> {
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteDeliveryCharges?id="+id+'&AlteredById='+AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteDeliveryCharges?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -262,7 +292,7 @@ export class SharedService {
     );
   }
 
-  GetCourierSettings():Observable<CourierSetting[]>{
+  GetCourierSettings(): Observable<CourierSetting[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -272,7 +302,7 @@ export class SharedService {
       httpOptions
     );
   }
- AddCourierSettings(obj:CourierSetting):Observable<Object>{
+  AddCourierSettings(obj: CourierSetting): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -284,14 +314,18 @@ export class SharedService {
       httpOptions
     );
   }
-  DeleteCourierSettings(id:number):Observable<Object>{
+  DeleteCourierSettings(id: number): Observable<Object> {
     var AlteredById = localStorage.getItem("USERID");
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
     return this.http.get(
-      this.base_url + "api/CourierService/DeleteCourierSettings?id="+id+'&AlteredById='+AlteredById,
+      this.base_url +
+        "api/CourierService/DeleteCourierSettings?id=" +
+        id +
+        "&AlteredById=" +
+        AlteredById,
       httpOptions
     );
   }
@@ -300,7 +334,7 @@ export class SharedService {
   listen(): Observable<any> {
     return this._listeners.asObservable();
   }
-  filter(filterBy: string){
+  filter(filterBy: string) {
     this._listeners.next(filterBy);
   }
 }
