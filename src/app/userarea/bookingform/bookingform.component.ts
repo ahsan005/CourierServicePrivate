@@ -8,6 +8,7 @@ import { OrderBookingForm } from "./../../models/order-booking-form";
 import { SharedService } from "./../../services/shared.service";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
+import { CourierSetting } from "../../models/courier-settings";
 
 @Component({
   selector: "ngx-bookingform",
@@ -48,7 +49,23 @@ export class BookingformComponent implements OnInit {
     { id: "20", name: "19" },
     { id: "21", name: "20" },
   ];
+  courierSetting = new CourierSetting();
   initialize() {
+    this.sharedService.GetCourierSettings().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.courierSetting = response.Data[0];
+        // console.log(this.citiesLOV);
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
     this.sharedService.GetAllCities().subscribe((result) => {
       var response = JSON.parse(JSON.stringify(result));
       console.log(response);
@@ -181,7 +198,8 @@ export class BookingformComponent implements OnInit {
     }
     console.warn(this.deliveryChargesDetailObj);
   }
-  calculatedDeliveryCharges: Number = 0;
+  calculatedDeliveryCharges: number = 0;
+  GST: number = 0;
   CalculateDeliveryCharges(selected) {
     debugger;
     if (this.originCity != null && this.destinationCity != null) {
@@ -194,6 +212,12 @@ export class BookingformComponent implements OnInit {
           this.calculatedDeliveryCharges =
             this.deliveryChargesDetailObj.FirstKGPrice;
         }
+      }
+      if (this.courierSetting.GSTPercentage > 0) {
+        this.GST = Math.round(
+          (this.calculatedDeliveryCharges * this.courierSetting.GSTPercentage) /
+            100
+        );
       }
       this.bookingForm.patchValue({
         deliveryFee: this.calculatedDeliveryCharges,

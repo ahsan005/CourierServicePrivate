@@ -416,7 +416,8 @@
                         calculatedDeliveryCharges != 0
                       "
                     >
-                      Rs.{{ calculatedDeliveryCharges | mask: "000000.00" }}
+                      Rs.{{ calculatedDeliveryCharges | mask: "000000.00" }} +
+                      GST {{ this.GST }}
                     </span>
                     <nb-select
                       placeholder="Select Weight"

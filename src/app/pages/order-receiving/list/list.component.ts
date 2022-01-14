@@ -1,4 +1,5 @@
-import { EditForOrderReceivingComponent } from './../edit-for-order-receiving/edit-for-order-receiving.component';
+import { CourierSetting } from "./../../../models/courier-settings";
+import { EditForOrderReceivingComponent } from "./../edit-for-order-receiving/edit-for-order-receiving.component";
 import { Calculation } from "./../../../models/Calculation";
 import { OrderBookingForm } from "./../../../models/order-booking-form";
 import { NotificationService } from "./../../../services/notification.service";
@@ -22,6 +23,7 @@ export class ListComponent implements OnInit {
   endDateErrorCorrected: Date;
   startDateErrorCorrected: Date;
   endDate: Date;
+  courierSetting = new CourierSetting();
   CalculatedValues = new Calculation();
   unFiteredOrders;
   curatedEndDate;
@@ -72,23 +74,36 @@ export class ListComponent implements OnInit {
     var TotalCODAmount = 0;
     var TotalDeliveryFee = 0;
     var TotalPayable = 0;
+    var TotalGST = 0;
     var TotalOrders = 0;
     if (this.selectedArray.length < 1) {
       this.BookedOrderList.forEach((element) => {
         TotalCODAmount = TotalCODAmount + element.CODAmount;
         TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
-        TotalPayable = TotalCODAmount - TotalDeliveryFee;
       });
+      if (this.courierSetting.GSTPercentage > 0) {
+        TotalGST = Math.round(
+          (TotalDeliveryFee * this.courierSetting.GSTPercentage) / 100
+        );
+      }
+
+      TotalPayable = Math.round(TotalCODAmount - TotalDeliveryFee + TotalGST);
       TotalOrders = this.BookedOrderList.length;
     } else {
       this.selectedArray.forEach((element) => {
         TotalCODAmount = TotalCODAmount + element.CODAmount;
         TotalDeliveryFee = TotalDeliveryFee + element.DeliveryFee;
-        TotalPayable = TotalCODAmount - TotalDeliveryFee;
       });
+      if (this.courierSetting.GSTPercentage > 0) {
+        TotalGST = Math.round(
+          (TotalDeliveryFee * this.courierSetting.GSTPercentage) / 100
+        );
+      }
+      TotalPayable = Math.round(TotalCODAmount - TotalDeliveryFee + TotalGST);
       TotalOrders = this.selectedArray.length;
     }
     this.CalculatedValues.TotalCODAmount = TotalCODAmount;
+    this.CalculatedValues.TotalGST = TotalGST;
     this.CalculatedValues.TotalDeliveryFee = TotalDeliveryFee;
     this.CalculatedValues.TotalPayable = TotalPayable;
     this.CalculatedValues.TotalOrders = TotalOrders;
@@ -269,6 +284,21 @@ export class ListComponent implements OnInit {
       if (response.Status) {
         this.citiesLOV = response.Data;
         console.log(this.citiesLOV);
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+        console.warn(response.Message);
+      }
+    });
+    this.sharedService.GetCourierSettings().subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.courierSetting = response.Data[0];
+        // console.log(this.citiesLOV);
       } else {
         this.notificationService.showToast(
           "danger",

@@ -70,7 +70,7 @@
                 hero
                 (click)="AcceptReceivingBtn()"
               >
-                Accept Receiving!
+                Confirm Receiving!
               </button>
             </td>
           </tr>
@@ -83,19 +83,20 @@
           <tr>
             <td><strong>Total COD Amount</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              Rs.{{ CalculatedValues.TotalCODAmount | mask: "0*.00" }}
+              Rs.{{ CalculatedValues.TotalCODAmount | mask: "0000000" }}
             </td>
           </tr>
           <tr>
             <td><strong>Total Delivery Fee</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              Rs.{{ CalculatedValues.TotalDeliveryFee | mask: "0*.00" }}
+              Rs.{{ CalculatedValues.TotalDeliveryFee | mask: "0000000" }}
+              <strong>+</strong> GST Rs.{{ CalculatedValues.TotalGST }}
             </td>
           </tr>
           <tr>
             <td><strong>Total Payable</strong></td>
             <td *ngIf="BookedOrderList.length > -1">
-              Rs.{{ CalculatedValues.TotalPayable | mask: "0*.00" }}
+              Rs.{{ CalculatedValues.TotalPayable | mask: "0000000" }}
             </td>
           </tr>
         </table>
@@ -195,17 +196,17 @@
             </td>
 
             <td class="py-2">
-              <a (click)="deleteBtn(item.OrderBookingId)"
+              <!-- <a (click)="deleteBtn(item.OrderBookingId)"
                 ><nb-icon icon="close"></nb-icon
-              ></a>
+              ></a> -->
               <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
 
               <!-- <a (click)="UpdateStatusActionBtn(item)"
                   ><nb-icon icon="clipboard-outline"></nb-icon
                 ></a> -->
-              <a (click)="viewRequestBtn(item)"
+              <!-- <a (click)="viewRequestBtn(item)"
                 ><nb-icon icon="eye-outline"></nb-icon
-              ></a>
+              ></a> -->
             </td>
           </tr>
         </table>

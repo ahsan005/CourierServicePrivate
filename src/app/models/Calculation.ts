@@ -7,4 +7,5 @@ export class Calculation {
   public TotalDeliveryFee: number;
   public TotalPayable: number;
   public TotalOrders: number;
+  public TotalGST:number
 }
