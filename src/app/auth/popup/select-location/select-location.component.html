@@ -1,0 +1,60 @@
+<form #LocationForm (ngSubmit)="SelectLocation()">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Connection</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="DismissModal()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="">Select Location</label>
+          <select
+            class="form-control"
+            name="my-select"
+            (ngModelChange)="logSelected()"
+            [(ngModel)]="selectedLocationID"
+            required
+          >
+            <option value="-1">Select Location</option>
+            <option [value]="item.Value" *ngFor="let item of LocationList">
+              {{ item.Text }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <span>
+      <button
+        nbButton
+        hero
+        class="mr-2"
+        status="success"
+        [nbSpinner]="spinner"
+        nbSpinnerStatus="primary"
+        (click)="SelectLocation()"
+      >
+        Confirm Connection!
+      </button>
+
+      <button
+        nbButton
+        hero
+        status="danger"
+        [nbSpinner]="spinner"
+        nbSpinnerStatus="primary"
+        (click)="DismissModal()"
+      >
+        Cancel
+      </button>
+    </span>
+  </div>
+</form>

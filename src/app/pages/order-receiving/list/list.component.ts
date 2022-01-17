@@ -1,3 +1,5 @@
+import { VoucherDetail } from "./../../../models/VoucherDetail";
+import { Voucher } from "./../../../models/Voucher";
 import { CourierSetting } from "./../../../models/courier-settings";
 import { EditForOrderReceivingComponent } from "./../edit-for-order-receiving/edit-for-order-receiving.component";
 import { Calculation } from "./../../../models/Calculation";
@@ -109,7 +111,47 @@ export class ListComponent implements OnInit {
     this.CalculatedValues.TotalOrders = TotalOrders;
     console.log(this.CalculatedValues);
   }
+  VoucherArray = new Array<Voucher>();
+  VoucherDetailArray = new Array<VoucherDetail>();
+  ConfirmReceivingBtn() {
+    if (confirm("Are you sure you want to confirm receiving ?")) {
+      this.BookedOrderList.forEach((element) => {
+        var voucherObj = new Voucher();
+        voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+        voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
+        voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
+        voucherObj.TotalCredit = voucherObj.NetAmount;
+        voucherObj.TotalDebit = voucherObj.TotalCredit
+        voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
+        voucherObj.VoucherTypeProfileId
 
+        if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
+          voucherObj.TaxAmount =
+            (element.DeliveryFee * voucherObj.TaxPercent) / 100;
+        }
+        voucherObj.Narration =
+          "Cash Amount Rs." +
+          voucherObj.NetAmount +
+          "paid to " +
+          element.PartyName +
+          " " +
+          element.PartyLocationName;
+
+        this.VoucherArray.push(voucherObj);
+        var voucherDetailObj = new VoucherDetail();
+        voucherDetailObj.VoucherMode = 'D'
+        voucherDetailObj.CreditAmount = 0;
+        voucherDetailObj.DebitAmount = voucherObj.NetAmount;
+        voucherDetailObj.PartyId = element.PartyId;
+        voucherDetailObj.ProductId = element.OrderBookingId;
+        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+        // voucherDetailObj.
+        this.VoucherDetailArray.push(voucherDetailObj);
+      });
+      console.warn(this.VoucherArray);
+      console.warn(this.VoucherDetailArray);
+    }
+  }
   AddDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
@@ -177,9 +219,7 @@ export class ListComponent implements OnInit {
     );
   }
   onSubmit() {}
-  AcceptReceivingBtn() {
-    confirm("Are you sure you want to confirm receiving ?");
-  }
+
   // Check Uncheck
 
   // Function to add Rows to selected Array

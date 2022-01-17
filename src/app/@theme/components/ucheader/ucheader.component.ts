@@ -58,6 +58,7 @@ export class UcheaderComponent implements OnInit {
     if (this.isLoggedIn) {
       this.userName = localStorage.getItem("USERNAME");
       this.checkRole = this.authService.getRole();
+      debugger;
     }
 
     console.log(this.isLoggedIn);
@@ -131,7 +132,10 @@ export class UcheaderComponent implements OnInit {
   }
   logout() {
     localStorage.clear();
+    if(this.router.url !="/home")
     this.router.navigate(["/home"]);
+    else
+    this.ngOnInit();
   }
 
 

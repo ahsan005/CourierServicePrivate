@@ -1,3 +1,4 @@
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NotificationService } from "./../../services/notification.service";
 import { User } from "./../../models/user";
 
@@ -7,6 +8,8 @@ import { Component, OnInit } from "@angular/core";
 import { NbAuthResult } from "@nebular/auth";
 import { FormsModule } from "@angular/forms";
 import { UpperCasePipe } from "@angular/common";
+import { SelectLocationComponent } from "../popup/select-location/select-location.component";
+import { LOV } from "../../models/citiesLOV";
 
 @Component({
   selector: "ngx-login",
@@ -17,58 +20,36 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private service: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private modalService: NgbModal
   ) {}
+  locationSelected;
+  onLoginSpinner: boolean = false;
+  LocationList = new Array<LOV>();
   private loginUser: User = new User();
   ngOnInit(): void {}
   onSubmit(loginForm: any): void {
+    this.onLoginSpinner = true;
     console.log(loginForm);
     this.loginUser = new User(loginForm.value);
     console.log(this.loginUser);
     this.service.Login(this.loginUser).subscribe(
       (data) => {
         // json data
-
         //  = JSON.stringify(data)
-        var response = JSON.parse(JSON.stringify(data));
+        this.response = JSON.parse(JSON.stringify(data));
         //  console.log(response.Status,response.Message)
         console.log("Success: ", data);
-        if (response.Status) {
-          this.notificationService.showToast('success',response.Message,'','top-right');
-          localStorage.setItem("ISLOGGEDIN", response.Status);
-          localStorage.setItem("LOGINNAME", response.Data.LoginName);
-          localStorage.setItem("USERID", response.Data.UserId);
-          localStorage.setItem("USERNAME", response.Data.UserName);
-          localStorage.setItem("ROLEID", response.Data.RoleId);
-          localStorage.setItem("ROLENAME", response.roleName);
-          localStorage.setItem("PARTYLOCATIONID", response.Data.PartyLocationId);
-          localStorage.setItem("ORGANIZATIONID", response.organizationId);
-
-          console.log(response.Data);
-
-          if (
-            localStorage.getItem("ROLENAME") == "Hospital Party" &&
-            localStorage.getItem("ROLEID") == "4602"
-          ) {
-            console.log("isParty");
-            setTimeout(() => {
-              this.router.navigate(["/user"]);;
-          }, 300);  //5s
-
-          } else if (
-            localStorage.getItem("ROLENAME") == "Admin" &&
-            localStorage.getItem("ROLEID") == "4601"
-          ) {
-            console.log("isAdmin");
-            setTimeout(() => {
-              this.router.navigate(["/admin"]);;
-          }, 300);  //5s
-
-          }
-          // this.router.navigate(["/user"]);
-        }
-        else {
-          this.notificationService.showToast('danger',response.Message,'','top-right');
+        if (this.response.Status) {
+          this.LocationList = this.response.locationLst;
+          this.SelectLocationModal(this.response);
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            this.response.Message,
+            "",
+            "top-right"
+          );
         }
       }
       // (error) => {
@@ -83,5 +64,48 @@ export class LoginComponent implements OnInit {
     //   }, 200);
     // }
     // this.cd.detectChanges();
+  }
+  response;
+  SelectLocationModal(response?) {
+    const ref = this.modalService.open(SelectLocationComponent, {
+      size: "md",
+      backdrop: "static",
+    });
+    // this.orderBooking = item;
+    console.log(this.LocationList);
+    ref.componentInstance.LocationList = this.LocationList;
+    ref.componentInstance.response = response;
+    ref.result.then((result) => {
+      if (result) {
+        this.onLoginSpinner = false;
+        this.locationSelected = localStorage.getItem("LOCATIONID");
+        // if (this.locationSelected != null) {
+        //   this.SetLoginCredentials(response);
+        // }
+        if (
+          localStorage.getItem("ROLENAME") == "Hospital Party" &&
+          localStorage.getItem("ROLEID") == "4602"
+        ) {
+          console.log("isParty");
+          // setTimeout(() => {
+          //   this.router.navigate(["/user"]);
+          // }, 300); //5s
+          this.router.navigate(["/user"]);
+        } else if (
+          localStorage.getItem("ROLENAME") == "Admin" &&
+          localStorage.getItem("ROLEID") == "4601"
+        ) {
+          console.log("isAdmin");
+          // setTimeout(() => {
+          //   this.router.navigate(["/admin"]);
+          // }, 300); //5s
+          this.router.navigate(["/admin"]);
+        }
+      } else {
+        this.onLoginSpinner = false;
+      }
+    });
+
+    // ref.componentInstance.citiesLOV = this.citiesLOV;
   }
 }

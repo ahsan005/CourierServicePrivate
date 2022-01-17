@@ -23,7 +23,7 @@ export class VoucherDetail {
   public DiscountAmount: number;
   public DebitAmount: number;
   public CreditAmount: number;
-  public VoucherMode: number;
+  public VoucherMode: string;
   public IsAutoRow: number;
   public LineDescription: string;
   public CreatedById: number;

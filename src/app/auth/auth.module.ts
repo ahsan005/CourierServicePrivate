@@ -1,6 +1,6 @@
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { NbAuthModule } from '@nebular/auth';
-import { NbAlertModule, NbInputModule, NbButtonModule, NbCheckboxComponent, NbCheckboxModule } from '@nebular/theme';
+import { NbAlertModule, NbInputModule, NbButtonModule, NbCheckboxComponent, NbCheckboxModule, NbSpinnerModule } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 
 import { NgModule } from '@angular/core';
@@ -10,13 +10,15 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { SelectLocationComponent } from './popup/select-location/select-location.component';
 
 
 @NgModule({
   declarations: [
 
     RegisterComponent,
-     LoginComponent
+     LoginComponent,
+     SelectLocationComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { LoginComponent } from './login/login.component';
     NbInputModule,
     NbButtonModule,
     NbCheckboxModule,
-    NbAuthModule
+    NbAuthModule,
+    NbSpinnerModule
   ]
 })
 export class AuthModule { }
