@@ -1,3 +1,5 @@
+import { VoucherDetail } from "./../models/VoucherDetail";
+import { Voucher } from "./../models/Voucher";
 import { FinanacialAccount } from "./../models/FinancialAccount";
 import { OrderTracking } from "./../models/ordertracking";
 import { Observable, Subject, throwError } from "rxjs";
@@ -15,6 +17,7 @@ import { Location } from "../models/location";
 import { CustomerInfo } from "../models/CustomerInfo";
 import { LOV } from "../models/citiesLOV";
 import { AccountSubType } from "../models/AccountSubType";
+import { VoucherPostObj } from "../models/VoucherPostObj";
 @Injectable({
   providedIn: "root",
 })
@@ -330,6 +333,20 @@ export class UserService {
   }
   // Add Organization
 
+  // Confirm Order Receiving Post Vouchers Method
+  PostVouchers(VoucherPostObj) {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(VoucherPostObj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/SaveVouchersArray",
+      body,
+      httpOptions
+    );
+  }
+  // Confirm Order Receiving Post Vouchers Method
   // Add Financial Account
   AddFinancialAccount(obj: FinanacialAccount): Observable<Object> {
     const httpOptions = {

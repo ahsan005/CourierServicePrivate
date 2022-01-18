@@ -1,3 +1,4 @@
+import { VoucherPostObj } from "./../../../models/VoucherPostObj";
 import { VoucherDetail } from "./../../../models/VoucherDetail";
 import { Voucher } from "./../../../models/Voucher";
 import { CourierSetting } from "./../../../models/courier-settings";
@@ -113,17 +114,47 @@ export class ListComponent implements OnInit {
   }
   VoucherArray = new Array<Voucher>();
   VoucherDetailArray = new Array<VoucherDetail>();
+  voucherPostObj = new VoucherPostObj();
   ConfirmReceivingBtn() {
     if (confirm("Are you sure you want to confirm receiving ?")) {
+      this.VoucherArray.length = 0;
+      this.VoucherDetailArray.length = 0;
       this.BookedOrderList.forEach((element) => {
+        // Inward Voucher (Voucher#1)
         var voucherObj = new Voucher();
         voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
         voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
         voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
         voucherObj.TotalCredit = voucherObj.NetAmount;
-        voucherObj.TotalDebit = voucherObj.TotalCredit
+        voucherObj.TotalDebit = voucherObj.TotalCredit;
         voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
-        voucherObj.VoucherTypeProfileId
+        voucherObj.VoucherTypeProfileId;
+
+        if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
+          voucherObj.TaxAmount =
+            (element.DeliveryFee * voucherObj.TaxPercent) / 100;
+        }
+        voucherObj.Narration =
+          "Cash Amount Rs." +
+          voucherObj.NetAmount +
+          "paid to " +
+          element.PartyName +
+          " " +
+          element.PartyLocationName;
+        this.VoucherArray.push(voucherObj);
+
+        // Inward Voucher (Voucher#1)
+
+        //Cash Receipt Voucher (Voucher#2)
+
+        var voucherObj = new Voucher();
+        voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+        voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
+        voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
+        voucherObj.TotalCredit = voucherObj.NetAmount;
+        voucherObj.TotalDebit = voucherObj.TotalCredit;
+        voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
+        voucherObj.VoucherTypeProfileId;
 
         if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
           voucherObj.TaxAmount =
@@ -138,18 +169,90 @@ export class ListComponent implements OnInit {
           element.PartyLocationName;
 
         this.VoucherArray.push(voucherObj);
+        //Cash Receipt Voucher (Voucher#2)
+
+        // Inward Voucher Voucher Detail COR Payable (Voucher#1)
+
         var voucherDetailObj = new VoucherDetail();
-        voucherDetailObj.VoucherMode = 'D'
+        voucherDetailObj.VoucherMode = "D";
         voucherDetailObj.CreditAmount = 0;
         voucherDetailObj.DebitAmount = voucherObj.NetAmount;
         voucherDetailObj.PartyId = element.PartyId;
         voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.PartyLocationId = element.PartyLocationId;
-        // voucherDetailObj.
+        // push To Array
         this.VoucherDetailArray.push(voucherDetailObj);
+
+        // Inward Voucher Voucher Detail COR Payable (Voucher#1)
+
+        // Inward Voucher Voucher Detail COR Expense (Voucher#1)
+
+        var voucherDetailObj = new VoucherDetail();
+        voucherDetailObj.VoucherMode = "C";
+        voucherDetailObj.CreditAmount = voucherObj.NetAmount;
+        voucherDetailObj.DebitAmount = 0;
+        voucherDetailObj.PartyId = element.PartyId;
+        voucherDetailObj.ProductId = element.OrderBookingId;
+        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+
+        this.VoucherDetailArray.push(voucherDetailObj);
+
+        // Inward Voucher Voucher Detail COR Expense (Voucher#1)
+
+        // Cash Receipt Voucher Voucher Detail COR Payable (Voucher#2)
+
+        var voucherDetailObj = new VoucherDetail();
+        voucherDetailObj.VoucherMode = "C";
+        voucherDetailObj.CreditAmount = voucherObj.NetAmount;
+        voucherDetailObj.DebitAmount = 0;
+        voucherDetailObj.PartyId = element.PartyId;
+        voucherDetailObj.ProductId = element.OrderBookingId;
+        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+        // push To Array
+        this.VoucherDetailArray.push(voucherDetailObj);
+
+        // Cash Receipt Voucher Voucher Detail COR Payable (Voucher#2)
+
+        // Cash Receipt Voucher Voucher Detail Party Cash (Voucher#2)
+
+        var voucherDetailObj = new VoucherDetail();
+        voucherDetailObj.VoucherMode = "D";
+        voucherDetailObj.CreditAmount = 0;
+        voucherDetailObj.DebitAmount = voucherObj.NetAmount;
+        voucherDetailObj.PartyId = element.PartyId;
+        voucherDetailObj.ProductId = element.OrderBookingId;
+        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+
+        this.VoucherDetailArray.push(voucherDetailObj);
+
+        // Cash Receipt Voucher Voucher Detail Party Cash (Voucher#2)
       });
       console.warn(this.VoucherArray);
       console.warn(this.VoucherDetailArray);
+
+      this.voucherPostObj.VoucherArray = this.VoucherArray;
+      this.voucherPostObj.VoucherDetailArray = this.VoucherDetailArray;
+
+      this.userService.PostVouchers(this.voucherPostObj).subscribe((data) => {
+        var response = JSON.parse(JSON.stringify(data));
+        if (response.Status) {
+          this.notificationService.showToast(
+            "success",
+            response.Message,
+            "",
+            "top-right"
+          );
+          console.warn(response.Message);
+        } else {
+          this.notificationService.showToast(
+            "danger",
+            response.Message,
+            "",
+            "top-right"
+          );
+          console.warn(response.Message);
+        }
+      });
     }
   }
   AddDays(date, days) {
