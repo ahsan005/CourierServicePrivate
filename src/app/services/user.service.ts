@@ -334,11 +334,11 @@ export class UserService {
   // Add Organization
 
   // Confirm Order Receiving Post Vouchers Method
-  PostVouchers(VoucherPostObj) {
+  PostVouchers(VoucherArray) {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
-    const body = JSON.stringify(VoucherPostObj);
+    const body = JSON.stringify(VoucherArray);
     console.log(body);
     return this.http.post(
       this.base_url + "api/courierService/SaveVouchersArray",
