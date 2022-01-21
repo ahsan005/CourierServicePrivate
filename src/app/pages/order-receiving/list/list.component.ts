@@ -125,6 +125,11 @@ export class ListComponent implements OnInit {
         voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
         voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
         // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
+        voucherObj.ShiftId = null;
+        voucherObj.ShiftRecordId = null;
+        voucherObj.CancelRemarks = null;
+        voucherObj.DiscountAmount = null;
+
         var TotalPayable = element.CODAmount - element.DeliveryFee;
         voucherObj.TotalCredit = TotalPayable;
         voucherObj.VoucherTypeProfileId = 106;
@@ -155,7 +160,18 @@ export class ListComponent implements OnInit {
         voucherDetailObj.PartyId = element.PartyId;
         voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.PartyLocationId = element.PartyLocationId;
-        // push To Array
+
+        voucherDetailObj.VoucherDetailLineId = null;
+        voucherDetailObj.AccountMappingControlId = null;
+        voucherDetailObj.ServiceId = null;
+        voucherDetailObj.EmployeeId = null;
+        voucherDetailObj.ProjectId = null;
+        voucherDetailObj.ServiceId = null;
+        voucherDetailObj.EntryMode = null;
+        voucherDetailObj.TaxId = null;
+        voucherDetailObj.DiscountAmount = null;
+
+        // Add To VOucher Obj
         voucherObj.VoucherDetail1 = voucherDetailObj;
 
         // Inward Voucher Voucher Detail COR Payable (Voucher#1)
@@ -295,6 +311,7 @@ export class ListComponent implements OnInit {
       });
       console.warn(this.VoucherArray);
       console.warn(this.VoucherDetailArray);
+
 
       // this.voucherPostObj.VoucherArray = this.VoucherArray;
       // this.voucherPostObj.VoucherDetailArray = this.VoucherDetailArray;

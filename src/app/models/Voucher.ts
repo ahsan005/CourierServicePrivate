@@ -10,7 +10,7 @@ export class Voucher {
   public FiscalYearId: number;
   public BranchId;
   public ShiftId: number;
-  public ShiftRecordsId: number;
+  public ShiftRecordId: number;
   public ControlTypeProfileId: number;
   public VoucherTypeProfileId: number;
   public PayModeProfileId: number;
