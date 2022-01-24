@@ -156,9 +156,11 @@ export class ListComponent implements OnInit {
         voucherDetailObj.VoucherMode = "D";
         voucherDetailObj.AccountId = 460001;
         voucherDetailObj.CreditAmount = 0;
+        voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.DebitAmount = TotalPayable;
         voucherDetailObj.PartyId = element.PartyId;
-        voucherDetailObj.ProductId = element.OrderBookingId;
+        // voucherDetailObj.ProductId = element.OrderBookingId;
+        // voucherDetailObj.ProductId = 46000001;
         voucherDetailObj.PartyLocationId = element.PartyLocationId;
 
         voucherDetailObj.VoucherDetailLineId = null;
@@ -170,7 +172,13 @@ export class ListComponent implements OnInit {
         voucherDetailObj.EntryMode = null;
         voucherDetailObj.TaxId = null;
         voucherDetailObj.DiscountAmount = null;
-
+        voucherDetailObj.LineDescription =
+          "Cash Amount Paid to " +
+          element.PartyName +
+          " For The booked Parcels Rs." +
+          TotalPayable +
+          "paid to " +
+          element.PartyLocationName;
         // Add To VOucher Obj
         voucherObj.VoucherDetail1 = voucherDetailObj;
 
@@ -182,11 +190,18 @@ export class ListComponent implements OnInit {
         voucherDetailObj.VoucherMode = "C";
         voucherDetailObj.CreditAmount = TotalPayable;
         voucherDetailObj.AccountId = 460002;
+        // voucherDetailObj.ProductId = 46000001;
         voucherDetailObj.DebitAmount = 0;
         voucherDetailObj.PartyId = element.PartyId;
-        voucherDetailObj.ProductId = element.OrderBookingId;
+        // voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.PartyLocationId = element.PartyLocationId;
-
+        voucherDetailObj.LineDescription =
+          "Cash Amount Paid to " +
+          element.PartyName +
+          " For The booked Parcels Rs." +
+          TotalPayable +
+          "paid to " +
+          element.PartyLocationName;
         voucherObj.VoucherDetail2 = voucherDetailObj;
 
         // Inward Voucher Voucher Detail COR Expense (Voucher#1)
@@ -225,11 +240,21 @@ export class ListComponent implements OnInit {
         var voucherDetailObj = new VoucherDetail();
         voucherDetailObj.VoucherMode = "C";
         voucherDetailObj.AccountId = 460001;
+        voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.CreditAmount = TotalPayable;
         voucherDetailObj.DebitAmount = 0;
+        // voucherDetailObj.ProductId = 46000001;
+
         voucherDetailObj.PartyId = element.PartyId;
-        voucherDetailObj.ProductId = element.OrderBookingId;
+        // voucherDetailObj.ProductId = element.OrderBookingId;
         voucherDetailObj.PartyLocationId = element.PartyLocationId;
+        voucherDetailObj.LineDescription =
+          "Cash Amount Paid to " +
+          element.PartyName +
+          " For The booked Parcels Rs." +
+          TotalPayable +
+          "paid to " +
+          element.PartyLocationName;
         // push To Array
         voucherObj.VoucherDetail1 = voucherDetailObj;
 
@@ -243,9 +268,16 @@ export class ListComponent implements OnInit {
         voucherDetailObj.CreditAmount = 0;
         voucherDetailObj.DebitAmount = TotalPayable;
         voucherDetailObj.PartyId = element.PartyId;
-        voucherDetailObj.ProductId = element.OrderBookingId;
-        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+        // voucherDetailObj.ProductId = element.OrderBookingId;
 
+        voucherDetailObj.PartyLocationId = element.PartyLocationId;
+        voucherDetailObj.LineDescription =
+          "Cash Amount Paid to " +
+          element.PartyName +
+          " For The booked Parcels Rs." +
+          TotalPayable +
+          "paid to " +
+          element.PartyLocationName;
         voucherObj.VoucherDetail2 = voucherDetailObj;
 
         // Cash Receipt Voucher Voucher Detail Party Cash (Voucher#2)
@@ -311,7 +343,6 @@ export class ListComponent implements OnInit {
       });
       console.warn(this.VoucherArray);
       console.warn(this.VoucherDetailArray);
-
 
       // this.voucherPostObj.VoucherArray = this.VoucherArray;
       // this.voucherPostObj.VoucherDetailArray = this.VoucherDetailArray;
