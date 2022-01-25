@@ -1,3 +1,4 @@
+
 import { SettingComponent } from "./setting/setting.component";
 import { PricingComponent } from "./pricing/pricing.component";
 
@@ -15,6 +16,7 @@ import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component
 import { GeneralComponent } from "./setting/general/general.component";
 import { AppConfigurationComponent } from "./setting/app-configuration/app-configuration.component";
 import { FinanceComponent } from "./finance/finance.component";
+import { OrdersPaidForComponent } from "./finance/orders-paid-for/orders-paid-for.component";
 
 const routes: Routes = [
   {
@@ -37,6 +39,16 @@ const routes: Routes = [
       {
         path: "finance",
         component: FinanceComponent,
+        // children: [
+        //   {
+        //     path: "add",
+        //     component: AddAccountComponent,
+        //   },
+        // ],
+      },
+      {
+        path: "refund",
+        component: OrdersPaidForComponent,
         // children: [
         //   {
         //     path: "add",

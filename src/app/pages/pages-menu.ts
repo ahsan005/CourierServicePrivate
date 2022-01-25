@@ -91,7 +91,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: "Finance Management",
     icon: "people-outline",
-    link: "/admin/finance",
+    // link: "/admin/finance",
+    children: [
+      {
+        title: "Accounts Management",
+
+        link: "/admin/finance",
+      },
+      {
+        title: "Refund Orders",
+
+        link: "/admin/refund",
+      },
+    ]
     // children: [
     //   {
     //     title: 'Calendar',

@@ -29,6 +29,7 @@ export class OrderBookingForm {
   public ConsigneeAddress: string;
   public ConsigneeEmail: string;
   public DeliveryFee: number;
+  public VoucherId:number;
   // Consignee Info
 
   // ShipmentInfo

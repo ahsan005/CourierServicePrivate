@@ -1,0 +1,218 @@
+<nb-card status="primary">
+  <nb-card-header>Order-Refund</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-5 col-sm-5 col-xs-12 mb-2">
+        <div class="row">
+          <div class="col-md-6">
+            <nb-select
+              fullWidth
+              [(ngModel)]="UserId"
+              (ngModelChange)="RefreshBookedOrderList()"
+              placeholder="Select Party "
+            >
+              <nb-option [value]="item.UserId" *ngFor="let item of PartyList">
+                {{ item.BusinessName }}({{ item.UserName }})
+              </nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                nbInput
+                fullWidth
+                [(ngModel)]="searchVal"
+                name="search"
+                placeholder="Search"
+                (keyup)="SearchFunction()"
+                id="searchbox"
+              />
+            </div>
+          </div>
+          <h6>Date Range</h6>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">From</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Select Start Date"
+                [nbDatepicker]="datepicker"
+                [(ngModel)]="startDate"
+              />
+              <nb-datepicker format="yyyy-MM-dd" #datepicker></nb-datepicker>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">To</label>
+              <input
+                nbInput
+                fullWidth
+                placeholder="Select End Date"
+                [nbDatepicker]="enddatepicker"
+                [(ngModel)]="endDate"
+                (ngModelChange)="DateFilter()"
+              />
+              <nb-datepicker format="yyyy-MM-dd" #enddatepicker></nb-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 offset-1">
+        <table class="table table-bordered table-hover">
+          <tr class="text-center">
+            <td colspan="2">
+              <button
+                nbButton
+                status="success"
+                hero
+                (click)="ConfirmRefundBtn()"
+              >
+                Confirm Refund!
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Total Orders</strong></td>
+            <td *ngIf="BookedOrderList.length > -1">
+              {{ CalculatedValues.TotalOrders }}
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Total COD Amount</strong></td>
+            <td *ngIf="BookedOrderList.length > -1">
+              Rs.{{ CalculatedValues.TotalCODAmount | mask: "0000000" }}
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Total Delivery Fee</strong></td>
+            <td *ngIf="BookedOrderList.length > -1">
+              Rs.{{ CalculatedValues.TotalDeliveryFee | mask: "0000000" }}
+              <strong>+</strong> GST Rs.{{ CalculatedValues.TotalGST }}
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Total Payable</strong></td>
+            <td *ngIf="BookedOrderList.length > -1">
+              Rs.{{ CalculatedValues.TotalPayable | mask: "0000000" }}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <table
+          [nbSpinner]="loadingSpinner"
+          nbSpinnerStatus="danger"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+          #pdfTable
+          class="table table-sm mt-2 table-bordered table-hover table-responsive-sm"
+          id="ExampleTable"
+        >
+          <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">
+                <input
+                  type="checkbox"
+                  (change)="checkUncheckAll(); CalculateAggregates()"
+                  [(ngModel)]="masterSelector"
+                />
+              </th>
+
+              <th scope="col">Tracking#</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Shipment Details</th>
+              <th scope="col">Consignee Details</th>
+
+              <th scope="col">Payments</th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <!-- *ngFor="let item of list" -->
+          <tr *ngIf="BookedOrderList.length < 1">
+            <td class="text-center" colspan="10">
+              <Strong>No Entry Found!</Strong>
+            </td>
+          </tr>
+          <tr
+            class="text-center"
+            *ngFor="
+              let item of BookedOrderList
+                | paginate: { itemsPerPage: 10, currentPage: p };
+              let i = index
+            "
+            scope="row"
+          >
+            <td>
+              <input
+                type="checkbox"
+                [checked]="item.isSelected"
+                (change)="
+                  addToSelectedArray($event, item);
+                  isAllSelected();
+                  CalculateAggregates()
+                "
+              />
+            </td>
+
+            <td class="tiny-details-Black">
+              <strong>{{ item.OrderBookingId }}</strong>
+            </td>
+
+            <td class="tiny-details-Black">
+              <strong>{{ item.OrderBookingOn }}</strong>
+            </td>
+            <td class="tiny-details left-align">
+              <strong>Product Code:</strong> {{ item.ProductCode }} <br />
+              <strong>Description:</strong>
+              {{ item.ProductDescription }}
+              <br />
+
+              <strong>Quantity:</strong> {{ item.Quantity }} <br />
+              <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
+            </td>
+            <td class="tiny-details left-align">
+              <strong> Name:</strong> {{ item.ConsigneeName }}<br />
+              <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
+              <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
+              <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
+              <strong>City:</strong> {{ item.DestinationCityName }} <br />
+            </td>
+            <!-- <td class="tiny-details">
+              <strong>Name:</strong>{{ item.ShipperName }} <br />
+              <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
+              <strong>Email:</strong>{{ item.ShipperEmail }} <br />
+              <strong>Address:</strong>{{ item.ShipperAddress }}<br />
+              <strong>City:</strong>{{ item.OriginCityName }}<br />
+            </td> -->
+
+            <td class="tiny-details left-align">
+              <strong>COD:</strong>{{ item.CODAmount }} <br />
+              <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
+              <strong>VoucherId: </strong>{{item.VoucherId}}
+            </td>
+
+            <td class="py-2">
+              <!-- <a (click)="deleteBtn(item.OrderBookingId)"
+                ><nb-icon icon="close"></nb-icon
+              ></a> -->
+              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+
+              <!-- <a (click)="UpdateStatusActionBtn(item)"
+                  ><nb-icon icon="clipboard-outline"></nb-icon
+                ></a> -->
+              <!-- <a (click)="viewRequestBtn(item)"
+                ><nb-icon icon="eye-outline"></nb-icon
+              ></a> -->
+            </td>
+          </tr>
+        </table>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </nb-card-body>
+</nb-card>

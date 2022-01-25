@@ -44,6 +44,8 @@ import { FinanceComponent } from "./finance/finance.component";
 
 import { AddfinancialaccountComponent } from "./finance/popup/addfinancialaccount/addfinancialaccount.component";
 import { OrderReceivingModule } from "./order-receiving/order-receiving.module";
+import { OrdersPaidForComponent } from './finance/orders-paid-for/orders-paid-for.component';
+
 
 @NgModule({
   imports: [
@@ -86,6 +88,8 @@ import { OrderReceivingModule } from "./order-receiving/order-receiving.module";
     GeneralComponent,
     FinanceComponent,
     AddfinancialaccountComponent,
+    OrdersPaidForComponent,
+   
   ],
 })
 export class PagesModule {}
