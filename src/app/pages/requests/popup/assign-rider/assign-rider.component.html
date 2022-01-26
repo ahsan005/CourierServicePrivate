@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">
+    Assign Rider to Filtered Orders
+  </h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <select
+    [(ngModel)]="assignedCourier"
+    class="form-select"
+    placeholder="Assigned Courier"
+
+  >
+    <option value="" disabled selected>Select Rider</option>
+    <option [value]="item.Value" *ngFor="let item of courierLOV">
+      {{ item.Text }}
+    </option>
+  </select>
+</div>
+<div class="modal-footer">
+  <button nbButton status="success" hero (click)="AssignRider()">Save</button>
+  <button nbButton status="danger" hero (click)="this.modal.close()">
+    Cancel
+  </button>
+</div>

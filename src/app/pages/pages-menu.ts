@@ -47,6 +47,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/admin/requests/delivery-run",
       },
       {
+        title: "Rider Assignment",
+        link: "/admin/requests/rider-assign",
+      },
+      {
         title: "View Order Assignment",
         link: "/admin/requests/order-assignment",
       },

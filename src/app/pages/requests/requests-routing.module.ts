@@ -1,3 +1,4 @@
+import { RiderAssignmentComponent } from './rider-assignment/rider-assignment.component';
 import { ViewOrderAssignmentComponent } from "./view-order-assignment/view-order-assignment.component";
 
 import { ItemsReceivedOutstationsComponent } from "./items-received-outstations/items-received-outstations.component";
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: "delivery-run",
         component: DeliveryRunSheetComponent,
+      },
+      {
+        path: "rider-assign",
+        component: RiderAssignmentComponent,
       },
       {
         path: "dispatch-orders",

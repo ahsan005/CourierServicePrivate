@@ -218,6 +218,42 @@ export class UserService {
   }
   // Bulk ORders Post Method
 
+  GetOrdersByRiderAssigned(courierEmployeeId): Observable<OrderBookingForm[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    // const body = JSON.stringify(filters);
+
+    // console.log(body);
+    return this.http.get<OrderBookingForm[]>(
+      this.base_url +
+        "api/CourierService/GetOrdersByRiderAssigned?courierEmployeeId=" +
+        courierEmployeeId,
+      // body,
+      httpOptions
+    );
+  }
+  // Bulk Assign Rider
+  BulkAssignRider(array, riderToAssign) {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    var AlteredById = localStorage.getItem("USERID");
+
+    const body = JSON.stringify(array);
+    console.log(body);
+    return this.http.post(
+      this.base_url +
+        "api/courierService/BulkAssignRider?RiderId=" +
+        riderToAssign +
+        "&AlteredById=" +
+        AlteredById,
+      body,
+      httpOptions
+    );
+  }
+  // Bulk Assign Rider
+
   DeleteBookedOrder(item): Observable<Object> {
     let id = item;
     var AlteredById = localStorage.getItem("USERID");

@@ -18,7 +18,7 @@ export class OrderBookingForm {
   public ShipperAddress: string;
   // Shipper Info
 
-  public EmployeeId:number;
+  public EmployeeId: number;
   // Consignee Info
   public OrderBookingNo: number;
   public DestinationCityId: number;
@@ -29,26 +29,27 @@ export class OrderBookingForm {
   public ConsigneeAddress: string;
   public ConsigneeEmail: string;
   public DeliveryFee: number;
-  public VoucherId:number;
+  public VoucherId: number;
   // Consignee Info
 
   // ShipmentInfo
   public ProductCode: number;
   public ReceivedStatus: string;
-  public StatusProfileId:number;
-  public StatusName:string;
+  public StatusProfileId: number;
+  public StatusName: string;
   public Quantity: number;
   public WeightProfileId: number;
   public CODAmount: number;
   public ProductDescription: string;
   public SpecialInstruction: string;
+  public CourierEmployeeId: number;
   // ShipmentInfo
 
   // Party Info
-  public PartyId:number;
-  public PartyName:string;
-  public PartyLocationName:string;
-  public BusinessName:string;
+  public PartyId: number;
+  public PartyName: string;
+  public PartyLocationName: string;
+  public BusinessName: string;
   // Party Info
 
   // DB InforMatics
@@ -59,5 +60,5 @@ export class OrderBookingForm {
   public CreatedOn: Date;
   // DB InforMatics
 
-  public isSelected:boolean;
+  public isSelected: boolean;
 }

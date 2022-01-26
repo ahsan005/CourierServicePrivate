@@ -15,13 +15,14 @@ import { Observable, Subscription, throwError, timer } from "rxjs";
 import { UpdateRequestStatusComponent } from "../popup/update-request-status/update-request-status.component";
 import { CustomerInfo } from "../../../models/CustomerInfo";
 import { ViewrequestComponent } from "../popup/viewrequest/viewrequest.component";
+import { AssignRiderComponent } from "../popup/assign-rider/assign-rider.component";
 
 @Component({
-  selector: "ngx-booked-orders",
-  templateUrl: "./booked-orders.component.html",
-  styleUrls: ["./booked-orders.component.scss"],
+  selector: "ngx-rider-assignment",
+  templateUrl: "./rider-assignment.component.html",
+  styleUrls: ["./rider-assignment.component.scss"],
 })
-export class BookedOrdersComponent implements OnInit {
+export class RiderAssignmentComponent implements OnInit {
   loadingSpinner: boolean = false;
   public citiesLOV: Array<LOV>;
   public statusLOV: Array<LOV>;
@@ -36,10 +37,13 @@ export class BookedOrdersComponent implements OnInit {
   searchVal;
   requestFilters: Filters;
   CustomerList = new Array<CustomerInfo>();
-  updateOrderStatus;
+  assignRider;
   unfilteredOrders: Array<OrderBookingForm>;
   Orders = new Array<OrderBookingForm>();
 
+  unsubscribeSubscription() {
+    this.subscription.unsubscribe();
+  }
   constructor(
     private sharedService: SharedService,
     private userService: UserService,
@@ -160,14 +164,14 @@ export class BookedOrdersComponent implements OnInit {
   // NGX MultiSelect
   ArrayOfOrdersToUpdate = new Array();
   UpdateBulkOrderStatus() {
-    if (this.updateOrderStatus != null) {
-      let statusToUpdate = this.updateOrderStatus;
+    if (this.assignRider != null) {
+      let riderToAssign = this.assignRider;
       this.selectedArray.forEach((element) => {
         this.ArrayOfOrdersToUpdate.push(element.OrderBookingId);
       });
       if (this.ArrayOfOrdersToUpdate != null) {
         this.userService
-          .BulkUpdateOrderStatus(this.ArrayOfOrdersToUpdate, statusToUpdate)
+          .BulkAssignRider(this.ArrayOfOrdersToUpdate, riderToAssign)
           .subscribe((data) => {
             var response = JSON.parse(JSON.stringify(data));
             if (response.Status) {
@@ -193,7 +197,7 @@ export class BookedOrdersComponent implements OnInit {
   bookedOrderFilters;
   initialize() {
     this.bookedOrderFilters = this.fb.group({
-      originCityId: [""],
+      destinationCityId: [""],
       fromDate: [""],
       toDate: [""],
     });
@@ -362,6 +366,7 @@ export class BookedOrdersComponent implements OnInit {
     ) {
       let statusToFind = this.orderStatus;
       let allStatus = this.statusLOV;
+
       if (statusToFind != null)
         var statusObj = allStatus.find((x) => x.Value == statusToFind);
 
@@ -378,11 +383,35 @@ export class BookedOrdersComponent implements OnInit {
   }
   FilterByStatus(statusObj = null, assignedCourier = null, partyId = null) {
     debugger;
+    if (statusObj == null && assignedCourier == -1 && partyId == -1)
+      this.Orders = this.unfilteredOrders;
     this.Orders = this.unfilteredOrders.filter(
       (i) =>
         (statusObj == null || i.StatusName == statusObj.Text) &&
-        (assignedCourier == null || i.EmployeeId == assignedCourier) &&
-        (partyId == null || i.PartyId == partyId)
+        (assignedCourier == null ||
+          assignedCourier == -1 ||
+          i.EmployeeId == assignedCourier) &&
+        (partyId == null || partyId == -1 || i.PartyId == partyId)
+    );
+  }
+
+  AssignRiderDialogue() {
+    const ref = this.modalService.open(AssignRiderComponent, {
+      size: "sm",
+    });
+    // this.orderBooking = item;
+
+    // ref.componentInstance.orderBookingModel = this.orderBooking;
+    ref.componentInstance.courierLOV = this.courierLOV;
+    ref.componentInstance.AllOrders = this.Orders;
+
+    ref.result.then(
+      (yes) => {
+        console.log("ok Click");
+      },
+      (cancel) => {
+        console.log("cancel CLick");
+      }
     );
   }
 
@@ -391,9 +420,8 @@ export class BookedOrdersComponent implements OnInit {
       return <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn);
     });
   }
-  masterSelector: boolean;
   checkedList: any;
-
+  masterSelector: boolean;
   // checkuncheckAll Logic
   checkUncheckAll() {
     console.log("hello");

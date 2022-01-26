@@ -1,45 +1,149 @@
 <nb-card status="primary">
-  <nb-card-header>
-    Delivery Run Sheet
-  </nb-card-header>
+  <nb-card-header> Delivery Run Sheet </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <form action="">
-          <div class="col-md-4">
-
-            <div class="form-group">
-              <label for="">Select Destination</label>
-              <nb-select  placeholder="Select Pickup City">
-                <nb-option value="KRC">Karachi</nb-option>
-                <nb-option value="LHR">Lahore</nb-option>
-                <nb-option value="PSH">Peshawar</nb-option>
-                <nb-option value="QTA">Quetta</nb-option>
-              </nb-select>
-              <span><button type="submit" nbButton status="primary" >Filter</button></span>
-            </div>
-
-          </div>
-
-
-        </form>
-
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="">Orders Assigned to Riders</label>
+          <nb-select
+            [(ngModel)]="assignedRider"
+            (ngModelChange)="GetOrdersByAssignedRider()"
+            placeholder="Select Rider"
+          >
+            <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{
+              item.Text
+            }}</nb-option>
+          </nb-select>
+          <span
+            ><button type="submit" nbButton status="success">
+              Assign
+            </button></span
+          >
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="">Assign Delivery Rider Vendor Zone</label>
-              <nb-select  placeholder="Delivery Rider">
-                <nb-option value="KRC">Person 1</nb-option>
-                <nb-option value="LHR">Person 2</nb-option>
-                <nb-option value="PSH">Person 3</nb-option>
-                <nb-option value="QTA">Person 4</nb-option>
-              </nb-select>
-              <span><button type="submit" nbButton status="success" >Assign</button></span>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div id="tableSection" class="col-md-12">
+        <table
+          [nbSpinner]="loadingSpinner"
+          nbSpinnerStatus="danger"
+          nbSpinnerSize="large"
+          nbSpinnerMessage=""
+          #pdfTable
+          class="table table-sm mt-2 table-bordered"
+          id="ExampleTable"
+        >
+          <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">
+                <input
+                  type="checkbox"
+                  (change)="checkUncheckAll()"
+                  [(ngModel)]="masterSelector"
+                />
+              </th>
+
+              <th scope="col">ClientInfo</th>
+              <th scope="col">Tracking#</th>
+              <th scope="col">Order#</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Shipment Details</th>
+              <th scope="col">Consignee Details</th>
+              <th scope="col">Shipper Info</th>
+              <th scope="col">Payments</th>
+              <th scope="col">Status</th>
+
+            </tr>
+          </thead>
+          <!-- *ngFor="let item of list" -->
+          <tr *ngIf="assignedOrderList.length < 1">
+            <td class="text-center" colspan="10">
+              <Strong>No Entry Found!</Strong>
+            </td>
+          </tr>
+          <tr
+            class="text-center"
+            *ngFor="
+              let item of assignedOrderList
+                | paginate: { itemsPerPage: 10, currentPage: p };
+              let i = index
+            "
+            scope="row"
+          >
+            <td>
+              <input
+                type="checkbox"
+                [checked]="item.isSelected"
+                (change)="addToSelectedArray($event, item); isAllSelected()"
+              />
+            </td>
+
+            <td class="tiny-details">
+              <strong>Party Id:</strong> {{ item.PartyId }} <br />
+              <strong>Party Name:</strong> {{ item.PartyName }}
+              <br />
+              <strong>Business Name:</strong> {{ item.BusinessName }}
+              <br />
+            </td>
+            <td class="tiny-details-Black">
+              <strong>{{ item.OrderBookingId }}</strong>
+            </td>
+            <td class="tiny-details-Black">
+              <strong>{{ item.OrderBookingId }}</strong>
+            </td>
+            <td class="tiny-details-Black">
+              <strong>{{ item.OrderBookingOn }}</strong>
+            </td>
+            <td class="tiny-details">
+              <strong>Product Code:</strong> {{ item.ProductCode }} <br />
+              <strong>Product Description:</strong>
+              {{ item.ProductDescription }}
+              <br />
+
+              <strong>Quantity:</strong> {{ item.Quantity }} <br />
+              <strong>Weight:</strong> {{ item.WeightProfileId }}<br />
+              <strong>CODAmount:</strong> {{ item.CODAmount }}<br />
+              <strong>Delivery Fee:</strong> {{ item.DeliveryFee }}<br />
+            </td>
+            <td class="tiny-details">
+              <strong> Name:</strong> {{ item.ConsigneeName }}<br />
+              <strong> Mobile:</strong> {{ item.ConsigneeMobile }}<br />
+              <strong> Email:</strong> {{ item.ConsigneeEmail }}<br />
+              <strong> Address:</strong> {{ item.ConsigneeAddress }}<br />
+              <strong>City:</strong> {{ item.DestinationCityName }} <br />
+            </td>
+            <td class="tiny-details">
+              <strong>Name:</strong>{{ item.ShipperName }} <br />
+              <strong> Mobile:</strong>{{ item.ShipperMobile }}<br />
+              <strong>Email:</strong>{{ item.ShipperEmail }} <br />
+              <strong>Address:</strong>{{ item.ShipperAddress }}<br />
+              <strong>City:</strong>{{ item.OriginCityName }}<br />
+            </td>
+
+            <td class="tiny-details">
+              <strong>COD:</strong>{{ item.CODAmount }} <br />
+              <strong>Delivery Fee:</strong>{{ item.DeliveryFee }}
+            </td>
+            <td class="tiny-details">
+              <strong>{{ item.StatusName }}</strong>
+            </td>
+            <!-- <td class="py-2">
+              <a (click)="deleteBtn(item.OrderBookingId)"
+                ><nb-icon icon="close"></nb-icon
+              ></a>
+              <a (click)="editBtn(item)"><nb-icon icon="edit-2"></nb-icon></a>
+              <a (click)="trackingBtn(item.OrderBookingId)"
+                ><nb-icon icon="car-outline"></nb-icon
+              ></a>
+              <!-- <a (click)="UpdateStatusActionBtn(item)"
+                  ><nb-icon icon="clipboard-outline"></nb-icon
+                ></a> -->
+              <!-- <a (click)="viewRequestBtn(item)"
+                ><nb-icon icon="eye-outline"></nb-icon
+              ></a>
+            </td> --> 
+          </tr>
+        </table>
       </div>
     </div>
   </nb-card-body>

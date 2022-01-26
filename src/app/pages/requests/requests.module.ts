@@ -36,6 +36,8 @@ import {
   DataMatrixGeneratorAllModule,
 } from "@syncfusion/ej2-angular-barcode-generator";
 import { ViewrequestComponent } from "./popup/viewrequest/viewrequest.component";
+import { AssignRiderComponent } from './popup/assign-rider/assign-rider.component';
+import { RiderAssignmentComponent } from './rider-assignment/rider-assignment.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ViewrequestComponent } from "./popup/viewrequest/viewrequest.component"
     DispatchOrdersComponent,
     EditRequestComponent,
     UpdateRequestStatusComponent,
-    ViewrequestComponent
+    ViewrequestComponent,
+    AssignRiderComponent,
+    RiderAssignmentComponent
   ],
   imports: [
     CommonModule,
