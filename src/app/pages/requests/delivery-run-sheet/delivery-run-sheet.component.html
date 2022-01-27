@@ -4,22 +4,21 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label for="">Orders Assigned to Riders</label>
+          <label for="" class="label">Orders Assigned to Riders</label>
           <nb-select
             [(ngModel)]="assignedRider"
             (ngModelChange)="GetOrdersByAssignedRider()"
+            fullWidth
             placeholder="Select Rider"
           >
             <nb-option [value]="item.Value" *ngFor="let item of courierLOV">{{
               item.Text
             }}</nb-option>
           </nb-select>
-          <span
-            ><button type="submit" nbButton status="success">
-              Assign
-            </button></span
-          >
         </div>
+      </div>
+      <div class="col-md-4">
+        <button style="margin-top: 27.5px;" nbButton (click)="PrintDeliveryRunSheet()" status="success">Print Delivery Run Sheet</button>
       </div>
 
       <div id="tableSection" class="col-md-12">
@@ -52,7 +51,6 @@
               <th scope="col">Shipper Info</th>
               <th scope="col">Payments</th>
               <th scope="col">Status</th>
-
             </tr>
           </thead>
           <!-- *ngFor="let item of list" -->
@@ -135,16 +133,17 @@
               <a (click)="trackingBtn(item.OrderBookingId)"
                 ><nb-icon icon="car-outline"></nb-icon
               ></a>
-              <!-- <a (click)="UpdateStatusActionBtn(item)"
+               <a (click)="UpdateStatusActionBtn(item)"
                   ><nb-icon icon="clipboard-outline"></nb-icon
                 ></a> -->
-              <!-- <a (click)="viewRequestBtn(item)"
+            <!-- <a (click)="viewRequestBtn(item)"
                 ><nb-icon icon="eye-outline"></nb-icon
               ></a>
-            </td> --> 
+            </td> -->
           </tr>
         </table>
       </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </nb-card-body>
 </nb-card>

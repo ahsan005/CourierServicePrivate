@@ -1,3 +1,4 @@
+import { TableUtil } from './../../../utilities/tableutil';
 import { OrderBookingForm } from "./../../../models/order-booking-form";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
@@ -36,6 +37,11 @@ export class DeliveryRunSheetComponent implements OnInit {
   Initialize() {
     this.GetAllLOVs();
   }
+  PrintDeliveryRunSheet(){
+    if(this.assignedOrderList.length > 0)
+    TableUtil.generateDeliveryRunSheet(this.assignedOrderList)
+  }
+
   checkedList: any;
   selectedArray = new Array<OrderBookingForm>();
   // checkuncheckAll Logic
