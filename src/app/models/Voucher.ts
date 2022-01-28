@@ -1,4 +1,4 @@
-import { VoucherDetail } from './VoucherDetail';
+import { VoucherDetail } from "./VoucherDetail";
 export class Voucher {
   public constructor(init?: Partial<Voucher>) {
     Object.assign(this, init);
@@ -19,8 +19,9 @@ export class Voucher {
   public VoucherTo: Date;
   public Narration: string;
   public IsPosted: boolean;
-  public VoucherDetail1:VoucherDetail;
-  public VoucherDetail2:VoucherDetail;
+  public VoucherType: string;
+  public VoucherDetail1: VoucherDetail;
+  public VoucherDetail2: VoucherDetail;
   public IsCancel: boolean;
   public CancelRemarks: string;
   public NetAmount: number;
@@ -29,6 +30,7 @@ export class Voucher {
   public DiscountAmount: number;
   public OtherAmount: number;
   public TotalDebit: number;
+  public OrderBookingId:number;
   public TotalCredit: number;
   public PostedById: number;
   public PostedOn: Date;

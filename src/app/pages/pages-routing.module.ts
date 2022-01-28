@@ -1,7 +1,5 @@
-
 import { SettingComponent } from "./setting/setting.component";
 import { PricingComponent } from "./pricing/pricing.component";
-
 
 import { ActiveCustomersComponent } from "./active-customers/active-customers.component";
 import { PendingCustomersComponent } from "./pending-customers/pending-customers.component";
@@ -103,7 +101,6 @@ const routes: Routes = [
           import("./cities/cities.module").then((m) => m.CitiesModule),
       },
 
-
       {
         path: "miscellaneous",
         loadChildren: () =>
@@ -114,7 +111,9 @@ const routes: Routes = [
       {
         path: "receiving",
         loadChildren: () =>
-          import("./order-receiving/order-receiving.module").then((m) => m.OrderReceivingModule),
+          import("./order-receiving/order-receiving.module").then(
+            (m) => m.OrderReceivingModule
+          ),
       },
       {
         path: "",

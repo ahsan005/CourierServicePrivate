@@ -301,6 +301,7 @@ export class TableUtil {
           table: {
             headerRows: 1,
             widths: [25, 75, 50, 75, 110, 75, 50, 55],
+            heights:35,
             body: rows,
           },
         },
