@@ -457,7 +457,6 @@ export class ListComponent implements OnInit {
         // Payment Voucher Voucher Detail Party Cash (Voucher#2)
       });
       console.warn(this.VoucherArray);
-      console.warn(this.VoucherDetailArray);
 
       // this.voucherPostObj.VoucherArray = this.VoucherArray;
       // this.voucherPostObj.VoucherDetailArray = this.VoucherDetailArray;

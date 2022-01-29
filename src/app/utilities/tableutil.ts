@@ -8,6 +8,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import html2canvas from "html2canvas";
 import { Employee } from "../models/employee";
+import { LOV } from "../models/citiesLOV";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -125,18 +126,24 @@ export class TableUtil {
     pdfMake.createPdf(docDefinition).open();
   }
 
-  static generateDeliveryRunSheet(OrderBooking: OrderBookingForm[]) {
+  static generateDeliveryRunSheet(
+    OrderBooking: OrderBookingForm[],
+    riderLOV: LOV
+  ) {
     // const documentDefinition = { content: html };
     // debugger;
     //  let rows = this.SetRowsArray(OrderBooking);
     console.log(OrderBooking);
 
-    var docDefinition =
-      TableUtil.getDocumentDefinitionForDeliveryRunSheet(OrderBooking);
+    var docDefinition = TableUtil.getDocumentDefinitionForDeliveryRunSheet(
+      OrderBooking,
+      riderLOV
+    );
     pdfMake.createPdf(docDefinition).open();
   }
   static getDocumentDefinitionForDeliveryRunSheet(
-    orderBookings: OrderBookingForm[]
+    orderBookings: OrderBookingForm[],
+    riderLOV: LOV
   ) {
     this.toDataURL(
       "http://localhost:4200/assets/images/happ1_JPG.jpg",
@@ -148,7 +155,7 @@ export class TableUtil {
         }
       }
     );
-
+    var riderAssigned = riderLOV.Text;
     var dateString = new Date().toLocaleString("en-US", {
       timeZone: "Asia/Karachi",
     });
@@ -158,8 +165,8 @@ export class TableUtil {
     var rows = [];
     var serialNo = 1;
     rows.push([
-      { text: "Sr No.", style: "tableHeader" },
-      { text: "Tracking#", style: "tableHeader" },
+      { text: "#", style: "tableHeader" },
+      { text: "Tracking#", style: "tableHeader", alignment: "center" },
       { text: "Party", style: "tableHeader" },
       { text: "Consignee", style: "tableHeader" },
       { text: "Address", style: "tableHeader" },
@@ -178,39 +185,38 @@ export class TableUtil {
     // item.CODAmount + item.DeliveryFee,
     // signatureBox,
     orderBookings.forEach((item) => {
-      // var barCode = this.textToBase64Barcode(item.OrderBookingId);
+      var barCode = this.textToBase64Barcode(item.OrderBookingId);
       var BookingID = item.OrderBookingId;
       rows.push([
-        { text: serialNo, alignment: "center", margin: [0, 5, 0, 5] },
+        { text: serialNo, style: "tableContent" },
         {
-          text: item.OrderBookingId,
+          image: barCode,
+          height: 45,
+          width: 110,
           alignment: "center",
-          margin: [0, 5, 0, 5],
         },
-        { text: item.PartyName, alignment: "center", margin: [0, 5, 0, 5] },
+        { text: item.PartyName, style: "tableContent" },
         {
           text: item.ConsigneeName,
-          alignment: "center",
-          margin: [0, 5, 0, 5],
+          style: "tableContent",
         },
         {
           text: item.ConsigneeAddress + " " + item.DestinationCityName,
-          margin: [0, 5, 0, 5],
+          style: "tableContent",
         },
         {
           text: "0" + item.ConsigneeMobile,
-          alignment: "center",
-          margin: [0, 5, 0, 5],
+          style: "tableContent",
         },
         {
           text: item.CODAmount + item.DeliveryFee,
-          alignment: "center",
-          margin: [0, 5, 0, 5],
+          style: "tableContent",
         },
         {},
       ]);
       serialNo++;
     });
+
     return {
       header: function (pageSize) {
         // you can apply any logic and return any valid pdfmake element
@@ -278,12 +284,12 @@ export class TableUtil {
               [
                 //{ text: 'Hello'},
                 { text: "Rider Name: ", style: "tableHeader" },
-                { text: " Example Rider " },
+                { text: riderAssigned },
               ],
               [
                 //{ text: 'Hello'},
                 { text: "Date: ", style: "tableHeader" },
-                { text: "28-10-22 " },
+                { text: date },
               ],
               [
                 //{ text: 'Hello'},
@@ -300,10 +306,11 @@ export class TableUtil {
           // margin: [0, 25, 0, 50],
           table: {
             headerRows: 1,
-            widths: [25, 75, 50, 75, 110, 75, 50, 55],
-            heights:35,
+            widths: [25, "*", 30, 50, 75, 50, 40, 55],
+            heights: 35,
             body: rows,
           },
+          layout: "lightHorizontalLines",
         },
       ],
       // pageBreakBefore: function (
@@ -316,6 +323,14 @@ export class TableUtil {
       //     currentNode.headlineLevel === 1 && followingNodesOnPage.length === 0
       //   );
       // },
+      pageBreakBefore: function (
+        currentNode,
+        followingNodesOnPage,
+        nodesOnNextPage,
+        previousNodesOnPage
+      ) {
+        return currentNode.startPosition.top >= 700;
+      },
 
       styles: {
         header: {
@@ -330,6 +345,10 @@ export class TableUtil {
         },
         tableExample: {
           margin: [0, 5, 0, 15],
+        },
+        tableContent: {
+          alignment: "center",
+          fontSize: 8,
         },
         tableHeader: {
           bold: true,

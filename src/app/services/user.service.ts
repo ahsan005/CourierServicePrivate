@@ -93,6 +93,17 @@ export class UserService {
   }
   // Get All Orders
 
+   // Get Vouchers By locationID
+   GetVouchersByLocationId(id: number): Observable<Voucher[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    return this.http.get<Voucher[]>(
+      this.base_url + "api/CourierService/GetVouchersByLocationId?id=" + id,
+      httpOptions
+    );
+  }
+
   // Get Orders By User
   GetOrdersByLoggedInUser(): Observable<OrderBookingForm[]> {
     var LoggedInUserId = localStorage.getItem("USERID");
