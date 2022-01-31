@@ -45,6 +45,7 @@ import { FinanceComponent } from "./finance/finance.component";
 import { AddfinancialaccountComponent } from "./finance/popup/addfinancialaccount/addfinancialaccount.component";
 import { OrderReceivingModule } from "./order-receiving/order-receiving.module";
 import { OrdersPaidForComponent } from './finance/orders-paid-for/orders-paid-for.component';
+import { ProfilesComponent } from './setting/profiles/profiles.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { OrdersPaidForComponent } from './finance/orders-paid-for/orders-paid-fo
     FinanceComponent,
     AddfinancialaccountComponent,
     OrdersPaidForComponent,
+    ProfilesComponent,
    
   ],
 })

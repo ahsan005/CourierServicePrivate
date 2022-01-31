@@ -1,5 +1,8 @@
 <div class="row">
-  <div *ngIf="orderExists" class=" col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">
+  <div
+    *ngIf="orderExists"
+    class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12"
+  >
     <nb-flip-card [showToggleButton]="false" [flipped]="flipped">
       <nb-card-front>
         <nb-card status="primary" accent="success">
@@ -9,7 +12,7 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-2 col-sm-12 col-xs-12 offset-md-8 mb-2">
-                <button nbButton status="secondary" (click)="toggleFlip()">
+                <button nbButton status="success" (click)="toggleFlip()">
                   Tracking History
                   <nb-icon icon="archive-outline"></nb-icon>
                 </button>
@@ -37,7 +40,7 @@
                   <nb-card-body>
                     <table class="table table-light">
                       <tr>
-                        <th >Receiver Name</th>
+                        <th>Receiver Name</th>
                         <td>{{ orderToTrack.ConsigneeName }}</td>
                       </tr>
                       <tr>
@@ -58,8 +61,13 @@
                         <td>{{ orderToTrack.StatusName }}</td>
                       </tr>
                       <tr>
-                        <th>Dated</th>
-                        <td>{{ orderTrackingDetails[0].CreatedOn |mask:"0000/M0/d0 Hh:m0:s0" }}</td>
+                        <!-- <th>Dated</th>
+                        <td>
+                          {{
+                            orderTrackingDetails[orderTrackingDetails.length]
+                              .CreatedOn | mask: "0000/M0/d0 Hh:m0:s0"
+                          }}
+                        </td> -->
                       </tr>
                     </table>
                   </nb-card-body>
@@ -77,8 +85,7 @@
               <tr *ngFor="let item of orderTrackingDetails">
                 <th>Status</th>
                 <td>{{ item.StatusName }}</td>
-                <th>{{ item.CreatedOn |mask:"0000/M0/d0 Hh:m0:s0" }}</th>
-
+                <th>{{ item.CreatedOn | mask: "0000/M0/d0 Hh:m0:s0" }}</th>
               </tr>
             </table>
           </nb-card-body>
@@ -108,7 +115,14 @@
         />
         <div class="row">
           <div class="col-md-2 offset-md-5 col-sm-12 col-xs-12">
-            <button nbButton (click)="trackOrder()" status="secondary" class="mt-2">Track Order</button>
+            <button
+              nbButton
+              (click)="trackOrder()"
+              status="secondary"
+              class="mt-2"
+            >
+              Track Order
+            </button>
           </div>
         </div>
       </nb-card-footer>

@@ -18,6 +18,7 @@ export class Voucher {
   public VoucherOn: Date;
   public VoucherTo: Date;
   public Narration: string;
+  public DocumentOrigin:string;
   public IsPosted: boolean;
   public VoucherType: string;
   public VoucherDetail1: VoucherDetail;

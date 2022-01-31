@@ -156,6 +156,8 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
           voucherObj.VoucherTypeProfileId;
           voucherObj.OrderBookingId = element.OrderBookingId;
+          voucherObj.DocumentOrigin = "ORDER-REFUND";
+
           if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
             voucherObj.TaxAmount =
               (element.DeliveryFee * voucherObj.TaxPercent) / 100;
@@ -239,6 +241,7 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
           voucherObj.VoucherTypeProfileId;
           voucherObj.OrderBookingId = element.OrderBookingId;
+          voucherObj.DocumentOrigin = "ORDER-REFUND";
 
           if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
             voucherObj.TaxAmount =
@@ -317,6 +320,7 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
           voucherObj.VoucherTypeProfileId;
           voucherObj.OrderBookingId = element.OrderBookingId;
+          voucherObj.DocumentOrigin = "ORDER-REFUND";
 
           if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
             voucherObj.TaxAmount =
@@ -400,6 +404,7 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
           voucherObj.VoucherTypeProfileId;
           voucherObj.OrderBookingId = element.OrderBookingId;
+          voucherObj.DocumentOrigin = "ORDER-REFUND";
 
           if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
             voucherObj.TaxAmount =

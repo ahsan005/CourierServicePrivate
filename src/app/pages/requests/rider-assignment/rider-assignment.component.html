@@ -295,7 +295,9 @@
               <strong>{{ item.OrderBookingId }}</strong>
             </td>
             <td class="tiny-details-Black">
-              <strong>{{ item.OrderBookingOn }}</strong>
+              <strong>{{
+                item.OrderBookingOn | mask: "0000/M0/d0 Hh:m0:s0"
+              }}</strong>
             </td>
             <td class="tiny-details">
               <strong>Product Code:</strong> {{ item.ProductCode }} <br />

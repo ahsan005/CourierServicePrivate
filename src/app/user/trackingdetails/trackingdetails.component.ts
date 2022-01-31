@@ -46,30 +46,33 @@ export class TrackingdetailsComponent implements OnInit {
   Initialize(trackingID: number) {
     this.userService.GetOrderByID(trackingID).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
-      console.log(response);
+
       console.log(response.Data);
 
       if (response.Status) {
         this.orderToTrack = response.Data[0];
         console.log(this.orderToTrack);
         this.orderExists = response.Status;
+        this.GetTrackingDetails(trackingID);
       }
     });
 
+    if (this.orderExists) {
+      this.orderTrackingDetails.sort((a, b) => {
+        return <any>new Date(b.CreatedOn) - <any>new Date(a.CreatedOn);
+      });
+    }
+  }
+  GetTrackingDetails(trackingID) {
     this.userService.GetOrderTrackingByID(trackingID).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
-      console.log(response);
+
       console.log(response.Data);
       if (response.Status) {
         this.orderTrackingDetails = response.Data;
         console.log(this.orderTrackingDetails);
       }
     });
-    if (this.orderExists) {
-      this.orderTrackingDetails.sort((a, b) => {
-        return <any>new Date(b.CreatedOn) - <any>new Date(a.CreatedOn);
-      });
-    }
   }
 
   trackOrder() {
