@@ -93,8 +93,8 @@ export class UserService {
   }
   // Get All Orders
 
-   // Get Vouchers By locationID
-   GetVouchersByLocationId(id: number): Observable<Voucher[]> {
+  // Get Vouchers By locationID
+  GetVouchersByLocationId(id: number): Observable<Voucher[]> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
@@ -345,7 +345,10 @@ export class UserService {
   // Update ORder Status
 
   // BulkUpdate Order Status
-  BulkUpdateOrderStatus(array, statusToUpdate): Observable<Object> {
+  BulkUpdateOrderStatus(
+    array,
+    statusToUpdate
+  ): Observable<Object> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };

@@ -157,7 +157,7 @@
           <div class="form-group">
             <label for="" class="label">Assign Rider To Selected Orders</label>
             <nb-select
-              [(ngModel)]="updateOrderStatus"
+              [(ngModel)]="assignRider"
               fullWidth
               placeholder="Select Status"
             >
@@ -176,9 +176,9 @@
               nbButton
               hero
               status="primary"
-              (click)="UpdateBulkOrderStatus()"
+              (click)="AssignRiderToSelected()"
             >
-              Update Status
+              Assign Rider to Selected
             </button>
           </div>
         </div>

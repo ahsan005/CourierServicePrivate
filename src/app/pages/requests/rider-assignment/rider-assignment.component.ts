@@ -32,7 +32,7 @@ export class RiderAssignmentComponent implements OnInit {
   @Input() public StatusLOV: LOV;
 
   subscription: Subscription;
-  everyTwentyFiveSeconds: Observable<number> = timer(0, 25000);
+  everyTwentyMinutes: Observable<number> = timer(0, 1200000);
   p: number = 1;
   searchVal;
   requestFilters: Filters;
@@ -136,7 +136,7 @@ export class RiderAssignmentComponent implements OnInit {
         this.selectedArray.splice(index, 1);
       }
       if (this.selectedArray.length < 1) {
-        this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+        this.subscription = this.everyTwentyMinutes.subscribe(() => {
           this.GetOrders();
         });
       }
@@ -144,7 +144,7 @@ export class RiderAssignmentComponent implements OnInit {
   }
   // Function to add Rows to selected Array
   ngOnInit(): void {
-    this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+    this.subscription = this.everyTwentyMinutes.subscribe(() => {
       this.GetOrders();
     });
   }
@@ -163,7 +163,8 @@ export class RiderAssignmentComponent implements OnInit {
 
   // NGX MultiSelect
   ArrayOfOrdersToUpdate = new Array();
-  UpdateBulkOrderStatus() {
+  AssignRiderToSelected() {
+    console.log("Hello");
     if (this.assignRider != null) {
       let riderToAssign = this.assignRider;
       this.selectedArray.forEach((element) => {
@@ -181,6 +182,7 @@ export class RiderAssignmentComponent implements OnInit {
                 "",
                 "top-right"
               );
+              this.userService.filter("Refresh List");
             } else {
               this.notificationService.showToast(
                 "danger",
