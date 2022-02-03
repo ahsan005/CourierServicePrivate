@@ -1,6 +1,6 @@
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { IDropdownSettings } from "ng-multiselect-dropdown";
-import { catchError, filter } from "rxjs/operators";
+
 import { NotificationService } from "./../../../services/notification.service";
 import { Filters } from "./../../../models/filters";
 import { LOV } from "../../../models/citiesLOV";
@@ -114,10 +114,40 @@ export class RiderAssignmentComponent implements OnInit {
 
   // Function to add Rows to selected Array
   objToEnter: OrderBookingForm;
-  addToSelectedArray(e, item: OrderBookingForm) {
-    this.subscription.unsubscribe();
+  // addToSelectedArray(e, item: OrderBookingForm) {
+  //   this.subscription.unsubscribe();
 
-    if (e.target.checked) {
+  //   if (e.target.checked) {
+  //     console.log("hello");
+  //     item.isSelected = true;
+  //     this.selectedArray.push(item);
+
+  //     console.log(this.selectedArray);
+  //   } else {
+  //     const index = this.selectedArray.findIndex(
+  //       (x) => x.OrderBookingId === item.OrderBookingId
+  //     );
+  //     const obj = this.selectedArray.find(
+  //       (x) => x.OrderBookingId === item.OrderBookingId
+  //     );
+  //     obj.isSelected = false;
+
+  //     if (index > -1) {
+  //       this.selectedArray.splice(index, 1);
+  //     }
+  //     if (this.selectedArray.length < 1) {
+  //       this.subscription = this.everyTwentyMinutes.subscribe(() => {
+  //         this.GetOrders();
+  //       });
+  //     }
+  //   }
+  // }
+  // Function to add Rows to selected Array
+  addToSelectedArrayForRow(item: OrderBookingForm, e) {
+    debugger;
+    item.isSelected = !item.isSelected;
+
+    if (item.isSelected) {
       console.log("hello");
       item.isSelected = true;
       this.selectedArray.push(item);
@@ -135,21 +165,21 @@ export class RiderAssignmentComponent implements OnInit {
       if (index > -1) {
         this.selectedArray.splice(index, 1);
       }
-      if (this.selectedArray.length < 1) {
-        this.subscription = this.everyTwentyMinutes.subscribe(() => {
-          this.GetOrders();
-        });
-      }
+      // if (this.selectedArray.length < 1) {
+      //   this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+      //     this.GetOrders();
+      //   });
+      // }
     }
   }
-  // Function to add Rows to selected Array
+  bookedOrderFilters;
   ngOnInit(): void {
-    this.subscription = this.everyTwentyMinutes.subscribe(() => {
-      this.GetOrders();
-    });
+    // this.subscription = this.everyTwentyMinutes.subscribe(() => {
+    //   this.GetOrders();
+    // });
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
   // NGX MultiSelect
   dropdownSettings: IDropdownSettings = {
@@ -196,17 +226,14 @@ export class RiderAssignmentComponent implements OnInit {
     }
   }
 
-  bookedOrderFilters;
   initialize() {
     this.bookedOrderFilters = this.fb.group({
       destinationCityId: [""],
       fromDate: [""],
       toDate: [""],
     });
-
-    this.GetAllLOVs();
-
     this.GetOrders();
+    this.GetAllLOVs();
   }
 
   GetOrders() {

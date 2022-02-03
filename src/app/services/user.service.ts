@@ -331,7 +331,7 @@ export class UserService {
       headers: new HttpHeaders({ "Content-Type": " application/json" }),
     };
 
-    return this.http.get(
+    return this.http.post(
       this.base_url +
         "api/CourierService/UpdateOrderStatus?OrderId=" +
         OrderBookingId +

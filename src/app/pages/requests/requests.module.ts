@@ -12,6 +12,7 @@ import {
   NbCardModule,
   NbIconModule,
   NbSpinnerModule,
+  NbCheckboxModule,
 } from "@nebular/theme";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -36,8 +37,8 @@ import {
   DataMatrixGeneratorAllModule,
 } from "@syncfusion/ej2-angular-barcode-generator";
 import { ViewrequestComponent } from "./popup/viewrequest/viewrequest.component";
-import { AssignRiderComponent } from './popup/assign-rider/assign-rider.component';
-import { RiderAssignmentComponent } from './rider-assignment/rider-assignment.component';
+import { AssignRiderComponent } from "./popup/assign-rider/assign-rider.component";
+import { RiderAssignmentComponent } from "./rider-assignment/rider-assignment.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { RiderAssignmentComponent } from './rider-assignment/rider-assignment.co
     UpdateRequestStatusComponent,
     ViewrequestComponent,
     AssignRiderComponent,
-    RiderAssignmentComponent
+    RiderAssignmentComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +79,7 @@ import { RiderAssignmentComponent } from './rider-assignment/rider-assignment.co
     BarcodeGeneratorAllModule,
     QRCodeGeneratorAllModule,
     DataMatrixGeneratorAllModule,
+    NbCheckboxModule,
   ],
 })
 export class RequestsModule {}

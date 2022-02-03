@@ -18,7 +18,14 @@
         </div>
       </div>
       <div class="col-md-4">
-        <button style="margin-top: 27.5px;" nbButton (click)="PrintDeliveryRunSheet()" status="success">Print Delivery Run Sheet</button>
+        <button
+          style="margin-top: 27.5px"
+          nbButton
+          (click)="PrintDeliveryRunSheet()"
+          status="success"
+        >
+          Print Delivery Run Sheet
+        </button>
       </div>
 
       <div id="tableSection" class="col-md-12">
@@ -35,11 +42,16 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">
-                <input
+                <!-- <input
                   type="checkbox"
                   (change)="checkUncheckAll()"
                   [(ngModel)]="masterSelector"
-                />
+                /> -->
+                <nb-checkbox
+                  style="margin: 0 25 0 25 !important"
+                  [(ngModel)]="masterSelector"
+                  (change)="checkUncheckAll()"
+                ></nb-checkbox>
               </th>
 
               <th scope="col">ClientInfo</th>
@@ -61,6 +73,8 @@
           </tr>
           <tr
             class="text-center"
+            (click)="addToSelectedArrayForRow(item, this); isAllSelected()"
+            [ngClass]="item.isSelected ? 'highlight' : ''"
             *ngFor="
               let item of assignedOrderList
                 | paginate: { itemsPerPage: 10, currentPage: p };
@@ -68,12 +82,18 @@
             "
             scope="row"
           >
-            <td>
-              <input
+            <td class="verticalAlign">
+              <!-- <input
                 type="checkbox"
                 [checked]="item.isSelected"
                 (change)="addToSelectedArray($event, item); isAllSelected()"
-              />
+              /> -->
+
+              <nb-checkbox
+                style="margin: 0 25 0 25 !important"
+                [checked]="item.isSelected"
+                disabled
+              ></nb-checkbox>
             </td>
 
             <td class="tiny-details">

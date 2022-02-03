@@ -1,24 +1,26 @@
-td{
+td {
   text-align: left;
-
-
 }
-.tiny-details{
+.tiny-details {
   font-size: small;
-
 }
-.tiny-details-Black{
+.tiny-details-Black {
   color: black;
   font-size: small;
 }
-a:hover{
-  cursor: pointer ;
+a:hover {
+  cursor: pointer;
 }
-.tiny-details strong{
+.tiny-details strong {
   color: blue;
-
 }
-#tableSection{
+#tableSection {
   margin-left: 0px;
   margin-right: 0px;
+}
+.verticalAlign {
+  vertical-align: middle;
+}
+.highlight {
+  background-color: #6f95fd5e;
 }

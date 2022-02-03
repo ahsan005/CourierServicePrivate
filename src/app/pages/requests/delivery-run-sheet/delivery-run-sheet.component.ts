@@ -45,6 +45,35 @@ export class DeliveryRunSheetComponent implements OnInit {
         this.courierLOV.filter((item) => item.Value == this.assignedRider)[0]
       );
   }
+  addToSelectedArrayForRow(item: OrderBookingForm, e) {
+    debugger;
+    item.isSelected = !item.isSelected;
+
+    if (item.isSelected) {
+      console.log("hello");
+      item.isSelected = true;
+      this.selectedArray.push(item);
+
+      console.log(this.selectedArray);
+    } else {
+      const index = this.selectedArray.findIndex(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      const obj = this.selectedArray.find(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      obj.isSelected = false;
+
+      if (index > -1) {
+        this.selectedArray.splice(index, 1);
+      }
+      // if (this.selectedArray.length < 1) {
+      //   this.subscription = this.everyTwentyFiveSeconds.subscribe(() => {
+      //     this.GetOrders();
+      //   });
+      // }
+    }
+  }
 
   checkedList: any;
   selectedArray = new Array<OrderBookingForm>();
