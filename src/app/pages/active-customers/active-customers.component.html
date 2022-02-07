@@ -79,7 +79,7 @@
               <td class="py-2">{{ item.UserName }}</td>
               <td class="py-2">{{ item.LoginName }}</td>
               <td class="py-2">
-                <input
+                <!-- <input
                   [nbSpinner]="checkBoxSpinner"
                   nbSpinnerStatus="danger"
                   nbSpinnerSize="small"
@@ -88,7 +88,11 @@
                   (change)="changeActiveStatus(item)"
                   [checked]="item.IsActive"
                   Class="form-check-input"
-                />
+                /> -->
+                <nb-checkbox
+                [checked]="item.IsActive"
+                (change)="changeActiveStatus(item)"
+              ></nb-checkbox>
               </td>
               <td class="py-2">{{ item.CreatedOn }}</td>
               <td class="py-2">

@@ -958,6 +958,31 @@ export class ListComponent implements OnInit {
       }
     }
   }
+
+  addToSelectedArrayForRow(item: OrderBookingForm, e) {
+    debugger;
+    item.isSelected = !item.isSelected;
+
+    if (item.isSelected) {
+      console.log("hello");
+      item.isSelected = true;
+      this.selectedArray.push(item);
+
+      console.log(this.selectedArray);
+    } else {
+      const index = this.selectedArray.findIndex(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      const obj = this.selectedArray.find(
+        (x) => x.OrderBookingId === item.OrderBookingId
+      );
+      obj.isSelected = false;
+
+      if (index > -1) {
+        this.selectedArray.splice(index, 1);
+      }
+    }
+  }
   // Function to add Rows to selected Array
 
   // checkuncheckAll Logic

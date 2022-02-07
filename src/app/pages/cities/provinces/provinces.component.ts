@@ -31,6 +31,7 @@ export class ProvincesComponent implements OnInit {
   onSubmit() {}
 
   initialize() {
+
     this.sharedService.GetAllCountries().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {

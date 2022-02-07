@@ -108,18 +108,23 @@
           nbSpinnerSize="large"
           nbSpinnerMessage=""
           #pdfTable
-          class="table table-sm mt-2 table-bordered table-hover table-responsive-sm"
+          class="table table-hover table-bordered table-sm mt-2 table-responsive-sm"
           id="ExampleTable"
         >
           <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
           <thead class="thead-dark">
             <tr>
               <th scope="col">
-                <input
+                <!-- <input
                   type="checkbox"
                   (change)="checkUncheckAll(); CalculateAggregates()"
                   [(ngModel)]="masterSelector"
-                />
+                /> -->
+                <nb-checkbox
+
+                  [(ngModel)]="masterSelector"
+                  (change)="checkUncheckAll()"
+                ></nb-checkbox>
               </th>
 
               <th scope="col">Tracking#</th>
@@ -132,6 +137,7 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
+          <tbody>
           <!-- *ngFor="let item of list" -->
           <tr *ngIf="BookedOrderList.length < 1">
             <td class="text-center" colspan="10">
@@ -139,6 +145,8 @@
             </td>
           </tr>
           <tr
+          (click)="addToSelectedArrayForRow(item, this); isAllSelected()"
+              [ngClass]="item.isSelected ? 'highlight' : ''"
             class="text-center"
             *ngFor="
               let item of BookedOrderList
@@ -147,8 +155,8 @@
             "
             scope="row"
           >
-            <td>
-              <input
+            <td class="verticalAlign">
+              <!-- <input
                 type="checkbox"
                 [checked]="item.isSelected"
                 (change)="
@@ -156,7 +164,11 @@
                   isAllSelected();
                   CalculateAggregates()
                 "
-              />
+              /> -->
+              <nb-checkbox
+              [checked]="item.isSelected"
+              disabled
+            ></nb-checkbox>
             </td>
 
             <td class="tiny-details-Black">
@@ -211,6 +223,7 @@
               ></a> -->
             </td>
           </tr>
+        </tbody>
         </table>
       </div>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>

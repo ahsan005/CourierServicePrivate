@@ -1,21 +1,18 @@
-import { NbToastrService } from '@nebular/theme';
-import { Injectable } from '@angular/core';
+import { NbToastrService } from "@nebular/theme";
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class NotificationService {
+  constructor(private toastrService: NbToastrService) {}
 
-  constructor(private toastrService:NbToastrService) { }
-
-   showToast( status, title?,description?,position?) {
+  showToast(status, title?, description?, position?) {
     // this.index += 1;
     // const iconConfig: NbIconConfig = { icon: iconName, pack: 'eva' };
     // position='top-right'
-
-    this.toastrService.show(
-      status || description,
-      title,
-      { position, status});
+    var pos = "top-right";
+    position = pos;
+    this.toastrService.show(description, title, { position, status });
   }
 }

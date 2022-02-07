@@ -151,16 +151,12 @@
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="city">City:</label>
-        <nb-select
-          class="form-control"
-          placeholder="City"
-          name="my-select"
-          formControlName="city"
-        >
-          <nb-option [value]="item.Value" *ngFor="let item of citiesLOV">
+        <select class="form-select" fullWidth name="city" formControlName="city">
+          <option value="-1" selected disabled>Select City</option>
+          <option [value]="item.Value" *ngFor="let item of citiesLOV">
             {{ item.Text }}
-          </nb-option>
-        </nb-select>
+          </option>
+        </select>
         <span
           class="alert text-danger"
           *ngIf="city.invalid && (city.dirty || city.touched)"

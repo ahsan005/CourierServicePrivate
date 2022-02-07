@@ -11,6 +11,7 @@ import {
   NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
+  NbCheckboxModule,
   NbDatepickerModule,
   NbIconModule,
   NbInputModule,
@@ -41,6 +42,7 @@ import { EditForOrderReceivingComponent } from './edit-for-order-receiving/edit-
     ReactiveFormsModule,
     NbDateFnsDateModule,
     NbSpinnerModule,
+    NbCheckboxModule
   ],
 })
 export class OrderReceivingModule {}

@@ -1,4 +1,4 @@
-import { NbButton, NbCardModule, NbInputModule, NbButtonModule } from '@nebular/theme';
+import { NbButton, NbCardModule, NbInputModule, NbButtonModule, NbSelectModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -23,7 +23,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     ReactiveFormsModule,
     NbCardModule,
     NbInputModule,
-    NbButtonModule
+    NbButtonModule,
+    NbSelectModule
   ]
 })
 export class ProfileModule { }

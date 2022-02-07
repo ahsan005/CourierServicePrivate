@@ -1,3 +1,6 @@
+import { City } from "./../../../models/city";
+import { Customer } from "./../../../models/customer";
+import { CustomerInfo } from "./../../../models/CustomerInfo";
 import { SharedService } from "./../../../services/shared.service";
 import { LOV } from "./../../../models/citiesLOV";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -12,12 +15,36 @@ export class EditProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private sharedService: SharedService) {
     this.getLOVs();
   }
-
+  customerInfo: Customer;
   ngOnInit(): void {}
 
   citiesLOV = new Array<LOV>();
 
+  populateForm(customerInfo) {
+    console.log(customerInfo)
+    this.profileEditForm.patchValue({
+      // ShipperInfo
+      cname: customerInfo.CustomerName,
+      buname: customerInfo.BusinessName,
+      baname: customerInfo.BankName,
+      accnum: customerInfo.AccountNumber,
+      mnumber: customerInfo.MobileNo,
+      email: customerInfo.Email,
+      city: customerInfo.CityId,
+      cnic: customerInfo.Cnic
+
+
+    });
+  }
   getLOVs() {
+    let userid = localStorage.getItem("USERID");
+    this.sharedService.GetUserInfo(userid).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.customerInfo = response.Data;
+        this.populateForm(this.customerInfo);
+      }
+    });
     this.sharedService.GetAllCities().subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       if (response.Status) {
@@ -63,10 +90,9 @@ export class EditProfileComponent implements OnInit {
     accnum: ["", Validators.required],
     mnumber: ["", Validators.required],
     email: ["", Validators.required],
-    city: ["", Validators.required, Validators.minLength(13)],
-    cnic: ["", Validators.required],
-    pass: ["", Validators.required, Validators.minLength(6)],
-    confirmpass: ["", Validators.required],
+    city: ["", Validators.required],
+    cnic: ["", Validators.required]
+
   });
   onSubmit() {
     console.log(this.profileEditForm);

@@ -35,7 +35,7 @@
           nbSpinnerSize="large"
           nbSpinnerMessage=""
           #pdfTable
-          class="table table-sm mt-2 table-bordered"
+          class="table table-hover table-bordered table-sm mt-2 table-responsive"
           id="ExampleTable"
         >
           <!-- (click)="sort('id')" <i class="fa fa-sort"></i> -->
@@ -48,7 +48,7 @@
                   [(ngModel)]="masterSelector"
                 /> -->
                 <nb-checkbox
-                  style="margin: 0 25 0 25 !important"
+                 class="verticalAlign"
                   [(ngModel)]="masterSelector"
                   (change)="checkUncheckAll()"
                 ></nb-checkbox>
@@ -65,6 +65,7 @@
               <th scope="col">Status</th>
             </tr>
           </thead>
+          <tbody>
           <!-- *ngFor="let item of list" -->
           <tr *ngIf="assignedOrderList.length < 1">
             <td class="text-center" colspan="10">
@@ -90,9 +91,10 @@
               /> -->
 
               <nb-checkbox
-                style="margin: 0 25 0 25 !important"
+
                 [checked]="item.isSelected"
                 disabled
+                class="verticalAlign"
               ></nb-checkbox>
             </td>
 
@@ -163,6 +165,7 @@
               ></a>
             </td> -->
           </tr>
+        </tbody>
         </table>
       </div>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>

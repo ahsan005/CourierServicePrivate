@@ -13,6 +13,8 @@ import { DeliveryCharges } from "../models/deliverycharges";
 import { CourierSetting } from "../models/courier-settings";
 import { Province } from "../models/province";
 import { Country } from "../models/country";
+import { CustomerInfo } from "../models/CustomerInfo";
+import { Customer } from "../models/customer";
 
 @Injectable({
   providedIn: "root",
@@ -218,6 +220,30 @@ export class SharedService {
     return this.http.get<DeliveryCharges>(
       this.base_url + "api/CourierService/GetStandardDeliveryCharges",
 
+      httpOptions
+    );
+  }
+
+  GetUserInfo(id): Observable<Customer> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+
+    return this.http.get<Customer>(
+      this.base_url + "api/CourierService/GetUserInfo?id=" + id,
+
+      httpOptions
+    );
+  }
+  EditUserInfo(obj: Customer): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": " application/json" }),
+    };
+    const body = JSON.stringify(obj);
+    console.log(body);
+    return this.http.post(
+      this.base_url + "api/courierService/EditUserInfo",
+      body,
       httpOptions
     );
   }
