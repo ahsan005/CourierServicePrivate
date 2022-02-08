@@ -86,13 +86,17 @@ export class RecentBookedOrdersComponent implements OnInit {
     this.userService.GetOrders().subscribe((result) => {
       console.warn("result", result);
       var response = JSON.parse(JSON.stringify(result));
+      if (response.Status) {
+        this.Orders = response.Data;
+      }
 
-      this.Orders = response.Data;
-      this.Orders.sort((a, b) => {
-        return (
-          <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
-        );
-      });
+      if (this.Orders.length > 0) {
+        this.Orders.sort((a, b) => {
+          return (
+            <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)
+          );
+        });
+      }
     });
   }
 }

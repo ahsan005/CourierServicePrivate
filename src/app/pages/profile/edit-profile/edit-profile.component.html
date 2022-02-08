@@ -5,49 +5,49 @@
   <div class="form-group">
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="cname">Customer Name:</label>
+        <label class="label label-info" for="CustomerName">Customer Name:</label>
         <input
           nbInput
           fullWidth
           type="text"
-          id="cname"
-          formControlName="cname"
+          id="CustomerName"
+          formControlName="CustomerName"
         />
         <span
           class="alert text-danger"
-          *ngIf="cname.invalid && (cname.dirty || cname.touched)"
+          *ngIf="CustomerName.invalid && (CustomerName.dirty || CustomerName.touched)"
         >
-          <span class="alert text-danger" *ngIf="cname.errors?.required">
+          <span class="alert text-danger" *ngIf="CustomerName.errors?.required">
             CustomerName is required.
           </span>
-          <span *ngIf="cname.errors?.minlength">
+          <span *ngIf="CustomerName.errors?.minlength">
             CustomerName must be at least 4 characters long.
           </span>
-          <span *ngIf="cname.errors?.forbiddenName">
+          <span *ngIf="CustomerName.errors?.forbiddenName">
             CustomerName cannot be Bob.
           </span>
         </span>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="buname">Business-Name:</label>
+        <label class="label label-info" for="BusinessName">Business-Name:</label>
         <input
           nbInput
           fullWidth
           type="text"
-          id="buname"
-          formControlName="buname"
+          id="BusinessName"
+          formControlName="BusinessName"
         />
         <span
           class="alert text-danger"
-          *ngIf="buname.invalid && (buname.dirty || buname.touched)"
+          *ngIf="BusinessName.invalid && (BusinessName.dirty || BusinessName.touched)"
         >
-          <span class="alert text-danger" *ngIf="buname.errors?.required">
+          <span class="alert text-danger" *ngIf="BusinessName.errors?.required">
             Business-Name is required.
           </span>
-          <span *ngIf="buname.errors?.minlength">
+          <span *ngIf="BusinessName.errors?.minlength">
             Business-Name must be at least 4 characters long.
           </span>
-          <span *ngIf="buname.errors?.forbiddenName">
+          <span *ngIf="BusinessName.errors?.forbiddenName">
             Business-Name cannot be Bob.
           </span>
         </span>
@@ -55,49 +55,49 @@
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="baname">Bank Name:</label>
+        <label class="label label-info" for="BankName">Bank Name:</label>
         <input
           nbInput
           fullWidth
           type="text"
-          id="baname"
-          formControlName="baname"
+          id="BankName"
+          formControlName="BankName"
         />
         <span
           class="alert text-danger"
-          *ngIf="baname.invalid && (baname.dirty || baname.touched)"
+          *ngIf="BankName.invalid && (BankName.dirty || BankName.touched)"
         >
-          <span class="alert text-danger" *ngIf="baname.errors?.required">
+          <span class="alert text-danger" *ngIf="BankName.errors?.required">
             Bank Name is required.
           </span>
-          <span *ngIf="baname.errors?.minlength">
+          <span *ngIf="BankName.errors?.minlength">
             Bank Name must be at least 4 characters long.
           </span>
-          <span *ngIf="baname.errors?.forbiddenName">
+          <span *ngIf="BankName.errors?.forbiddenName">
             Bank Name cannot be Bob.
           </span>
         </span>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="accnum">Account-Number:</label>
+        <label class="label label-info" for="AccountNumber">Account-Number:</label>
         <input
           nbInput
           fullWidth
           type="number"
-          id="accnum"
-          formControlName="accnum"
+          id="AccountNumber"
+          formControlName="AccountNumber"
         />
         <span
           class="alert text-danger"
-          *ngIf="accnum.invalid && (accnum.dirty || accnum.touched)"
+          *ngIf="AccountNumber.invalid && (AccountNumber.dirty || AccountNumber.touched)"
         >
-          <span class="alert text-danger" *ngIf="accnum.errors?.required">
+          <span class="alert text-danger" *ngIf="AccountNumber.errors?.required">
             Account-Number is required.
           </span>
-          <span *ngIf="accnum.errors?.minlength">
+          <span *ngIf="AccountNumber.errors?.minlength">
             Account-Number must be at least 4 characters long.
           </span>
-          <span *ngIf="accnum.errors?.forbiddenName">
+          <span *ngIf="AccountNumber.errors?.forbiddenName">
             Account-Number cannot be Bob.
           </span>
         </span>
@@ -105,44 +105,44 @@
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="mnumber">Mobile-Number#</label>
+        <label class="label label-info" for="MobileNo">Mobile-Number#</label>
         <input
           nbInput
           fullWidth
           type="number"
-          id="mnumber"
-          formControlName="mnumber"
+          id="MobileNo"
+          formControlName="MobileNo"
         />
         <span
           class="alert text-danger"
-          *ngIf="mnumber.invalid && (mnumber.dirty || mnumber.touched)"
+          *ngIf="MobileNo.invalid && (MobileNo.dirty || MobileNo.touched)"
         >
-          <span class="alert text-danger" *ngIf="mnumber.errors?.required">
+          <span class="alert text-danger" *ngIf="MobileNo.errors?.required">
             Mobile-Number is required.
           </span>
-          <span class="alert text-danger" *ngIf="mnumber.errors?.minlength">
+          <span class="alert text-danger" *ngIf="MobileNo.errors?.minlength">
             Mobile-Number must be at least 11 characters long.
           </span>
         </span>
       </div>
 
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="email">Email:</label>
+        <label class="label label-info" for="Email">Email:</label>
         <input
           nbInput
           fullWidth
-          type="email"
-          id="email"
-          formControlName="email"
+          type="Email"
+          id="Email"
+          formControlName="Email"
         />
         <span
           class="alert text-danger"
-          *ngIf="email.invalid && (email.dirty || email.touched)"
+          *ngIf="Email.invalid && (Email.dirty || Email.touched)"
         >
-          <span class="alert text-danger" *ngIf="email.errors?.required">
+          <span class="alert text-danger" *ngIf="Email.errors?.required">
             Email is required.
           </span>
-          <span class="alert text-danger" *ngIf="email.errors?.minlength">
+          <span class="alert text-danger" *ngIf="Email.errors?.minlength">
             Email must be at least 4 characters long.
           </span>
         </span>
@@ -150,24 +150,24 @@
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="city">City:</label>
-        <select class="form-select" fullWidth name="city" formControlName="city">
-          <option value="-1" selected disabled>Select City</option>
+        <label class="label label-info" for="CityId">CityId:</label>
+        <select class="form-select" fullWidth name="CityId" formControlName="CityId">
+          <option value="-1" selected disabled>Select CityId</option>
           <option [value]="item.Value" *ngFor="let item of citiesLOV">
             {{ item.Text }}
           </option>
         </select>
         <span
           class="alert text-danger"
-          *ngIf="city.invalid && (city.dirty || city.touched)"
+          *ngIf="CityId.invalid && (CityId.dirty || CityId.touched)"
         >
-          <span class="alert text-danger" *ngIf="city.errors?.required">
-            City is required.
+          <span class="alert text-danger" *ngIf="CityId.errors?.required">
+            CityId is required.
           </span>
         </span>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="cnic">CNIC#</label>
+        <label class="label label-info" for="Cnic">Cnic#</label>
         <!-- <input
           class="form-control"
           type="file"
@@ -177,20 +177,20 @@
         <input
           type="text"
           name=""
-          formControlName="cnic"
-          id="cnic"
+          formControlName="Cnic"
+          id="Cnic"
           nbInput
           fullWidth
         />
         <span
           class="alert text-danger"
-          *ngIf="cnic.invalid && (cnic.dirty || cnic.touched)"
+          *ngIf="Cnic.invalid && (Cnic.dirty || Cnic.touched)"
         >
-          <span class="alert text-danger" *ngIf="cnic.errors?.required">
-            CNIC# is required.
+          <span class="alert text-danger" *ngIf="Cnic.errors?.required">
+            Cnic# is required.
           </span>
-          <span class="alert text-danger" *ngIf="cnic.errors?.minlength">
-            CNIC# must be valid.
+          <span class="alert text-danger" *ngIf="Cnic.errors?.minlength">
+            Cnic# must be valid.
           </span>
         </span>
       </div>

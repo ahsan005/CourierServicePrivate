@@ -1,4 +1,5 @@
-import { City } from "./../../../models/city";
+import { NotificationService } from "./../../../services/notification.service";
+import { City } from "./../../../models/City";
 import { Customer } from "./../../../models/customer";
 import { CustomerInfo } from "./../../../models/CustomerInfo";
 import { SharedService } from "./../../../services/shared.service";
@@ -12,7 +13,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./edit-profile.component.scss"],
 })
 export class EditProfileComponent implements OnInit {
-  constructor(private fb: FormBuilder, private sharedService: SharedService) {
+  constructor(
+    private fb: FormBuilder,
+    private sharedService: SharedService,
+    private notificationService: NotificationService
+  ) {
     this.getLOVs();
   }
   customerInfo: Customer;
@@ -20,20 +25,18 @@ export class EditProfileComponent implements OnInit {
 
   citiesLOV = new Array<LOV>();
 
-  populateForm(customerInfo) {
-    console.log(customerInfo)
+  populateForm(customerInfo: Customer) {
+    console.log(customerInfo);
     this.profileEditForm.patchValue({
       // ShipperInfo
-      cname: customerInfo.CustomerName,
-      buname: customerInfo.BusinessName,
-      baname: customerInfo.BankName,
-      accnum: customerInfo.AccountNumber,
-      mnumber: customerInfo.MobileNo,
-      email: customerInfo.Email,
-      city: customerInfo.CityId,
-      cnic: customerInfo.Cnic
-
-
+      CustomerName: customerInfo.CustomerName,
+      BusinessName: customerInfo.BusinessName,
+      BankName: customerInfo.BankName,
+      AccountNumber: customerInfo.AccountNumber,
+      MobileNo: customerInfo.MobileNo,
+      Email: customerInfo.Email,
+      CityId: customerInfo.CityId,
+      Cnic: customerInfo.CNIC,
     });
   }
   getLOVs() {
@@ -52,29 +55,29 @@ export class EditProfileComponent implements OnInit {
       }
     });
   }
-  get cname() {
-    return this.profileEditForm.get("cname");
+  get CustomerName() {
+    return this.profileEditForm.get("CustomerName");
   }
-  get buname() {
-    return this.profileEditForm.get("buname");
+  get BusinessName() {
+    return this.profileEditForm.get("BusinessName");
   }
-  get baname() {
-    return this.profileEditForm.get("baname");
+  get BankName() {
+    return this.profileEditForm.get("BankName");
   }
-  get accnum() {
-    return this.profileEditForm.get("accnum");
+  get AccountNumber() {
+    return this.profileEditForm.get("AccountNumber");
   }
-  get mnumber() {
-    return this.profileEditForm.get("mnumber");
+  get MobileNo() {
+    return this.profileEditForm.get("MobileNo");
   }
-  get email() {
-    return this.profileEditForm.get("email");
+  get Email() {
+    return this.profileEditForm.get("Email");
   }
-  get city() {
-    return this.profileEditForm.get("city");
+  get CityId() {
+    return this.profileEditForm.get("CityId");
   }
-  get cnic() {
-    return this.profileEditForm.get("cnic");
+  get Cnic() {
+    return this.profileEditForm.get("Cnic");
   }
   get pass() {
     return this.profileEditForm.get("pass");
@@ -84,17 +87,48 @@ export class EditProfileComponent implements OnInit {
   }
 
   profileEditForm = this.fb.group({
-    cname: ["", Validators.required],
-    buname: ["", Validators.required],
-    baname: ["", Validators.required],
-    accnum: ["", Validators.required],
-    mnumber: ["", Validators.required],
-    email: ["", Validators.required],
-    city: ["", Validators.required],
-    cnic: ["", Validators.required]
-
+    CustomerName: ["", Validators.required],
+    BusinessName: ["", Validators.required],
+    BankName: ["", Validators.required],
+    AccountNumber: ["", Validators.required],
+    MobileNo: ["", Validators.required],
+    Email: ["", Validators.required],
+    CityId: ["", Validators.required],
+    Cnic: ["", Validators.required],
   });
+  // profileEditForm = this.fb.group({
+  //   CustomerName: ["", Validators.required],
+  //   BusinessName: ["", Validators.required],
+  //   BankName: ["", Validators.required],
+  //   AccountNumber: ["", Validators.required],
+  //   MobileNo: ["", Validators.required],
+  //   Email: ["", Validators.required],
+  //   CityIdId: ["", Validators.required],
+  //   Cnic: ["", Validators.required]
+  // });|
+  customer: Customer;
   onSubmit() {
-    console.log(this.profileEditForm);
+    this.customer = this.profileEditForm.value;
+
+    this.customer.UserId = parseInt(localStorage.getItem("USERID"));
+    console.log(this.customer,"Hwellooooo")
+    this.sharedService.EditUserInfo(this.customer).subscribe((data) => {
+      var response = JSON.parse(JSON.stringify(data));
+      if (response.Status) {
+        this.notificationService.showToast(
+          "success",
+          response.Message,
+          "",
+          "top-right"
+        );
+      } else {
+        this.notificationService.showToast(
+          "danger",
+          response.Message,
+          "",
+          "top-right"
+        );
+      }
+    });
   }
 }
