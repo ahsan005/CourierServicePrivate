@@ -1,8 +1,8 @@
 <nb-card status="primary">
   <nb-card-header> Application Configuration </nb-card-header>
   <nb-card-body>
-    <form [formGroup]="AppConfigForm">
-      <div formGroupName="Organization" class="row">
+    <form #AppConfigForm>
+      <div class="row">
         <div class="col-md-8">
           <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -12,7 +12,7 @@
                 >
                 <input
                   type="text"
-                  formControlName="OrginizationName"
+                  [(ngModel)]="organizationObj.OrginizationName"
                   name=""
                   nbInput
                   fullWidth
@@ -25,7 +25,10 @@
                 <label class="label label-info" for=""
                   >Currency <span class="text-danger">*</span></label
                 >
-                <select class="form-control" formControlName="CurrencyId">
+                <select
+                  class="form-control"
+                  [(ngModel)]="organizationObj.CurrencyId"
+                >
                   <option [value]="item.Value" *ngFor="let item of currencyLOV">
                     {{ item.Text }}
                   </option>
@@ -39,7 +42,7 @@
                 >
                 <input
                   type="text"
-                  formControlName="OrginizationTitle"
+                  [(ngModel)]="organizationObj.OrginizationTitle"
                   name=""
                   nbInput
                   fullWidth
@@ -53,7 +56,7 @@
                 <input
                   type="text"
                   name=""
-                  formControlName="NTN"
+                  [(ngModel)]="organizationObj.NTN"
                   nbInput
                   fullWidth
                   id=""
@@ -66,7 +69,7 @@
                 <input
                   type="text"
                   name=""
-                  formControlName="STN"
+                  [(ngModel)]="organizationObj.STN"
                   nbInput
                   fullWidth
                   id=""
@@ -113,7 +116,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="LocationName"
+              [(ngModel)]="locationObj.LocationName"
               type="text"
               name=""
               id=""
@@ -127,7 +130,7 @@
             >
             <input
               nbInput
-              formControlName="LocationShortName"
+              [(ngModel)]="locationObj.LocationShortName"
               fullWidth
               type="text"
               name=""
@@ -141,7 +144,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="SubLocationName"
+              [(ngModel)]="locationObj.SubLocationName"
               type="text"
               name=""
               id=""
@@ -154,7 +157,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="Email"
+              [(ngModel)]="locationObj.Email"
               type="email"
               name=""
               id=""
@@ -167,7 +170,7 @@
               class="form-check-input"
               type="checkbox"
               value=""
-              formControlName="IsDefaultLocation"
+              [(ngModel)]="locationObj.IsDefaultLocation"
             />
             <label class="form-check-label" for="flexCheckDefault"
               >is Default Location<span class="text-danger">*</span></label
@@ -181,7 +184,7 @@
             >
             <select
               placeholder="Select Location Type"
-              formControlName="LocationTypeProfileId"
+              [(ngModel)]="locationObj.LocationTypeProfileId"
               class="form-control"
             >
               <option [value]="item.Value" *ngFor="let item of locationTypeLOV">
@@ -217,7 +220,7 @@
               nbInput
               fullWidth
               type="text"
-              formControlName="Mobile1"
+              [(ngModel)]="locationObj.Mobile1"
               name=""
               id=""
             />
@@ -229,7 +232,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="Mobile2"
+              [(ngModel)]="locationObj.Mobile2"
               type="text"
               name=""
               id=""
@@ -251,7 +254,7 @@
               nbInput
               fullWidth
               type="text"
-              formControlName="PortalURL"
+              [(ngModel)]="locationObj.PortalURL"
               name=""
               id=""
             />
@@ -265,7 +268,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="LicenseNo"
+              [(ngModel)]="locationObj.LicenseNo"
               type="text"
               name=""
               id=""
@@ -279,9 +282,9 @@
               >Country <span class="text-danger">*</span></label
             >
             <select
-              (selectedChange)="GetSecondaryLOV()"
+              (change)="GetSecondaryLOV()"
               placeholder="Select Country"
-              formControlName="CountryId"
+              [(ngModel)]="locationObj.CountryId"
               class="form-control"
             >
               <option [value]="item.Value" *ngFor="let item of countriesLOV">
@@ -296,11 +299,11 @@
               >Province <span class="text-danger">*</span></label
             >
             <select
-              (selectedChange)="GetSecondaryLOV()"
+              (change)="GetSecondaryLOV()"
               placeholder="Select Province"
               fullWidth
               class="form-control"
-              formControlName="ProvinceId"
+              [(ngModel)]="locationObj.ProvinceId"
             >
               <option [value]="item.Value" *ngFor="let item of provinceLOV">
                 {{ item.Text }}
@@ -309,14 +312,14 @@
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="form-group" formGroupName="Address">
+          <div class="form-group">
             <label class="label label-info" for=""
               >City <span class="text-danger">*</span></label
             >
             <select
               placeholder="Select City"
               fullWidth
-              formControlName="CityId"
+              [(ngModel)]="locationObj.CityId"
               class="form-control"
             >
               <option [value]="item.Value" *ngFor="let item of citiesLOV">
@@ -333,7 +336,7 @@
             <input
               nbInput
               fullWidth
-              formControlName="Latitude"
+              [(ngModel)]="locationObj.Latitude"
               type="number"
               name=""
               id=""
@@ -347,7 +350,7 @@
             >
             <input
               nbInput
-              formControlName="Longitude"
+              [(ngModel)]="locationObj.Longitude"
               fullWidth
               type="number"
               name=""
@@ -362,7 +365,7 @@
             >
             <input
               nbInput
-              formControlName="Altitude"
+              [(ngModel)]="locationObj.Altitude"
               fullWidth
               type="number"
               name=""
@@ -375,7 +378,7 @@
             <label class="label label-info" for="">Address Details</label>
             <textarea
               class="form-control"
-              formControlName="AddressDetail"
+              [(ngModel)]="locationObj.AddressDetail"
               name=""
               id=""
               cols="30"
@@ -389,7 +392,7 @@
             <label class="label label-info" for="">Header Details</label>
 
             <textarea
-              formControlName="HeaderDetail"
+              [(ngModel)]="locationObj.HeaderDetail"
               name=""
               class="form-control"
               id=""
@@ -402,7 +405,7 @@
           <div class="form-group">
             <label class="label label-info" for="">Footer Details</label>
             <textarea
-              formControlName="FooterDetail"
+              [(ngModel)]="locationObj.FooterDetail"
               name=""
               class="form-control"
               id=""

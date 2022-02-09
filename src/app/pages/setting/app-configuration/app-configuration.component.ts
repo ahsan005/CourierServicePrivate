@@ -40,119 +40,118 @@ export class AppConfigurationComponent implements OnInit {
     this.Initialize();
   }
 
-
-
   AppConfigForm;
-  async Initialize() {
-    await this.GetOrganization();
+  Initialize() {
+    this.GetOrganization();
 
-    await this.GetLocation();
+    this.GetLocation();
     // this.AppConfigForm.controls['OrginizationName'].setValue("Hello");
 
-    this.AppConfigForm = this.fb.group({
-      Organization: this.fb.group({
-        OrginizationId: ["", Validators.required],
-        OrginizationSettingId: [""],
-        CurrencyId: ["", Validators.required],
-        OrginizationName: ["", Validators.required],
-        OrginizationTitle: ["", Validators.required],
-        NTN: [""],
-        STN: [""],
+  //   this.AppConfigForm = this.fb.group({
+  //     Organization: this.fb.group({
+  //       OrginizationId: ["", Validators.required],
+  //       OrginizationSettingId: [""],
+  //       CurrencyId: ["", Validators.required],
+  //       OrginizationName: ["", Validators.required],
+  //       OrginizationTitle: ["", Validators.required],
+  //       NTN: [""],
+  //       STN: [""],
 
-        WaterMark: [""],
-        Certificate1: [""],
-        Certificate2: [""],
-      }),
-      Location: this.fb.group({
-        LocationId: ["", Validators.required],
-        OrginizationId: ["", Validators.required],
-        LocationSettingId: [""],
+  //       WaterMark: [""],
+  //       Certificate1: [""],
+  //       Certificate2: [""],
+  //     }),
+  //     Location: this.fb.group({
+  //       LocationId: ["", Validators.required],
+  //       OrginizationId: ["", Validators.required],
+  //       LocationSettingId: [""],
 
-        Address: this.fb.group({
-          AddressId: [""],
-          CountryId: ["", Validators.required],
-          ProvinceId: ["", Validators.required],
-          CityId: ["", Validators.required],
-          LocationId: ["", Validators.required],
-          AddressDetail: ["", Validators.required],
-          Latitude: ["", Validators.required],
-          Longitude: ["", Validators.required],
-          Altitude: ["", Validators.required],
-        }),
-        LocationTypeProfileId: ["", Validators.required],
-        LocationName: ["", Validators.required],
-        LicenseNo: ["", Validators.required],
-        SubLocationName: ["", Validators.required],
-        LocationShortName: ["", Validators.required],
-        Mobile1: ["", Validators.required],
-        Mobile2: [""],
-        Email: ["", Validators.required],
-        PortalURL: [""],
-        HeaderDetail: [""],
-        FooterDetail: [this.locationObj.FooterDetail],
-        IsDefaultLocation: [this.locationObj.IsDefaultLocation],
-        CreatedById: [this.locationObj.CreatedById],
-        CreatedOn: [this.locationObj.CreatedOn],
-        AlteredById: [this.locationObj.AlteredById],
-        AlteredOn: [this.locationObj.AlteredOn],
-        ActionTypeId: [this.locationObj.ActionTypeId],
-        UserLogId: [this.locationObj.UserLogId],
-      }),
-    });
-  }
+  //       Address: this.fb.group({
+  //         AddressId: [""],
+  //         CountryId: ["", Validators.required],
+  //         ProvinceId: ["", Validators.required],
+  //         CityId: ["", Validators.required],
+  //         LocationId: ["", Validators.required],
+  //         AddressDetail: ["", Validators.required],
+  //         Latitude: ["", Validators.required],
+  //         Longitude: ["", Validators.required],
+  //         Altitude: ["", Validators.required],
+  //       }),
+  //       LocationTypeProfileId: ["", Validators.required],
+  //       LocationName: ["", Validators.required],
+  //       LicenseNo: ["", Validators.required],
+  //       SubLocationName: ["", Validators.required],
+  //       LocationShortName: ["", Validators.required],
+  //       Mobile1: ["", Validators.required],
+  //       Mobile2: [""],
+  //       Email: ["", Validators.required],
+  //       PortalURL: [""],
+  //       HeaderDetail: [""],
+  //       FooterDetail: [this.locationObj.FooterDetail],
+  //       IsDefaultLocation: [this.locationObj.IsDefaultLocation],
+  //       CreatedById: [this.locationObj.CreatedById],
+  //       CreatedOn: [this.locationObj.CreatedOn],
+  //       AlteredById: [this.locationObj.AlteredById],
+  //       AlteredOn: [this.locationObj.AlteredOn],
+  //       ActionTypeId: [this.locationObj.ActionTypeId],
+  //       UserLogId: [this.locationObj.UserLogId],
+  //     }),
+  //   });
+  // }
 
-  SetFormOrganization() {
-    this.AppConfigForm.patchValue({
-      Organization: {
-        OrginizationId: this.organizationObj.OrginizationId,
-        OrginizationName: this.organizationObj.OrginizationName,
-        CurrencyId: this.organizationObj.CurrencyId,
-        OrginizationTitle: this.organizationObj.OrginizationTitle,
-        NTN: this.organizationObj.NTN,
-        STN: this.organizationObj.STN,
-      },
-    });
+  // SetFormOrganization() {
+  //   this.AppConfigForm.patchValue({
+  //     Organization: {
+  //       OrginizationId: this.organizationObj.OrginizationId,
+  //       OrginizationName: this.organizationObj.OrginizationName,
+  //       CurrencyId: this.organizationObj.CurrencyId,
+  //       OrginizationTitle: this.organizationObj.OrginizationTitle,
+  //       NTN: this.organizationObj.NTN,
+  //       STN: this.organizationObj.STN,
+  //     },
+  //   });
 
-    if (
-      this.organizationObj.LogoImageURL != null ||
-      this.organizationObj.LogoImageURL != "" ||
-      this.organizationObj.LogoImageURL != undefined
-    ) {
-      this.isImageSaved = true;
-      this.cardImageBase64 = this.organizationObj.LogoImageURL;
-    }
-  }
+  //   if (
+  //     this.organizationObj.LogoImageURL != null ||
+  //     this.organizationObj.LogoImageURL != "" ||
+  //     this.organizationObj.LogoImageURL != undefined
+  //   ) {
+  //     this.isImageSaved = true;
+  //     this.cardImageBase64 = this.organizationObj.LogoImageURL;
+  //   }
+  // }
 
-  SetFormLocation() {
-    this.AppConfigForm.patchValue({
-      Location: {
-        LocationId: this.locationObj.LocationId,
-        OrginizationId: this.organizationObj.OrginizationId,
-        LocationSettingId: this.locationObj.LocationSettingId,
-        Address: {
-          CountryId: this.addressObj.CountryId,
-          ProvinceId: this.addressObj.ProvinceId,
-          CityId: this.addressObj.CityId,
-          LocationId: this.addressObj.LocationId,
-          AddressDetail: this.addressObj.AddressDetail,
-          Latitude: this.addressObj.Latitude,
-          Longitude: this.addressObj.Longitude,
-          Altitude: this.addressObj.Altitude,
-        },
-        LocationTypeProfileId: this.locationObj.LocationTypeProfileId,
-        LocationName: this.locationObj.LocationName,
-        LicenseNo: this.locationObj.LicenseNo,
-        SubLocationName: this.locationObj.SubLocationName,
-        LocationShortName: this.locationObj.LocationShortName,
-        Mobile1: this.locationObj.Mobile1,
-        Mobile2: this.locationObj.Mobile2,
-        Email: this.locationObj.Email,
-        PortalURL: this.locationObj.PortalURL,
-        HeaderDetail: this.locationObj.HeaderDetail,
-        FooterDetail: this.locationObj.FooterDetail,
-        IsDefaultLocation: this.locationObj.IsDefaultLocation,
-      },
-    });
+  // SetFormLocation() {
+  //   this.AppConfigForm.patchValue({
+  //     Location: {
+  //       LocationId: this.locationObj.LocationId,
+  //       OrginizationId: this.organizationObj.OrginizationId,
+  //       LocationSettingId: this.locationObj.LocationSettingId,
+  //       Address: {
+  //         CountryId: this.addressObj.CountryId,
+  //         ProvinceId: this.addressObj.ProvinceId,
+  //         CityId: this.addressObj.CityId,
+  //         LocationId: this.addressObj.LocationId,
+  //         AddressDetail: this.addressObj.AddressDetail,
+  //         Latitude: this.addressObj.Latitude,
+  //         Longitude: this.addressObj.Longitude,
+  //         Altitude: this.addressObj.Altitude,
+  //       },
+  //       LocationTypeProfileId: this.locationObj.LocationTypeProfileId,
+  //       LocationName: this.locationObj.LocationName,
+  //       LicenseNo: this.locationObj.LicenseNo,
+  //       SubLocationName: this.locationObj.SubLocationName,
+  //       LocationShortName: this.locationObj.LocationShortName,
+  //       Mobile1: this.locationObj.Mobile1,
+  //       Mobile2: this.locationObj.Mobile2,
+  //       Email: this.locationObj.Email,
+  //       PortalURL: this.locationObj.PortalURL,
+  //       HeaderDetail: this.locationObj.HeaderDetail,
+  //       FooterDetail: this.locationObj.FooterDetail,
+  //       IsDefaultLocation: this.locationObj.IsDefaultLocation,
+  //     },
+  //   });
+  // }
   }
   getLOVs() {
     this.sharedService.GetAllCountries().subscribe((data) => {
@@ -187,12 +186,14 @@ export class AppConfigurationComponent implements OnInit {
         this.organizationObj.LogoImageURL = "data:image/png;base64," + base64;
         console.log(this.organizationObj.LogoImageURL);
         console.log(this.organizationObj);
-        this.SetFormOrganization();
+        // this.SetFormOrganization();
       } else {
         console.warn(response);
+        this.notificationService.showToast('success',response.Message,'','top-right');
       }
     });
   }
+
   _arrayBufferToBase64(buffer) {
     var binary = "";
     var bytes = new Uint8Array(buffer);
@@ -219,7 +220,7 @@ export class AppConfigurationComponent implements OnInit {
         this.GetCityByProvince(this.addressObj.ProvinceId);
         console.log(this.locationObj);
         console.log(this.addressObj);
-        this.SetFormLocation();
+        // this.SetFormLocation();
       } else {
         console.warn(response);
       }
@@ -234,6 +235,7 @@ export class AppConfigurationComponent implements OnInit {
     });
   }
   GetCityByProvince(provinceId: number) {
+    console.log("ProvinceIDSelected",provinceId)
     this.sharedService.GetCitiesByProvince(provinceId).subscribe((data) => {
       var response = JSON.parse(JSON.stringify(data));
       this.citiesLOV = response.Data;
@@ -242,6 +244,7 @@ export class AppConfigurationComponent implements OnInit {
     });
   }
   GetSecondaryLOV() {
+    debugger;
     console.log("GetSecondaryLOV");
     var selectedCountry = this.AppConfigForm.get("Location")
       .get("Address")
@@ -251,14 +254,13 @@ export class AppConfigurationComponent implements OnInit {
       .get("ProvinceId").value;
 
     console.log(selectedCountry);
-    console.log(selectedCountry);
+    console.log(selectedProvince);
     if (
       (selectedCountry != undefined && selectedProvince == undefined) ||
       selectedProvince == ""
     ) {
       this.GetProvinceByCountry(selectedCountry);
-    }
-    if (selectedProvince != undefined && selectedCountry != undefined) {
+    } else if (selectedProvince != undefined && selectedCountry != undefined) {
       this.GetCityByProvince(selectedProvince);
     }
   }
@@ -318,84 +320,84 @@ export class AppConfigurationComponent implements OnInit {
     this.isImageSaved = false;
   }
   // Validation Elements
-  get OrginizationId() {
-    return this.AppConfigForm.get("Organization").get("OrginizationId");
-  }
-  get OrginizationSettingId() {
-    return this.AppConfigForm.get("Organization").get("OrginizationSettingId");
-  }
-  get CurrencyId() {
-    return this.AppConfigForm.get("Organization").get("CurrencyId");
-  }
-  get OrginizationName() {
-    return this.AppConfigForm.get("Organization").get("OrginizationName");
-  }
-  get OrginizationTitle() {
-    return this.AppConfigForm.get("Organization").get("OrginizationTitle");
-  }
-  get NTN() {
-    return this.AppConfigForm.get("Organization").get("NTN");
-  }
-  get STN() {
-    return this.AppConfigForm.get("Organization").get("STN");
-  }
-  get Logo() {
-    return this.AppConfigForm.get("Organization").get("Logo");
-  }
-  get WaterMark() {
-    return this.AppConfigForm.get("Organization").get("WaterMark");
-  }
-  get Certificate1() {
-    return this.AppConfigForm.get("Organization").get("Certificate1");
-  }
-  get Certificate2() {
-    return this.AppConfigForm.get("Organization").get("Certificate2");
-  }
-  get LocationId() {
-    return this.AppConfigForm.get("Location").get("LocationId");
-  }
-  get LocationSettingId() {
-    return this.AppConfigForm.get("Location").get("LocationSettingId");
-  }
-  get AddressId() {
-    return this.AppConfigForm.get("Location").get("AddressId");
-  }
-  get LocationTypeProfileId() {
-    return this.AppConfigForm.get("Location").get("LocationTypeProfileId");
-  }
-  get LocationName() {
-    return this.AppConfigForm.get("Location").get("LocationName");
-  }
-  get LicenseNo() {
-    return this.AppConfigForm.get("Location").get("LicenseNo");
-  }
-  get SubLocationName() {
-    return this.AppConfigForm.get("Location").get("SubLocationName");
-  }
-  get LocationShortName() {
-    return this.AppConfigForm.get("Location").get("LocationShortName");
-  }
-  get Mobile1() {
-    return this.AppConfigForm.get("Location").get("Mobile1");
-  }
-  get Mobile2() {
-    return this.AppConfigForm.get("Location").get("Mobile2");
-  }
-  get Email() {
-    return this.AppConfigForm.get("Location").get("Email");
-  }
-  get PortalURL() {
-    return this.AppConfigForm.get("Location").get("PortalURL");
-  }
-  get HeaderDetail() {
-    return this.AppConfigForm.get("Location").get("HeaderDetail");
-  }
-  get FooterDetail() {
-    return this.AppConfigForm.get("Location").get("FooterDetail");
-  }
-  get IsDefaultLocation() {
-    return this.AppConfigForm.get("Location").get("IsDefaultLocation");
-  }
+  // get OrginizationId() {
+  //   return this.AppConfigForm.get("Organization").get("OrginizationId");
+  // }
+  // get OrginizationSettingId() {
+  //   return this.AppConfigForm.get("Organization").get("OrginizationSettingId");
+  // }
+  // get CurrencyId() {
+  //   return this.AppConfigForm.get("Organization").get("CurrencyId");
+  // }
+  // get OrginizationName() {
+  //   return this.AppConfigForm.get("Organization").get("OrginizationName");
+  // }
+  // get OrginizationTitle() {
+  //   return this.AppConfigForm.get("Organization").get("OrginizationTitle");
+  // }
+  // get NTN() {
+  //   return this.AppConfigForm.get("Organization").get("NTN");
+  // }
+  // get STN() {
+  //   return this.AppConfigForm.get("Organization").get("STN");
+  // }
+  // get Logo() {
+  //   return this.AppConfigForm.get("Organization").get("Logo");
+  // }
+  // get WaterMark() {
+  //   return this.AppConfigForm.get("Organization").get("WaterMark");
+  // }
+  // get Certificate1() {
+  //   return this.AppConfigForm.get("Organization").get("Certificate1");
+  // }
+  // get Certificate2() {
+  //   return this.AppConfigForm.get("Organization").get("Certificate2");
+  // }
+  // get LocationId() {
+  //   return this.AppConfigForm.get("Location").get("LocationId");
+  // }
+  // get LocationSettingId() {
+  //   return this.AppConfigForm.get("Location").get("LocationSettingId");
+  // }
+  // get AddressId() {
+  //   return this.AppConfigForm.get("Location").get("AddressId");
+  // }
+  // get LocationTypeProfileId() {
+  //   return this.AppConfigForm.get("Location").get("LocationTypeProfileId");
+  // }
+  // get LocationName() {
+  //   return this.AppConfigForm.get("Location").get("LocationName");
+  // }
+  // get LicenseNo() {
+  //   return this.AppConfigForm.get("Location").get("LicenseNo");
+  // }
+  // get SubLocationName() {
+  //   return this.AppConfigForm.get("Location").get("SubLocationName");
+  // }
+  // get LocationShortName() {
+  //   return this.AppConfigForm.get("Location").get("LocationShortName");
+  // }
+  // get Mobile1() {
+  //   return this.AppConfigForm.get("Location").get("Mobile1");
+  // }
+  // get Mobile2() {
+  //   return this.AppConfigForm.get("Location").get("Mobile2");
+  // }
+  // get Email() {
+  //   return this.AppConfigForm.get("Location").get("Email");
+  // }
+  // get PortalURL() {
+  //   return this.AppConfigForm.get("Location").get("PortalURL");
+  // }
+  // get HeaderDetail() {
+  //   return this.AppConfigForm.get("Location").get("HeaderDetail");
+  // }
+  // get FooterDetail() {
+  //   return this.AppConfigForm.get("Location").get("FooterDetail");
+  // }
+  // get IsDefaultLocation() {
+  //   return this.AppConfigForm.get("Location").get("IsDefaultLocation");
+  // }
 
   // Validation Elements
 

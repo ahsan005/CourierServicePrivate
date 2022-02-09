@@ -18,11 +18,6 @@ export class Location {
   public Longitude:number;
   public Altitude:number;
 
-
-
-
-
-
   public LocationTypeProfileId: number;
   public LocationName: string;
   public LicenseNo: string;

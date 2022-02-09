@@ -68,7 +68,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: "Order-Receiving",
     icon: "edit-2-outline",
     link: "/admin/receiving/list",
-
   },
   {
     title: "Customers",
@@ -87,11 +86,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
-    title: "Active Customers",
-    icon: "person-outline",
-    link: "/admin/active-customers",
-  },
+
   {
     title: "Finance Management",
     icon: "people-outline",
@@ -107,7 +102,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
         link: "/admin/refund",
       },
-    ]
+    ],
     // children: [
     //   {
     //     title: 'Calendar',
