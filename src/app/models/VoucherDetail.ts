@@ -2,7 +2,7 @@ export class VoucherDetail {
   public constructor(init?: Partial<VoucherDetail>) {
     Object.assign(this, init);
   }
-
+  public AccountPrefix:string;
   public VoucherDetalId: number;
   public VoucherId: number;
   public VoucherDetailLineId: number;

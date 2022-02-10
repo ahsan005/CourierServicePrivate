@@ -90,7 +90,7 @@ export class RecentBookedOrdersComponent implements OnInit {
         this.Orders = response.Data;
       }
 
-      if (this.Orders.length > 0) {
+      if (this.Orders != null && this.Orders.length > 0) {
         this.Orders.sort((a, b) => {
           return (
             <any>new Date(b.OrderBookingOn) - <any>new Date(a.OrderBookingOn)

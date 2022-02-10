@@ -239,11 +239,12 @@ export class BookedOrdersComponent implements OnInit {
           // Invoice Voucher Voucher Detail COR Payable (Voucher#1)
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460001;
-          voucherDetailObj.CreditAmount = 0;
+          voucherDetailObj.VoucherMode = "C";
+          // voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.AccountPrefix = "CRV";
+          voucherDetailObj.CreditAmount = TotalPayable;
           voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.DebitAmount = TotalPayable;
+          voucherDetailObj.DebitAmount = 0;
           voucherDetailObj.PartyId = element.PartyId;
           // voucherDetailObj.ProductId = element.OrderBookingId;
           // voucherDetailObj.ProductId = 46000001;
@@ -273,11 +274,12 @@ export class BookedOrdersComponent implements OnInit {
           // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "C";
-          voucherDetailObj.CreditAmount = TotalPayable;
-          voucherDetailObj.AccountId = 460002;
+          voucherDetailObj.VoucherMode = "D";
+          voucherDetailObj.CreditAmount = 0;
+          // voucherDetailObj.AccountId = 460002;
+          voucherDetailObj.AccountPrefix = "CONRCV";
           // voucherDetailObj.ProductId = 46000001;
-          voucherDetailObj.DebitAmount = 0;
+          voucherDetailObj.DebitAmount = TotalPayable;
           voucherDetailObj.PartyId = element.PartyId;
           // voucherDetailObj.ProductId = element.OrderBookingId;
           voucherDetailObj.PartyLocationId = element.PartyLocationId;
@@ -303,7 +305,7 @@ export class BookedOrdersComponent implements OnInit {
           // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
           var TotalPayable = element.CODAmount - element.DeliveryFee;
           voucherObj.TotalCredit = TotalPayable;
-          voucherObj.VoucherTypeProfileId = 106;
+          voucherObj.VoucherTypeProfileId = 104;
           voucherObj.DocMovementId = 281;
           voucherObj.TotalDebit = voucherObj.TotalCredit;
           voucherObj.TaxPercent = 0;
@@ -326,11 +328,12 @@ export class BookedOrdersComponent implements OnInit {
           // Payment Voucher Voucher Detail COR Payable (Voucher#2)
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "C";
-          voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.VoucherMode = "D";
+          // voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.AccountPrefix = "CCSH";
           voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.CreditAmount = TotalPayable;
-          voucherDetailObj.DebitAmount = 0;
+          voucherDetailObj.CreditAmount = 0;
+          voucherDetailObj.DebitAmount = TotalPayable;
           // voucherDetailObj.ProductId = 46000001;
 
           voucherDetailObj.PartyId = element.PartyId;
@@ -351,16 +354,17 @@ export class BookedOrdersComponent implements OnInit {
           // Payment Voucher Voucher Detail Party Cash (Voucher#2)
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460002;
-          voucherDetailObj.CreditAmount = 0;
-          voucherDetailObj.DebitAmount = TotalPayable;
+          voucherDetailObj.VoucherMode = "C";
+          // voucherDetailObj.AccountId = 460002;
+          voucherDetailObj.AccountPrefix = "CONRCV";
+          voucherDetailObj.CreditAmount = TotalPayable;
+          voucherDetailObj.DebitAmount = 0;
           voucherDetailObj.PartyId = element.PartyId;
           // voucherDetailObj.ProductId = element.OrderBookingId;
 
           voucherDetailObj.PartyLocationId = element.PartyLocationId;
           voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
+            "Cash Amount" +
             element.PartyName +
             " For The booked Parcels Rs." +
             TotalPayable +

@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
   }
   response;
   SelectLocationModal(response?) {
+    debugger;
     const ref = this.modalService.open(SelectLocationComponent, {
       size: "md",
       backdrop: "static",
@@ -75,7 +76,10 @@ export class LoginComponent implements OnInit {
     console.log(this.LocationList);
     ref.componentInstance.LocationList = this.LocationList;
     ref.componentInstance.response = response;
+    console.log(ref.result);
+    debugger;
     ref.result.then((result) => {
+      debugger;
       if (result) {
         this.onLoginSpinner = false;
         this.locationSelected = localStorage.getItem("LOCATIONID");
@@ -84,7 +88,7 @@ export class LoginComponent implements OnInit {
         // }
         if (
           localStorage.getItem("ROLENAME") == "Hospital Party" &&
-          localStorage.getItem("ROLEID") == "4602"
+          localStorage.getItem("ROLEID") == "5302"
         ) {
           console.log("isParty");
           // setTimeout(() => {
@@ -93,7 +97,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/user"]);
         } else if (
           localStorage.getItem("ROLENAME") == "Admin" &&
-          localStorage.getItem("ROLEID") == "4601"
+          localStorage.getItem("ROLEID") == "5301"
         ) {
           console.log("isAdmin");
           // setTimeout(() => {
