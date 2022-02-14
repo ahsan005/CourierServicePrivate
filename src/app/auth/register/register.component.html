@@ -5,146 +5,176 @@
   <div class="form-group">
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="CustomerName">Customer Name:</label>
+        <label class="label label-info" for="CustomerName"
+          >Customer Name: <span
+          class=" text-danger"
+          *ngIf="
+            CustomerName.invalid && (CustomerName.dirty || CustomerName.touched)
+          "
+        >
+          <span class=" text-danger" *ngIf="CustomerName.errors?.required">
+            This Field is required.
+          </span>
+          <span *ngIf="CustomerName.errors?.minlength">
+            This Field must be at least 4 characters long.
+          </span>
+          <!-- <span *ngIf="CustomerName.errors?.forbiddenName">
+            CustomerName cannot be Bob.
+          </span> -->
+        </span></label
+        >
         <input
           class="form-control"
           type="text"
           id="CustomerName"
           formControlName="CustomerName"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="CustomerName.invalid && (CustomerName.dirty || CustomerName.touched)"
-        >
-          <div class="alert text-danger" *ngIf="CustomerName.errors?.required">
-            CustomerName is required.
-          </div>
-          <div *ngIf="CustomerName.errors?.minlength">
-            CustomerName must be at least 4 characters long.
-          </div>
-          <div *ngIf="CustomerName.errors?.forbiddenName">
-            CustomerName cannot be Bob.
-          </div>
-        </div>
+
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="BusinessName">Business-Name:</label>
+        <label class="label label-info" for="BusinessName"
+          >Business-Name: <span
+          class=" text-danger"
+          *ngIf="
+            BusinessName.invalid && (BusinessName.dirty || BusinessName.touched)
+          "
+        >
+          <span class=" text-danger" *ngIf="BusinessName.errors?.required">
+            This Field is required
+          </span>
+          <span *ngIf="BusinessName.errors?.minlength">
+            This must be at least 4 characters long.
+          </span>
+          <span *ngIf="BusinessName.errors?.forbiddenName">
+            This cannot be Bob.
+          </span>
+        </span></label
+        >
         <input
           class="form-control"
           type="text"
           id="BusinessName"
           formControlName="BusinessName"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="BusinessName.invalid && (BusinessName.dirty || BusinessName.touched)"
-        >
-          <div class="alert text-danger" *ngIf="BusinessName.errors?.required">
-            Business-Name is required.
-          </div>
-          <div *ngIf="BusinessName.errors?.minlength">
-            Business-Name must be at least 4 characters long.
-          </div>
-          <div *ngIf="BusinessName.errors?.forbiddenName">
-            Business-Name cannot be Bob.
-          </div>
-        </div>
+
       </div>
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="BankName">Bank Name:</label>
+        <label class="label label-info" for="BankName">Bank Name: <span
+          class=" text-danger"
+          *ngIf="BankName.invalid && (BankName.dirty || BankName.touched)"
+        >
+          <span class=" text-danger" *ngIf="BankName.errors?.required">
+            This Field is required.
+          </span>
+          <span *ngIf="BankName.errors?.minlength">
+            This Field must be at least 4 characters long.
+          </span>
+          <span *ngIf="BankName.errors?.forbiddenName">
+            This Field cannot be Bob.
+          </span>
+        </span></label>
         <input
           class="form-control"
           type="text"
           id="BankName"
           formControlName="BankName"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="BankName.invalid && (BankName.dirty || BankName.touched)"
-        >
-          <div class="alert text-danger" *ngIf="BankName.errors?.required">
-            Bank Name is required.
-          </div>
-          <div *ngIf="BankName.errors?.minlength">
-            Bank Name must be at least 4 characters long.
-          </div>
-          <div *ngIf="BankName.errors?.forbiddenName">
-            Bank Name cannot be Bob.
-          </div>
-        </div>
+
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="AccountNumber">Account-Number:</label>
+        <label class="label label-info" for="AccountNumber"
+          >Account-Number:
+          <span
+            class="text-danger"
+            *ngIf="
+              AccountNumber.invalid &&
+              (AccountNumber.dirty || AccountNumber.touched)
+            "
+          >
+            <span class="text-danger" *ngIf="AccountNumber.errors?.required">
+              This Field is required.
+            </span>
+            <span *ngIf="AccountNumber.errors?.minlength">
+              This Field must be at least 4 characters long.
+            </span>
+            <span *ngIf="AccountNumber.errors?.forbiddenName">
+              This Field cannot be Bob.
+            </span>
+          </span></label
+        >
         <input
           class="form-control"
           type="number"
           id="AccountNumber"
           formControlName="AccountNumber"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="AccountNumber.invalid && (AccountNumber.dirty || AccountNumber.touched)"
-        >
-          <div class="alert text-danger" *ngIf="AccountNumber.errors?.required">
-            Account-Number is required.
-          </div>
-          <div *ngIf="AccountNumber.errors?.minlength">
-            Account-Number must be at least 4 characters long.
-          </div>
-          <div *ngIf="AccountNumber.errors?.forbiddenName">
-            Account-Number cannot be Bob.
-          </div>
-        </div>
       </div>
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="MobileNumber">Mobile-Number#</label>
+        <label class="label label-info" for="MobileNumber"
+          >Mobile-Number#
+          <span
+            class="text-danger"
+            *ngIf="
+              MobileNumber.invalid &&
+              (MobileNumber.dirty || MobileNumber.touched)
+            "
+          >
+            <span class="text-danger" *ngIf="MobileNumber.errors?.required">
+              This Field is required.
+            </span>
+            <span class="text-danger" *ngIf="MobileNumber.errors?.minlength">
+              This Field must be at least 11 characters long.
+            </span>
+          </span></label
+        >
         <input
           class="form-control"
           type="number"
           id="MobileNumber"
           formControlName="MobileNo"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="MobileNumber.invalid && (MobileNumber.dirty || MobileNumber.touched)"
-        >
-          <div class="alert text-danger" *ngIf="MobileNumber.errors?.required">
-            Mobile-Number is required.
-          </div>
-          <div class="alert text-danger" *ngIf="MobileNumber.errors?.minlength">
-            Mobile-Number must be at least 11 characters long.
-          </div>
-        </div>
       </div>
 
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="Email">Email:</label>
+        <label class="label label-info" for="Email"
+          >Email:
+          <span
+            class="text-danger"
+            *ngIf="Email.invalid && (Email.dirty || Email.touched)"
+          >
+            <span class="text-danger" *ngIf="Email.errors?.required">
+              This Field is required.
+            </span>
+            <span class="text-danger" *ngIf="Email.errors?.minlength">
+              This Field must be at least 4 characters long.
+            </span>
+          </span></label
+        >
         <input
           class="form-control"
           type="Email"
           id="Email"
           formControlName="Email"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="Email.invalid && (Email.dirty || Email.touched)"
-        >
-          <div class="alert text-danger" *ngIf="Email.errors?.required">
-            Email is required.
-          </div>
-          <div class="alert text-danger" *ngIf="Email.errors?.minlength">
-            Email must be at least 4 characters long.
-          </div>
-        </div>
       </div>
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="City">City:</label>
+        <label class="label label-info" for="City"
+          >City:
+          <span
+            class="text-danger"
+            *ngIf="City.invalid && (City.dirty || City.touched)"
+          >
+            <span class="text-danger" *ngIf="City.errors?.required">
+              This Field is required.
+            </span>
+          </span></label
+        >
         <select
           class="form-control"
           name="my-select"
@@ -156,41 +186,53 @@
             {{ item.Text }}
           </option>
         </select>
-        <div
-          class="row alert text-danger"
-          *ngIf="City.invalid && (City.dirty || City.touched)"
-        >
-          <div class="alert text-danger" *ngIf="City.errors?.required">
-            City is required.
-          </div>
-        </div>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="Cnic">Cnic#</label>
+        <label class="label label-info" for="Cnic"
+          >Cnic#
+          <span
+            class="text-danger"
+            *ngIf="Cnic.invalid && (Cnic.dirty || Cnic.touched)"
+          >
+            <span class="text-danger" *ngIf="Cnic.errors?.required">
+              This Field is required.
+            </span>
+            <span class="text-danger" *ngIf="Cnic.errors?.minlength">
+              This Field must be valid.
+            </span>
+          </span></label
+        >
         <!-- <input
           class="form-control"
           type="file"
           (change)="onFileChange($event)"
         /> -->
         <!-- <ngx-file-upload formControlName="file"></ngx-file-upload> -->
-        <input type="text" name="" formControlName="Cnic" id="Cnic" class="form-control">
-        <div
-          class="row alert text-danger"
-          *ngIf="Cnic.invalid && (Cnic.dirty || Cnic.touched)"
-        >
-          <div class="alert text-danger" *ngIf="Cnic.errors?.required">
-           Cnic# is required.
-          </div>
-          <div class="alert text-danger" *ngIf="Cnic.errors?.minlength">
-            Cnic# must be valid.
-          </div>
-
-        </div>
+        <input
+          type="text"
+          name=""
+          formControlName="Cnic"
+          id="Cnic"
+          class="form-control"
+        />
       </div>
     </div>
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="Password">Password:</label>
+        <label class="label label-info" for="Password"
+          >Password:
+          <span
+            class="text-danger"
+            *ngIf="Password.invalid && (Password.dirty || Password.touched)"
+          >
+            <span class="text-danger" *ngIf="Password.errors?.required">
+              This Field is required.
+            </span>
+            <span *ngIf="Password.errors?.minlength">
+              This Field must be at least 4 characters long.
+            </span>
+          </span></label
+        >
         <input
           type="Password"
           name=""
@@ -198,21 +240,24 @@
           id="Password"
           formControlName="Password"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="Password.invalid && (Password.dirty || Password.touched)"
-        >
-          <div class="alert text-danger" *ngIf="Password.errors?.required">
-            Passwordword is required.
-          </div>
-          <div *ngIf="Password.errors?.minlength">
-            Password must be at least 4 characters long.
-          </div>
-        </div>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="ConfirmPasswordword"
-          >Confirm Password:</label
+          >Confirm Password:
+          <span
+            class="text-danger"
+            *ngIf="
+              ConfirmPassword.invalid &&
+              (ConfirmPassword.dirty || ConfirmPassword.touched)
+            "
+          >
+            <span class="text-danger" *ngIf="ConfirmPassword.errors?.required">
+              This Field is required.
+            </span>
+            <span *ngIf="ConfirmPassword.errors.mustMatch"
+              >Passwords must match</span
+            >
+          </span></label
         >
         <input
           type="Password"
@@ -221,22 +266,10 @@
           id="ConfirmPassword"
           formControlName="ConfirmPassword"
         />
-        <div
-          class="row alert text-danger"
-          *ngIf="
-            ConfirmPassword.invalid && (ConfirmPassword.dirty || ConfirmPassword.touched)
-          "
-        >
-          <div class="alert text-danger" *ngIf="ConfirmPassword.errors?.required">
-            Confirm Passwordword is required.
-          </div>
-          <div *ngIf="ConfirmPassword.errors.mustMatch">Password must match</div>
-        </div>
       </div>
     </div>
     <div class="row gx-1 justify-content-center py-4">
       <div class="col-lg-8 col-md-6 col-xs-5">
-
         <button nbButton shape="semi-round" status="success" fullWidth>
           Register
         </button>

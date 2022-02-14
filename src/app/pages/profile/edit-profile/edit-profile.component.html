@@ -5,7 +5,9 @@
   <div class="form-group">
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="CustomerName">Customer Name:</label>
+        <label class="label label-info" for="CustomerName"
+          >Customer Name:</label
+        >
         <input
           nbInput
           fullWidth
@@ -15,7 +17,9 @@
         />
         <span
           class="alert text-danger"
-          *ngIf="CustomerName.invalid && (CustomerName.dirty || CustomerName.touched)"
+          *ngIf="
+            CustomerName.invalid && (CustomerName.dirty || CustomerName.touched)
+          "
         >
           <span class="alert text-danger" *ngIf="CustomerName.errors?.required">
             CustomerName is required.
@@ -29,7 +33,9 @@
         </span>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="BusinessName">Business-Name:</label>
+        <label class="label label-info" for="BusinessName"
+          >Business-Name:</label
+        >
         <input
           nbInput
           fullWidth
@@ -39,7 +45,9 @@
         />
         <span
           class="alert text-danger"
-          *ngIf="BusinessName.invalid && (BusinessName.dirty || BusinessName.touched)"
+          *ngIf="
+            BusinessName.invalid && (BusinessName.dirty || BusinessName.touched)
+          "
         >
           <span class="alert text-danger" *ngIf="BusinessName.errors?.required">
             Business-Name is required.
@@ -79,7 +87,9 @@
         </span>
       </div>
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
-        <label class="label label-info" for="AccountNumber">Account-Number:</label>
+        <label class="label label-info" for="AccountNumber"
+          >Account-Number:</label
+        >
         <input
           nbInput
           fullWidth
@@ -89,9 +99,15 @@
         />
         <span
           class="alert text-danger"
-          *ngIf="AccountNumber.invalid && (AccountNumber.dirty || AccountNumber.touched)"
+          *ngIf="
+            AccountNumber.invalid &&
+            (AccountNumber.dirty || AccountNumber.touched)
+          "
         >
-          <span class="alert text-danger" *ngIf="AccountNumber.errors?.required">
+          <span
+            class="alert text-danger"
+            *ngIf="AccountNumber.errors?.required"
+          >
             Account-Number is required.
           </span>
           <span *ngIf="AccountNumber.errors?.minlength">
@@ -151,7 +167,12 @@
     <div class="row gx-1">
       <div class="col-lg-6 col-md-10 col-xs-8 col-margin-fix">
         <label class="label label-info" for="CityId">CityId:</label>
-        <select class="form-select" fullWidth name="CityId" formControlName="CityId">
+        <select
+          class="form-select"
+          fullWidth
+          name="CityId"
+          formControlName="CityId"
+        >
           <option value="-1" selected disabled>Select CityId</option>
           <option [value]="item.Value" *ngFor="let item of citiesLOV">
             {{ item.Text }}

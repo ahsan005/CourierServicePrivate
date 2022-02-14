@@ -154,7 +154,6 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.DocMovementId = 280;
           voucherObj.TotalDebit = voucherObj.TotalCredit;
           voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
-          voucherObj.VoucherTypeProfileId;
           voucherObj.OrderBookingId = element.OrderBookingId;
           voucherObj.DocumentOrigin = "ORDER-REFUND";
 
@@ -171,174 +170,9 @@ export class OrdersPaidForComponent implements OnInit {
             element.PartyLocationName;
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460001;
-          voucherDetailObj.CreditAmount = 0;
-          voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.DebitAmount = TotalPayable;
-          voucherDetailObj.PartyId = element.PartyId;
-          // voucherDetailObj.ProductId = element.OrderBookingId;
-          // voucherDetailObj.ProductId = 46000001;
-          voucherDetailObj.PartyLocationId = element.PartyLocationId;
-
-          voucherDetailObj.VoucherDetailLineId = null;
-          voucherDetailObj.AccountMappingControlId = null;
-          voucherDetailObj.ServiceId = null;
-          voucherDetailObj.EmployeeId = null;
-          voucherDetailObj.ProjectId = null;
-          voucherDetailObj.ServiceId = null;
-          voucherDetailObj.EntryMode = null;
-          voucherDetailObj.TaxId = null;
-          voucherDetailObj.DiscountAmount = null;
-          voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
-            element.PartyName +
-            " For The booked Parcels Rs." +
-            TotalPayable +
-            "paid to " +
-            element.PartyLocationName;
-          // Add To VOucher Obj
-          voucherObj.VoucherDetail1 = voucherDetailObj;
-
-          // Invoice Voucher Voucher Detail COR Payable (Voucher#1)
-
-          // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
-
-          var voucherDetailObj = new VoucherDetail();
           voucherDetailObj.VoucherMode = "C";
-          voucherDetailObj.CreditAmount = TotalPayable;
-          voucherDetailObj.AccountId = 460002;
-          // voucherDetailObj.ProductId = 46000001;
-          voucherDetailObj.DebitAmount = 0;
-          voucherDetailObj.PartyId = element.PartyId;
-          // voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.PartyLocationId = element.PartyLocationId;
-          voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
-            element.PartyName +
-            " For The booked Parcels Rs." +
-            TotalPayable +
-            "paid to " +
-            element.PartyLocationName;
-          voucherObj.VoucherDetail2 = voucherDetailObj;
-
-          // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
-          this.VoucherArray.push(voucherObj);
-
-          // Invoice Voucher (Voucher#1)
-
-          //Payment Voucher (Voucher#2)
-
-          var voucherObj = new Voucher();
-          voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
-          voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
-          // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
-          var TotalPayable = element.CODAmount - element.DeliveryFee;
-          voucherObj.TotalCredit = TotalPayable;
-          voucherObj.VoucherTypeProfileId = 106;
-          voucherObj.DocMovementId = 281;
-          voucherObj.TotalDebit = voucherObj.TotalCredit;
-          voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
-          voucherObj.VoucherTypeProfileId;
-          voucherObj.OrderBookingId = element.OrderBookingId;
-          voucherObj.DocumentOrigin = "ORDER-REFUND";
-
-          if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
-            voucherObj.TaxAmount =
-              (element.DeliveryFee * voucherObj.TaxPercent) / 100;
-          }
-          voucherObj.Narration =
-            "Cash Amount Rs." +
-            TotalPayable +
-            "paid to " +
-            element.PartyName +
-            " " +
-            element.PartyLocationName;
-
-          // Payment Voucher Voucher Detail COR Payable (Voucher#2)
-
-          var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "C";
-          voucherDetailObj.AccountId = 460001;
-          voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.CreditAmount = TotalPayable;
-          voucherDetailObj.DebitAmount = 0;
-          // voucherDetailObj.ProductId = 46000001;
-
-          voucherDetailObj.PartyId = element.PartyId;
-          // voucherDetailObj.ProductId = element.OrderBookingId;
-          voucherDetailObj.PartyLocationId = element.PartyLocationId;
-          voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
-            element.PartyName +
-            " For The booked Parcels Rs." +
-            TotalPayable;
-          // push To Array
-          voucherObj.VoucherDetail1 = voucherDetailObj;
-
-          // Payment Voucher Voucher Detail COR Payable (Voucher#2)
-
-          // Payment Voucher Voucher Detail Party Cash (Voucher#2)
-
-          var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460002;
-          voucherDetailObj.CreditAmount = 0;
-          voucherDetailObj.DebitAmount = TotalPayable;
-          voucherDetailObj.PartyId = element.PartyId;
-          // voucherDetailObj.ProductId = element.OrderBookingId;
-
-          voucherDetailObj.PartyLocationId = element.PartyLocationId;
-          voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
-            element.PartyName +
-            " For The booked Parcels Rs." +
-            TotalPayable;
-          voucherObj.VoucherDetail2 = voucherDetailObj;
-
-          // Payment Voucher Voucher Detail Party Cash (Voucher#2)
-
-          this.VoucherArray.push(voucherObj);
-          //Payment Voucher (Voucher#2)
-
-          // 2nd pair of Vouchers
-          // Courier Invoice  Voucher (Voucher#1)
-          var voucherObj = new Voucher();
-          voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
-          voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
-          // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
-          voucherObj.ShiftId = null;
-          voucherObj.ShiftRecordId = null;
-          voucherObj.CancelRemarks = null;
-          voucherObj.DiscountAmount = null;
-
-          var TotalPayable = element.CODAmount - element.DeliveryFee;
-          voucherObj.TotalCredit = TotalPayable;
-          voucherObj.VoucherTypeProfileId = 109;
-          voucherObj.DocMovementId = 280;
-          voucherObj.TotalDebit = voucherObj.TotalCredit;
-          voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
-          voucherObj.VoucherTypeProfileId;
-          voucherObj.OrderBookingId = element.OrderBookingId;
-          voucherObj.DocumentOrigin = "ORDER-REFUND";
-
-          if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
-            voucherObj.TaxAmount =
-              (element.DeliveryFee * voucherObj.TaxPercent) / 100;
-          }
-          voucherObj.Narration =
-            "Cash Amount Rs." +
-            TotalPayable +
-            "paid to " +
-            element.PartyName +
-            " " +
-            element.PartyLocationName;
-
-          // Invoice Voucher Voucher Detail COR Payable (Voucher#1)
-
-          var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "C";
-          voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.AccountId;
+          voucherDetailObj.AccountPrefix = "ORP";
           voucherDetailObj.CreditAmount = TotalPayable;
           voucherDetailObj.ProductId = element.OrderBookingId;
           voucherDetailObj.DebitAmount = 0;
@@ -357,9 +191,9 @@ export class OrdersPaidForComponent implements OnInit {
           voucherDetailObj.TaxId = null;
           voucherDetailObj.DiscountAmount = null;
           voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
+            "Cash Amount Paid to Refund " +
             element.PartyName +
-            " For The booked Parcels Rs." +
+            " For The Parcel Rs." +
             TotalPayable;
 
           // Add To VOucher Obj
@@ -372,17 +206,19 @@ export class OrdersPaidForComponent implements OnInit {
           var voucherDetailObj = new VoucherDetail();
           voucherDetailObj.VoucherMode = "D";
           voucherDetailObj.CreditAmount = 0;
-          voucherDetailObj.AccountId = 460002;
+          // voucherDetailObj.AccountId = 460002;
+          voucherDetailObj.AccountPrefix = "CRV";
           // voucherDetailObj.ProductId = 46000001;
           voucherDetailObj.DebitAmount = TotalPayable;
           voucherDetailObj.PartyId = element.PartyId;
           // voucherDetailObj.ProductId = element.OrderBookingId;
           voucherDetailObj.PartyLocationId = element.PartyLocationId;
           voucherDetailObj.LineDescription =
-            "Cash Amount Paid to " +
+            "Cash Amount Paid to Refund" +
             element.PartyName +
-            " For The booked Parcels Rs." +
-            TotalPayable;
+            " For The booked Parcel Rs." +
+            TotalPayable
+
           voucherObj.VoucherDetail2 = voucherDetailObj;
 
           // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
@@ -390,7 +226,7 @@ export class OrdersPaidForComponent implements OnInit {
 
           // Invoice Voucher (Voucher#1)
 
-          //Cash Receipt For Courier Voucher (Voucher#2)
+          //Payment Voucher (Voucher#2)
 
           var voucherObj = new Voucher();
           voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
@@ -413,7 +249,7 @@ export class OrdersPaidForComponent implements OnInit {
           voucherObj.Narration =
             "Cash Amount Rs." +
             TotalPayable +
-            "Received From " +
+            "paid to " +
             element.PartyName +
             " " +
             element.PartyLocationName;
@@ -421,8 +257,9 @@ export class OrdersPaidForComponent implements OnInit {
           // Payment Voucher Voucher Detail COR Payable (Voucher#2)
 
           var voucherDetailObj = new VoucherDetail();
-          voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.VoucherMode = "C";
+          // voucherDetailObj.AccountId = 460001;
+          voucherDetailObj.AccountPrefix = "CRV"
           voucherDetailObj.ProductId = element.OrderBookingId;
           voucherDetailObj.CreditAmount = TotalPayable;
           voucherDetailObj.DebitAmount = 0;
@@ -432,11 +269,10 @@ export class OrdersPaidForComponent implements OnInit {
           // voucherDetailObj.ProductId = element.OrderBookingId;
           voucherDetailObj.PartyLocationId = element.PartyLocationId;
           voucherDetailObj.LineDescription =
-            "Cash Amount Received From " +
+            "Cash Amount Paid to " +
             element.PartyName +
-            " For The booked Parcels Rs." +
+            " For The booked Parcel Rs." +
             TotalPayable;
-
           // push To Array
           voucherObj.VoucherDetail1 = voucherDetailObj;
 
@@ -446,7 +282,8 @@ export class OrdersPaidForComponent implements OnInit {
 
           var voucherDetailObj = new VoucherDetail();
           voucherDetailObj.VoucherMode = "D";
-          voucherDetailObj.AccountId = 460002;
+          // voucherDetailObj.AccountId = 460002;
+          voucherDetailObj.AccountPrefix = "CCSH"
           voucherDetailObj.CreditAmount = 0;
           voucherDetailObj.DebitAmount = TotalPayable;
           voucherDetailObj.PartyId = element.PartyId;
@@ -454,10 +291,10 @@ export class OrdersPaidForComponent implements OnInit {
 
           voucherDetailObj.PartyLocationId = element.PartyLocationId;
           voucherDetailObj.LineDescription =
-            "Cash Amount Added to Cash Rs." +
-            TotalPayable +
-            "Received From" +
-            element.PartyName;
+            "Cash Amount Paid to " +
+            element.PartyName +
+            " For The booked Parcel Rs." +
+            TotalPayable;
           voucherObj.VoucherDetail2 = voucherDetailObj;
 
           // Payment Voucher Voucher Detail Party Cash (Voucher#2)
@@ -465,7 +302,171 @@ export class OrdersPaidForComponent implements OnInit {
           this.VoucherArray.push(voucherObj);
           //Payment Voucher (Voucher#2)
 
-          // Payment Voucher Voucher Detail Party Cash (Voucher#2)
+          // // 2nd pair of Vouchers
+          // // Courier Invoice  Voucher (Voucher#1)
+          // var voucherObj = new Voucher();
+          // voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+          // voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
+          // // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
+          // voucherObj.ShiftId = null;
+          // voucherObj.ShiftRecordId = null;
+          // voucherObj.CancelRemarks = null;
+          // voucherObj.DiscountAmount = null;
+
+          // var TotalPayable = element.CODAmount - element.DeliveryFee;
+          // voucherObj.TotalCredit = TotalPayable;
+          // voucherObj.VoucherTypeProfileId = 109;
+          // voucherObj.DocMovementId = 280;
+          // voucherObj.TotalDebit = voucherObj.TotalCredit;
+          // voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
+          // voucherObj.VoucherTypeProfileId;
+          // voucherObj.OrderBookingId = element.OrderBookingId;
+          // voucherObj.DocumentOrigin = "ORDER-REFUND";
+
+          // if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
+          //   voucherObj.TaxAmount =
+          //     (element.DeliveryFee * voucherObj.TaxPercent) / 100;
+          // }
+          // voucherObj.Narration =
+          //   "Cash Amount Rs." +
+          //   TotalPayable +
+          //   "paid to " +
+          //   element.PartyName +
+          //   " " +
+          //   element.PartyLocationName;
+
+          // // Invoice Voucher Voucher Detail COR Payable (Voucher#1)
+
+          // var voucherDetailObj = new VoucherDetail();
+          // voucherDetailObj.VoucherMode = "C";
+          // voucherDetailObj.AccountId = 460001;
+          // voucherDetailObj.CreditAmount = TotalPayable;
+          // voucherDetailObj.ProductId = element.OrderBookingId;
+          // voucherDetailObj.DebitAmount = 0;
+          // voucherDetailObj.PartyId = element.PartyId;
+          // // voucherDetailObj.ProductId = element.OrderBookingId;
+          // // voucherDetailObj.ProductId = 46000001;
+          // voucherDetailObj.PartyLocationId = element.PartyLocationId;
+
+          // voucherDetailObj.VoucherDetailLineId = null;
+          // voucherDetailObj.AccountMappingControlId = null;
+          // voucherDetailObj.ServiceId = null;
+          // voucherDetailObj.EmployeeId = null;
+          // voucherDetailObj.ProjectId = null;
+          // voucherDetailObj.ServiceId = null;
+          // voucherDetailObj.EntryMode = null;
+          // voucherDetailObj.TaxId = null;
+          // voucherDetailObj.DiscountAmount = null;
+          // voucherDetailObj.LineDescription =
+          //   "Cash Amount Paid to " +
+          //   element.PartyName +
+          //   " For The booked Parcels Rs." +
+          //   TotalPayable;
+
+          // // Add To VOucher Obj
+          // voucherObj.VoucherDetail1 = voucherDetailObj;
+
+          // // Invoice Voucher Voucher Detail COR Payable (Voucher#1)
+
+          // // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
+
+          // var voucherDetailObj = new VoucherDetail();
+          // voucherDetailObj.VoucherMode = "D";
+          // voucherDetailObj.CreditAmount = 0;
+          // voucherDetailObj.AccountId = 460002;
+          // // voucherDetailObj.ProductId = 46000001;
+          // voucherDetailObj.DebitAmount = TotalPayable;
+          // voucherDetailObj.PartyId = element.PartyId;
+          // // voucherDetailObj.ProductId = element.OrderBookingId;
+          // voucherDetailObj.PartyLocationId = element.PartyLocationId;
+          // voucherDetailObj.LineDescription =
+          //   "Cash Amount Paid to " +
+          //   element.PartyName +
+          //   " For The booked Parcels Rs." +
+          //   TotalPayable;
+          // voucherObj.VoucherDetail2 = voucherDetailObj;
+
+          // // Invoice Voucher Voucher Detail COR Expense (Voucher#1)
+          // this.VoucherArray.push(voucherObj);
+
+          // // Invoice Voucher (Voucher#1)
+
+          // //Cash Receipt For Courier Voucher (Voucher#2)
+
+          // var voucherObj = new Voucher();
+          // voucherObj.CreatedById = parseInt(localStorage.getItem("USERID"));
+          // voucherObj.LocationId = parseInt(localStorage.getItem("LOCATIONID"));
+          // // voucherObj.NetAmount = element.CODAmount - element.DeliveryFee;
+          // var TotalPayable = element.CODAmount - element.DeliveryFee;
+          // voucherObj.TotalCredit = TotalPayable;
+          // voucherObj.VoucherTypeProfileId = 104;
+          // voucherObj.DocMovementId = 281;
+          // voucherObj.TotalDebit = voucherObj.TotalCredit;
+          // voucherObj.TaxPercent = this.courierSetting.GSTPercentage;
+          // voucherObj.VoucherTypeProfileId;
+          // voucherObj.OrderBookingId = element.OrderBookingId;
+          // voucherObj.DocumentOrigin = "ORDER-REFUND";
+
+          // if (voucherObj.TaxPercent != null || voucherObj.TaxPercent != 0) {
+          //   voucherObj.TaxAmount =
+          //     (element.DeliveryFee * voucherObj.TaxPercent) / 100;
+          // }
+          // voucherObj.Narration =
+          //   "Cash Amount Rs." +
+          //   TotalPayable +
+          //   "Received From " +
+          //   element.PartyName +
+          //   " " +
+          //   element.PartyLocationName;
+
+          // // Payment Voucher Voucher Detail COR Payable (Voucher#2)
+
+          // var voucherDetailObj = new VoucherDetail();
+          // voucherDetailObj.VoucherMode = "D";
+          // voucherDetailObj.AccountId = 460001;
+          // voucherDetailObj.ProductId = element.OrderBookingId;
+          // voucherDetailObj.CreditAmount = TotalPayable;
+          // voucherDetailObj.DebitAmount = 0;
+          // // voucherDetailObj.ProductId = 46000001;
+
+          // voucherDetailObj.PartyId = element.PartyId;
+          // // voucherDetailObj.ProductId = element.OrderBookingId;
+          // voucherDetailObj.PartyLocationId = element.PartyLocationId;
+          // voucherDetailObj.LineDescription =
+          //   "Cash Amount Received From " +
+          //   element.PartyName +
+          //   " For The booked Parcels Rs." +
+          //   TotalPayable;
+
+          // // push To Array
+          // voucherObj.VoucherDetail1 = voucherDetailObj;
+
+          // // Payment Voucher Voucher Detail COR Payable (Voucher#2)
+
+          // // Payment Voucher Voucher Detail Party Cash (Voucher#2)
+
+          // var voucherDetailObj = new VoucherDetail();
+          // voucherDetailObj.VoucherMode = "D";
+          // voucherDetailObj.AccountId = 460002;
+          // voucherDetailObj.CreditAmount = 0;
+          // voucherDetailObj.DebitAmount = TotalPayable;
+          // voucherDetailObj.PartyId = element.PartyId;
+          // // voucherDetailObj.ProductId = element.OrderBookingId;
+
+          // voucherDetailObj.PartyLocationId = element.PartyLocationId;
+          // voucherDetailObj.LineDescription =
+          //   "Cash Amount Added to Cash Rs." +
+          //   TotalPayable +
+          //   "Received From" +
+          //   element.PartyName;
+          // voucherObj.VoucherDetail2 = voucherDetailObj;
+
+          // // Payment Voucher Voucher Detail Party Cash (Voucher#2)
+
+          // this.VoucherArray.push(voucherObj);
+          // //Payment Voucher (Voucher#2)
+
+          // // Payment Voucher Voucher Detail Party Cash (Voucher#2)
         });
         this.userService.PostVouchers(this.VoucherArray).subscribe((data) => {
           var response = JSON.parse(JSON.stringify(data));
